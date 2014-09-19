@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/Utilities-icon.png</file>
+        <file>res/tablet-icon.png</file>
+        <file>res/Folder-Settings-Tools-icon.png</file>
+        <file>res/Books-icon.png</file>
+        <file>res/Apps-preferences-system-time-icon.png</file>
+        <file>res/application-check-icon.png</file>
+    </qresource>
+</RCC>
