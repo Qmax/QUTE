@@ -1,0 +1,176 @@
+C51 COMPILER V9.03   RTX51                                                                 09/24/2013 19:16:35 PAGE 1   
+
+
+C51 COMPILER V9.03, COMPILATION OF MODULE RTX51
+OBJECT MODULE PLACED IN .\DP8051\DP8051_Keil_903\Debug\RTX51.obj
+COMPILER INVOKED BY: C:\Program Files\Cypress\PSoC Creator\2.0\PSoC Creator\import\keil\pk51\9.03\C51\BIN\c51.exe .\Gene
+                    -rated_Source\PSoC3\RTX51.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051\DP8051_Keil_903\Debug\RTX51.lst) CD DB NOIP OT(2,SIZ
+                    -E) INCDIR(Generated_Source\PSoC3) OJ(.\DP8051\DP8051_Keil_903\Debug\RTX51.obj)
+
+line level    source
+
+   1          /*******************************************************************************
+   2          * File Name: RTX51.c
+   3          * Version 1.0
+   4          *
+   5          * Description:
+   6          *   API for controlling the RTX51-Tiny RTOS.
+   7          *
+   8          *
+   9          * Note:
+  10          *
+  11          ********************************************************************************
+  12          * Copyright 2008-2010, Cypress Semiconductor Corporation.  All rights reserved.
+  13          * You may use this file only in accordance with the license, terms, conditions, 
+  14          * disclaimers, and limitations in the end user license agreement accompanying 
+  15          * the software package with which this file was provided.
+  16          ********************************************************************************/
+  17          
+  18          
+  19          #include <CYDEVICE.H>
+  20          #include <RTX51.H>
+  21          
+  22          /* Address of the INTC.VECT[x] register that contains the Address of the RTX51 ISR. */
+  23          #define RTX51_RTX51T_VECTOR              ((reg16 *) RTX51_ISR__INTC_VECT)
+  24          
+  25          /* Address of the RTX51 ISR priority. */
+  26          #define RTX51_RTX51T_PRIOR             ((reg8 *) RTX51_ISR__INTC_PRIOR_REG)
+  27          
+  28          /* Priority of the RTX51 interrupt. */
+  29          #define RTX51_RTX51T_PRIOR_NUMBER      RTX51_ISR__INTC_PRIOR_NUM
+  30          
+  31          /* Address of the INTC.SET_EN[x] byte to bit enable RTX51 interrupt. */
+  32          #define RTX51_RTX51T_SET_EN            ((reg8 *) RTX51_ISR__INTC_SET_EN_REG)
+  33          
+  34          /* Address of the INTC.CLR_EN[x] register to bit clear the RTX51 interrupt. */
+  35          #define RTX51_RTX51T_CLR_EN            ((reg8 *) RTX51_ISR__INTC_CLR_EN_REG)
+  36          
+  37          /* Address of the INTC.SET_PD[x] register to set the RTX51 interrupt state to pending. */
+  38          #define RTX51_RTX51T_SET_PD            ((reg8 *) RTX51_ISR__INTC_SET_PD_REG)
+  39          
+  40          /* Address of the INTC.CLR_PD[x] register to clear the RTX51 interrupt. */
+  41          #define RTX51_RTX51T_CLR_PD            ((reg8 *) RTX51_ISR__INTC_CLR_PD_REG)
+  42          
+  43          /* Hook for the RTOS */
+  44          extern void TIMERINT(void);
+  45          
+  46          /*******************************************************************************
+  47          * Function Name: RTX51_Start
+  48          ********************************************************************************
+  49          * Summary:
+  50          *  Set up the interrupt and enable it for RTX51-Tiny RTOS.
+  51          *
+  52          * Parameters:
+  53          *   void.
+C51 COMPILER V9.03   RTX51                                                                 09/24/2013 19:16:35 PAGE 2   
+
+  54          *
+  55          *
+  56          * Return:
+  57          *   void.
+  58          *
+  59          *******************************************************************************/
+  60          void RTX51_Start(void)
+  61          {
+  62   1          /* Disable the general interrupt. */
+  63   1          *RTX51_RTX51T_CLR_EN = RTX51_ISR__INTC_MASK;
+  64   1      
+  65   1          /* Change the ISR vector for the Interrupt */
+  66   1          CY_SET_REG16(RTX51_RTX51T_VECTOR, (uint16) TIMERINT);
+  67   1      
+  68   1          /* Sets the Priority of the Interrupt */
+  69   1          *RTX51_RTX51T_PRIOR = (RTX51_RTX51T_PRIOR_NUMBER) << 5;
+  70   1      
+  71   1          /* Enable the general interrupt. */
+  72   1          *RTX51_RTX51T_SET_EN = RTX51_ISR__INTC_MASK;
+  73   1      }
+  74          
+  75          /*******************************************************************************
+  76          * Function Name: RTX51_Stop
+  77          ********************************************************************************
+  78          * Summary:
+  79          *   Disables and removes the interrupt and stop the RTX51Tiny RTOS.
+  80          *
+  81          * Parameters:
+  82          *
+  83          *
+  84          * Return:
+  85          *   void.
+  86          *
+  87          *******************************************************************************/
+  88          void RTX51_Stop(void)
+  89          {
+  90   1          /* Disable the general interrupt. */
+  91   1          *RTX51_RTX51T_CLR_EN = RTX51_ISR__INTC_MASK;
+  92   1      }
+C51 COMPILER V9.03   RTX51                                                                 09/24/2013 19:16:35 PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION RTX51_Start (BEGIN)
+                                           ; SOURCE LINE # 60
+                                           ; SOURCE LINE # 61
+                                           ; SOURCE LINE # 63
+0000 9044CB            MOV     DPTR,#044CBH
+0003 7420              MOV     A,#020H
+0005 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 66
+0006 7B02              MOV     R3,#02H
+0008 7A44              MOV     R2,#044H
+000A 793A              MOV     R1,#03AH
+000C C003              PUSH    AR3
+000E C002              PUSH    AR2
+0010 C001              PUSH    AR1
+0012 7BFF              MOV     R3,#0FFH
+0014 7A00        E     MOV     R2,#HIGH TIMERINT
+0016 7900        E     MOV     R1,#LOW TIMERINT
+0018 AC02              MOV     R4,AR2
+001A AD01              MOV     R5,AR1
+001C D001              POP     AR1
+001E D002              POP     AR2
+0020 D003              POP     AR3
+0022 120000      E     LCALL   _cywrite16_nodpx
+                                           ; SOURCE LINE # 69
+0025 90449D            MOV     DPTR,#0449DH
+0028 E4                CLR     A
+0029 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 72
+002A 9044C3            MOV     DPTR,#044C3H
+002D 7420              MOV     A,#020H
+002F F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 73
+0030 22                RET     
+             ; FUNCTION RTX51_Start (END)
+
+             ; FUNCTION RTX51_Stop (BEGIN)
+                                           ; SOURCE LINE # 88
+                                           ; SOURCE LINE # 89
+                                           ; SOURCE LINE # 91
+0000 9044CB            MOV     DPTR,#044CBH
+0003 7420              MOV     A,#020H
+0005 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 92
+0006 22                RET     
+             ; FUNCTION RTX51_Stop (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     56    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+C51 COMPILER V9.03   RTX51                                                                 09/24/2013 19:16:35 PAGE 4   
+
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

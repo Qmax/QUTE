@@ -1,0 +1,1 @@
+${ProjectDir}\${ProcessorType}\${Platform}\${Config}

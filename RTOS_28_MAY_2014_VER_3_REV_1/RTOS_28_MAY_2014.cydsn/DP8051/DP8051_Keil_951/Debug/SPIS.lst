@@ -1,0 +1,2065 @@
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE SPIS
+OBJECT MODULE PLACED IN .\DP8051\DP8051_Keil_951\Debug\SPIS.obj
+COMPILER INVOKED BY: C:\Program Files\Cypress\PSoC Creator\3.0\PSoC Creator\import\keil\pk51\9.51\C51\BIN\c51.exe .\Gene
+                    -rated_Source\PSoC3\SPIS.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051\DP8051_Keil_951\Debug\SPIS.lst) CD DB NOIP OT(2,SIZE)
+                    - INCDIR(.,.\Generated_Source\PSoC3) OJ(.\DP8051\DP8051_Keil_951\Debug\SPIS.obj)
+
+line level    source
+
+   1          /*******************************************************************************
+   2          * File Name: SPIS.c
+   3          * Version 2.60
+   4          *
+   5          * Description:
+   6          *  This file provides all API functionality of the SPI Slave component.
+   7          *
+   8          * Note:
+   9          *  None.
+  10          *
+  11          ********************************************************************************
+  12          * Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+  13          * You may use this file only in accordance with the license, terms, conditions,
+  14          * disclaimers, and limitations in the end user license agreement accompanying
+  15          * the software package with which this file was provided.
+  16          *******************************************************************************/
+  17          
+  18          #include "SPIS_PVT.h"
+  19          
+  20          #if (SPIS_TX_SOFTWARE_BUF_ENABLED)
+              
+                  volatile uint16 SPIS_txBuffer[SPIS_TX_BUFFER_SIZE] = {0u};
+                  volatile uint8 SPIS_txBufferRead;
+                  volatile uint8 SPIS_txBufferWrite;
+                  volatile uint8 SPIS_txBufferFull;
+              
+              #endif /* SPIS_TX_SOFTWARE_BUF_ENABLED*/
+  28          
+  29          #if (SPIS_RX_SOFTWARE_BUF_ENABLED)
+              
+                  volatile uint16 SPIS_rxBuffer[SPIS_RX_BUFFER_SIZE] = {0u};
+                  volatile uint8 SPIS_rxBufferRead;
+                  volatile uint8 SPIS_rxBufferWrite;
+                  volatile uint8 SPIS_rxBufferFull;
+              
+              #endif /* SPIS_RX_SOFTWARE_BUF_ENABLED */
+  37          
+  38          uint8 SPIS_initVar = 0u;
+  39          
+  40          volatile uint8 SPIS_swStatusTx;
+  41          volatile uint8 SPIS_swStatusRx;
+  42          
+  43          
+  44          /*******************************************************************************
+  45          * Function Name: SPIS_Init
+  46          ********************************************************************************
+  47          *
+  48          * Summary:
+  49          *  Inits/Restores default SPIS configuration provided with customizer.
+  50          *
+  51          * Parameters:
+  52          *  None.
+  53          *
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 2   
+
+  54          * Return:
+  55          *  None.
+  56          *
+  57          * Side Effects:
+  58          *  When this function is called it initializes all of the necessary parameters
+  59          *  for execution. i.e. setting the initial interrupt mask, configuring the
+  60          *  interrupt service routine, configuring the bit-counter parameters and
+  61          *  clearing the FIFO and Status Register.
+  62          *
+  63          * Reentrant:
+  64          *  No.
+  65          *
+  66          *******************************************************************************/
+  67          void SPIS_Init(void) 
+  68          {
+  69   1          /*Initialize the Bit counter */
+  70   1          SPIS_COUNTER_PERIOD_REG = SPIS_BITCTR_INIT;
+  71   1      
+  72   1          /* ISR initialization */
+  73   1          #if(SPIS_INTERNAL_TX_INT_ENABLED)
+  74   1      
+  75   1              CyIntDisable(SPIS_TX_ISR_NUMBER);
+  76   1      
+  77   1              /* Set the ISR to point to the SPIS_isr Interrupt. */
+  78   1              (void)CyIntSetVector(SPIS_TX_ISR_NUMBER, &SPIS_TX_ISR);
+  79   1      
+  80   1              /* Set the priority. */
+  81   1              CyIntSetPriority(SPIS_TX_ISR_NUMBER, SPIS_TX_ISR_PRIORITY);
+  82   1      
+  83   1          #endif /* SPIS_INTERNAL_TX_INT_ENABLED */
+  84   1      
+  85   1          #if(SPIS_INTERNAL_RX_INT_ENABLED)
+  86   1      
+  87   1              CyIntDisable(SPIS_RX_ISR_NUMBER);
+  88   1      
+  89   1              /* Set the ISR to point to the SPIS_isr Interrupt. */
+  90   1              (void)CyIntSetVector(SPIS_RX_ISR_NUMBER, &SPIS_RX_ISR);
+  91   1      
+  92   1              /* Set the priority. */
+  93   1              CyIntSetPriority(SPIS_RX_ISR_NUMBER, SPIS_RX_ISR_PRIORITY);
+  94   1      
+  95   1          #endif /* SPIS_INTERNAL_RX_INT_ENABLED */
+  96   1      
+  97   1          /* Clear any stray data from the RX and TX FIFO */
+  98   1          SPIS_ClearFIFO();
+  99   1      
+ 100   1          #if(SPIS_RX_SOFTWARE_BUF_ENABLED)
+                      SPIS_txBufferFull = 0u;
+                      SPIS_rxBufferRead = 0u;
+                      SPIS_rxBufferWrite = 0u;
+                  #endif /* SPIS_RX_SOFTWARE_BUF_ENABLED */
+ 105   1      
+ 106   1          #if(SPIS_TX_SOFTWARE_BUF_ENABLED)
+                      SPIS_txBufferFull = 0u;
+                      SPIS_txBufferRead = 0u;
+                      SPIS_txBufferWrite = 0u;
+                  #endif /* SPIS_TX_SOFTWARE_BUF_ENABLED */
+ 111   1      
+ 112   1          (void) SPIS_ReadTxStatus(); /* Clear any pending status bits */
+ 113   1          (void) SPIS_ReadRxStatus(); /* Clear any pending status bits */
+ 114   1      
+ 115   1      
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 3   
+
+ 116   1          /* Configure the Initial interrupt mask */
+ 117   1          #if (SPIS_TX_SOFTWARE_BUF_ENABLED)
+                      SPIS_TX_STATUS_MASK_REG  = (SPIS_TX_INIT_INTERRUPTS_MASK &
+                                                              (uint8)~SPIS_STS_TX_FIFO_NOT_FULL);
+                  #else /* SPIS_TX_SOFTWARE_BUF_ENABLED */
+ 121   1              SPIS_TX_STATUS_MASK_REG  = SPIS_TX_INIT_INTERRUPTS_MASK;
+ 122   1          #endif /* SPIS_TX_SOFTWARE_BUF_ENABLED */
+ 123   1      
+ 124   1          SPIS_RX_STATUS_MASK_REG  = SPIS_RX_INIT_INTERRUPTS_MASK;
+ 125   1      
+ 126   1      }
+ 127          
+ 128          
+ 129          /*******************************************************************************
+ 130          * Function Name: SPIS_Enable
+ 131          ********************************************************************************
+ 132          *
+ 133          * Summary:
+ 134          *  Enable SPIS component.
+ 135          *
+ 136          * Parameters:
+ 137          *  None.
+ 138          *
+ 139          * Return:
+ 140          *  None.
+ 141          *
+ 142          *******************************************************************************/
+ 143          void SPIS_Enable(void) 
+ 144          {
+ 145   1          uint8 enableInterrupts;
+ 146   1          enableInterrupts = CyEnterCriticalSection();
+ 147   1      
+ 148   1          SPIS_COUNTER_CONTROL_REG |= SPIS_CNTR_ENABLE;
+ 149   1          SPIS_TX_STATUS_ACTL_REG |= SPIS_INT_ENABLE;
+ 150   1          SPIS_RX_STATUS_ACTL_REG |= SPIS_INT_ENABLE;
+ 151   1      
+ 152   1          CyExitCriticalSection(enableInterrupts);
+ 153   1      
+ 154   1          #if(SPIS_INTERNAL_TX_INT_ENABLED)
+ 155   1              CyIntEnable(SPIS_TX_ISR_NUMBER);
+ 156   1          #endif /* SPIS_INTERNAL_TX_INT_ENABLED */
+ 157   1      
+ 158   1          #if(SPIS_INTERNAL_RX_INT_ENABLED)
+ 159   1              CyIntEnable(SPIS_RX_ISR_NUMBER);
+ 160   1          #endif /* SPIS_INTERNAL_RX_INT_ENABLED */
+ 161   1      }
+ 162          
+ 163          
+ 164          /*******************************************************************************
+ 165          * Function Name: SPIS_Start
+ 166          ********************************************************************************
+ 167          *
+ 168          * Summary:
+ 169          *  Initialize and Enable the SPI Slave component.
+ 170          *
+ 171          * Parameters:
+ 172          *  None.
+ 173          *
+ 174          * Return:
+ 175          *  None.
+ 176          *
+ 177          * Global variables:
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 4   
+
+ 178          *  SPIS_initVar - used to check initial configuration, modified on
+ 179          *  first function call.
+ 180          *
+ 181          * Theory:
+ 182          *  Enable the clock input to enable operation.
+ 183          *
+ 184          * Reentrant:
+ 185          *  No.
+ 186          *
+ 187          *******************************************************************************/
+ 188          void SPIS_Start(void) 
+ 189          {
+ 190   1          if(SPIS_initVar == 0u)
+ 191   1          {
+ 192   2              SPIS_Init();
+ 193   2              SPIS_initVar = 1u;
+ 194   2          }
+ 195   1      
+ 196   1          SPIS_Enable();
+ 197   1      }
+ 198          
+ 199          
+ 200          /*******************************************************************************
+ 201          * Function Name: SPIS_Stop
+ 202          ********************************************************************************
+ 203          *
+ 204          * Summary:
+ 205          *  Disable the SPI Slave component.
+ 206          *
+ 207          * Parameters:
+ 208          *  None.
+ 209          *
+ 210          * Return:
+ 211          *  None.
+ 212          *
+ 213          * Theory:
+ 214          *  Disable the internal interrupt if one is used.
+ 215          *
+ 216          *******************************************************************************/
+ 217          void SPIS_Stop(void) 
+ 218          {
+ 219   1          uint8 enableInterrupts;
+ 220   1          enableInterrupts = CyEnterCriticalSection();
+ 221   1      
+ 222   1          SPIS_TX_STATUS_ACTL_REG &= (uint8)~SPIS_INT_ENABLE;
+ 223   1          SPIS_RX_STATUS_ACTL_REG &= (uint8)~SPIS_INT_ENABLE;
+ 224   1      
+ 225   1          CyExitCriticalSection(enableInterrupts);
+ 226   1      
+ 227   1          #if(SPIS_INTERNAL_TX_INT_ENABLED)
+ 228   1              CyIntDisable(SPIS_TX_ISR_NUMBER);
+ 229   1          #endif /* SPIS_INTERNAL_TX_INT_ENABLED */
+ 230   1      
+ 231   1          #if(SPIS_INTERNAL_RX_INT_ENABLED)
+ 232   1              CyIntDisable(SPIS_RX_ISR_NUMBER);
+ 233   1          #endif /* SPIS_INTERNAL_RX_INT_ENABLED */
+ 234   1      }
+ 235          
+ 236          
+ 237          /*******************************************************************************
+ 238          * Function Name: SPIS_EnableTxInt
+ 239          ********************************************************************************
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 5   
+
+ 240          *
+ 241          * Summary:
+ 242          *  Enable internal Tx interrupt generation.
+ 243          *
+ 244          * Parameters:
+ 245          *  None.
+ 246          *
+ 247          * Return:
+ 248          *  None.
+ 249          *
+ 250          * Theory:
+ 251          *  Enable the internal Tx interrupt output -or- the interrupt component itself.
+ 252          *
+ 253          *******************************************************************************/
+ 254          void SPIS_EnableTxInt(void) 
+ 255          {
+ 256   1          #if(SPIS_INTERNAL_TX_INT_ENABLED)
+ 257   1              CyIntEnable(SPIS_TX_ISR_NUMBER);
+ 258   1          #endif /* SPIS_INTERNAL_TX_INT_ENABLED */
+ 259   1      }
+ 260          
+ 261          
+ 262          /*******************************************************************************
+ 263          * Function Name: SPIS_EnableRxInt
+ 264          ********************************************************************************
+ 265          *
+ 266          * Summary:
+ 267          *  Enable internal Rx interrupt generation.
+ 268          *
+ 269          * Parameters:
+ 270          *  None.
+ 271          *
+ 272          * Return:
+ 273          *  None.
+ 274          *
+ 275          * Theory:
+ 276          *  Enable the internal Rx interrupt output -or- the interrupt component itself.
+ 277          *
+ 278          *******************************************************************************/
+ 279          void SPIS_EnableRxInt(void) 
+ 280          {
+ 281   1          #if(SPIS_INTERNAL_RX_INT_ENABLED)
+ 282   1              CyIntEnable(SPIS_RX_ISR_NUMBER);
+ 283   1          #endif /* SPIS_INTERNAL_RX_INT_ENABLED */
+ 284   1      }
+ 285          
+ 286          
+ 287          /*******************************************************************************
+ 288          * Function Name: SPIS_DisableTxInt
+ 289          ********************************************************************************
+ 290          *
+ 291          * Summary:
+ 292          *  Disable internal Tx interrupt generation.
+ 293          *
+ 294          * Parameters:
+ 295          *  None.
+ 296          *
+ 297          * Return:
+ 298          *  None.
+ 299          *
+ 300          * Theory:
+ 301          *  Disable the internal Tx interrupt output -or- the interrupt component itself.
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 6   
+
+ 302          *
+ 303          *******************************************************************************/
+ 304          void SPIS_DisableTxInt(void) 
+ 305          {
+ 306   1          #if(SPIS_INTERNAL_TX_INT_ENABLED)
+ 307   1              CyIntDisable(SPIS_TX_ISR_NUMBER);
+ 308   1          #endif /* SPIS_INTERNAL_TX_INT_ENABLED */
+ 309   1      }
+ 310          
+ 311          
+ 312          /*******************************************************************************
+ 313          * Function Name: SPIS_DisableRxInt
+ 314          ********************************************************************************
+ 315          *
+ 316          * Summary:
+ 317          *  Disable internal Rx interrupt generation.
+ 318          *
+ 319          * Parameters:
+ 320          *  None.
+ 321          *
+ 322          * Return:
+ 323          *  None.
+ 324          *
+ 325          * Theory:
+ 326          *  Disable the internal Rx interrupt output -or- the interrupt component itself.
+ 327          *
+ 328          *******************************************************************************/
+ 329          void SPIS_DisableRxInt(void) 
+ 330          {
+ 331   1          #if(SPIS_INTERNAL_RX_INT_ENABLED)
+ 332   1              CyIntDisable(SPIS_RX_ISR_NUMBER);
+ 333   1          #endif /* SPIS_INTERNAL_RX_INT_ENABLED */
+ 334   1      }
+ 335          
+ 336          
+ 337          /*******************************************************************************
+ 338          * Function Name: SPIS_SetTxInterruptMode
+ 339          ********************************************************************************
+ 340          *
+ 341          * Summary:
+ 342          *  Configure which status bits trigger an interrupt event.
+ 343          *
+ 344          * Parameters:
+ 345          *  intSrc: An or'd combination of the desired status bit masks (defined in the
+ 346          *  header file).
+ 347          *
+ 348          * Return:
+ 349          *  None.
+ 350          *
+ 351          * Theory:
+ 352          *  Enables the output of specific status bits to the interrupt controller.
+ 353          *
+ 354          *******************************************************************************/
+ 355          void SPIS_SetTxInterruptMode(uint8 intSrc) 
+ 356          {
+ 357   1          SPIS_TX_STATUS_MASK_REG  = intSrc;
+ 358   1      }
+ 359          
+ 360          
+ 361          /*******************************************************************************
+ 362          * Function Name: SPIS_SetRxInterruptMode
+ 363          ********************************************************************************
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 7   
+
+ 364          *
+ 365          * Summary:
+ 366          *  Configure which status bits trigger an interrupt event.
+ 367          *
+ 368          * Parameters:
+ 369          *  intSrc: An or'd combination of the desired status bit masks (defined in the
+ 370          *  header file).
+ 371          *
+ 372          * Return:
+ 373          *  None.
+ 374          *
+ 375          * Theory:
+ 376          *  Enables the output of specific status bits to the interrupt controller.
+ 377          *
+ 378          *******************************************************************************/
+ 379          void SPIS_SetRxInterruptMode(uint8 intSrc) 
+ 380          {
+ 381   1          SPIS_RX_STATUS_MASK_REG  = intSrc;
+ 382   1      }
+ 383          
+ 384          
+ 385          /*******************************************************************************
+ 386          * Function Name: SPIS_ReadTxStatus
+ 387          ********************************************************************************
+ 388          *
+ 389          * Summary:
+ 390          *  Read the Tx status register for the component.
+ 391          *
+ 392          * Parameters:
+ 393          *  None.
+ 394          *
+ 395          * Return:
+ 396          *  Contents of the Tx status register.
+ 397          *
+ 398          * Global variables:
+ 399          *  SPIS_swStatusTx - used to store in software status register,
+ 400          *  modified every function call - resets to zero.
+ 401          *
+ 402          * Theory:
+ 403          *  Allows the user and the API to read the Tx status register for error
+ 404          *  detection and flow control.
+ 405          *
+ 406          * Side Effects:
+ 407          *  Clear Tx status register of the component.
+ 408          *
+ 409          * Reentrant:
+ 410          *  No.
+ 411          *
+ 412          *******************************************************************************/
+ 413          uint8 SPIS_ReadTxStatus(void) 
+ 414          {
+ 415   1          uint8 tmpStatus;
+ 416   1      
+ 417   1          #if (SPIS_TX_SOFTWARE_BUF_ENABLED)
+              
+                      SPIS_DisableTxInt();
+              
+                      tmpStatus = SPIS_GET_STATUS_TX(SPIS_swStatusTx);
+              
+                      SPIS_swStatusTx = 0u;
+              
+                      /* Enable Interrupts */
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 8   
+
+                      SPIS_EnableTxInt();
+              
+                  #else /* !SPIS_TX_SOFTWARE_BUF_ENABLED */
+ 429   1      
+ 430   1              tmpStatus = SPIS_TX_STATUS_REG;
+ 431   1      
+ 432   1          #endif /* SPIS_TX_SOFTWARE_BUF_ENABLED */
+ 433   1      
+ 434   1          return(tmpStatus);
+ 435   1      }
+ 436          
+ 437          
+ 438          /*******************************************************************************
+ 439          * Function Name: SPIS_ReadRxStatus
+ 440          ********************************************************************************
+ 441          *
+ 442          * Summary:
+ 443          *  Read the Rx status register for the component.
+ 444          *
+ 445          * Parameters:
+ 446          *  None.
+ 447          *
+ 448          * Return:
+ 449          *  Contents of the Rx status register.
+ 450          *
+ 451          * Global variables:
+ 452          *  SPIS_swStatusRx - used to store in software Rx status register,
+ 453          *  modified every function call - resets to zero.
+ 454          *
+ 455          * Theory:
+ 456          *  Allows the user and the API to read the Rx status register for error
+ 457          *  detection and flow control.
+ 458          *
+ 459          * Side Effects:
+ 460          *  Clear Rx status register of the component.
+ 461          *
+ 462          * Reentrant:
+ 463          *  No.
+ 464          *
+ 465          *******************************************************************************/
+ 466          uint8 SPIS_ReadRxStatus(void) 
+ 467          {
+ 468   1          uint8 tmpStatus;
+ 469   1      
+ 470   1          #if (SPIS_RX_SOFTWARE_BUF_ENABLED)
+              
+                      SPIS_DisableRxInt();
+              
+                      tmpStatus = SPIS_GET_STATUS_RX(SPIS_swStatusRx);
+              
+                      SPIS_swStatusRx = 0u;
+              
+                      /* Enable Interrupts */
+                      SPIS_EnableRxInt();
+              
+                  #else /* !SPIS_RX_SOFTWARE_BUF_ENABLED */
+ 482   1      
+ 483   1              tmpStatus = SPIS_RX_STATUS_REG;
+ 484   1      
+ 485   1          #endif /* SPIS_RX_SOFTWARE_BUF_ENABLED */
+ 486   1      
+ 487   1          return(tmpStatus);
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 9   
+
+ 488   1      }
+ 489          
+ 490          
+ 491          /*******************************************************************************
+ 492          * Function Name: SPIS_WriteTxData
+ 493          ********************************************************************************
+ 494          *
+ 495          * Summary:
+ 496          *  Write a byte of data to be sent across the SPI.
+ 497          *
+ 498          * Parameters:
+ 499          *  txDataByte: The data value to send across the SPI.
+ 500          *
+ 501          * Return:
+ 502          *  None.
+ 503          *
+ 504          * Global variables:
+ 505          *  SPIS_txBufferWrite - used for the account of the bytes which
+ 506          *  have been written down in the TX software buffer, modified every function
+ 507          *  call if TX Software Buffer is used.
+ 508          *  SPIS_txBufferRead - used for the account of the bytes which
+ 509          *  have been read from the TX software buffer.
+ 510          *  SPIS_txBuffer[SPIS_TX_BUFFER_SIZE] - used to store
+ 511          *  data to sending, modified every function call if TX Software Buffer is used.
+ 512          *
+ 513          * Theory:
+ 514          *  Allows the user to transmit any byte of data in a single transfer.
+ 515          *
+ 516          * Side Effects:
+ 517          *  If this function is called again before the previous byte is finished then
+ 518          *  the next byte will be appended to the transfer with no time between
+ 519          *  the byte transfers. Clear Tx status register of the component.
+ 520          *
+ 521          * Reentrant:
+ 522          *  No.
+ 523          *
+ 524          *******************************************************************************/
+ 525          void SPIS_WriteTxData(uint16 txData) 
+ 526          {
+ 527   1          #if(SPIS_TX_SOFTWARE_BUF_ENABLED)
+              
+                      uint8 tempStatus;
+                      uint8 tmpTxBufferRead;
+              
+                      /* Block if buffer is full, so we don't overwrite. */
+                      do
+                      {
+                          tmpTxBufferRead = SPIS_txBufferRead;
+                          if (0u == tmpTxBufferRead)
+                          {
+                              tmpTxBufferRead = SPIS_TX_BUFFER_SIZE - 1u;
+                          }
+                          else
+                          {
+                              tmpTxBufferRead--;
+                          }
+              
+                      } while(tmpTxBufferRead == SPIS_txBufferWrite);
+              
+                      /* Disable Interrupt to protect variables that could change on interrupt. */
+                      SPIS_DisableTxInt();
+              
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 10  
+
+                      tempStatus = SPIS_GET_STATUS_TX(SPIS_swStatusTx);
+                      SPIS_swStatusTx = tempStatus;
+              
+                      if((SPIS_txBufferRead == SPIS_txBufferWrite) &&
+                          (0u != (SPIS_swStatusTx & SPIS_STS_TX_FIFO_NOT_FULL)))
+                      {
+                          /* Add directly to the FIFO. */
+                          CY_SET_REG16(SPIS_TXDATA_PTR, txData);
+                      }
+                      else
+                      {
+                          /* Add to the software buffer. */
+                          SPIS_txBufferWrite++;
+                          if(SPIS_txBufferWrite >= SPIS_TX_BUFFER_SIZE)
+                          {
+                              SPIS_txBufferWrite = 0u;
+                          }
+              
+                          if(SPIS_txBufferWrite == SPIS_txBufferRead)
+                          {
+                              SPIS_txBufferRead++;
+                              if(SPIS_txBufferRead >= SPIS_RX_BUFFER_SIZE)
+                              {
+                                  SPIS_txBufferRead = 0u;
+                              }
+                              SPIS_txBufferFull = 1u;
+                          }
+              
+                          SPIS_txBuffer[SPIS_txBufferWrite] = txData;
+              
+                          SPIS_TX_STATUS_MASK_REG |= SPIS_STS_TX_FIFO_NOT_FULL;
+                      }
+              
+                      /* Enable Interrupt. */
+                      SPIS_EnableTxInt();
+              
+                  #else /* !SPIS_TX_SOFTWARE_BUF_ENABLED*/
+ 587   1      
+ 588   1              
+ 589   1              while(0u == (SPIS_TX_STATUS_REG & SPIS_STS_TX_FIFO_NOT_FULL))
+ 590   1                      {
+ 591   2                              ; /* Block while FIFO is full */
+ 592   2                      }
+ 593   1      
+ 594   1              /* Then write the byte */
+ 595   1              CY_SET_REG16(SPIS_TXDATA_PTR, txData);
+ 596   1      
+ 597   1          #endif /* SPIS_TX_SOFTWARE_BUF_ENABLED */
+ 598   1      }
+ 599          
+ 600          #if(SPIS_MODE_USE_ZERO != 0u)
+              
+                  /*******************************************************************************
+                  * Function Name: SPIS_WriteTxDataZero
+                  ********************************************************************************
+                  *
+                  * Summary:
+                  *  Write a byte zero of data to be sent across the SPI. This must be used in
+                  *  Mode 00 and 01 if the FIFO is empty and data is not being sent.
+                  *
+                  * Parameters:
+                  *  txDataByte: The data value to send across the SPI.
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 11  
+
+                  *
+                  * Return:
+                  *  None.
+                  *
+                  * Theory:
+                  *  Allows the user to transmit any byte of data in a single transfer. Clear
+                  *  status register of the component.
+                  *
+                  *******************************************************************************/
+                  void SPIS_WriteTxDataZero(uint16 txDataByte)
+                                                      
+                  {
+                      CY_SET_REG16(SPIS_TXDATA_ZERO_PTR, txDataByte);
+                  }
+              
+              #endif /* (SPIS_MODE_USE_ZERO != 0u) */
+ 628          
+ 629          
+ 630          /*******************************************************************************
+ 631          * Function Name: SPIS_ReadRxData
+ 632          ********************************************************************************
+ 633          *
+ 634          * Summary:
+ 635          *  Read the next byte of data received across the SPI.
+ 636          *
+ 637          * Parameters:
+ 638          *  None.
+ 639          *
+ 640          * Return:
+ 641          *  The next byte of data read from the FIFO.
+ 642          *
+ 643          * Global variables:
+ 644          *  SPIS_rxBufferWrite - used for the account of the bytes which
+ 645          *  have been written down in the RX software buffer.
+ 646          *  SPIS_rxBufferRead - used for the account of the bytes which
+ 647          *  have been read from the RX software buffer, modified every function
+ 648          *  call if RX Software Buffer is used.
+ 649          *  SPIS_rxBuffer[SPIS_RX_BUFFER_SIZE] - used to store
+ 650          *  received data.
+ 651          *
+ 652          * Theory:
+ 653          *  Allows the user to read a byte of data received.
+ 654          *
+ 655          * Side Effects:
+ 656          *  Will return invalid data if the FIFO is empty.  User should poll for FIFO
+ 657          *  empty status before calling Read function.
+ 658          *
+ 659          * Reentrant:
+ 660          *  No.
+ 661          *
+ 662          *******************************************************************************/
+ 663          uint16 SPIS_ReadRxData(void) 
+ 664          {
+ 665   1          uint16 rxData;
+ 666   1      
+ 667   1          #if(SPIS_RX_SOFTWARE_BUF_ENABLED)
+              
+                      /* Disable Interrupt to protect variables that could change on interrupt. */
+                      SPIS_DisableRxInt();
+              
+                      if(SPIS_rxBufferRead != SPIS_rxBufferWrite)
+                      {
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 12  
+
+                          if(SPIS_rxBufferFull == 0u)
+                          {
+                              SPIS_rxBufferRead++;
+                              if(SPIS_rxBufferRead >= SPIS_RX_BUFFER_SIZE)
+                              {
+                                  SPIS_rxBufferRead = 0u;
+                              }
+                          }
+                          else
+                          {
+                              SPIS_rxBufferFull = 0u;
+                          }
+                      }
+              
+                      rxData = SPIS_rxBuffer[SPIS_rxBufferRead];
+              
+                      /* Enable Interrupt. */
+                      SPIS_EnableRxInt();
+              
+                  #else /* !SPIS_RX_SOFTWARE_BUF_ENABLED */
+ 694   1      
+ 695   1              rxData = CY_GET_REG16(SPIS_RXDATA_PTR);
+ 696   1      
+ 697   1          #endif /* SPIS_RX_SOFTWARE_BUF_ENABLED */
+ 698   1      
+ 699   1          return (rxData);
+ 700   1      
+ 701   1      }
+ 702          
+ 703          
+ 704          /*******************************************************************************
+ 705          * Function Name: SPIS_GetRxBufferSize
+ 706          ********************************************************************************
+ 707          *
+ 708          * Summary:
+ 709          *  Returns the number of bytes/words of data currently held in the RX buffer.
+ 710          *  If RX Software Buffer not used then function return 0 if FIFO empty or 1 if
+ 711          *  FIFO not empty. In another case function return size of RX Software Buffer.
+ 712          *
+ 713          * Parameters:
+ 714          *  None.
+ 715          *
+ 716          * Return:
+ 717          *  Integer count of the number of bytes/words in the RX buffer.
+ 718          *
+ 719          * Global variables:
+ 720          *  SPIS_rxBufferWrite - used for the account of the bytes which
+ 721          *  have been written down in the RX software buffer.
+ 722          *  SPIS_rxBufferRead - used for the account of the bytes which
+ 723          *  have been read from the RX software buffer.
+ 724          *
+ 725          * Theory:
+ 726          *  Allows the user to find out how full the RX Buffer is.
+ 727          *
+ 728          *******************************************************************************/
+ 729          uint8 SPIS_GetRxBufferSize(void) 
+ 730          {
+ 731   1          uint8 size;
+ 732   1      
+ 733   1          #if(SPIS_RX_SOFTWARE_BUF_ENABLED)
+              
+                      /* Disable Interrupt to protect variables that could change on interrupt. */
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 13  
+
+                      SPIS_DisableRxInt();
+              
+                      if(SPIS_rxBufferRead == SPIS_rxBufferWrite)
+                      {
+                          size = 0u; /* No data in RX buffer */
+                      }
+                      else if(SPIS_rxBufferRead < SPIS_rxBufferWrite)
+                      {
+                          size = (SPIS_rxBufferWrite - SPIS_rxBufferRead);
+                      }
+                      else
+                      {
+                          size = (SPIS_RX_BUFFER_SIZE - SPIS_rxBufferRead) + SPIS_rxBufferWrite;
+                      }
+              
+                      /* Enable interrupt. */
+                      SPIS_EnableRxInt();
+              
+                  #else /* !SPIS_RX_SOFTWARE_BUF_ENABLED*/
+ 755   1      
+ 756   1              /* We can only know if there is data in the fifo. */
+ 757   1              size = ((SPIS_RX_STATUS_REG & SPIS_STS_RX_FIFO_NOT_EMPTY) != 0u) ? 1u : 0u;
+ 758   1      
+ 759   1          #endif /* SPIS_RX_SOFTWARE_BUF_ENABLED */
+ 760   1      
+ 761   1          return (size);
+ 762   1      }
+ 763          
+ 764          
+ 765          /*******************************************************************************
+ 766          * Function Name: SPIS_GetTxBufferSize
+ 767          ********************************************************************************
+ 768          *
+ 769          * Summary:
+ 770          *  Returns the number of bytes/words of data currently held in the TX buffer.
+ 771          *  If TX Software Buffer not used then function return 0 - if FIFO empty, 1 - if
+ 772          *  FIFO not full, 4 - if FIFO full. In another case function return size of TX
+ 773          *  Software Buffer.
+ 774          *
+ 775          * Parameters:
+ 776          *  None.
+ 777          *
+ 778          * Return:
+ 779          *  Integer count of the number of bytes/words in the TX buffer.
+ 780          *
+ 781          * Global variables:
+ 782          *  SPIS_txBufferWrite - used for the account of the bytes which
+ 783          *  have been written down in the TX software buffer.
+ 784          *  SPIS_txBufferRead - used for the account of the bytes which
+ 785          *  have been read from the TX software buffer.
+ 786          *
+ 787          * Theory:
+ 788          *  Allows the user to find out how full the TX Buffer is.
+ 789          *
+ 790          * Side Effects:
+ 791          *  Clear status register of the component.
+ 792          *
+ 793          *******************************************************************************/
+ 794          uint8  SPIS_GetTxBufferSize(void) 
+ 795          {
+ 796   1          uint8 size;
+ 797   1      
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 14  
+
+ 798   1          #if(SPIS_TX_SOFTWARE_BUF_ENABLED)
+              
+                      /* Disable Interrupt to protect variables that could change on interrupt. */
+                      SPIS_DisableTxInt();
+              
+                      if(SPIS_txBufferRead == SPIS_txBufferWrite)
+                      {
+                          size = 0u;
+                      }
+                      else if(SPIS_txBufferRead < SPIS_txBufferWrite)
+                      {
+                          size = (SPIS_txBufferWrite - SPIS_txBufferRead);
+                      }
+                      else
+                      {
+                          size = (SPIS_TX_BUFFER_SIZE - SPIS_txBufferRead) + SPIS_txBufferWrite;
+                      }
+              
+                      /* Enable Interrupt. */
+                      SPIS_EnableTxInt();
+              
+                  #else /* !SPIS_TX_SOFTWARE_BUF_ENABLED */
+ 820   1      
+ 821   1              size = SPIS_TX_STATUS_REG;
+ 822   1      
+ 823   1              /* Is the fifo is full. */
+ 824   1              if((size & SPIS_STS_TX_FIFO_EMPTY) != 0u)
+ 825   1              {
+ 826   2                  size = 0u;
+ 827   2              }
+ 828   1              else if((size & SPIS_STS_TX_FIFO_NOT_FULL) != 0u)
+ 829   1              {
+ 830   2                  size = 1u;
+ 831   2              }
+ 832   1              else
+ 833   1              {
+ 834   2                  size = 4u;
+ 835   2              }
+ 836   1      
+ 837   1          #endif /* SPIS_TX_SOFTWARE_BUF_ENABLED */
+ 838   1      
+ 839   1          return (size);
+ 840   1      }
+ 841          
+ 842          
+ 843          /*******************************************************************************
+ 844          * Function Name: SPIS_ClearRxBuffer
+ 845          ********************************************************************************
+ 846          *
+ 847          * Summary:
+ 848          *  Clear the RX RAM buffer by setting the read and write pointers both to zero.
+ 849          *
+ 850          * Parameters:
+ 851          *  None.
+ 852          *
+ 853          * Return:
+ 854          *  None.
+ 855          *
+ 856          * Global variables:
+ 857          *  SPIS_rxBufferWrite - used for the account of the bytes which
+ 858          *  have been written down in the RX software buffer, modified every function
+ 859          *  call - resets to zero.
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 15  
+
+ 860          *  SPIS_rxBufferRead - used for the account of the bytes which
+ 861          *  have been read from the RX software buffer, modified every function call -
+ 862          *  resets to zero.
+ 863          *
+ 864          * Theory:
+ 865          *  Setting the pointers to zero makes the system believe there is no data to
+ 866          *  read and writing will resume at address 0 overwriting any data that may have
+ 867          *  remained in the RAM.
+ 868          *
+ 869          * Side Effects:
+ 870          *  Any received data not read from the RAM buffer will be lost when overwritten.
+ 871          *
+ 872          * Reentrant:
+ 873          *  No.
+ 874          *
+ 875          *******************************************************************************/
+ 876          void SPIS_ClearRxBuffer(void) 
+ 877          {
+ 878   1          /* Clear Hardware RX FIFO */
+ 879   1          while((SPIS_RX_STATUS_REG & SPIS_STS_RX_FIFO_NOT_EMPTY) != 0u)
+ 880   1          {
+ 881   2              CY_GET_REG16(SPIS_RXDATA_PTR);
+ 882   2          }
+ 883   1      
+ 884   1          #if(SPIS_RX_SOFTWARE_BUF_ENABLED)
+              
+                      /* Disable interrupt to protect variables that could change on interrupt. */
+                      SPIS_DisableRxInt();
+              
+                      SPIS_rxBufferRead  = 0u;
+                      SPIS_rxBufferWrite = 0u;
+                              SPIS_rxBufferFull  = 0u;
+                      /* Enable interrupt. */
+                      SPIS_EnableRxInt();
+              
+                  #endif /* SPIS_RX_SOFTWARE_BUF_ENABLED */
+ 896   1      }
+ 897          
+ 898          
+ 899          /*******************************************************************************
+ 900          * Function Name: SPIS_ClearTxBuffer
+ 901          ********************************************************************************
+ 902          *
+ 903          * Summary:
+ 904          *  Clear the TX RAM buffer by setting the read and write pointers both to zero.
+ 905          *
+ 906          * Parameters:
+ 907          *  None.
+ 908          *
+ 909          * Return:
+ 910          *  None.
+ 911          *
+ 912          * Global variables:
+ 913          *  SPIS_txBufferWrite - used for the account of the bytes which
+ 914          *  have been written down in the TX software buffer, modified every function
+ 915          *  call - resets to zero.
+ 916          *  SPIS_txBufferRead - used for the account of the bytes which
+ 917          *  have been read from the TX software buffer, modified every function call -
+ 918          *  resets to zero.
+ 919          *
+ 920          * Theory:
+ 921          *  Setting the pointers to zero makes the system believe there is no data to
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 16  
+
+ 922          *  read and writing will resume at address 0 overwriting any data that may have
+ 923          *  remained in the RAM.
+ 924          *
+ 925          * Side Effects:
+ 926          *  Any data not yet transmitted from the RAM buffer will be lost when
+ 927          *  overwritten.
+ 928          *
+ 929          * Reentrant:
+ 930          *  No.
+ 931          *
+ 932          *******************************************************************************/
+ 933          void SPIS_ClearTxBuffer(void) 
+ 934          {
+ 935   1          uint8 enableInterrupts;
+ 936   1      
+ 937   1          /* Clear Hardware TX FIFO */
+ 938   1          enableInterrupts = CyEnterCriticalSection();
+ 939   1      
+ 940   1          #if(SPIS_DATA_WIDTH <= 8u)
+              
+                      /* Clear TX FIFO */
+                      SPIS_TX_AUX_CONTROL_DP0_REG |= (uint8)SPIS_FIFO_CLR;
+                      SPIS_TX_AUX_CONTROL_DP0_REG &= (uint8)~SPIS_FIFO_CLR;
+              
+                  #else
+ 947   1      
+ 948   1              /* Clear TX FIFO */
+ 949   1              SPIS_TX_AUX_CONTROL_DP0_REG |= (uint8)SPIS_FIFO_CLR;
+ 950   1              SPIS_TX_AUX_CONTROL_DP0_REG &= (uint8)~SPIS_FIFO_CLR;
+ 951   1              SPIS_TX_AUX_CONTROL_DP1_REG |= (uint8)SPIS_FIFO_CLR;
+ 952   1              SPIS_TX_AUX_CONTROL_DP1_REG &= (uint8)~SPIS_FIFO_CLR;
+ 953   1      
+ 954   1          #endif /* SPIS_DATA_WIDTH > 8u */
+ 955   1      
+ 956   1          CyExitCriticalSection(enableInterrupts);
+ 957   1      
+ 958   1          #if(SPIS_TX_SOFTWARE_BUF_ENABLED)
+              
+                      /* Disable Interrupt to protect variables that could change on interrupt. */
+                      SPIS_DisableTxInt();
+              
+                      SPIS_txBufferRead  = 0u;
+                      SPIS_txBufferWrite = 0u;
+                              SPIS_txBufferFull  = 0u;
+                              
+                      /* If Buffer is empty then disable TX FIFO status interrupt */
+                      SPIS_TX_STATUS_MASK_REG &= (uint8)~SPIS_STS_TX_FIFO_NOT_FULL;
+              
+                      /* Enable Interrupt. */
+                      SPIS_EnableTxInt();
+              
+                  #endif /* SPIS_TX_SOFTWARE_BUF_ENABLED */
+ 974   1      }
+ 975          
+ 976          
+ 977          #if (SPIS_BIDIRECTIONAL_MODE != 0u)
+              
+                  /*******************************************************************************
+                  * Function Name: SPIS_TxEnable
+                  ********************************************************************************
+                  *
+                  * Summary:
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 17  
+
+                  *  If the SPI Slave is configured to use a single bi-directional pin then this
+                  *  will set the bi-directional pin to transmit.
+                  *
+                  * Parameters:
+                  *  None.
+                  *
+                  * Return:
+                  *  None.
+                  *
+                  *******************************************************************************/
+                  void SPIS_TxEnable(void) 
+                  {
+                          SPIS_CONTROL_REG |= SPIS_CTRL_TX_SIGNAL_EN;
+                  }
+              
+              
+                  /*******************************************************************************
+                  * Function Name: SPIS_TxDisable
+                  ********************************************************************************
+                  *
+                  * Summary:
+                  *  If the SPI Slave is configured to use a single bi-directional pin then this
+                  *  will set the bi-directional pin to receive.
+                  *
+                  * Parameters:
+                  *  None.
+                  *
+                  * Return:
+                  *  None.
+                  *
+                  *******************************************************************************/
+                  void SPIS_TxDisable(void) 
+                  {
+                          SPIS_CONTROL_REG &= (uint8)~SPIS_CTRL_TX_SIGNAL_EN;
+                  }
+              
+              #endif /* SPIS_BIDIRECTIONAL_MODE != 0u */
+1021          
+1022          
+1023          /*******************************************************************************
+1024          * Function Name: SPIS_PutArray
+1025          ********************************************************************************
+1026          *
+1027          * Summary:
+1028          *  Write available data from RAM/ROM to the TX buffer while space is available
+1029          *  in the TX buffer. Keep trying until all data is passed to the TX buffer. If
+1030          *  used Mode 00 or 01 before PutArray() function should be called
+1031          *  WriteTxDataZero() function.
+1032          *
+1033          * Parameters:
+1034          *  *buffer: Pointer to the location in RAM containing the data to send
+1035          *  byteCount: The number of bytes to move to the transmit buffer.
+1036          *
+1037          * Return:
+1038          *  None.
+1039          *
+1040          * Side Effects:
+1041          *  Will stay in this routine until all data has been sent.  May get locked in
+1042          *  this loop if data is not being initiated by the master if there is not
+1043          *  enough room in the TX FIFO.
+1044          *
+1045          * Reentrant:
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 18  
+
+1046          *  No.
+1047          *
+1048          *******************************************************************************/
+1049          void SPIS_PutArray(const uint16 buffer[], uint8 byteCount)
+1050                                                                              
+1051          {
+1052   1          uint8 bufIndex;
+1053   1          bufIndex = 0u;
+1054   1      
+1055   1          while(byteCount > 0u)
+1056   1          {
+1057   2              SPIS_WriteTxData(buffer[bufIndex]);
+1058   2              bufIndex++;
+1059   2              byteCount--;
+1060   2          }
+1061   1      }
+1062          
+1063          
+1064          /*******************************************************************************
+1065          * Function Name: SPIS_ClearFIFO
+1066          ********************************************************************************
+1067          *
+1068          * Summary:
+1069          *  Clear the RX and TX FIFO's of all data for a fresh start.
+1070          *
+1071          * Parameters:
+1072          *  None.
+1073          *
+1074          * Return:
+1075          *  None.
+1076          *
+1077          * Side Effects:
+1078          *  Clear status register of the component.
+1079          *
+1080          *******************************************************************************/
+1081          void SPIS_ClearFIFO(void) 
+1082          {
+1083   1          uint8 enableInterrupts;
+1084   1      
+1085   1          while((SPIS_RX_STATUS_REG & SPIS_STS_RX_FIFO_NOT_EMPTY) != 0u)
+1086   1          {
+1087   2              CY_GET_REG16(SPIS_RXDATA_PTR);
+1088   2          }
+1089   1      
+1090   1          enableInterrupts = CyEnterCriticalSection();
+1091   1      
+1092   1          #if(SPIS_DATA_WIDTH <= 8u)
+              
+                      /* Clear TX FIFO */
+                      SPIS_TX_AUX_CONTROL_DP0_REG |= (uint8)SPIS_FIFO_CLR;
+                      SPIS_TX_AUX_CONTROL_DP0_REG &= (uint8)~SPIS_FIFO_CLR;
+              
+                  #else
+1099   1      
+1100   1              /* Clear TX FIFO */
+1101   1              SPIS_TX_AUX_CONTROL_DP0_REG |= (uint8)SPIS_FIFO_CLR;
+1102   1              SPIS_TX_AUX_CONTROL_DP0_REG &= (uint8)~SPIS_FIFO_CLR;
+1103   1              SPIS_TX_AUX_CONTROL_DP1_REG |= (uint8)SPIS_FIFO_CLR;
+1104   1              SPIS_TX_AUX_CONTROL_DP1_REG &= (uint8)~SPIS_FIFO_CLR;
+1105   1      
+1106   1          #endif /* SPIS_DATA_WIDTH <= 8u */
+1107   1      
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 19  
+
+1108   1          CyExitCriticalSection(enableInterrupts);
+1109   1      }
+1110          
+1111          
+1112          /* Following functions are for version Compatibility, they are obsolete.
+1113          *  Please do not use it in new projects.
+1114          */
+1115          
+1116          
+1117          /*******************************************************************************
+1118          * Function Name: SPIS_EnableInt
+1119          ********************************************************************************
+1120          *
+1121          * Summary:
+1122          *  Enable internal interrupt generation.
+1123          *
+1124          * Parameters:
+1125          *  None.
+1126          *
+1127          * Return:
+1128          *  None.
+1129          *
+1130          * Theory:
+1131          *  Enable the internal interrupt output -or- the interrupt component itself.
+1132          *
+1133          *******************************************************************************/
+1134          void SPIS_EnableInt(void) 
+1135          {
+1136   1          #if(SPIS_INTERNAL_TX_INT_ENABLED)
+1137   1              CyIntEnable(SPIS_TX_ISR_NUMBER);
+1138   1          #endif /* SPIS_INTERNAL_TX_INT_ENABLED */
+1139   1      
+1140   1          #if(SPIS_INTERNAL_RX_INT_ENABLED)
+1141   1              CyIntEnable(SPIS_RX_ISR_NUMBER);
+1142   1          #endif /* SPIS_INTERNAL_RX_INT_ENABLED */
+1143   1      }
+1144          
+1145          
+1146          /*******************************************************************************
+1147          * Function Name: SPIS_DisableInt
+1148          ********************************************************************************
+1149          *
+1150          * Summary:
+1151          *  Disable internal interrupt generation.
+1152          *
+1153          * Parameters:
+1154          *  None.
+1155          *
+1156          * Return:
+1157          *  None.
+1158          *
+1159          * Theory:
+1160          *  Disable the internal interrupt output -or- the interrupt component itself.
+1161          *
+1162          *******************************************************************************/
+1163          void SPIS_DisableInt(void) 
+1164          {
+1165   1          #if(SPIS_INTERNAL_TX_INT_ENABLED)
+1166   1              CyIntDisable(SPIS_TX_ISR_NUMBER);
+1167   1          #endif /* SPIS_INTERNAL_TX_INT_ENABLED */
+1168   1      
+1169   1          #if(SPIS_INTERNAL_RX_INT_ENABLED)
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 20  
+
+1170   1              CyIntDisable(SPIS_RX_ISR_NUMBER);
+1171   1          #endif /* SPIS_INTERNAL_RX_INT_ENABLED */
+1172   1      }
+1173          
+1174          
+1175          /*******************************************************************************
+1176          * Function Name: SPIS_SetInterruptMode
+1177          ********************************************************************************
+1178          *
+1179          * Summary:
+1180          *  Configure which status bits trigger an interrupt event.
+1181          *
+1182          * Parameters:
+1183          *  intSrc: An or'd combination of the desired status bit masks (defined in the
+1184          *  header file).
+1185          *
+1186          * Return:
+1187          *  None.
+1188          *
+1189          * Theory:
+1190          *  Enables the output of specific status bits to the interrupt controller.
+1191          *
+1192          *******************************************************************************/
+1193          void SPIS_SetInterruptMode(uint8 intSrc) 
+1194          {
+1195   1          SPIS_TX_STATUS_MASK_REG  = intSrc;
+1196   1          SPIS_RX_STATUS_MASK_REG  = intSrc;
+1197   1      }
+1198          
+1199          
+1200          /*******************************************************************************
+1201          * Function Name: SPIS_ReadStatus
+1202          ********************************************************************************
+1203          *
+1204          * Summary:
+1205          *  Read the status register for the component.
+1206          *
+1207          * Parameters:
+1208          *  None.
+1209          *
+1210          * Return:
+1211          *  Contents of the status register.
+1212          *
+1213          * Global variables:
+1214          *  SPIS_swStatus - used to store in software status register,
+1215          *  modified every function call - resets to zero.
+1216          *
+1217          * Theory:
+1218          *  Allows the user and the API to read the status register for error detection
+1219          *  and flow control.
+1220          *
+1221          * Side Effects:
+1222          *  Clear status register of the component.
+1223          *
+1224          * Reentrant:
+1225          *  No.
+1226          *
+1227          *******************************************************************************/
+1228          uint8 SPIS_ReadStatus(void) 
+1229          {
+1230   1          uint8 tmpStatus;
+1231   1      
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 21  
+
+1232   1          #if ((SPIS_TX_SOFTWARE_BUF_ENABLED) || (SPIS_RX_SOFTWARE_BUF_ENABLED))
+              
+                      SPIS_DisableInt();
+              
+                      tmpStatus = SPIS_GET_STATUS_TX(SPIS_swStatusTx) |
+                            (SPIS_GET_STATUS_RX(SPIS_swStatusRx) & (uint8)~SPIS_STS_RX_FIFO_FULL);
+              
+                      SPIS_swStatusTx = 0u;
+                      SPIS_swStatusRx = 0u;
+              
+                      /* Enable Interrupts */
+                      SPIS_EnableInt();
+              
+                  #else /* !((SPIS_TX_SOFTWARE_BUF_ENABLED) || (SPIS_RX_SOFTWARE_BUF_ENABLED)) */
+1246   1      
+1247   1              tmpStatus = SPIS_TX_STATUS_REG | (SPIS_RX_STATUS_REG &
+1248   1                                                            (uint8)~SPIS_STS_RX_FIFO_FULL);
+1249   1      
+1250   1          #endif /* (SPIS_TX_SOFTWARE_BUF_ENABLED) || (SPIS_RX_SOFTWARE_BUF_ENABLED) */
+1251   1      
+1252   1          return(tmpStatus);
+1253   1      }
+1254          
+1255          
+1256          /* [] END OF FILE */
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 22  
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION SPIS_Init (BEGIN)
+                                           ; SOURCE LINE # 67
+                                           ; SOURCE LINE # 68
+                                           ; SOURCE LINE # 70
+0000 90658B            MOV     DPTR,#0658BH
+0003 740F              MOV     A,#0FH
+0005 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 75
+0006 9044C8            MOV     DPTR,#044C8H
+0009 7404              MOV     A,#04H
+000B F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 78
+000C 7C00        E     MOV     R4,#HIGH SPIS_TX_ISR
+000E 7D00        E     MOV     R5,#LOW SPIS_TX_ISR
+0010 7F02              MOV     R7,#02H
+0012 120000      E     LCALL   _CyIntSetVector
+                                           ; SOURCE LINE # 81
+0015 7D07              MOV     R5,#07H
+0017 7F02              MOV     R7,#02H
+0019 120000      E     LCALL   _CyIntSetPriority
+                                           ; SOURCE LINE # 87
+001C 9044C8            MOV     DPTR,#044C8H
+001F 7402              MOV     A,#02H
+0021 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 90
+0022 7C00        E     MOV     R4,#HIGH SPIS_RX_ISR
+0024 7D00        E     MOV     R5,#LOW SPIS_RX_ISR
+0026 7F01              MOV     R7,#01H
+0028 120000      E     LCALL   _CyIntSetVector
+                                           ; SOURCE LINE # 93
+002B 7D07              MOV     R5,#07H
+002D 7F01              MOV     R7,#01H
+002F 120000      E     LCALL   _CyIntSetPriority
+                                           ; SOURCE LINE # 98
+0032 120000      R     LCALL   SPIS_ClearFIFO
+                                           ; SOURCE LINE # 112
+0035 120000      R     LCALL   SPIS_ReadTxStatus
+                                           ; SOURCE LINE # 113
+0038 120000      R     LCALL   SPIS_ReadRxStatus
+                                           ; SOURCE LINE # 121
+003B 90648F            MOV     DPTR,#0648FH
+003E 7405              MOV     A,#05H
+0040 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 124
+0041 90658A            MOV     DPTR,#0658AH
+0044 7418              MOV     A,#018H
+0046 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 126
+0047 22                RET     
+             ; FUNCTION SPIS_Init (END)
+
+             ; FUNCTION SPIS_Enable (BEGIN)
+                                           ; SOURCE LINE # 143
+                                           ; SOURCE LINE # 144
+                                           ; SOURCE LINE # 146
+0000 120000      E     LCALL   CyEnterCriticalSection
+0003 900000      R     MOV     DPTR,#enableInterrupts
+0006 EF                MOV     A,R7
+0007 F0                MOVX    @DPTR,A
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 23  
+
+                                           ; SOURCE LINE # 148
+0008 90659B            MOV     DPTR,#0659BH
+000B E0                MOVX    A,@DPTR
+000C FF                MOV     R7,A
+000D EF                MOV     A,R7
+000E 4420              ORL     A,#020H
+0010 FF                MOV     R7,A
+0011 EF                MOV     A,R7
+0012 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 149
+0013 90649F            MOV     DPTR,#0649FH
+0016 E0                MOVX    A,@DPTR
+0017 FF                MOV     R7,A
+0018 EF                MOV     A,R7
+0019 4410              ORL     A,#010H
+001B FF                MOV     R7,A
+001C EF                MOV     A,R7
+001D F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 150
+001E 90659A            MOV     DPTR,#0659AH
+0021 E0                MOVX    A,@DPTR
+0022 FF                MOV     R7,A
+0023 EF                MOV     A,R7
+0024 4410              ORL     A,#010H
+0026 FF                MOV     R7,A
+0027 EF                MOV     A,R7
+0028 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 152
+0029 900000      R     MOV     DPTR,#enableInterrupts
+002C E0                MOVX    A,@DPTR
+002D FF                MOV     R7,A
+002E 120000      E     LCALL   _CyExitCriticalSection
+                                           ; SOURCE LINE # 155
+0031 9044C0            MOV     DPTR,#044C0H
+0034 7404              MOV     A,#04H
+0036 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 159
+0037 9044C0            MOV     DPTR,#044C0H
+003A 7402              MOV     A,#02H
+003C F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 161
+003D 22                RET     
+             ; FUNCTION SPIS_Enable (END)
+
+             ; FUNCTION SPIS_Start (BEGIN)
+                                           ; SOURCE LINE # 188
+                                           ; SOURCE LINE # 189
+                                           ; SOURCE LINE # 190
+0000 900000      R     MOV     DPTR,#SPIS_initVar
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 EF                MOV     A,R7
+0006 7009              JNZ     ?C0003
+                                           ; SOURCE LINE # 191
+                                           ; SOURCE LINE # 192
+0008 120000      R     LCALL   SPIS_Init
+                                           ; SOURCE LINE # 193
+000B 900000      R     MOV     DPTR,#SPIS_initVar
+000E 7401              MOV     A,#01H
+0010 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 194
+0011         ?C0003:
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 24  
+
+                                           ; SOURCE LINE # 196
+0011 120000      R     LCALL   SPIS_Enable
+                                           ; SOURCE LINE # 197
+0014 22                RET     
+             ; FUNCTION SPIS_Start (END)
+
+             ; FUNCTION SPIS_Stop (BEGIN)
+                                           ; SOURCE LINE # 217
+                                           ; SOURCE LINE # 218
+                                           ; SOURCE LINE # 220
+0000 120000      E     LCALL   CyEnterCriticalSection
+0003 900000      R     MOV     DPTR,#enableInterrupts
+0006 EF                MOV     A,R7
+0007 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 222
+0008 90649F            MOV     DPTR,#0649FH
+000B E0                MOVX    A,@DPTR
+000C FF                MOV     R7,A
+000D EF                MOV     A,R7
+000E 54EF              ANL     A,#0EFH
+0010 FF                MOV     R7,A
+0011 EF                MOV     A,R7
+0012 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 223
+0013 90659A            MOV     DPTR,#0659AH
+0016 E0                MOVX    A,@DPTR
+0017 FF                MOV     R7,A
+0018 EF                MOV     A,R7
+0019 54EF              ANL     A,#0EFH
+001B FF                MOV     R7,A
+001C EF                MOV     A,R7
+001D F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 225
+001E 900000      R     MOV     DPTR,#enableInterrupts
+0021 E0                MOVX    A,@DPTR
+0022 FF                MOV     R7,A
+0023 120000      E     LCALL   _CyExitCriticalSection
+                                           ; SOURCE LINE # 228
+0026 9044C8            MOV     DPTR,#044C8H
+0029 7404              MOV     A,#04H
+002B F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 232
+002C 9044C8            MOV     DPTR,#044C8H
+002F 7402              MOV     A,#02H
+0031 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 234
+0032 22                RET     
+             ; FUNCTION SPIS_Stop (END)
+
+             ; FUNCTION SPIS_EnableTxInt (BEGIN)
+                                           ; SOURCE LINE # 254
+                                           ; SOURCE LINE # 255
+                                           ; SOURCE LINE # 257
+0000 9044C0            MOV     DPTR,#044C0H
+0003 7404              MOV     A,#04H
+0005 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 259
+0006 22                RET     
+             ; FUNCTION SPIS_EnableTxInt (END)
+
+             ; FUNCTION SPIS_EnableRxInt (BEGIN)
+                                           ; SOURCE LINE # 279
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 25  
+
+                                           ; SOURCE LINE # 280
+                                           ; SOURCE LINE # 282
+0000 9044C0            MOV     DPTR,#044C0H
+0003 7402              MOV     A,#02H
+0005 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 284
+0006 22                RET     
+             ; FUNCTION SPIS_EnableRxInt (END)
+
+             ; FUNCTION SPIS_DisableTxInt (BEGIN)
+                                           ; SOURCE LINE # 304
+                                           ; SOURCE LINE # 305
+                                           ; SOURCE LINE # 307
+0000 9044C8            MOV     DPTR,#044C8H
+0003 7404              MOV     A,#04H
+0005 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 309
+0006 22                RET     
+             ; FUNCTION SPIS_DisableTxInt (END)
+
+             ; FUNCTION SPIS_DisableRxInt (BEGIN)
+                                           ; SOURCE LINE # 329
+                                           ; SOURCE LINE # 330
+                                           ; SOURCE LINE # 332
+0000 9044C8            MOV     DPTR,#044C8H
+0003 7402              MOV     A,#02H
+0005 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 334
+0006 22                RET     
+             ; FUNCTION SPIS_DisableRxInt (END)
+
+             ; FUNCTION _SPIS_SetTxInterruptMode (BEGIN)
+                                           ; SOURCE LINE # 355
+0000 900000      R     MOV     DPTR,#intSrc
+0003 EF                MOV     A,R7
+0004 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 356
+                                           ; SOURCE LINE # 357
+0005 900000      R     MOV     DPTR,#intSrc
+0008 E0                MOVX    A,@DPTR
+0009 FF                MOV     R7,A
+000A 90648F            MOV     DPTR,#0648FH
+000D EF                MOV     A,R7
+000E F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 358
+000F 22                RET     
+             ; FUNCTION _SPIS_SetTxInterruptMode (END)
+
+             ; FUNCTION _SPIS_SetRxInterruptMode (BEGIN)
+                                           ; SOURCE LINE # 379
+0000 900000      R     MOV     DPTR,#intSrc
+0003 EF                MOV     A,R7
+0004 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 380
+                                           ; SOURCE LINE # 381
+0005 900000      R     MOV     DPTR,#intSrc
+0008 E0                MOVX    A,@DPTR
+0009 FF                MOV     R7,A
+000A 90658A            MOV     DPTR,#0658AH
+000D EF                MOV     A,R7
+000E F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 382
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 26  
+
+000F 22                RET     
+             ; FUNCTION _SPIS_SetRxInterruptMode (END)
+
+             ; FUNCTION SPIS_ReadTxStatus (BEGIN)
+                                           ; SOURCE LINE # 413
+                                           ; SOURCE LINE # 414
+                                           ; SOURCE LINE # 430
+0000 90646F            MOV     DPTR,#0646FH
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 900000      R     MOV     DPTR,#tmpStatus
+0008 EF                MOV     A,R7
+0009 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 434
+000A 900000      R     MOV     DPTR,#tmpStatus
+000D E0                MOVX    A,@DPTR
+000E FF                MOV     R7,A
+                                           ; SOURCE LINE # 435
+000F         ?C0012:
+000F 22                RET     
+             ; FUNCTION SPIS_ReadTxStatus (END)
+
+             ; FUNCTION SPIS_ReadRxStatus (BEGIN)
+                                           ; SOURCE LINE # 466
+                                           ; SOURCE LINE # 467
+                                           ; SOURCE LINE # 483
+0000 90656A            MOV     DPTR,#0656AH
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 900000      R     MOV     DPTR,#tmpStatus
+0008 EF                MOV     A,R7
+0009 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 487
+000A 900000      R     MOV     DPTR,#tmpStatus
+000D E0                MOVX    A,@DPTR
+000E FF                MOV     R7,A
+                                           ; SOURCE LINE # 488
+000F         ?C0013:
+000F 22                RET     
+             ; FUNCTION SPIS_ReadRxStatus (END)
+
+             ; FUNCTION _SPIS_WriteTxData (BEGIN)
+                                           ; SOURCE LINE # 525
+0000 900000      R     MOV     DPTR,#txData
+0003 EE                MOV     A,R6
+0004 F0                MOVX    @DPTR,A
+0005 A3                INC     DPTR
+0006 EF                MOV     A,R7
+0007 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 526
+0008         ?C0014:
+                                           ; SOURCE LINE # 589
+0008 90646F            MOV     DPTR,#0646FH
+000B E0                MOVX    A,@DPTR
+000C FF                MOV     R7,A
+000D EF                MOV     A,R7
+000E 30E1F7            JNB     ACC.1,?C0014
+                                           ; SOURCE LINE # 590
+                                           ; SOURCE LINE # 592
+0011         ?C0015:
+                                           ; SOURCE LINE # 595
+0011 7B02              MOV     R3,#02H
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 27  
+
+0013 7A65              MOV     R2,#065H
+0015 794A              MOV     R1,#04AH
+0017 900000      R     MOV     DPTR,#txData
+001A E0                MOVX    A,@DPTR
+001B FC                MOV     R4,A
+001C A3                INC     DPTR
+001D E0                MOVX    A,@DPTR
+001E FD                MOV     R5,A
+001F 120000      E     LCALL   _cywrite16_nodpx
+                                           ; SOURCE LINE # 598
+0022 22                RET     
+             ; FUNCTION _SPIS_WriteTxData (END)
+
+             ; FUNCTION SPIS_ReadRxData (BEGIN)
+                                           ; SOURCE LINE # 663
+                                           ; SOURCE LINE # 664
+                                           ; SOURCE LINE # 695
+0000 7B02              MOV     R3,#02H
+0002 7A65              MOV     R2,#065H
+0004 795A              MOV     R1,#05AH
+0006 120000      E     LCALL   _cyread16_nodpx
+0009 900000      R     MOV     DPTR,#rxData
+000C EE                MOV     A,R6
+000D F0                MOVX    @DPTR,A
+000E A3                INC     DPTR
+000F EF                MOV     A,R7
+0010 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 699
+0011 900000      R     MOV     DPTR,#rxData
+0014 E0                MOVX    A,@DPTR
+0015 FE                MOV     R6,A
+0016 A3                INC     DPTR
+0017 E0                MOVX    A,@DPTR
+0018 FF                MOV     R7,A
+                                           ; SOURCE LINE # 701
+0019         ?C0017:
+0019 22                RET     
+             ; FUNCTION SPIS_ReadRxData (END)
+
+             ; FUNCTION SPIS_GetRxBufferSize (BEGIN)
+                                           ; SOURCE LINE # 729
+                                           ; SOURCE LINE # 730
+                                           ; SOURCE LINE # 757
+0000 90656A            MOV     DPTR,#0656AH
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 EF                MOV     A,R7
+0006 30E304            JNB     ACC.3,?C0018
+0009 7F01              MOV     R7,#01H
+000B 8002              SJMP    ?C0019
+000D         ?C0018:
+000D 7F00              MOV     R7,#00H
+000F         ?C0019:
+000F 900000      R     MOV     DPTR,#size
+0012 EF                MOV     A,R7
+0013 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 761
+0014 900000      R     MOV     DPTR,#size
+0017 E0                MOVX    A,@DPTR
+0018 FF                MOV     R7,A
+                                           ; SOURCE LINE # 762
+0019         ?C0020:
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 28  
+
+0019 22                RET     
+             ; FUNCTION SPIS_GetRxBufferSize (END)
+
+             ; FUNCTION SPIS_GetTxBufferSize (BEGIN)
+                                           ; SOURCE LINE # 794
+                                           ; SOURCE LINE # 795
+                                           ; SOURCE LINE # 821
+0000 90646F            MOV     DPTR,#0646FH
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 900000      R     MOV     DPTR,#size
+0008 EF                MOV     A,R7
+0009 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 824
+000A 900000      R     MOV     DPTR,#size
+000D E0                MOVX    A,@DPTR
+000E FF                MOV     R7,A
+000F EF                MOV     A,R7
+0010 30E207            JNB     ACC.2,?C0021
+                                           ; SOURCE LINE # 825
+                                           ; SOURCE LINE # 826
+0013 900000      R     MOV     DPTR,#size
+0016 E4                CLR     A
+0017 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 827
+0018 8017              SJMP    ?C0022
+001A         ?C0021:
+                                           ; SOURCE LINE # 828
+001A 900000      R     MOV     DPTR,#size
+001D E0                MOVX    A,@DPTR
+001E FF                MOV     R7,A
+001F EF                MOV     A,R7
+0020 30E108            JNB     ACC.1,?C0023
+                                           ; SOURCE LINE # 829
+                                           ; SOURCE LINE # 830
+0023 900000      R     MOV     DPTR,#size
+0026 7401              MOV     A,#01H
+0028 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 831
+0029 8006              SJMP    ?C0022
+002B         ?C0023:
+                                           ; SOURCE LINE # 833
+                                           ; SOURCE LINE # 834
+002B 900000      R     MOV     DPTR,#size
+002E 7404              MOV     A,#04H
+0030 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 835
+0031         ?C0022:
+                                           ; SOURCE LINE # 839
+0031 900000      R     MOV     DPTR,#size
+0034 E0                MOVX    A,@DPTR
+0035 FF                MOV     R7,A
+                                           ; SOURCE LINE # 840
+0036         ?C0025:
+0036 22                RET     
+             ; FUNCTION SPIS_GetTxBufferSize (END)
+
+             ; FUNCTION SPIS_ClearRxBuffer (BEGIN)
+                                           ; SOURCE LINE # 876
+                                           ; SOURCE LINE # 877
+0000         ?C0026:
+                                           ; SOURCE LINE # 879
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 29  
+
+0000 90656A            MOV     DPTR,#0656AH
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 EF                MOV     A,R7
+0006 30E30B            JNB     ACC.3,?C0028
+                                           ; SOURCE LINE # 880
+                                           ; SOURCE LINE # 881
+0009 7B02              MOV     R3,#02H
+000B 7A65              MOV     R2,#065H
+000D 795A              MOV     R1,#05AH
+000F 120000      E     LCALL   _cyread16_nodpx
+                                           ; SOURCE LINE # 882
+0012 80EC              SJMP    ?C0026
+                                           ; SOURCE LINE # 896
+0014         ?C0028:
+0014 22                RET     
+             ; FUNCTION SPIS_ClearRxBuffer (END)
+
+             ; FUNCTION SPIS_ClearTxBuffer (BEGIN)
+                                           ; SOURCE LINE # 933
+                                           ; SOURCE LINE # 934
+                                           ; SOURCE LINE # 938
+0000 120000      E     LCALL   CyEnterCriticalSection
+0003 900000      R     MOV     DPTR,#enableInterrupts
+0006 EF                MOV     A,R7
+0007 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 949
+0008 90659A            MOV     DPTR,#0659AH
+000B E0                MOVX    A,@DPTR
+000C FF                MOV     R7,A
+000D EF                MOV     A,R7
+000E 4403              ORL     A,#03H
+0010 FF                MOV     R7,A
+0011 EF                MOV     A,R7
+0012 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 950
+0013 90659A            MOV     DPTR,#0659AH
+0016 E0                MOVX    A,@DPTR
+0017 FF                MOV     R7,A
+0018 EF                MOV     A,R7
+0019 54FC              ANL     A,#0FCH
+001B FF                MOV     R7,A
+001C EF                MOV     A,R7
+001D F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 951
+001E 90659B            MOV     DPTR,#0659BH
+0021 E0                MOVX    A,@DPTR
+0022 FF                MOV     R7,A
+0023 EF                MOV     A,R7
+0024 4403              ORL     A,#03H
+0026 FF                MOV     R7,A
+0027 EF                MOV     A,R7
+0028 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 952
+0029 90659B            MOV     DPTR,#0659BH
+002C E0                MOVX    A,@DPTR
+002D FF                MOV     R7,A
+002E EF                MOV     A,R7
+002F 54FC              ANL     A,#0FCH
+0031 FF                MOV     R7,A
+0032 EF                MOV     A,R7
+0033 F0                MOVX    @DPTR,A
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 30  
+
+                                           ; SOURCE LINE # 956
+0034 900000      R     MOV     DPTR,#enableInterrupts
+0037 E0                MOVX    A,@DPTR
+0038 FF                MOV     R7,A
+0039 120000      E     LCALL   _CyExitCriticalSection
+                                           ; SOURCE LINE # 974
+003C 22                RET     
+             ; FUNCTION SPIS_ClearTxBuffer (END)
+
+             ; FUNCTION _SPIS_PutArray (BEGIN)
+                                           ; SOURCE LINE # 1049
+0000 900000      R     MOV     DPTR,#buffer
+0003 120000      E     LCALL   ?C?PSTXDATA
+0006 900000      R     MOV     DPTR,#byteCount
+0009 ED                MOV     A,R5
+000A F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1051
+                                           ; SOURCE LINE # 1053
+000B 900000      R     MOV     DPTR,#bufIndex
+000E E4                CLR     A
+000F F0                MOVX    @DPTR,A
+0010         ?C0030:
+                                           ; SOURCE LINE # 1055
+0010 900000      R     MOV     DPTR,#byteCount
+0013 E0                MOVX    A,@DPTR
+0014 FF                MOV     R7,A
+0015 EF                MOV     A,R7
+0016 D3                SETB    C
+0017 9400              SUBB    A,#00H
+0019 4034              JC      ?C0032
+                                           ; SOURCE LINE # 1056
+                                           ; SOURCE LINE # 1057
+001B 900000      R     MOV     DPTR,#buffer
+001E 120000      E     LCALL   ?C?PLDXDATA
+0021 900000      R     MOV     DPTR,#bufIndex
+0024 E0                MOVX    A,@DPTR
+0025 FF                MOV     R7,A
+0026 75F002            MOV     B,#02H
+0029 EF                MOV     A,R7
+002A A4                MUL     AB
+002B F582              MOV     DPL,A
+002D 85F083            MOV     DPH,B
+0030 E9                MOV     A,R1
+0031 2582              ADD     A,DPL
+0033 F9                MOV     R1,A
+0034 EA                MOV     A,R2
+0035 3583              ADDC    A,DPH
+0037 FA                MOV     R2,A
+0038 120000      E     LCALL   ?C?ILDPTR
+003B FF                MOV     R7,A
+003C AEF0              MOV     R6,B
+003E 120000      R     LCALL   _SPIS_WriteTxData
+                                           ; SOURCE LINE # 1058
+0041 900000      R     MOV     DPTR,#bufIndex
+0044 E0                MOVX    A,@DPTR
+0045 04                INC     A
+0046 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1059
+0047 900000      R     MOV     DPTR,#byteCount
+004A E0                MOVX    A,@DPTR
+004B 14                DEC     A
+004C F0                MOVX    @DPTR,A
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 31  
+
+                                           ; SOURCE LINE # 1060
+004D 80C1              SJMP    ?C0030
+                                           ; SOURCE LINE # 1061
+004F         ?C0032:
+004F 22                RET     
+             ; FUNCTION _SPIS_PutArray (END)
+
+             ; FUNCTION SPIS_ClearFIFO (BEGIN)
+                                           ; SOURCE LINE # 1081
+                                           ; SOURCE LINE # 1082
+0000         ?C0033:
+                                           ; SOURCE LINE # 1085
+0000 90656A            MOV     DPTR,#0656AH
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 EF                MOV     A,R7
+0006 30E30B            JNB     ACC.3,?C0034
+                                           ; SOURCE LINE # 1086
+                                           ; SOURCE LINE # 1087
+0009 7B02              MOV     R3,#02H
+000B 7A65              MOV     R2,#065H
+000D 795A              MOV     R1,#05AH
+000F 120000      E     LCALL   _cyread16_nodpx
+                                           ; SOURCE LINE # 1088
+0012 80EC              SJMP    ?C0033
+0014         ?C0034:
+                                           ; SOURCE LINE # 1090
+0014 120000      E     LCALL   CyEnterCriticalSection
+0017 900000      R     MOV     DPTR,#enableInterrupts
+001A EF                MOV     A,R7
+001B F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1101
+001C 90659A            MOV     DPTR,#0659AH
+001F E0                MOVX    A,@DPTR
+0020 FF                MOV     R7,A
+0021 EF                MOV     A,R7
+0022 4403              ORL     A,#03H
+0024 FF                MOV     R7,A
+0025 EF                MOV     A,R7
+0026 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1102
+0027 90659A            MOV     DPTR,#0659AH
+002A E0                MOVX    A,@DPTR
+002B FF                MOV     R7,A
+002C EF                MOV     A,R7
+002D 54FC              ANL     A,#0FCH
+002F FF                MOV     R7,A
+0030 EF                MOV     A,R7
+0031 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1103
+0032 90659B            MOV     DPTR,#0659BH
+0035 E0                MOVX    A,@DPTR
+0036 FF                MOV     R7,A
+0037 EF                MOV     A,R7
+0038 4403              ORL     A,#03H
+003A FF                MOV     R7,A
+003B EF                MOV     A,R7
+003C F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1104
+003D 90659B            MOV     DPTR,#0659BH
+0040 E0                MOVX    A,@DPTR
+0041 FF                MOV     R7,A
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 32  
+
+0042 EF                MOV     A,R7
+0043 54FC              ANL     A,#0FCH
+0045 FF                MOV     R7,A
+0046 EF                MOV     A,R7
+0047 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1108
+0048 900000      R     MOV     DPTR,#enableInterrupts
+004B E0                MOVX    A,@DPTR
+004C FF                MOV     R7,A
+004D 120000      E     LCALL   _CyExitCriticalSection
+                                           ; SOURCE LINE # 1109
+0050 22                RET     
+             ; FUNCTION SPIS_ClearFIFO (END)
+
+             ; FUNCTION SPIS_EnableInt (BEGIN)
+                                           ; SOURCE LINE # 1134
+                                           ; SOURCE LINE # 1135
+                                           ; SOURCE LINE # 1137
+0000 9044C0            MOV     DPTR,#044C0H
+0003 7404              MOV     A,#04H
+0005 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1141
+0006 9044C0            MOV     DPTR,#044C0H
+0009 7402              MOV     A,#02H
+000B F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1143
+000C 22                RET     
+             ; FUNCTION SPIS_EnableInt (END)
+
+             ; FUNCTION SPIS_DisableInt (BEGIN)
+                                           ; SOURCE LINE # 1163
+                                           ; SOURCE LINE # 1164
+                                           ; SOURCE LINE # 1166
+0000 9044C8            MOV     DPTR,#044C8H
+0003 7404              MOV     A,#04H
+0005 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1170
+0006 9044C8            MOV     DPTR,#044C8H
+0009 7402              MOV     A,#02H
+000B F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1172
+000C 22                RET     
+             ; FUNCTION SPIS_DisableInt (END)
+
+             ; FUNCTION _SPIS_SetInterruptMode (BEGIN)
+                                           ; SOURCE LINE # 1193
+0000 900000      R     MOV     DPTR,#intSrc
+0003 EF                MOV     A,R7
+0004 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1194
+                                           ; SOURCE LINE # 1195
+0005 900000      R     MOV     DPTR,#intSrc
+0008 E0                MOVX    A,@DPTR
+0009 FF                MOV     R7,A
+000A 90648F            MOV     DPTR,#0648FH
+000D EF                MOV     A,R7
+000E F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1196
+000F 900000      R     MOV     DPTR,#intSrc
+0012 E0                MOVX    A,@DPTR
+0013 FF                MOV     R7,A
+0014 90658A            MOV     DPTR,#0658AH
+C51 COMPILER V9.51   SPIS                                                                  06/30/2014 14:50:59 PAGE 33  
+
+0017 EF                MOV     A,R7
+0018 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1197
+0019 22                RET     
+             ; FUNCTION _SPIS_SetInterruptMode (END)
+
+             ; FUNCTION SPIS_ReadStatus (BEGIN)
+                                           ; SOURCE LINE # 1228
+                                           ; SOURCE LINE # 1229
+                                           ; SOURCE LINE # 1248
+0000 90656A            MOV     DPTR,#0656AH
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 EF                MOV     A,R7
+0006 54BF              ANL     A,#0BFH
+0008 FF                MOV     R7,A
+0009 90646F            MOV     DPTR,#0646FH
+000C E0                MOVX    A,@DPTR
+000D FE                MOV     R6,A
+000E EF                MOV     A,R7
+000F 4E                ORL     A,R6
+0010 FF                MOV     R7,A
+0011 900000      R     MOV     DPTR,#tmpStatus
+0014 EF                MOV     A,R7
+0015 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 1252
+0016 900000      R     MOV     DPTR,#tmpStatus
+0019 E0                MOVX    A,@DPTR
+001A FF                MOV     R7,A
+                                           ; SOURCE LINE # 1253
+001B         ?C0039:
+001B 22                RET     
+             ; FUNCTION SPIS_ReadStatus (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    763    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      3      21
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

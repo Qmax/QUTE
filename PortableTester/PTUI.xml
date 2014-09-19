@@ -1,0 +1,155 @@
+<PortableTester>
+  <Application ApplicationName="PortableTester" />
+  <SupportedPlatforms Platforms="Linux" />
+  <Version FileVersion="FVER00001" />
+  <Date FileCreated="03/01/2012 10:06:55 AM" />
+  <MainWindow>
+      <FunctionPanel>
+	<ButtonName Caption = "" Xpos = "700.0" Ypos = "35.0" Image = "/Symbols/dmm2.png" Description = "Multimeter" Height ="80" Width ="100" Panel = "FunctionPanel" Window = "MainWindow" Type = "SIDEBAR" />
+	<ButtonName Caption = "" Xpos = "700.0" Ypos = "115.0" Image = ":/Symbols/fg.png" Description = "Function Generator" Height ="80" Width ="100" Panel = "FunctionPanel" Window = "MainWindow" Type = "SIDEBAR"/>
+	<ButtonName Caption = "" Xpos = "700.0" Ypos = "195.0" Image = ":/Symbols/dso.png" Description = "Multimeter" Height ="80" Width ="100" Panel = "FunctionPanel" Window = "MainWindow" Type = "SIDEBAR"/>
+	<ButtonName Caption = "" Xpos = "700.0" Ypos = "275.0" Image = ":/Symbols/qsm.png" Description = "Function Generator" Height ="80" Width ="100" Panel = "FunctionPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "" Xpos = "700.0" Ypos = "355.0" Image = ":/Symbols/default.png" Description = "InCircuit Measurement" Height ="80" Width ="100" Panel = "FunctionPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "" Xpos = "700.0" Ypos = "435.0" Image = ":/Symbols/default.png" Description = "SL" Height ="80" Width ="100" Panel = "FunctionPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "" Xpos = "700.0" Ypos = "515.0" Image = ":/Symbols/shu1.jpeg" Description = "SL" Height ="80" Width ="100" Panel = "FunctionPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+
+      </FunctionPanel>
+      <ApplicationPanel>
+	<ButtonName Caption = "" Xpos = "150.0" Ypos = "135.0" Image = ":/Symbols/aa.png" Description = "Oscillascope" Height ="70" Width ="90" Panel = "ApplicationPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "" Xpos = "270.0" Ypos = "135.0" Image = ":/Symbols/fg.png" Description = "Voltage-Current" Height ="70" Width ="90" Panel = "ApplicationPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "" Xpos = "400.0" Ypos = "135.0" Image = ":/Symbols/dso.png" Description = "Multimeter" Height ="70" Width ="90" Panel = "ApplicationPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "" Xpos = "150.0" Ypos = "220.0" Image = ":/Symbols/qsm.png" Description = "Function Generator" Height ="70" Width ="90" Panel = "ApplicationPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "" Xpos = "270.0" Ypos = "220.0" Image = ":/Symbols/default.png" Description = "InCircuit Measurement" Height ="70" Width ="90" Panel = "ApplicationPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "" Xpos = "400.0" Ypos = "220.0" Image = ":/Symbols/Exit.png" Description = "Short Locator" Height ="70" Width ="90" Panel = "ApplicationPanel" Window = "MainWindow" Type ="SIDEBAR" />
+      </ApplicationPanel>
+      <SettingsPanel>
+      	<ButtonName Caption = "Configuration" Xpos = "20" Ypos = "20" Image = "" Description ="Hardware Configuration" Height ="" Width ="" Panel = "SettingsPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "Update" Xpos = "20" Ypos = "20" Image = "" Description = "Software Update" Height ="" Width ="" Panel = "SettingsPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "Help" Xpos = "20" Ypos = "20" Image = "" Description = "Help" Height ="" Width ="" Panel = "SettingsPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+      </SettingsPanel>
+      <UtilitiesPanel>
+      	<ButtonName Caption = "TestJig" Xpos = "20" Ypos = "20" Image = "" Description = "PortableTester TestJig" Height ="" Width ="" Panel = "UtilitiesPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "Backup" Xpos = "20" Ypos = "20" Image = "" Description = "Backup Projects" Height ="" Width ="" Panel = "UtilitiesPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "Import" Xpos = "20" Ypos = "20" Image = "" Description = "Import Projects" Height ="" Width ="" Panel = "UtilitiesPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+      </UtilitiesPanel>
+      <BottomPanel>
+       	<ButtonName Caption = "ShutDown" Xpos = "20" Ypos = "20" Image = "" Description ="PowerOff Tester" Height ="" Width ="" Panel = "BottomPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+	<ButtonName Caption = "Next" Xpos = "20" Ypos = "20" Image = "" Description = "Navigate Next Component" Height ="" Width ="" Panel = "BottomPanel" Window = "MainWindow" Type ="SIDEBAR"/>
+      </BottomPanel>
+  </MainWindow>
+  <VI>
+  <VIFunctionalPanel>
+      <ButtonName Caption = "" Xpos = "700" Ypos = "35" Image =  ":/Symbols/start.jpeg" Description ="User Settings" Height ="80" Width ="100" Panel = "VIFunctionalPanel" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "" Xpos = "700" Ypos = "115" Image = ":/Symbols/Stop_48x48.png" Description ="Learn Trace" Height ="80" Width ="100" Panel = "VIFunctionalPanel" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "" Xpos = "700" Ypos = "195" Image = ":/Symbols/Probe-learn.png" Description ="Verify Trace" Height ="80" Width ="100" Panel = "VIFunctionalPanel" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "" Xpos = "700" Ypos = "275" Image = ":/Symbols/Probe-check.png" Description ="MultipleTrace" Height ="80" Width ="100" Panel = "VIFunctionalPanel" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "" Xpos = "700" Ypos = "355" Image = ":/Symbols/Exit.png" Description ="Probe Status" Height ="80" Width ="100" Panel = "VIFunctionalPanel" Window = "VI" Type ="SIDEBAR"/>
+   </VIFunctionalPanel>
+   <VISettingsPanel>
+      <ButtonName Caption = "Clip" Xpos = "310" Ypos = "30" Image =  "" Description ="Select Clip" Height ="40" Width ="80" Panel = "VISettingsPanel" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "Probe" Xpos = "310" Ypos = "90" Image = "" Description ="Select Probe" Height ="40" Width ="80" Panel = "VISettingsPanel" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "Pin Combintaion" Xpos = "470" Ypos = "30" Image =  "" Description ="Select Clip" Height ="40" Width ="150" Panel = "VISettingsPanel" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "Pattern Selection" Xpos = "470" Ypos = "90" Image = "" Description ="Select Probe" Height ="40" Width ="150" Panel = "VISettingsPanel" Window = "VI" Type ="SIDEBAR"/>
+   </VISettingsPanel>
+    <VIInteractivePanel>
+      <ButtonName Caption = "" Xpos = "104" Ypos = "12" Image =  ":/Symbols/Uparrow1.png" Description ="VUP" Height ="40" Width ="40" Panel = "VIInteractivePanel" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "" Xpos = "185" Ypos = "12" Image = ":/Symbols/Uparrow1.png" Description ="IUP" Height ="40" Width ="40" Panel = "VIInteractivePanel" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "" Xpos = "285" Ypos = "12" Image =  ":/Symbols/Uparrow1.png" Description ="FUP" Height ="40" Width ="40" Panel = "VIInteractivePanel" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "" Xpos = "104" Ypos = "155" Image = ":/Symbols/Dparrow1.png" Description ="VDOWN" Height ="40" Width ="40" Panel = "VIInteractivePanel" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "" Xpos = "185" Ypos = "155" Image = ":/Symbols/Dparrow1.png" Description ="IDOWN" Height ="40" Width ="40" Panel = "VIInteractivePanel" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "" Xpos = "285" Ypos = "155" Image =  ":/Symbols/Dparrow1.png" Description ="FDOWN" Height ="40" Width ="40" Panel = "VIInteractivePanel" Window = "VI" Type ="SIDEBAR"/>
+   </VIInteractivePanel>
+   <VIUserSettings>
+      <ButtonName Caption = "Clip" Xpos = "41" Ypos = "95" Image =  "" Description ="Select Clip" Height ="40" Width ="70" Panel = "VIUserSettings" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = "Probe" Xpos = "131" Ypos = "95" Image = "" Description ="Select Probe" Height ="40" Width ="70" Panel = "VIUserSettings" Window = "VI" Type ="SIDEBAR"/>
+   <VIUserSettings>
+   <VIEMBKeySettings>
+      <ButtonName Caption = " L " Xpos = "470" Ypos = "390" Image =  "" Description ="Left" Height ="50" Width ="50" Panel = "VIEMBKeySettings" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = " M " Xpos = "470" Ypos = "460" Image = "" Description ="Middle" Height ="50" Width ="50" Panel = "VIEMBKeySettings" Window = "VI" Type ="SIDEBAR"/>
+      <ButtonName Caption = " R " Xpos = "470" Ypos = "530" Image = "" Description ="Right" Height ="50" Width ="50" Panel = "VIEMBKeySettings" Window = "VI" Type ="SIDEBAR"/>
+   <VIEMBKeySettings>
+   
+  </VI>
+  
+  <ICM>
+    <ICMMainPanel>
+      <ButtonName Caption = "OHMS" Xpos = "30" Ypos = "40" Image = "" Description ="Resistance Measurement" Height ="60" Width ="80" Panel = "ICMMainPanel" Window = "ICM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "FARAD" Xpos = "140" Ypos = "40" Image = "" Description ="Capacitance Measurement" Height ="60" Width ="80" Panel = "ICMMainPanel" Window = "ICM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "HENRY" Xpos = "250" Ypos = "40" Image = "" Description ="Inductance Measurement" Height ="60" Width ="80" Panel = "ICMMainPanel" Window = "ICM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "4 WIRE" Xpos = "80" Ypos = "160" Image = "" Description ="4 Wire Measurement" Height ="60" Width ="80" Panel = "ICMMainPanel" Window = "ICM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "GUARDING" Xpos = "200" Ypos = "160" Image = "" Description ="Guarding" Height ="60" Width ="100" Panel = "ICMMainPanel" Window = "ICM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "UP" Xpos = "410" Ypos = "20" Image = "" Description ="Increment Values" Height ="60" Width ="80" Panel = "ICMMainPanel" Window = "ICM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "AUTO" Xpos = "410" Ypos = "90" Image = "" Description ="Auto Range Values" Height ="60" Width ="80" Panel = "ICMMainPanel" Window = "ICM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "DOWN" Xpos = "410" Ypos = "160" Image = "" Description ="Decrement Values" Height ="60" Width ="80" Panel = "ICMMainPanel" Window = "ICM" Type ="SIDEBAR"/>
+    </ICMMainPanel>
+    <ICMMeasurePanel>
+      <ButtonName Caption = "MEASURE" Xpos = "20" Ypos = "20" Image = "" Description ="Start Measurement" Height ="60" Width ="80" Panel = "ICMMeasurePanel" Window = "ICM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "STOP" Xpos = "20" Ypos = "100" Image = "" Description ="Stop Measurement" Height ="60" Width ="80" Panel = "ICMMeasurePanel" Window = "ICM" Type ="SIDEBAR"/>
+    </ICMMeasurePanel>
+  </ICM>
+  <FG>
+    <FGFunctionPanel>
+      <ButtonName Caption = "SINE" Xpos = "20" Ypos = "40" Image = "" Description ="SINE Wave" Height ="60" Width ="80" Panel = "FGFunctionPanel" Window = "FG" Type ="SIDEBAR"/>
+      <ButtonName Caption = "SQUARE" Xpos = "20" Ypos = "140" Image = "" Description ="SQUARE Wave" Height ="60" Width ="80" Panel = "FGFunctionPanel" Window = "FG" Type ="SIDEBAR"/>
+      <ButtonName Caption = "TRIANGLE" Xpos = "20" Ypos = "240" Image = "" Description ="TRIANGLE Wave" Height ="60" Width ="80" Panel = "FGFunctionPanel" Window = "FG" Type ="SIDEBAR"/>
+      <ButtonName Caption = "RAMP" Xpos = "20" Ypos = "340" Image = "" Description ="RAMP Wave" Height ="60" Width ="80" Panel = "FGFunctionPanel" Window = "FG" Type ="SIDEBAR"/>
+    </FGFunctionPanel>
+    <FGMeasurePanel>
+      <ButtonName Caption = "RUN" Xpos = "20" Ypos = "20" Image = "" Description ="RUN FG" Height ="60" Width ="80" Panel = "FGMeasurePanel" Window = "FG" Type ="SIDEBAR"/>
+      <ButtonName Caption = "STOP" Xpos = "20" Ypos = "90" Image = "" Description ="STOP FG" Height ="60" Width ="80" Panel = "FGMeasurePanel" Window = "FG" Type ="SIDEBAR"/>
+    </FGMeasurePanel>
+    <FGMainPanel>
+      <ButtonName Caption = "TTL" Xpos = "30" Ypos = "100" Image = "" Description ="TTL Set" Height ="60" Width ="80" Panel = "FGMainPanel" Window = "FG" Type ="SIDEBAR"/>
+      <ButtonName Caption = "CMOS" Xpos = "150" Ypos = "100" Image = "" Description ="CMOS Set" Height ="60" Width ="80" Panel = "FGMainPanel" Window = "FG" Type ="SIDEBAR"/>
+    </FGMainPanel>
+  </FG>
+  <DMM>
+    <DMMMainPanel>
+      <ButtonName Caption = "INCR" Xpos = "50" Ypos = "220" Image = "" Description ="Increment Values" Height ="60" Width ="80" Panel = "DMMMainPanel" Window = "DMM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "AUTO" Xpos = "180" Ypos = "220" Image = "" Description ="AutoRange Values" Height ="60" Width ="80" Panel = "DMMMainPanel" Window = "DMM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "DECR" Xpos = "300" Ypos = "220" Image = "" Description ="Decrement Values" Height ="60" Width ="80" Panel = "DMMMainPanel" Window = "DMM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "NULL" Xpos = "470" Ypos = "30" Image = "" Description ="NULL Values" Height ="60" Width ="80" Panel = "DMMMainPanel" Window = "DMM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "CONTINUITY" Xpos = "470" Ypos = "110" Image = "" Description ="Continuity Values" Height ="60" Width ="80" Panel = "DMMMainPanel" Window = "DMM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "DIODE" Xpos = "470" Ypos = "190" Image = "" Description ="DIODE" Height ="60" Width ="80" Panel = "DMMMainPanel" Window = "DMM" Type ="SIDEBAR"/>
+    </DMMMainPanel>
+    <DMMFunctionPanel>
+      <ButtonName Caption = "MEASURE" Xpos = "690" Ypos = "220" Image = "" Description ="Measure Values" Height ="60" Width ="80" Panel = "DMMFunctionPanel" Window = "DMM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "STOP" Xpos = "690" Ypos = "300" Image = "" Description ="STOP Measure Values" Height ="60" Width ="80" Panel = "DMMFunctionPanel" Window = "DMM" Type ="SIDEBAR"/>
+      
+    </DMMFunctionPanel> 
+    <MeasurmentPanel>
+      <ButtonName Caption = "V" Xpos = "10" Ypos = "20" Image = "" Description ="Voltage Measurement" Height ="60" Width ="80" Panel = "MeasurmentPanel" Window = "DMM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "C" Xpos = "120" Ypos = "20" Image = "" Description ="Current Measurement" Height ="60" Width ="80" Panel = "MeasurmentPanel" Window = "DMM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "AC" Xpos = "10" Ypos = "120" Image = "" Description ="AC Measurement" Height ="60" Width ="80" Panel = "MeasurmentPanel" Window = "DMM" Type ="SIDEBAR"/>
+      <ButtonName Caption = "DC" Xpos = "120" Ypos = "120" Image = "" Description ="DC Measurement" Height ="60" Width ="80" Panel = "MeasurmentPanel" Window = "DMM" Type ="SIDEBAR"/>
+    </MeasurmentPanel>
+    <ResistancePanel>
+      <ButtonName Caption = "2 WIRE" Xpos = "30" Ypos = "20" Image = "" Description ="2 WIRE Measurement" Height ="60" Width ="80" Panel = "ResistancePanel" Window = "DMM" Type ="PANEL"/>
+      <ButtonName Caption = "4 WIRE" Xpos = "30" Ypos = "120" Image = "" Description ="4 WIRE Measurement" Height ="60" Width ="80" Panel = "ResistancePanel" Window = "DMM" Type ="PANEL"/>
+    </ResistancePanel>
+  </DMM> 
+  <ICM>
+  </ICM>
+  <DSO>
+      <FunctionPanel>
+	<ButtonName Caption = "CH1" Xpos = "700.0" Ypos = "28.0" Image = "" Description = "Channel 1" Height ="50" Width ="90" Panel = "FunctionPanel" Window = "DSO" Type ="SIDEBAR"/>
+	<ButtonName Caption = "CH2" Xpos = "700.0" Ypos = "120.0" Image = "" Description = "Channel 2" Height ="50" Width ="90" Panel = "FunctionPanel" Window = "DSO" Type ="SIDEBAR"/>
+	<ButtonName Caption = "TRIGGER" Xpos = "700.0" Ypos = "220.0" Image = "" Description = "Trigger" Height ="50" Width ="90" Panel = "FunctionPanel" Window = "DSO" Type ="SIDEBAR"/>
+	<ButtonName Caption = "TIMEBASE" Xpos = "700.0" Ypos = "320.0" Image = "" Description = "Timebase" Height ="50" Width ="90" Panel = "FunctionPanel" Window = "DSO" Type ="SIDEBAR"/>
+	<ButtonName Caption = "CURSORS" Xpos = "700.0" Ypos = "420.0" Image = "" Description = "Cursors" Height ="50" Width ="90" Panel = "FunctionPanel" Window = "DSO" Type ="SIDEBAR"/>
+	<ButtonName Caption = "EXIT" Xpos = "700.0" Ypos = "520.0" Image = "" Description = "QUIT" Height ="50" Width ="90" Panel = "FunctionPanel" Window = "DSO" Type ="SIDEBAR"/>
+    </FunctionPanel>
+    <ChannelPanel>
+	<ButtonName Caption = "AC" Xpos = "120.0" Ypos = "50.0" Image = "" Description = "Channel 1" Height ="30" Width ="100" Panel = "ChannelPanel" Window = "DSO" Type ="UP"/>
+	<ButtonName Caption = "DC" Xpos = "120.0" Ypos = "100.0" Image = "" Description = "Channel 1" Height ="30" Width ="100" Panel = "ChannelPanel" Window = "DSO" Type ="DOWN"/>
+	<ButtonName Caption = "FC" Xpos = "340.0" Ypos = "50.0" Image = "" Description = "Channel 1" Height ="30" Width ="100" Panel = "ChannelPanel" Window = "DSO" Type ="UP"/>
+	<ButtonName Caption = "C" Xpos = "340.0" Ypos = "100.0" Image = "" Description = "Channel 1" Height ="30" Width ="100" Panel = "ChannelPanel" Window = "DSO" Type ="DOWN"/>
+	<ButtonName Caption = "AC" Xpos = "550.0" Ypos = "50.0" Image = "" Description = "Channel 1" Height ="40" Width ="80" Panel = "ChannelPanel" Window = "DSO" Type ="PANEL"/>
+	<ButtonName Caption = "DC" Xpos = "550.0" Ypos = "100.0" Image = "" Description = "Channel 1" Height ="40" Width ="80" Panel = "ChannelPanel" Window = "DSO" Type ="PANEL"/>
+    </ChannelPanel>
+
+  </DSO>
+  <SL>
+  </SL>
+</PortableTester>
+  

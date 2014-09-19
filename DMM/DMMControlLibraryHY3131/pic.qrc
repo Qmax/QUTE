@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Control-Panel-icon.png</file>
+        <file>Letter-C-icon.png</file>
+        <file>Letter-R-icon.png</file>
+        <file>Letter-G-icon.png</file>
+        <file>Letter-A-icon.png</file>
+        <file>logout-icon.png</file>
+        <file>Images/home.png</file>
+        <file>Images/home2.png</file>
+        <file>Images/Zoom-Out-icon.png</file>
+        <file>Images/Zoom-In-icon.png</file>
+    </qresource>
+    <qresource prefix="/new/prefix1">
+        <file>Ammeter.jpg</file>
+        <file>Ohmmeter.jpg</file>
+        <file>voltmeter.jpg</file>
+        <file>prev-icon.png</file>
+        <file>next-icon.png</file>
+        <file>red2.png</file>
+        <file>red.png</file>
+        <file>BNC2.png</file>
+        <file>BNC.png</file>
+        <file>black2.png</file>
+        <file>black.png</file>
+        <file>25PinDIN2.png</file>
+        <file>25PinDIN.png</file>
+        <file>15PinDIN2.png</file>
+        <file>15PinDIN.png</file>
+        <file>fuse.png</file>
+        <file>graph.png</file>
+    </qresource>
+</RCC>

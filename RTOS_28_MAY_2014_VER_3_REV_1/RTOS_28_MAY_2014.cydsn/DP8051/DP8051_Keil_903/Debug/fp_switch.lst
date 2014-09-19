@@ -1,0 +1,1263 @@
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 1   
+
+
+C51 COMPILER V9.03, COMPILATION OF MODULE FP_SWITCH
+OBJECT MODULE PLACED IN .\DP8051\DP8051_Keil_903\Debug\fp_switch.obj
+COMPILER INVOKED BY: C:\Program Files\Cypress\PSoC Creator\2.0\PSoC Creator\import\keil\pk51\9.03\C51\BIN\c51.exe .\fp_s
+                    -witch.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051\DP8051_Keil_903\Debug\fp_switch.lst) CD DB NOIP OT(2,SIZE) INCDIR(Gener
+                    -ated_Source\PSoC3) OJ(.\DP8051\DP8051_Keil_903\Debug\fp_switch.obj)
+
+line level    source
+
+   1          /* ========================================
+   2           *
+   3           * Copyright YOUR COMPANY, THE YEAR
+   4           * All Rights Reserved
+   5           * UNPUBLISHED, LICENSED SOFTWARE.
+   6           *
+   7           * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8           * WHICH IS THE PROPERTY OF your company.
+   9           *
+  10           * ========================================
+  11          */
+  12          
+  13          #include "os.h"
+  14          #include "UART_INT.h"
+  15          #include "fp_switch.h"
+  16          
+  17          unsigned char prnt_en,i,*cmd,rx_word[32];
+  18          
+  19          void fp_switch (void) _task_ 4
+  20          {
+  21   1              uint8 p=0,k;
+  22   1              *cmd = rx_word[32];
+  23   1              
+  24   1              for(;;)
+  25   1              {
+  26   2                      os_wait1(K_SIG);                        //      Wait for Signal from TASK 1 "UART_INT"  //
+  27   2      
+  28   2              if(prnt_en)
+  29   2              {
+  30   3                      if(i == 0x00)
+  31   3                      {
+  32   4                              UART_WriteTxData(0);
+  33   4                      }
+  34   3                      else
+  35   3                      {
+  36   4                              p=i-1;
+  37   4                              for(k=0 ; k <= p ; k++)
+  38   4                              {
+  39   5      //                              UART_WriteTxData(k);
+  40   5      //                              while(!(UART_ReadTxStatus() & UART_TX_STS_FIFO_EMPTY))
+  41   5      //                              {
+  42   5      //                                      ;
+  43   5      //                              }
+  44   5                                      UART_WriteTxData(rx_word[k]);
+  45   5                                      while(!(UART_ReadTxStatus() & UART_TX_STS_FIFO_EMPTY))
+  46   5                                      {
+  47   6                                              ;
+  48   6                                      }
+  49   5                              }
+  50   4                      }
+  51   3      //              do{
+  52   3      //                      UART_ClearTxBuffer();
+  53   3      //                      UART_WriteTxData(*cmd);
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 2   
+
+  54   3      //                      cmd++;j--;
+  55   3      //                      }while(j);
+  56   3                              prnt_en = 0;
+  57   3              }
+  58   2              
+  59   2              switch(*cmd)
+  60   2      
+  61   2                      case 02:
+  62   2                      {
+  63   3                              cmd++;
+  64   3                              if(*cmd == 0x08)
+  65   3                              {
+  66   4                                      UART_WriteTxData(0x08);
+  67   4                                      while(!(UART_ReadTxStatus() & UART_TX_STS_FIFO_EMPTY))
+  68   4                                      {
+  69   5                                              ;
+  70   5                                      }
+  71   4                              }
+  72   3                              else if(*cmd == 0x04)
+  73   3                              {
+  74   4                                      UART_WriteTxData(0x04);
+  75   4                                      while(!(UART_ReadTxStatus() & UART_TX_STS_FIFO_EMPTY))
+  76   4                                      {
+  77   5                                              ;
+  78   5                                      }
+  79   4                              }
+  80   3                              else
+  81   3                              {}
+  82   3                              cmd++;
+  83   3                              if(*cmd == 0x07)
+  84   3                              {
+  85   4                                      UART_WriteTxData(0x07);
+  86   4                                      while(!(UART_ReadTxStatus() & UART_TX_STS_FIFO_EMPTY))
+  87   4                                      {
+  88   5                                              ;
+  89   5                                      }
+  90   4                              }
+  91   3                              else if(*cmd == 0x05)
+  92   3                              {
+  93   4                                      UART_WriteTxData(0x05);
+  94   4                                      while(!(UART_ReadTxStatus() & UART_TX_STS_FIFO_EMPTY))
+  95   4                                      {
+  96   5                                              ;
+  97   5                                      }
+  98   4                              }
+  99   3                              else
+ 100   3                              {}
+ 101   3      //                      cmd++;
+ 102   3      //                      UART_WriteTxData(*cmd);
+ 103   3                              break;
+ 104   3      
+ 105   3                      case 03:
+ 106   3                              cmd++;
+ 107   3                              if(*cmd == 0x00)
+ 108   3                              {
+ 109   4                                      UART_WriteTxData(0x00);                 
+ 110   4                              }
+ 111   3                              else if(*cmd == 0xFF)
+ 112   3                              {
+ 113   4                                      UART_WriteTxData(0xFF);
+ 114   4                              }
+ 115   3                              else
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 3   
+
+ 116   3                              {}
+ 117   3                              cmd++;
+ 118   3                              if(*cmd == 0x55)
+ 119   3                              {
+ 120   4                                      UART_WriteTxData(0x55);
+ 121   4                              }
+ 122   3                              else if(*cmd == 0x77)
+ 123   3                              {
+ 124   4                                      UART_WriteTxData(0x77);
+ 125   4                              }
+ 126   3                              else
+ 127   3                              {}
+ 128   3                              cmd++;
+ 129   3                              if(*cmd == 0x66)
+ 130   3                              {
+ 131   4                                      UART_WriteTxData(0x66);                 
+ 132   4                              }
+ 133   3                              else if(*cmd == 0x99)
+ 134   3                              {
+ 135   4                                      UART_WriteTxData(0x99);
+ 136   4                              }
+ 137   3                              else
+ 138   3                              {}
+ 139   3                              break;
+ 140   3                              
+ 141   3                      case 04:
+ 142   3                              cmd++;
+ 143   3                              if(*cmd == 0x00)
+ 144   3                              {
+ 145   4                                      UART_WriteTxData(0x00);                 
+ 146   4                              }
+ 147   3                              else if(*cmd == 0xFF)
+ 148   3                              {
+ 149   4                                      UART_WriteTxData(0xFF);
+ 150   4                              }
+ 151   3                              else
+ 152   3                              {}
+ 153   3                              cmd++;
+ 154   3                              if(*cmd == 0x55)
+ 155   3                              {
+ 156   4                                      UART_WriteTxData(0x55);
+ 157   4                              }
+ 158   3                              else if(*cmd == 0x77)
+ 159   3                              {
+ 160   4                                      UART_WriteTxData(0x77);
+ 161   4                              }
+ 162   3                              else
+ 163   3                              {}
+ 164   3                              cmd++;
+ 165   3                              if(*cmd == 0x66)
+ 166   3                              {
+ 167   4                                      UART_WriteTxData(0x66);                 
+ 168   4                              }
+ 169   3                              else if(*cmd == 0x99)
+ 170   3                              {
+ 171   4                                      UART_WriteTxData(0x99);
+ 172   4                              }
+ 173   3                              else
+ 174   3                              {}
+ 175   3                              cmd++;
+ 176   3                              if(*cmd == 0xAB)
+ 177   3                              {
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 4   
+
+ 178   4                                      UART_WriteTxData(0xAB);                 
+ 179   4                              }
+ 180   3                              else if(*cmd == 0xCD)
+ 181   3                              {
+ 182   4                                      UART_WriteTxData(0xCD);
+ 183   4                              }
+ 184   3                              else
+ 185   3                              {}
+ 186   3                              break;
+ 187   3                              
+ 188   3                      case 05:
+ 189   3                              cmd++;
+ 190   3                              if(*cmd == 0x00)
+ 191   3                              {
+ 192   4      //                              UART_WriteTxData(*cmd);
+ 193   4                                      cmd++;
+ 194   4                                      if(*cmd == 0x02)
+ 195   4                                      {
+ 196   5      //                                      UART_WriteTxData(*cmd);
+ 197   5                                      }
+ 198   4                                      else if(*cmd == 0x03)
+ 199   4                                      {
+ 200   5      //                                      UART_WriteTxData(*cmd);
+ 201   5                                      }
+ 202   4                                      else
+ 203   4                                      {}
+ 204   4                              }
+ 205   3                              else if(*cmd == 0x01)
+ 206   3                              {
+ 207   4      //                              UART_WriteTxData(*cmd);
+ 208   4                                      cmd++;
+ 209   4                                      if(*cmd == 0x03)
+ 210   4                                      {
+ 211   5      //                                      UART_WriteTxData(*cmd);
+ 212   5                                      }
+ 213   4                                      else if(*cmd == 0x04)
+ 214   4                                      {
+ 215   5      //                                      UART_WriteTxData(*cmd);
+ 216   5                                      }
+ 217   4                                      else
+ 218   4                                      {}
+ 219   4                              }
+ 220   3                              break;
+ 221   3                      
+ 222   3                      case 06:
+ 223   3                              
+ 224   3                              cmd++;
+ 225   3      //                      UART_WriteTxData(*cmd);
+ 226   3                              
+ 227   3                              break;
+ 228   3                              
+ 229   3                      case 07:
+ 230   3                              
+ 231   3                              cmd++;
+ 232   3      //                      UART_WriteTxData(*cmd);
+ 233   3                              
+ 234   3                              break;
+ 235   3                              
+ 236   3                      case 0x40:
+ 237   3                              
+ 238   3                              UART_PutString("EXTERNAL MUX RELAYS SWITCHED");
+ 239   3                              cmd++;
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 5   
+
+ 240   3      //                      Test_Chnl_Switch(*cmd);
+ 241   3                              CyDelay(10);
+ 242   3      //                      Ref_Chnl_Switch(*cmd);
+ 243   3                              
+ 244   3                              break;
+ 245   3                              
+ 246   3                      case 0x50:                                                                              //      BAUD RATE CHANGE        //
+ 247   3                              
+ 248   3                              cmd++;
+ 249   3                              if(*cmd == 0x01)
+ 250   3                              {
+ 251   4                                      UART_Stop();
+ 252   4      //                              U_CLOCK_SetDividerValue(156);
+ 253   4                                      UART_Start();
+ 254   4                              }
+ 255   3                              else if(*cmd == 0x02)
+ 256   3                              {
+ 257   4                                      UART_Stop();
+ 258   4      //                              U_CLOCK_SetDividerValue(78);
+ 259   4                                      UART_Start();
+ 260   4                              }
+ 261   3                              else if(*cmd == 0x03)
+ 262   3                              {
+ 263   4                                      UART_Stop();
+ 264   4      //                              U_CLOCK_SetDividerValue(38);
+ 265   4                                      UART_Start();
+ 266   4                              }
+ 267   3                              else if(*cmd == 0x04)
+ 268   3                              {
+ 269   4                                      UART_Stop();
+ 270   4      //                              U_CLOCK_SetDividerValue(26);
+ 271   4                                      UART_Start();
+ 272   4                              }
+ 273   3                              else if(*cmd == 0x05)
+ 274   3                              {
+ 275   4                                      UART_Stop();
+ 276   4      //                              U_CLOCK_SetDividerValue(13);
+ 277   4                                      UART_Start();
+ 278   4                              }
+ 279   3                              else if(*cmd == 0x0F)
+ 280   3                              {
+ 281   4                                      /*      No Change OP    */
+ 282   4                              }
+ 283   3                              else
+ 284   3                              {
+ 285   4      //                              for(i = 0; i <= 31; i++)
+ 286   4      //                              {
+ 287   4      //                                      rx_word[i]      = 0x00;
+ 288   4      //                              }
+ 289   4      //                              dat_cnt         = 0;
+ 290   4      //                              cmd_exct        = 0;
+ 291   4      //                              UART_PutString("Unknown Value");        
+ 292   4                              }
+ 293   3                              break;
+ 294   3                              
+ 295   3      //              case 0x0A:                                              //      logic to print last received CMD and DATA values        //
+ 296   3      //              
+ 297   3      //                              p = i-1;
+ 298   3      //                              for(k=0 ; k <= p ; k++)
+ 299   3      //                              {
+ 300   3      //                                      UART_WriteTxData(rx_word[k]);
+ 301   3      //                                      while(!(UART_ReadTxStatus() & UART_TX_STS_FIFO_EMPTY))
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 6   
+
+ 302   3      //                                      {
+ 303   3      //                                              ;
+ 304   3      //                                      }
+ 305   3      //                              }
+ 306   3      ////                            do{
+ 307   3      ////                                    UART_ClearTxBuffer();
+ 308   3      ////                                    UART_WriteTxData(*cmd);
+ 309   3      ////                                    cmd++;j--;
+ 310   3      ////                              }     while(j);
+ 311   3      //                              
+ 312   3      //                              break;
+ 313   3                      }
+ 314   2              }
+ 315   1      }
+ 316          
+ 317          void fpswitch_INIT ()
+ 318          {
+ 319   1              os_create_task(4);
+ 320   1      }
+ 321          
+ 322          /*void Test_Chnl_Switch(val)
+ 323          {
+ 324                  uint16 temp=0x0000;
+ 325                  uint8 temp1;
+ 326                  
+ 327                  if(val <= 0x0F)
+ 328                  {
+ 329                          temp    = 0x0001 << val;
+ 330                          temp1   = temp >> 0x08;
+ 331          
+ 332                          UART_WriteTxData(temp1);
+ 333                          
+ 334                          UART_PutString("Inside Test Chnl Switch Val");
+ 335                          
+ 336                          SPIM_WriteTxData(0x00);
+ 337                          SPIM_WriteTxData(temp1);
+ 338                          SPIM_WriteTxData(temp);
+ 339                          while(!(SPIM_ReadTxStatus() & SPIM_STS_TX_FIFO_EMPTY))
+ 340                          {
+ 341                                  ;
+ 342                          }
+ 343                          CyDelayUs(10);
+ 344                          
+ 345                          SPIM_WriteTxData(0x01);
+ 346                          SPIM_WriteTxData(0x00);
+ 347                          SPIM_WriteTxData(0x00);
+ 348                          while(!(SPIM_ReadTxStatus() & SPIM_STS_TX_FIFO_EMPTY))
+ 349                          {
+ 350                                  ;
+ 351                          }
+ 352                          CyDelayUs(10);
+ 353                          
+ 354                          SPIM_WriteTxData(0x02);
+ 355                          SPIM_WriteTxData(0x00);
+ 356                          SPIM_WriteTxData(0x00);
+ 357                          while(!(SPIM_ReadTxStatus() & SPIM_STS_TX_FIFO_EMPTY))
+ 358                          {
+ 359                                  ;
+ 360                          }
+ 361                          CyDelayUs(10);
+ 362                          
+ 363                          SPIM_WriteTxData(0x03);
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 7   
+
+ 364                          SPIM_WriteTxData(0x00);
+ 365                          SPIM_WriteTxData(0x00);
+ 366                          while(!(SPIM_ReadTxStatus() & SPIM_STS_TX_FIFO_EMPTY))
+ 367                          {
+ 368                                  ;
+ 369                          }
+ 370                          CyDelayUs(10);
+ 371                          
+ 372                          SPIM_WriteTxData(0x08);
+ 373                          SPIM_WriteTxData(0x00);
+ 374                          SPIM_WriteTxData(0x11);
+ 375                          while(!(SPIM_ReadTxStatus() & SPIM_STS_TX_FIFO_EMPTY))
+ 376                          {
+ 377                                  ;
+ 378                          }
+ 379                          CyDelayUs(10);
+ 380                          
+ 381                          SPIM_WriteTxData(0x0F);
+ 382                          SPIM_WriteTxData(0x00);
+ 383                          SPIM_WriteTxData(0x00);
+ 384                          while(!(SPIM_ReadTxStatus() & SPIM_STS_TX_FIFO_EMPTY))
+ 385                          {
+ 386                                  ;
+ 387                          }
+ 388                          CyDelayUs(10);
+ 389                  }
+ 390          
+ 391          }*/
+ 392          
+ 393          /*void Ref_Chnl_Switch(val)
+ 394          {
+ 395                  uint16 temp=0x0000;
+ 396                  uint8 temp1;
+ 397          
+ 398                  if(val <= 0x0F)
+ 399                  {
+ 400                          temp    = 0x0001 << val;
+ 401                          temp1   = temp >> 0x08;
+ 402                          
+ 403                          UART_PutString("Inside Ref Chnl Switch Val");
+ 404                          
+ 405                          SPIM_WriteTxData(0x04);
+ 406                          SPIM_WriteTxData(temp1);
+ 407                          SPIM_WriteTxData(temp);
+ 408                          while(!(SPIM_ReadTxStatus() & SPIM_STS_TX_FIFO_EMPTY))
+ 409                          {
+ 410                                  ;
+ 411                          }
+ 412                          CyDelayUs(10);
+ 413                          
+ 414                          SPIM_WriteTxData(0x05);
+ 415                          SPIM_WriteTxData(0x00);
+ 416                          SPIM_WriteTxData(0x00);
+ 417                          while(!(SPIM_ReadTxStatus() & SPIM_STS_TX_FIFO_EMPTY))
+ 418                          {
+ 419                                  ;
+ 420                          }
+ 421                          CyDelayUs(10);
+ 422                          
+ 423                          SPIM_WriteTxData(0x06);
+ 424                          SPIM_WriteTxData(0x00);
+ 425                          SPIM_WriteTxData(0x00);
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 8   
+
+ 426                          while(!(SPIM_ReadTxStatus() & SPIM_STS_TX_FIFO_EMPTY))
+ 427                          {
+ 428                                  ;
+ 429                          }
+ 430                          CyDelayUs(10);
+ 431                          
+ 432                          SPIM_WriteTxData(0x07);
+ 433                          SPIM_WriteTxData(0x00);
+ 434                          SPIM_WriteTxData(0x00);
+ 435                          while(!(SPIM_ReadTxStatus() & SPIM_STS_TX_FIFO_EMPTY))
+ 436                          {
+ 437                                  ;
+ 438                          }
+ 439                          CyDelayUs(10);
+ 440                          
+ 441                          SPIM_WriteTxData(0x09);
+ 442                          SPIM_WriteTxData(0x00);
+ 443                          SPIM_WriteTxData(0x11);
+ 444                          while(!(SPIM_ReadTxStatus() & SPIM_STS_TX_FIFO_EMPTY))
+ 445                          {
+ 446                                  ;
+ 447                          }
+ 448                          CyDelayUs(10);
+ 449                          
+ 450                          SPIM_WriteTxData(0x0F);
+ 451                          SPIM_WriteTxData(0x00);
+ 452                          SPIM_WriteTxData(0x00);
+ 453                          while(!(SPIM_ReadTxStatus() & SPIM_STS_TX_FIFO_EMPTY))
+ 454                          {
+ 455                                  ;
+ 456                          }
+ 457                          CyDelayUs(10);
+ 458                  }
+ 459                  
+ 460          }*/
+ 461          
+ 462          /* [] END OF FILE */
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 9   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION fp_switch (BEGIN)
+                                           ; SOURCE LINE # 19
+                                           ; SOURCE LINE # 21
+0000 900000      R     MOV     DPTR,#p
+0003 E4                CLR     A
+0004 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 22
+0005 900000      R     MOV     DPTR,#rx_word+020H
+0008 E0                MOVX    A,@DPTR
+0009 FF                MOV     R7,A
+000A 900000      R     MOV     DPTR,#cmd
+000D 120000      E     LCALL   ?C?PLDXDATA
+0010 EF                MOV     A,R7
+0011 120000      E     LCALL   ?C?CSTPTR
+                                           ; SOURCE LINE # 24
+0014         ?C0001:
+                                           ; SOURCE LINE # 25
+                                           ; SOURCE LINE # 26
+0014 7F01              MOV     R7,#01H
+0016 120000      E     LCALL   _os_wait1
+                                           ; SOURCE LINE # 28
+0019 900000      R     MOV     DPTR,#prnt_en
+001C E0                MOVX    A,@DPTR
+001D FF                MOV     R7,A
+001E EF                MOV     A,R7
+001F 605A              JZ      ?C0003
+                                           ; SOURCE LINE # 29
+                                           ; SOURCE LINE # 30
+0021 900000      R     MOV     DPTR,#i
+0024 E0                MOVX    A,@DPTR
+0025 FF                MOV     R7,A
+0026 EF                MOV     A,R7
+0027 7007              JNZ     ?C0004
+                                           ; SOURCE LINE # 31
+                                           ; SOURCE LINE # 32
+0029 7F00              MOV     R7,#00H
+002B 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 33
+002E 8046              SJMP    ?C0005
+0030         ?C0004:
+                                           ; SOURCE LINE # 35
+                                           ; SOURCE LINE # 36
+0030 900000      R     MOV     DPTR,#i
+0033 E0                MOVX    A,@DPTR
+0034 FF                MOV     R7,A
+0035 EF                MOV     A,R7
+0036 14                DEC     A
+0037 FF                MOV     R7,A
+0038 900000      R     MOV     DPTR,#p
+003B EF                MOV     A,R7
+003C F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 37
+003D 900000      R     MOV     DPTR,#k
+0040 E4                CLR     A
+0041 F0                MOVX    @DPTR,A
+0042         ?C0006:
+0042 900000      R     MOV     DPTR,#p
+0045 E0                MOVX    A,@DPTR
+0046 FF                MOV     R7,A
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 10  
+
+0047 900000      R     MOV     DPTR,#k
+004A E0                MOVX    A,@DPTR
+004B FE                MOV     R6,A
+004C EE                MOV     A,R6
+004D D3                SETB    C
+004E 9F                SUBB    A,R7
+004F 5025              JNC     ?C0005
+                                           ; SOURCE LINE # 38
+                                           ; SOURCE LINE # 44
+0051 900000      R     MOV     DPTR,#k
+0054 E0                MOVX    A,@DPTR
+0055 FF                MOV     R7,A
+0056 7400        R     MOV     A,#LOW rx_word
+0058 2F                ADD     A,R7
+0059 F582              MOV     DPL,A
+005B E4                CLR     A
+005C 3400        R     ADDC    A,#HIGH rx_word
+005E F583              MOV     DPH,A
+0060 E0                MOVX    A,@DPTR
+0061 FF                MOV     R7,A
+0062 120000      E     LCALL   _UART_WriteTxData
+0065         ?C0009:
+                                           ; SOURCE LINE # 45
+0065 120000      E     LCALL   UART_ReadTxStatus
+0068 7E00              MOV     R6,#00H
+006A EF                MOV     A,R7
+006B 30E1F7            JNB     ACC.1,?C0009
+                                           ; SOURCE LINE # 46
+                                           ; SOURCE LINE # 48
+006E         ?C0010:
+                                           ; SOURCE LINE # 49
+006E         ?C0008:
+006E 900000      R     MOV     DPTR,#k
+0071 E0                MOVX    A,@DPTR
+0072 04                INC     A
+0073 F0                MOVX    @DPTR,A
+0074 80CC              SJMP    ?C0006
+                                           ; SOURCE LINE # 50
+0076         ?C0005:
+                                           ; SOURCE LINE # 56
+0076 900000      R     MOV     DPTR,#prnt_en
+0079 E4                CLR     A
+007A F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 57
+007B         ?C0003:
+                                           ; SOURCE LINE # 59
+007B 900000      R     MOV     DPTR,#cmd
+007E 120000      E     LCALL   ?C?PLDXDATA
+0081 120000      E     LCALL   ?C?CLDPTR
+0084 FF                MOV     R7,A
+0085 EF                MOV     A,R7
+0086 120000      E     LCALL   ?C?CCASE
+0089 0000        R     DW      ?C0012
+008B 02                DB      02H
+008C 0000        R     DW      ?C0029
+008E 03                DB      03H
+008F 0000        R     DW      ?C0042
+0091 04                DB      04H
+0092 0000        R     DW      ?C0059
+0094 05                DB      05H
+0095 0000        R     DW      ?C0071
+0097 06                DB      06H
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 11  
+
+0098 0000        R     DW      ?C0072
+009A 07                DB      07H
+009B 0000        R     DW      ?C0073
+009D 40                DB      040H
+009E 0000        R     DW      ?C0074
+00A0 50                DB      050H
+00A1 0000              DW      00H
+00A3 0000        R     DW      ?C0001
+                                           ; SOURCE LINE # 61
+00A5         ?C0012:
+                                           ; SOURCE LINE # 62
+                                           ; SOURCE LINE # 63
+00A5 900000      R     MOV     DPTR,#cmd+01H
+00A8 E4                CLR     A
+00A9 75F001            MOV     B,#01H
+00AC 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 64
+00AF 900000      R     MOV     DPTR,#cmd
+00B2 120000      E     LCALL   ?C?PLDXDATA
+00B5 120000      E     LCALL   ?C?CLDPTR
+00B8 FF                MOV     R7,A
+00B9 EF                MOV     A,R7
+00BA B40812            CJNE    A,#08H,?C0013
+                                           ; SOURCE LINE # 65
+                                           ; SOURCE LINE # 66
+00BD 7F08              MOV     R7,#08H
+00BF 120000      E     LCALL   _UART_WriteTxData
+00C2         ?C0014:
+                                           ; SOURCE LINE # 67
+00C2 120000      E     LCALL   UART_ReadTxStatus
+00C5 7E00              MOV     R6,#00H
+00C7 EF                MOV     A,R7
+00C8 20E120            JB      ACC.1,?C0016
+                                           ; SOURCE LINE # 68
+                                           ; SOURCE LINE # 70
+00CB 80F5              SJMP    ?C0014
+00CD         ?C0015:
+                                           ; SOURCE LINE # 71
+00CD 801C              SJMP    ?C0016
+00CF         ?C0013:
+                                           ; SOURCE LINE # 72
+00CF 900000      R     MOV     DPTR,#cmd
+00D2 120000      E     LCALL   ?C?PLDXDATA
+00D5 120000      E     LCALL   ?C?CLDPTR
+00D8 FF                MOV     R7,A
+00D9 EF                MOV     A,R7
+00DA B4040E            CJNE    A,#04H,?C0016
+                                           ; SOURCE LINE # 73
+                                           ; SOURCE LINE # 74
+00DD 7F04              MOV     R7,#04H
+00DF 120000      E     LCALL   _UART_WriteTxData
+00E2         ?C0018:
+                                           ; SOURCE LINE # 75
+00E2 120000      E     LCALL   UART_ReadTxStatus
+00E5 7E00              MOV     R6,#00H
+00E7 EF                MOV     A,R7
+00E8 30E1F7            JNB     ACC.1,?C0018
+                                           ; SOURCE LINE # 76
+                                           ; SOURCE LINE # 78
+00EB         ?C0019:
+                                           ; SOURCE LINE # 79
+                                           ; SOURCE LINE # 81
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 12  
+
+00EB         ?C0016:
+                                           ; SOURCE LINE # 82
+00EB 900000      R     MOV     DPTR,#cmd+01H
+00EE E4                CLR     A
+00EF 75F001            MOV     B,#01H
+00F2 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 83
+00F5 900000      R     MOV     DPTR,#cmd
+00F8 120000      E     LCALL   ?C?PLDXDATA
+00FB 120000      E     LCALL   ?C?CLDPTR
+00FE FF                MOV     R7,A
+00FF EF                MOV     A,R7
+0100 B40716            CJNE    A,#07H,?C0021
+                                           ; SOURCE LINE # 84
+                                           ; SOURCE LINE # 85
+0103 7F07              MOV     R7,#07H
+0105 120000      E     LCALL   _UART_WriteTxData
+0108         ?C0022:
+                                           ; SOURCE LINE # 86
+0108 120000      E     LCALL   UART_ReadTxStatus
+010B 7E00              MOV     R6,#00H
+010D EF                MOV     A,R7
+010E 30E103            JNB     ACC.1,$ + 6H
+0111 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 87
+                                           ; SOURCE LINE # 89
+0114 80F2              SJMP    ?C0022
+0116         ?C0023:
+                                           ; SOURCE LINE # 90
+0116 020000      R     LJMP    ?C0001
+0119         ?C0021:
+                                           ; SOURCE LINE # 91
+0119 900000      R     MOV     DPTR,#cmd
+011C 120000      E     LCALL   ?C?PLDXDATA
+011F 120000      E     LCALL   ?C?CLDPTR
+0122 FF                MOV     R7,A
+0123 EF                MOV     A,R7
+0124 6405              XRL     A,#05H
+0126 6003              JZ      $ + 5H
+0128 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 92
+                                           ; SOURCE LINE # 93
+012B 7F05              MOV     R7,#05H
+012D 120000      E     LCALL   _UART_WriteTxData
+0130         ?C0026:
+                                           ; SOURCE LINE # 94
+0130 120000      E     LCALL   UART_ReadTxStatus
+0133 7E00              MOV     R6,#00H
+0135 EF                MOV     A,R7
+0136 30E103            JNB     ACC.1,$ + 6H
+0139 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 95
+                                           ; SOURCE LINE # 97
+013C 80F2              SJMP    ?C0026
+013E         ?C0027:
+                                           ; SOURCE LINE # 98
+013E 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 100
+                                           ; SOURCE LINE # 103
+                                           ; SOURCE LINE # 105
+0141         ?C0029:
+                                           ; SOURCE LINE # 106
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 13  
+
+0141 900000      R     MOV     DPTR,#cmd+01H
+0144 E4                CLR     A
+0145 75F001            MOV     B,#01H
+0148 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 107
+014B 900000      R     MOV     DPTR,#cmd
+014E 120000      E     LCALL   ?C?PLDXDATA
+0151 120000      E     LCALL   ?C?CLDPTR
+0154 FF                MOV     R7,A
+0155 EF                MOV     A,R7
+0156 7007              JNZ     ?C0030
+                                           ; SOURCE LINE # 108
+                                           ; SOURCE LINE # 109
+0158 7F00              MOV     R7,#00H
+015A 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 110
+015D 8013              SJMP    ?C0031
+015F         ?C0030:
+                                           ; SOURCE LINE # 111
+015F 900000      R     MOV     DPTR,#cmd
+0162 120000      E     LCALL   ?C?PLDXDATA
+0165 120000      E     LCALL   ?C?CLDPTR
+0168 FF                MOV     R7,A
+0169 EF                MOV     A,R7
+016A B4FF05            CJNE    A,#0FFH,?C0031
+                                           ; SOURCE LINE # 112
+                                           ; SOURCE LINE # 113
+016D 7FFF              MOV     R7,#0FFH
+016F 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 114
+                                           ; SOURCE LINE # 116
+0172         ?C0031:
+                                           ; SOURCE LINE # 117
+0172 900000      R     MOV     DPTR,#cmd+01H
+0175 E4                CLR     A
+0176 75F001            MOV     B,#01H
+0179 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 118
+017C 900000      R     MOV     DPTR,#cmd
+017F 120000      E     LCALL   ?C?PLDXDATA
+0182 120000      E     LCALL   ?C?CLDPTR
+0185 FF                MOV     R7,A
+0186 EF                MOV     A,R7
+0187 B45507            CJNE    A,#055H,?C0034
+                                           ; SOURCE LINE # 119
+                                           ; SOURCE LINE # 120
+018A 7F55              MOV     R7,#055H
+018C 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 121
+018F 8013              SJMP    ?C0035
+0191         ?C0034:
+                                           ; SOURCE LINE # 122
+0191 900000      R     MOV     DPTR,#cmd
+0194 120000      E     LCALL   ?C?PLDXDATA
+0197 120000      E     LCALL   ?C?CLDPTR
+019A FF                MOV     R7,A
+019B EF                MOV     A,R7
+019C B47705            CJNE    A,#077H,?C0035
+                                           ; SOURCE LINE # 123
+                                           ; SOURCE LINE # 124
+019F 7F77              MOV     R7,#077H
+01A1 120000      E     LCALL   _UART_WriteTxData
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 14  
+
+                                           ; SOURCE LINE # 125
+                                           ; SOURCE LINE # 127
+01A4         ?C0035:
+                                           ; SOURCE LINE # 128
+01A4 900000      R     MOV     DPTR,#cmd+01H
+01A7 E4                CLR     A
+01A8 75F001            MOV     B,#01H
+01AB 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 129
+01AE 900000      R     MOV     DPTR,#cmd
+01B1 120000      E     LCALL   ?C?PLDXDATA
+01B4 120000      E     LCALL   ?C?CLDPTR
+01B7 FF                MOV     R7,A
+01B8 EF                MOV     A,R7
+01B9 B46608            CJNE    A,#066H,?C0038
+                                           ; SOURCE LINE # 130
+                                           ; SOURCE LINE # 131
+01BC 7F66              MOV     R7,#066H
+01BE 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 132
+01C1 020000      R     LJMP    ?C0001
+01C4         ?C0038:
+                                           ; SOURCE LINE # 133
+01C4 900000      R     MOV     DPTR,#cmd
+01C7 120000      E     LCALL   ?C?PLDXDATA
+01CA 120000      E     LCALL   ?C?CLDPTR
+01CD FF                MOV     R7,A
+01CE EF                MOV     A,R7
+01CF 6499              XRL     A,#099H
+01D1 6003              JZ      $ + 5H
+01D3 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 134
+                                           ; SOURCE LINE # 135
+01D6 7F99              MOV     R7,#099H
+01D8 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 136
+01DB 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 138
+                                           ; SOURCE LINE # 139
+                                           ; SOURCE LINE # 141
+01DE         ?C0042:
+                                           ; SOURCE LINE # 142
+01DE 900000      R     MOV     DPTR,#cmd+01H
+01E1 E4                CLR     A
+01E2 75F001            MOV     B,#01H
+01E5 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 143
+01E8 900000      R     MOV     DPTR,#cmd
+01EB 120000      E     LCALL   ?C?PLDXDATA
+01EE 120000      E     LCALL   ?C?CLDPTR
+01F1 FF                MOV     R7,A
+01F2 EF                MOV     A,R7
+01F3 7007              JNZ     ?C0043
+                                           ; SOURCE LINE # 144
+                                           ; SOURCE LINE # 145
+01F5 7F00              MOV     R7,#00H
+01F7 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 146
+01FA 8013              SJMP    ?C0044
+01FC         ?C0043:
+                                           ; SOURCE LINE # 147
+01FC 900000      R     MOV     DPTR,#cmd
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 15  
+
+01FF 120000      E     LCALL   ?C?PLDXDATA
+0202 120000      E     LCALL   ?C?CLDPTR
+0205 FF                MOV     R7,A
+0206 EF                MOV     A,R7
+0207 B4FF05            CJNE    A,#0FFH,?C0044
+                                           ; SOURCE LINE # 148
+                                           ; SOURCE LINE # 149
+020A 7FFF              MOV     R7,#0FFH
+020C 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 150
+                                           ; SOURCE LINE # 152
+020F         ?C0044:
+                                           ; SOURCE LINE # 153
+020F 900000      R     MOV     DPTR,#cmd+01H
+0212 E4                CLR     A
+0213 75F001            MOV     B,#01H
+0216 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 154
+0219 900000      R     MOV     DPTR,#cmd
+021C 120000      E     LCALL   ?C?PLDXDATA
+021F 120000      E     LCALL   ?C?CLDPTR
+0222 FF                MOV     R7,A
+0223 EF                MOV     A,R7
+0224 B45507            CJNE    A,#055H,?C0047
+                                           ; SOURCE LINE # 155
+                                           ; SOURCE LINE # 156
+0227 7F55              MOV     R7,#055H
+0229 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 157
+022C 8013              SJMP    ?C0048
+022E         ?C0047:
+                                           ; SOURCE LINE # 158
+022E 900000      R     MOV     DPTR,#cmd
+0231 120000      E     LCALL   ?C?PLDXDATA
+0234 120000      E     LCALL   ?C?CLDPTR
+0237 FF                MOV     R7,A
+0238 EF                MOV     A,R7
+0239 B47705            CJNE    A,#077H,?C0048
+                                           ; SOURCE LINE # 159
+                                           ; SOURCE LINE # 160
+023C 7F77              MOV     R7,#077H
+023E 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 161
+                                           ; SOURCE LINE # 163
+0241         ?C0048:
+                                           ; SOURCE LINE # 164
+0241 900000      R     MOV     DPTR,#cmd+01H
+0244 E4                CLR     A
+0245 75F001            MOV     B,#01H
+0248 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 165
+024B 900000      R     MOV     DPTR,#cmd
+024E 120000      E     LCALL   ?C?PLDXDATA
+0251 120000      E     LCALL   ?C?CLDPTR
+0254 FF                MOV     R7,A
+0255 EF                MOV     A,R7
+0256 B46607            CJNE    A,#066H,?C0051
+                                           ; SOURCE LINE # 166
+                                           ; SOURCE LINE # 167
+0259 7F66              MOV     R7,#066H
+025B 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 168
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 16  
+
+025E 8013              SJMP    ?C0052
+0260         ?C0051:
+                                           ; SOURCE LINE # 169
+0260 900000      R     MOV     DPTR,#cmd
+0263 120000      E     LCALL   ?C?PLDXDATA
+0266 120000      E     LCALL   ?C?CLDPTR
+0269 FF                MOV     R7,A
+026A EF                MOV     A,R7
+026B B49905            CJNE    A,#099H,?C0052
+                                           ; SOURCE LINE # 170
+                                           ; SOURCE LINE # 171
+026E 7F99              MOV     R7,#099H
+0270 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 172
+                                           ; SOURCE LINE # 174
+0273         ?C0052:
+                                           ; SOURCE LINE # 175
+0273 900000      R     MOV     DPTR,#cmd+01H
+0276 E4                CLR     A
+0277 75F001            MOV     B,#01H
+027A 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 176
+027D 900000      R     MOV     DPTR,#cmd
+0280 120000      E     LCALL   ?C?PLDXDATA
+0283 120000      E     LCALL   ?C?CLDPTR
+0286 FF                MOV     R7,A
+0287 EF                MOV     A,R7
+0288 B4AB08            CJNE    A,#0ABH,?C0055
+                                           ; SOURCE LINE # 177
+                                           ; SOURCE LINE # 178
+028B 7FAB              MOV     R7,#0ABH
+028D 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 179
+0290 020000      R     LJMP    ?C0001
+0293         ?C0055:
+                                           ; SOURCE LINE # 180
+0293 900000      R     MOV     DPTR,#cmd
+0296 120000      E     LCALL   ?C?PLDXDATA
+0299 120000      E     LCALL   ?C?CLDPTR
+029C FF                MOV     R7,A
+029D EF                MOV     A,R7
+029E 64CD              XRL     A,#0CDH
+02A0 6003              JZ      $ + 5H
+02A2 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 181
+                                           ; SOURCE LINE # 182
+02A5 7FCD              MOV     R7,#0CDH
+02A7 120000      E     LCALL   _UART_WriteTxData
+                                           ; SOURCE LINE # 183
+02AA 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 185
+                                           ; SOURCE LINE # 186
+                                           ; SOURCE LINE # 188
+02AD         ?C0059:
+                                           ; SOURCE LINE # 189
+02AD 900000      R     MOV     DPTR,#cmd+01H
+02B0 E4                CLR     A
+02B1 75F001            MOV     B,#01H
+02B4 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 190
+02B7 900000      R     MOV     DPTR,#cmd
+02BA 120000      E     LCALL   ?C?PLDXDATA
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 17  
+
+02BD 120000      E     LCALL   ?C?CLDPTR
+02C0 FF                MOV     R7,A
+02C1 EF                MOV     A,R7
+02C2 7034              JNZ     ?C0060
+                                           ; SOURCE LINE # 191
+                                           ; SOURCE LINE # 193
+02C4 900000      R     MOV     DPTR,#cmd+01H
+02C7 E4                CLR     A
+02C8 75F001            MOV     B,#01H
+02CB 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 194
+02CE 900000      R     MOV     DPTR,#cmd
+02D1 120000      E     LCALL   ?C?PLDXDATA
+02D4 120000      E     LCALL   ?C?CLDPTR
+02D7 FF                MOV     R7,A
+02D8 EF                MOV     A,R7
+02D9 6402              XRL     A,#02H
+02DB 7003              JNZ     $ + 5H
+02DD 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 195
+                                           ; SOURCE LINE # 197
+02E0         ?C0061:
+                                           ; SOURCE LINE # 198
+02E0 900000      R     MOV     DPTR,#cmd
+02E3 120000      E     LCALL   ?C?PLDXDATA
+02E6 120000      E     LCALL   ?C?CLDPTR
+02E9 FF                MOV     R7,A
+02EA EF                MOV     A,R7
+02EB 6403              XRL     A,#03H
+02ED 6003              JZ      $ + 5H
+02EF 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 199
+                                           ; SOURCE LINE # 201
+02F2 020000      R     LJMP    ?C0001
+02F5         ?C0063:
+                                           ; SOURCE LINE # 203
+                                           ; SOURCE LINE # 204
+02F5 020000      R     LJMP    ?C0001
+02F8         ?C0060:
+                                           ; SOURCE LINE # 205
+02F8 900000      R     MOV     DPTR,#cmd
+02FB 120000      E     LCALL   ?C?PLDXDATA
+02FE 120000      E     LCALL   ?C?CLDPTR
+0301 FF                MOV     R7,A
+0302 EF                MOV     A,R7
+0303 6401              XRL     A,#01H
+0305 6003              JZ      $ + 5H
+0307 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 206
+                                           ; SOURCE LINE # 208
+030A 900000      R     MOV     DPTR,#cmd+01H
+030D E4                CLR     A
+030E 75F001            MOV     B,#01H
+0311 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 209
+0314 900000      R     MOV     DPTR,#cmd
+0317 120000      E     LCALL   ?C?PLDXDATA
+031A 120000      E     LCALL   ?C?CLDPTR
+031D FF                MOV     R7,A
+031E EF                MOV     A,R7
+031F 6403              XRL     A,#03H
+0321 7003              JNZ     $ + 5H
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 18  
+
+0323 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 210
+                                           ; SOURCE LINE # 212
+0326         ?C0067:
+                                           ; SOURCE LINE # 213
+0326 900000      R     MOV     DPTR,#cmd
+0329 120000      E     LCALL   ?C?PLDXDATA
+032C 120000      E     LCALL   ?C?CLDPTR
+032F FF                MOV     R7,A
+0330 EF                MOV     A,R7
+0331 6404              XRL     A,#04H
+0333 6003              JZ      $ + 5H
+0335 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 214
+                                           ; SOURCE LINE # 216
+0338 020000      R     LJMP    ?C0001
+033B         ?C0069:
+                                           ; SOURCE LINE # 218
+                                           ; SOURCE LINE # 219
+                                           ; SOURCE LINE # 220
+033B 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 222
+033E         ?C0071:
+                                           ; SOURCE LINE # 224
+033E 900000      R     MOV     DPTR,#cmd+01H
+0341 E4                CLR     A
+0342 75F001            MOV     B,#01H
+0345 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 227
+0348 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 229
+034B         ?C0072:
+                                           ; SOURCE LINE # 231
+034B 900000      R     MOV     DPTR,#cmd+01H
+034E E4                CLR     A
+034F 75F001            MOV     B,#01H
+0352 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 234
+0355 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 236
+0358         ?C0073:
+                                           ; SOURCE LINE # 238
+0358 7BFF              MOV     R3,#0FFH
+035A 7A00        R     MOV     R2,#HIGH ?SC_0
+035C 7900        R     MOV     R1,#LOW ?SC_0
+035E 120000      E     LCALL   _UART_PutString
+                                           ; SOURCE LINE # 239
+0361 900000      R     MOV     DPTR,#cmd+01H
+0364 E4                CLR     A
+0365 75F001            MOV     B,#01H
+0368 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 241
+036B 7F0A              MOV     R7,#0AH
+036D 7E00              MOV     R6,#00H
+036F 7D00              MOV     R5,#00H
+0371 7C00              MOV     R4,#00H
+0373 120000      E     LCALL   _?CyDelay
+                                           ; SOURCE LINE # 244
+0376 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 246
+0379         ?C0074:
+                                           ; SOURCE LINE # 248
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 19  
+
+0379 900000      R     MOV     DPTR,#cmd+01H
+037C E4                CLR     A
+037D 75F001            MOV     B,#01H
+0380 120000      E     LCALL   ?C?IILDX
+                                           ; SOURCE LINE # 249
+0383 900000      R     MOV     DPTR,#cmd
+0386 120000      E     LCALL   ?C?PLDXDATA
+0389 120000      E     LCALL   ?C?CLDPTR
+038C FF                MOV     R7,A
+038D EF                MOV     A,R7
+038E B40109            CJNE    A,#01H,?C0075
+                                           ; SOURCE LINE # 250
+                                           ; SOURCE LINE # 251
+0391 120000      E     LCALL   UART_Stop
+                                           ; SOURCE LINE # 253
+0394 120000      E     LCALL   UART_Start
+                                           ; SOURCE LINE # 254
+0397 020000      R     LJMP    ?C0001
+039A         ?C0075:
+                                           ; SOURCE LINE # 255
+039A 900000      R     MOV     DPTR,#cmd
+039D 120000      E     LCALL   ?C?PLDXDATA
+03A0 120000      E     LCALL   ?C?CLDPTR
+03A3 FF                MOV     R7,A
+03A4 EF                MOV     A,R7
+03A5 B40209            CJNE    A,#02H,?C0077
+                                           ; SOURCE LINE # 256
+                                           ; SOURCE LINE # 257
+03A8 120000      E     LCALL   UART_Stop
+                                           ; SOURCE LINE # 259
+03AB 120000      E     LCALL   UART_Start
+                                           ; SOURCE LINE # 260
+03AE 020000      R     LJMP    ?C0001
+03B1         ?C0077:
+                                           ; SOURCE LINE # 261
+03B1 900000      R     MOV     DPTR,#cmd
+03B4 120000      E     LCALL   ?C?PLDXDATA
+03B7 120000      E     LCALL   ?C?CLDPTR
+03BA FF                MOV     R7,A
+03BB EF                MOV     A,R7
+03BC B40309            CJNE    A,#03H,?C0079
+                                           ; SOURCE LINE # 262
+                                           ; SOURCE LINE # 263
+03BF 120000      E     LCALL   UART_Stop
+                                           ; SOURCE LINE # 265
+03C2 120000      E     LCALL   UART_Start
+                                           ; SOURCE LINE # 266
+03C5 020000      R     LJMP    ?C0001
+03C8         ?C0079:
+                                           ; SOURCE LINE # 267
+03C8 900000      R     MOV     DPTR,#cmd
+03CB 120000      E     LCALL   ?C?PLDXDATA
+03CE 120000      E     LCALL   ?C?CLDPTR
+03D1 FF                MOV     R7,A
+03D2 EF                MOV     A,R7
+03D3 B40409            CJNE    A,#04H,?C0081
+                                           ; SOURCE LINE # 268
+                                           ; SOURCE LINE # 269
+03D6 120000      E     LCALL   UART_Stop
+                                           ; SOURCE LINE # 271
+03D9 120000      E     LCALL   UART_Start
+                                           ; SOURCE LINE # 272
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 20  
+
+03DC 020000      R     LJMP    ?C0001
+03DF         ?C0081:
+                                           ; SOURCE LINE # 273
+03DF 900000      R     MOV     DPTR,#cmd
+03E2 120000      E     LCALL   ?C?PLDXDATA
+03E5 120000      E     LCALL   ?C?CLDPTR
+03E8 FF                MOV     R7,A
+03E9 EF                MOV     A,R7
+03EA B40509            CJNE    A,#05H,?C0083
+                                           ; SOURCE LINE # 274
+                                           ; SOURCE LINE # 275
+03ED 120000      E     LCALL   UART_Stop
+                                           ; SOURCE LINE # 277
+03F0 120000      E     LCALL   UART_Start
+                                           ; SOURCE LINE # 278
+03F3 020000      R     LJMP    ?C0001
+03F6         ?C0083:
+                                           ; SOURCE LINE # 279
+03F6 900000      R     MOV     DPTR,#cmd
+03F9 120000      E     LCALL   ?C?PLDXDATA
+03FC 120000      E     LCALL   ?C?CLDPTR
+03FF FF                MOV     R7,A
+0400 EF                MOV     A,R7
+0401 640F              XRL     A,#0FH
+0403 6003              JZ      $ + 5H
+0405 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 280
+                                           ; SOURCE LINE # 282
+0408 020000      R     LJMP    ?C0001
+040B         ?C0085:
+                                           ; SOURCE LINE # 284
+                                           ; SOURCE LINE # 292
+                                           ; SOURCE LINE # 293
+040B 020000      R     LJMP    ?C0001
+                                           ; SOURCE LINE # 313
+                                           ; SOURCE LINE # 314
+040E 020000      R     LJMP    ?C0001
+0411 22                RET     
+             ; FUNCTION fp_switch (END)
+
+             ; FUNCTION fpswitch_INIT (BEGIN)
+                                           ; SOURCE LINE # 317
+                                           ; SOURCE LINE # 318
+                                           ; SOURCE LINE # 319
+0000 7F04              MOV     R7,#04H
+0002 120000      E     LCALL   _os_create_task
+                                           ; SOURCE LINE # 320
+0005 22                RET     
+             ; FUNCTION fpswitch_INIT (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1048    ----
+   CONSTANT SIZE    =     29    ----
+   XDATA SIZE       =     37       2
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+C51 COMPILER V9.03   FP_SWITCH                                                             11/16/2012 10:57:13 PAGE 21  
+
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

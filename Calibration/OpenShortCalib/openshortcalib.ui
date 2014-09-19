@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>OpenShortCalib</class>
+ <widget class="QWidget" name="OpenShortCalib">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>OpenShortCalib</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget{
+background-color:rgba(0,0,0,0);
+}</string>
+  </property>
+  <widget class="QGroupBox" name="gbBasePanel">
+   <property name="geometry">
+    <rect>
+     <x>4</x>
+     <y>3</y>
+     <width>392</width>
+     <height>290</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QGroupBox {
+background:qlineargradient(
+x1: 0, y1: 0, x2: 1, y2: 1, 
+stop: 0 #a9aa96,stop: 0.2 #cab9a9,
+stop: 0.4 #d8d7c8,stop: 0.6 #a9aa96, 
+stop: 0.8 #cab9a9,stop: 1 #717164);
+     border: 1px solid gray;
+     border-radius: 5px;
+     margin-top: 1ex; /* leave space at the top for the title */
+	font:16px bold;
+	color:black;
+ }
+
+ QGroupBox::title {
+     subcontrol-origin: margin;
+     subcontrol-position: top center; /* position at the top center */
+     padding: 0 3px;
+	 background-color:white;
+     border:1px solid black;
+	border-radius:5px;
+ }
+</string>
+   </property>
+   <property name="title">
+    <string>Open/Short Calibration Panel</string>
+   </property>
+   <widget class="QLabel" name="lblComponent">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>150</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="text">
+     <string>Select Component :</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cmbCompnt">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>40</y>
+      <width>140</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+     border: 2px solid black;
+     border-radius: 5px;
+     padding: 1px 18px 1px 3px;
+	background-color:white;
+	color:black;
+ }
+</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Resistance</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Inductance</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Capacitance</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="lblMethod">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>140</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="text">
+     <string>Select Method :</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="chkOpen">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>110</y>
+      <width>120</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>12</family>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox{
+font: 14px bold;
+color:black;
+}
+ QCheckBox::indicator {
+     width: 16px;
+     height:16px;
+   border: 2px solid black;
+	 border-radius:1;
+
+ }
+ QCheckBox::indicator::unchecked {
+		background-color:white;
+     }
+
+     QCheckBox::indicator:unchecked:hover {
+		background-color:white;
+     }
+
+     QCheckBox::indicator:unchecked:pressed {
+		background-color:white;
+     }
+
+     QCheckBox::indicator::checked {
+		background-color:#f2a400;
+     }
+
+     QCheckBox::indicator:checked:hover {
+		background-color:#f2a400;
+     }
+
+     QCheckBox::indicator:checked:pressed {
+		background-color:#f2a400;
+     }</string>
+    </property>
+    <property name="text">
+     <string>Probes Open</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="chkShort">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>110</y>
+      <width>120</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>12</family>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox{
+font: 14px bold;
+color:black;
+}
+ QCheckBox::indicator {
+     width: 16px;
+     height:16px;
+   border: 2px solid black;
+	 border-radius:1;
+
+ }
+ QCheckBox::indicator::unchecked {
+		background-color:white;
+     }
+
+     QCheckBox::indicator:unchecked:hover {
+		background-color:white;
+     }
+
+     QCheckBox::indicator:unchecked:pressed {
+		background-color:white;
+     }
+
+     QCheckBox::indicator::checked {
+		background-color:#f2a400;
+     }
+
+     QCheckBox::indicator:checked:hover {
+		background-color:#f2a400;
+     }
+
+     QCheckBox::indicator:checked:pressed {
+		background-color:#f2a400;
+     }</string>
+    </property>
+    <property name="text">
+     <string>Probes Short</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="chkLoad">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>150</y>
+      <width>150</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>12</family>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox{
+font: 14px bold;
+color:black;
+}
+ QCheckBox::indicator {
+     width: 16px;
+     height:16px;
+   border: 2px solid black;
+	 border-radius:1;
+
+ }
+ QCheckBox::indicator::unchecked {
+		background-color:white;
+     }
+
+     QCheckBox::indicator:unchecked:hover {
+		background-color:white;
+     }
+
+     QCheckBox::indicator:unchecked:pressed {
+		background-color:white;
+     }
+
+     QCheckBox::indicator::checked {
+		background-color:#f2a400;
+     }
+
+     QCheckBox::indicator:checked:hover {
+		background-color:#f2a400;
+     }
+
+     QCheckBox::indicator:checked:pressed {
+		background-color:#f2a400;
+     }</string>
+    </property>
+    <property name="text">
+     <string>Probes with Load</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbCalibrate">
+    <property name="geometry">
+     <rect>
+      <x>203</x>
+      <y>240</y>
+      <width>82</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+color:white;
+border: 1px solid #2D5059;
+border-radius: 10px;
+background-color: 
+qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,
+stop: 0 #1A74DB, 
+stop: 0.6 #5293DE, 
+stop:1 #FFFFFF);
+min-width: 80px;
+font: 12px;}</string>
+    </property>
+    <property name="text">
+     <string>Calibrate</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="chkCalibrated">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>190</y>
+      <width>110</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox{
+font: 14px bold;
+color:black;
+}
+ QCheckBox::indicator {
+     width: 16px;
+     height:16px;
+   border: 2px solid black;
+	 border-radius:1;
+
+ }
+ QCheckBox::indicator::unchecked {
+		background-color:white;
+     }
+
+     QCheckBox::indicator:unchecked:hover {
+		background-color:white;
+     }
+
+     QCheckBox::indicator:unchecked:pressed {
+		background-color:white;
+     }
+
+     QCheckBox::indicator::checked {
+		background-color:#f2a400;
+     }
+
+     QCheckBox::indicator:checked:hover {
+		background-color:#f2a400;
+     }
+
+     QCheckBox::indicator:checked:pressed {
+		background-color:#f2a400;
+     }</string>
+    </property>
+    <property name="text">
+     <string>Calibrated</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbMeasure">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>240</y>
+      <width>82</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+color:white;
+border: 1px solid #2D5059;
+border-radius: 10px;
+background-color: 
+qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,
+stop: 0 #1A74DB, 
+stop: 0.6 #5293DE, 
+stop:1 #FFFFFF);
+min-width: 80px;
+font: 12px;}</string>
+    </property>
+    <property name="text">
+     <string>Measure</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbStop">
+    <property name="geometry">
+     <rect>
+      <x>106</x>
+      <y>240</y>
+      <width>82</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+color:white;
+border: 1px solid #2D5059;
+border-radius: 10px;
+background-color: 
+qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,
+stop: 0 #1A74DB, 
+stop: 0.6 #5293DE, 
+stop:1 #FFFFFF);
+min-width: 80px;
+font: 12px;}</string>
+    </property>
+    <property name="text">
+     <string>Stop</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblMeasured">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>190</y>
+      <width>140</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="text">
+     <string>Measured Value :</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="leMeasured">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>190</y>
+      <width>140</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"> QLineEdit {
+     border: 2px solid black;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: white;
+     selection-background-color: darkgray;
+	 color:black;
+     font: bold 12px;
+ }</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbClose">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>240</y>
+      <width>82</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+color:white;
+border: 1px solid #2D5059;
+border-radius: 10px;
+background-color: 
+qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,
+stop: 0 #1A74DB, 
+stop: 0.6 #5293DE, 
+stop:1 #FFFFFF);
+min-width: 80px;
+font: 12px;}</string>
+    </property>
+    <property name="text">
+     <string>Close</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cmbRRange">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>70</y>
+      <width>100</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+     border: 2px solid black;
+     border-radius: 5px;
+ 	background-color:white;
+	color:black;
+ }
+</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>10E</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>100E</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1KE</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>10KE</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>100KE</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1ME</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="lblRange">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>150</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="text">
+     <string>Select Range :</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cmbLRange">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>70</y>
+      <width>100</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+     border: 2px solid black;
+     border-radius: 5px;
+     padding: 1px 18px 1px 3px;
+	background-color:white;
+	color:black;
+ }
+</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>30uH</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>300uH</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>3mH</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>30mH</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>300mH</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>3H</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>30H</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="cmbCRange">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>70</y>
+      <width>100</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+     border: 2px solid black;
+     border-radius: 5px;
+     padding: 1px 18px 1px 3px;
+	background-color:white;
+	color:black;
+ }
+</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>100pF</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1nF</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>10nF</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>100nF</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1uF</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>10uF</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>100uF</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1mF</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>10mF</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

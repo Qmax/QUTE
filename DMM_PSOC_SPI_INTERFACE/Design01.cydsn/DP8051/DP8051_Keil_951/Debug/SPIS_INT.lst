@@ -1,0 +1,241 @@
+C51 COMPILER V9.51   SPIS_INT                                                              02/25/2014 10:33:22 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE SPIS_INT
+OBJECT MODULE PLACED IN .\DP8051\DP8051_Keil_951\Debug\SPIS_INT.obj
+COMPILER INVOKED BY: C:\Program Files\Cypress\PSoC Creator\3.0\PSoC Creator\import\keil\pk51\9.51\C51\BIN\c51.exe .\Gene
+                    -rated_Source\PSoC3\SPIS_INT.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051\DP8051_Keil_951\Debug\SPIS_INT.lst) CD DB NOIP OT
+                    -(2,SIZE) INCDIR(.,.\Generated_Source\PSoC3) OJ(.\DP8051\DP8051_Keil_951\Debug\SPIS_INT.obj)
+
+line level    source
+
+   1          /*******************************************************************************
+   2          * File Name: SPIS_INT.c
+   3          * Version 2.60
+   4          *
+   5          * Description:
+   6          *  This file provides all Interrupt Service Routine (ISR) for the SPI Slave
+   7          *  component.
+   8          *
+   9          * Note:
+  10          *  None.
+  11          *
+  12          ********************************************************************************
+  13          * Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+  14          * You may use this file only in accordance with the license, terms, conditions,
+  15          * disclaimers, and limitations in the end user license agreement accompanying
+  16          * the software package with which this file was provided.
+  17          *******************************************************************************/
+  18          
+  19          #include "SPIS_PVT.h"
+  20          
+  21          
+  22          /* User code required at start of ISR */
+  23          /* `#START SPIS_ISR_START_DEF` */
+  24          
+  25          /* `#END` */
+  26          
+  27          
+  28          /*******************************************************************************
+  29          * Function Name: SPIS_TX_ISR
+  30          *
+  31          * Summary:
+  32          *  Interrupt Service Routine for TX portion of the SPI Slave.
+  33          *
+  34          * Parameters:
+  35          *  None.
+  36          *
+  37          * Return:
+  38          *  None.
+  39          *
+  40          * Global variables:
+  41          *  SPIS_txBufferWrite - used for the account of the bytes which
+  42          *  have been written down in the TX software buffer.
+  43          *  SPIS_txBufferRead - used for the account of the bytes which
+  44          *  have been read from the TX software buffer, modified when exist data to
+  45          *  sending and FIFO Not Full.
+  46          *  SPIS_txBuffer[SPIS_TX_BUFFER_SIZE] - used to store
+  47          *  data to sending.
+  48          *  All described above Global variables are used when Software Buffer is used.
+  49          *
+  50          *******************************************************************************/
+  51          CY_ISR(SPIS_TX_ISR)
+  52          {
+  53   1      
+C51 COMPILER V9.51   SPIS_INT                                                              02/25/2014 10:33:22 PAGE 2   
+
+  54   1          #if(SPIS_TX_SOFTWARE_BUF_ENABLED)
+                      uint8 tmpStatus;
+                  #endif /* (SPIS_TX_SOFTWARE_BUF_ENABLED) */
+  57   1      
+  58   1          /* User code required at start of ISR */
+  59   1          /* `#START SPIS_ISR_TX_START` */
+  60   1      
+  61   1          /* `#END` */
+  62   1      
+  63   1          #if(SPIS_TX_SOFTWARE_BUF_ENABLED)
+                      /* Component interrupt service code */
+              
+                      /* See if TX data buffer is not empty and there is space in TX FIFO */
+                      while(SPIS_txBufferRead != SPIS_txBufferWrite)
+                      {
+                          tmpStatus = SPIS_GET_STATUS_TX(SPIS_swStatusTx);
+                          SPIS_swStatusTx = tmpStatus;
+              
+                          if ((SPIS_swStatusTx & SPIS_STS_TX_FIFO_NOT_FULL) != 0u)
+                          {
+                              if(SPIS_txBufferFull == 0u)
+                              {
+                                 SPIS_txBufferRead++;
+              
+                                  if(SPIS_txBufferRead >= SPIS_TX_BUFFER_SIZE)
+                                  {
+                                      SPIS_txBufferRead = 0u;
+                                  }
+                              }
+                              else
+                              {
+                                  SPIS_txBufferFull = 0u;
+                              }
+              
+                              /* Move data from the Buffer to the FIFO */
+                              CY_SET_REG8(SPIS_TXDATA_PTR,
+                              SPIS_txBuffer[SPIS_txBufferRead]);
+                          }
+                          else
+                          {
+                              break;
+                          }
+                      }
+              
+                      /* If Buffer is empty then disable TX FIFO status interrupt until there is data in the buffer */
+                      if(SPIS_txBufferRead == SPIS_txBufferWrite)
+                      {
+                          SPIS_TX_STATUS_MASK_REG &= ((uint8)~SPIS_STS_TX_FIFO_NOT_FULL);
+                      }
+              
+                  #endif /* SPIS_TX_SOFTWARE_BUF_ENABLED */
+ 105   1      
+ 106   1          /* User code required at end of ISR (Optional) */
+ 107   1          /* `#START SPIS_ISR_TX_END` */
+ 108   1      
+ 109   1          /* `#END` */
+ 110   1      
+ 111   1         }
+ 112          
+ 113          
+ 114          /*******************************************************************************
+ 115          * Function Name: SPIS_RX_ISR
+C51 COMPILER V9.51   SPIS_INT                                                              02/25/2014 10:33:22 PAGE 3   
+
+ 116          *
+ 117          * Summary:
+ 118          *  Interrupt Service Routine for RX portion of the SPI Slave.
+ 119          *
+ 120          * Parameters:
+ 121          *  None.
+ 122          *
+ 123          * Return:
+ 124          *  None.
+ 125          *
+ 126          * Global variables:
+ 127          *  SPIS_rxBufferWrite - used for the account of the bytes which
+ 128          *  have been written down in the RX software buffer modified when FIFO contains
+ 129          *  new data.
+ 130          *  SPIS_rxBufferRead - used for the account of the bytes which
+ 131          *  have been read from the RX software buffer, modified when overflow occurred.
+ 132          *  SPIS_rxBuffer[SPIS_RX_BUFFER_SIZE] - used to store
+ 133          *  received data, modified when FIFO contains new data.
+ 134          *  All described above Global variables are used when Software Buffer is used.
+ 135          *
+ 136          *******************************************************************************/
+ 137          CY_ISR(SPIS_RX_ISR)
+ 138          {
+ 139   1          #if(SPIS_TX_SOFTWARE_BUF_ENABLED)
+                      uint8 tmpStatus;
+                      uint8 rxData;
+                  #endif /* (SPIS_TX_SOFTWARE_BUF_ENABLED) */
+ 143   1      
+ 144   1          /* User code required at start of ISR */
+ 145   1          /* `#START SPIS_RX_ISR_START` */
+ 146   1      
+ 147   1          /* `#END` */
+ 148   1      
+ 149   1          #if(SPIS_RX_SOFTWARE_BUF_ENABLED)
+                      tmpStatus = SPIS_GET_STATUS_RX(SPIS_swStatusRx);
+                      SPIS_swStatusRx = tmpStatus;
+                      /* See if RX data FIFO has some data and if it can be moved to the RX Buffer */
+                      while((SPIS_swStatusRx & SPIS_STS_RX_FIFO_NOT_EMPTY) != 0u)
+                      {
+                          rxData = CY_GET_REG8(SPIS_RXDATA_PTR);
+              
+                          /* Set next pointer. */
+                          SPIS_rxBufferWrite++;
+                          if(SPIS_rxBufferWrite >= SPIS_RX_BUFFER_SIZE)
+                          {
+                              SPIS_rxBufferWrite = 0u;
+                          }
+              
+                          if(SPIS_rxBufferWrite == SPIS_rxBufferRead)
+                          {
+                              SPIS_rxBufferRead++;
+                              if(SPIS_rxBufferRead >= SPIS_RX_BUFFER_SIZE)
+                              {
+                                  SPIS_rxBufferRead = 0u;
+                              }
+                              SPIS_rxBufferFull = 1u;
+                          }
+              
+                          /* Move data from the FIFO to the Buffer */
+                          SPIS_rxBuffer[SPIS_rxBufferWrite] = rxData;
+              
+                          tmpStatus = SPIS_GET_STATUS_RX(SPIS_swStatusRx);
+C51 COMPILER V9.51   SPIS_INT                                                              02/25/2014 10:33:22 PAGE 4   
+
+                          SPIS_swStatusRx = tmpStatus;
+                      }
+                  #endif /* SPIS_RX_SOFTWARE_BUF_ENABLED */
+ 181   1      
+ 182   1          /* User code required at end of ISR (Optional) */
+ 183   1          /* `#START SPIS_RX_ISR_END` */
+ 184   1      
+ 185   1          /* `#END` */
+ 186   1      
+ 187   1      }
+ 188          
+ 189          /* [] END OF FILE */
+C51 COMPILER V9.51   SPIS_INT                                                              02/25/2014 10:33:22 PAGE 5   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION SPIS_TX_ISR (BEGIN)
+                                           ; SOURCE LINE # 51
+                                           ; SOURCE LINE # 111
+0000 32                RETI    
+             ; FUNCTION SPIS_TX_ISR (END)
+
+             ; FUNCTION SPIS_RX_ISR (BEGIN)
+                                           ; SOURCE LINE # 137
+                                           ; SOURCE LINE # 187
+0000 32                RETI    
+             ; FUNCTION SPIS_RX_ISR (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      2    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

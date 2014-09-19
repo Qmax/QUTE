@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/awg.png</file>
+        <file>images/Dmmlg.png</file>
+        <file>images/Icmbr.png</file>
+        <file>images/Scopedg.png</file>
+        <file>images/vib.png</file>
+        <file>images/Learn.png</file>
+        <file>images/pt1.png</file>
+        <file>images/pt2.png</file>
+        <file>images/Pulse with modulation.png</file>
+        <file>images/Shortr.png</file>
+        <file>images/key.png</file>
+        <file>images/viewer.png</file>
+        <file>images/ram.png</file>
+        <file>images/sincos.png</file>
+        <file>images/Plot.png</file>
+        <file>images/HAADC.png</file>
+        <file>images/appdrvrx.png</file>
+        <file>images/AD5318.png</file>
+        <file>images/ram-icon.png</file>
+        <file>images/AD9102.png</file>
+    </qresource>
+</RCC>

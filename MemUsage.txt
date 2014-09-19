@@ -1,0 +1,11 @@
+The task's share of the physical memory is analysed below.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Application			|		Memory		|	Memory(after 10 min) |	Out of Memory						|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PortableTester Alone	|		11%			|	11%				 |	No								|
+PT with DMM			|		30%			|	60%				 |	Yes(after 50 min & 101% Memory Share)	|
+PT with VI			|		14%			|	14%				 |	No								|
+PT with AWG			|		16%			|	16%				 |	No								|
+PT with SLOC			|		20%			|	45%				 |	Yes(after 75 min & 127% Memory Share)	|  
+PT with ICM			|		23%			|	23%				 |	No								|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

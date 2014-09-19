@@ -1,0 +1,36 @@
+Last Modified Date & Time: 02/17/2014 12:22:36
+
+Project : Design01
+		Schematic : TopDesign
+
+		ISO_SCS	v 1.60tv 1.90
+		ISO_SCLK	v 1.60tv 1.90
+		ISO_SDI	v 1.60tv 1.90
+		ISO_SDO	v 1.60tv 1.90
+		ISO_DI0	v 1.60tv 1.90
+		CS	v 1.60tv 1.90
+		CK	v 1.60tv 1.90
+		DIn	v 1.60tv 1.90
+		DOut	v 1.60tv 1.90
+		RL6_CTR	v 1.60tv 1.90
+		RL1_CTR	v 1.60tv 1.90
+		RL4_CTR	v 1.60tv 1.90
+		RL3_CTR	v 1.60tv 1.90
+		RL2_CTR	v 1.60tv 1.90
+		RL5_CTR	v 1.60tv 1.90
+		RL7_CTR	v 1.60tv 1.90
+		SPIS	v 2.20tv 2.60
+		Clock_1	v 1.60tv 2.10
+		cydff_1	v 1.20tv 1.30
+		cydff_3	v 1.20tv 1.30
+		cydff_4	v 1.20tv 1.30
+
+Project : Design01
+		Design Wide APIs
+
+		cy_boot	v 2.40	v 4.0
+
+
+Last Modified Date & Time: 02/17/2014 12:23:07
+
+

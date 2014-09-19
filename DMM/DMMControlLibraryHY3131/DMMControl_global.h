@@ -1,0 +1,12 @@
+#ifndef DMMCONTROL_GLOBAL_H
+#define DMMCONTROL_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(DMMCONTROL_LIBRARY)
+#  define DMMCONTROLSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define DMMCONTROLSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // DMMCONTROL_GLOBAL_H

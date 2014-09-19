@@ -1,0 +1,166 @@
+C51 COMPILER V9.03   MAIN                                                                  11/13/2013 12:15:38 PAGE 1   
+
+
+C51 COMPILER V9.03, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\DP8051\DP8051_Keil_903\Debug\main.obj
+COMPILER INVOKED BY: C:\Program Files\Cypress\PSoC Creator\2.0\PSoC Creator\import\keil\pk51\9.03\C51\BIN\c51.exe .\main
+                    -.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051\DP8051_Keil_903\Debug\main.lst) CD DB NOIP OT(2,SIZE) INCDIR(Generated_Sourc
+                    -e\PSoC3) OJ(.\DP8051\DP8051_Keil_903\Debug\main.obj)
+
+line level    source
+
+   1          /* ========================================
+   2           *
+   3           * Copyright QMAX, 2012
+   4           * All Rights Reserved
+   5           * UNPUBLISHED, LICENSED SOFTWARE.
+   6           *
+   7           * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8           * WHICH IS THE PROPERTY OF QMAX.
+   9           *
+  10           * ========================================
+  11          */
+  12          #include <device.h>
+  13          #include <rtx51tny.h>
+  14          #include "os.h"
+  15          #include "TASK1.h"
+  16          #include "TASK2.h"
+  17          #include "TASK3.h"
+  18          #include "TASK4.h"
+  19          
+  20          void os (void) _task_ OS                        //      FUNCTION OF 'OS' IS TO CREATE TASK'S 1 2 & 3 AND DELETE ITSELF
+  21          {
+  22   1              CyDelay(1000);
+  23   1              RTX51_Start();                                  //      RTX51TINY MODULE INITIALISATION
+  24   1              U_CLOCK_SetDividerValue(38);    //      CLOCK DIVIDER INITIALISATION BAUD RATE SET AT 38400 BAUD RATE-> 19-08-201
+             -3
+  25   1              isr_Start();                                    //      UART ISR INITIALISATION
+  26   1              k_isr_Start();                                  //      EMBEDDED KEYPAD INTERRUPT INITIALISATION
+  27   1              UART_Start();                                   //      UART INITIALISATION
+  28   1              SPIM_Start();                                   //      SPIM INITIALISATION
+  29   1      
+  30   1              /*      DMM HV_1000V DEFAULT PoR MODE   */
+  31   1              
+  32   1              Relays_Init();                                  //      Relays Initialise Subroutine
+  33   1                              
+  34   1              /////  Relays Switched ON /////
+  35   1              
+  36   1              CyPins_SetPin(RES_SEL1_P2_6);
+  37   1              CyPins_SetPin(RR1_100V_P4_4);
+  38   1              CyPins_SetPin(DMM_SEL_P12_2);
+  39   1      
+  40   1              UART_ClearRxBuffer();                   //      Clear Receive Buffer
+  41   1              UART_ClearTxBuffer();                   //      Clear Transmit Buffer
+  42   1      
+  43   1              TASK_1 ();                                              //      INITIALISATION OF TASK1: FRONT PANEL RELAY SWITCHING FUNCTION
+  44   1              TASK_2 ();                                              //      INITIALISATION OF TASK2: COMMAND AND DATA RECEIVE SIGNALLED BY UART INTERRUPT
+  45   1              TASK_3 ();                                              //      INITIALISATION OF TASK3: EMBEDDED KEYPAD RECEIVE INTERRUPT
+  46   1              TASK_4 ();                                              //      INITIALISATION OF TASK4: PoR/RESET STATUS ACKNOWLEDGMENT
+  47   1              
+  48   1              os_send_signal(4);                              //      SEND SIGNAL TO TASK_4
+  49   1              os_delete_task (OS);                    //      DELETE 'OS' TASK
+  50   1      }
+  51          
+  52          /* [] END OF FILE */
+C51 COMPILER V9.03   MAIN                                                                  11/13/2013 12:15:38 PAGE 2   
+
+*** WARNING C316 IN LINE 52 OF .\main.c: unterminated conditionals
+C51 COMPILER V9.03   MAIN                                                                  11/13/2013 12:15:38 PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION os (BEGIN)
+                                           ; SOURCE LINE # 20
+                                           ; SOURCE LINE # 22
+0000 7FE8              MOV     R7,#0E8H
+0002 7E03              MOV     R6,#03H
+0004 7D00              MOV     R5,#00H
+0006 7C00              MOV     R4,#00H
+0008 120000      E     LCALL   _?CyDelay
+                                           ; SOURCE LINE # 23
+000B 120000      E     LCALL   RTX51_Start
+                                           ; SOURCE LINE # 24
+000E 7D01              MOV     R5,#01H
+0010 7F25              MOV     R7,#025H
+0012 7E00              MOV     R6,#00H
+0014 120000      E     LCALL   _U_CLOCK_SetDividerRegister
+                                           ; SOURCE LINE # 25
+0017 120000      E     LCALL   isr_Start
+                                           ; SOURCE LINE # 26
+001A 120000      E     LCALL   k_isr_Start
+                                           ; SOURCE LINE # 27
+001D 120000      E     LCALL   UART_Start
+                                           ; SOURCE LINE # 28
+0020 120000      E     LCALL   SPIM_Start
+                                           ; SOURCE LINE # 32
+0023 120000      E     LCALL   Relays_Init
+                                           ; SOURCE LINE # 36
+0026 905016            MOV     DPTR,#05016H
+0029 E0                MOVX    A,@DPTR
+002A FF                MOV     R7,A
+002B EF                MOV     A,R7
+002C 4401              ORL     A,#01H
+002E FF                MOV     R7,A
+002F EF                MOV     A,R7
+0030 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 37
+0031 905024            MOV     DPTR,#05024H
+0034 E0                MOVX    A,@DPTR
+0035 FF                MOV     R7,A
+0036 EF                MOV     A,R7
+0037 4401              ORL     A,#01H
+0039 FF                MOV     R7,A
+003A EF                MOV     A,R7
+003B F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 38
+003C 905062            MOV     DPTR,#05062H
+003F E0                MOVX    A,@DPTR
+0040 FF                MOV     R7,A
+0041 EF                MOV     A,R7
+0042 4401              ORL     A,#01H
+0044 FF                MOV     R7,A
+0045 EF                MOV     A,R7
+0046 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 40
+0047 120000      E     LCALL   UART_ClearRxBuffer
+                                           ; SOURCE LINE # 41
+004A 120000      E     LCALL   UART_ClearTxBuffer
+                                           ; SOURCE LINE # 43
+004D 120000      E     LCALL   TASK_1
+                                           ; SOURCE LINE # 44
+C51 COMPILER V9.03   MAIN                                                                  11/13/2013 12:15:38 PAGE 4   
+
+0050 120000      E     LCALL   TASK_2
+                                           ; SOURCE LINE # 45
+0053 120000      E     LCALL   TASK_3
+                                           ; SOURCE LINE # 46
+0056 120000      E     LCALL   TASK_4
+                                           ; SOURCE LINE # 48
+0059 7F04              MOV     R7,#04H
+005B 120000      E     LCALL   _os_send_signal
+                                           ; SOURCE LINE # 49
+005E 7F00              MOV     R7,#00H
+0060 120000      E     LCALL   _os_delete_task
+                                           ; SOURCE LINE # 50
+0063 22                RET     
+             ; FUNCTION os (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    100    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

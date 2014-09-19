@@ -1,0 +1,629 @@
+C51 COMPILER V9.51   QUADDECODER                                                           06/30/2014 14:51:06 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE QUADDECODER
+OBJECT MODULE PLACED IN .\DP8051\DP8051_Keil_951\Debug\QuadDecoder.obj
+COMPILER INVOKED BY: C:\Program Files\Cypress\PSoC Creator\3.0\PSoC Creator\import\keil\pk51\9.51\C51\BIN\c51.exe .\Gene
+                    -rated_Source\PSoC3\QuadDecoder.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051\DP8051_Keil_951\Debug\QuadDecoder.lst) CD DB N
+                    -OIP OT(2,SIZE) INCDIR(.,.\Generated_Source\PSoC3) OJ(.\DP8051\DP8051_Keil_951\Debug\QuadDecoder.obj)
+
+line level    source
+
+   1          /*******************************************************************************
+   2          * File Name: QuadDecoder.c  
+   3          * Version 2.30
+   4          *
+   5          * Description:
+   6          *  This file provides the source code to the API for the Quadrature Decoder
+   7          *  component.
+   8          *
+   9          * Note:
+  10          *  None.
+  11          *   
+  12          ********************************************************************************
+  13          * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14          * You may use this file only in accordance with the license, terms, conditions, 
+  15          * disclaimers, and limitations in the end user license agreement accompanying 
+  16          * the software package with which this file was provided.
+  17          *******************************************************************************/
+  18          
+  19          #include "QuadDecoder.h"
+  20          
+  21          #if (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT)
+                  #include "QuadDecoder_PVT.h"
+              #endif /* QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT */
+  24          
+  25          uint8 QuadDecoder_initVar = 0u;
+  26          
+  27          
+  28          /*******************************************************************************
+  29          * Function Name: QuadDecoder_Init
+  30          ********************************************************************************
+  31          *
+  32          * Summary:
+  33          *  Inits/Restores default QuadDec configuration provided with customizer.
+  34          *
+  35          * Parameters:
+  36          *  None.
+  37          *
+  38          * Return:
+  39          *  None.
+  40          *
+  41          *******************************************************************************/
+  42          void QuadDecoder_Init(void) 
+  43          {
+  44   1          #if (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT)
+                      /* Disable Interrupt. */
+                      CyIntDisable(QuadDecoder_ISR_NUMBER);
+                      /* Set the ISR to point to the QuadDecoder_isr Interrupt. */
+                      (void) CyIntSetVector(QuadDecoder_ISR_NUMBER, & QuadDecoder_ISR);
+                      /* Set the priority. */
+                      CyIntSetPriority(QuadDecoder_ISR_NUMBER, QuadDecoder_ISR_PRIORITY);
+                  #endif /* QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT */
+  52   1      }
+  53          
+C51 COMPILER V9.51   QUADDECODER                                                           06/30/2014 14:51:06 PAGE 2   
+
+  54          
+  55          /*******************************************************************************
+  56          * Function Name: QuadDecoder_Enable
+  57          ********************************************************************************
+  58          *
+  59          * Summary:
+  60          *  This function enable interrupts from Component and also enable Component's
+  61          *  ISR in case of 32-bit counter.
+  62          *
+  63          * Parameters:
+  64          *  None.
+  65          *
+  66          * Return:
+  67          *  None.
+  68          *
+  69          *******************************************************************************/
+  70          void QuadDecoder_Enable(void) 
+  71          {
+  72   1          uint8 enableInterrupts;
+  73   1      
+  74   1          QuadDecoder_SetInterruptMask(QuadDecoder_INIT_INT_MASK);
+  75   1      
+  76   1          enableInterrupts = CyEnterCriticalSection();
+  77   1      
+  78   1          /* Enable interrupts from Statusi register */
+  79   1          QuadDecoder_SR_AUX_CONTROL |= QuadDecoder_INTERRUPTS_ENABLE;
+  80   1      
+  81   1          CyExitCriticalSection(enableInterrupts);
+  82   1      
+  83   1          #if (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT)
+                      /* Enable Component interrupts */
+                      CyIntEnable(QuadDecoder_ISR_NUMBER);
+                  #endif /* QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT */
+  87   1      }
+  88          
+  89          
+  90          /*******************************************************************************
+  91          * Function Name: QuadDecoder_Start
+  92          ********************************************************************************
+  93          *
+  94          * Summary:
+  95          *  Initializes UDBs and other relevant hardware.
+  96          *  Resets counter, enables or disables all relevant interrupts.
+  97          *  Starts monitoring the inputs and counting.
+  98          *
+  99          * Parameters:
+ 100          *  None.
+ 101          *
+ 102          * Return:
+ 103          *  None.
+ 104          *
+ 105          * Global variables:
+ 106          *  QuadDecoder_initVar - used to check initial configuration, modified on
+ 107          *  first function call.
+ 108          *
+ 109          * Reentrant:
+ 110          *  No.
+ 111          *
+ 112          *******************************************************************************/
+ 113          void QuadDecoder_Start(void) 
+ 114          {
+ 115   1          #if (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_8_BIT)
+C51 COMPILER V9.51   QUADDECODER                                                           06/30/2014 14:51:06 PAGE 3   
+
+ 116   1              QuadDecoder_Cnt8_Start();
+ 117   1              QuadDecoder_Cnt8_WriteCounter(QuadDecoder_COUNTER_INIT_VALUE);
+ 118   1          #else 
+                      /* (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_16_BIT) || 
+                      *  (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT) 
+                      */
+                      QuadDecoder_Cnt16_Start();
+                      QuadDecoder_Cnt16_WriteCounter(QuadDecoder_COUNTER_INIT_VALUE);
+                  #endif /* QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_8_BIT */
+ 125   1      
+ 126   1          if (QuadDecoder_initVar == 0u)
+ 127   1          {
+ 128   2              QuadDecoder_Init();
+ 129   2              QuadDecoder_initVar = 1u;
+ 130   2          }
+ 131   1      
+ 132   1          QuadDecoder_Enable();
+ 133   1      }
+ 134          
+ 135          
+ 136          /*******************************************************************************
+ 137          * Function Name: QuadDecoder_Stop
+ 138          ********************************************************************************
+ 139          *
+ 140          * Summary:
+ 141          *  Turns off UDBs and other relevant hardware.
+ 142          *
+ 143          * Parameters:
+ 144          *  None.
+ 145          *
+ 146          * Return:
+ 147          *  None.
+ 148          *
+ 149          *******************************************************************************/
+ 150          void QuadDecoder_Stop(void) 
+ 151          {
+ 152   1          uint8 enableInterrupts;
+ 153   1      
+ 154   1          #if (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_8_BIT)
+ 155   1              QuadDecoder_Cnt8_Stop();
+ 156   1          #else 
+                      /* (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_16_BIT) ||
+                      *  (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT)
+                      */
+                      QuadDecoder_Cnt16_Stop();    /* counter disable */
+                  #endif /* (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_8_BIT) */
+ 162   1       
+ 163   1          enableInterrupts = CyEnterCriticalSection();
+ 164   1      
+ 165   1          /* Disable interrupts interrupts from Statusi register */
+ 166   1          QuadDecoder_SR_AUX_CONTROL &= (uint8) (~QuadDecoder_INTERRUPTS_ENABLE);
+ 167   1      
+ 168   1          CyExitCriticalSection(enableInterrupts);
+ 169   1      
+ 170   1          #if (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT)
+                      CyIntDisable(QuadDecoder_ISR_NUMBER);    /* interrupt disable */
+                  #endif /* QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT */
+ 173   1      }
+ 174          
+ 175          
+ 176          /*******************************************************************************
+ 177          * Function Name: QuadDecoder_GetCounter
+C51 COMPILER V9.51   QUADDECODER                                                           06/30/2014 14:51:06 PAGE 4   
+
+ 178          ********************************************************************************
+ 179          *
+ 180          * Summary:
+ 181          *  Reports the current value of the counter.
+ 182          *
+ 183          * Parameters:
+ 184          *  None.
+ 185          *
+ 186          * Return:
+ 187          *  The counter value. Return type is signed and per the counter size setting.
+ 188          *  A positive value indicates clockwise movement (B before A).
+ 189          *
+ 190          * Global variables:
+ 191          *  QuadDecoder_count32SoftPart - used to get hi 16 bit for current value
+ 192          *  of the 32-bit counter, when Counter size equal 32-bit.
+ 193          *
+ 194          *******************************************************************************/
+ 195          int8 QuadDecoder_GetCounter(void) 
+ 196          {
+ 197   1          int8 count;
+ 198   1          uint8 tmpCnt;
+ 199   1      
+ 200   1          #if (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT)
+                      int16 hwCount;
+              
+                      CyIntDisable(QuadDecoder_ISR_NUMBER);
+              
+                      tmpCnt = QuadDecoder_Cnt16_ReadCounter();
+                      hwCount = (int16) ((int32) tmpCnt - (int32) QuadDecoder_COUNTER_INIT_VALUE);
+                      count = QuadDecoder_count32SoftPart + hwCount;
+              
+                      CyIntEnable(QuadDecoder_ISR_NUMBER);
+                  #else 
+ 211   1              /* (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_8_BIT) || 
+ 212   1              *  (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_16_BIT)
+ 213   1              */
+ 214   1              #if (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_8_BIT)
+ 215   1                  tmpCnt = QuadDecoder_Cnt8_ReadCounter();
+ 216   1              #else /* (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_16_BIT) */
+                          tmpCnt = QuadDecoder_Cnt16_ReadCounter();
+                      #endif  /* QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_8_BIT */
+ 219   1      
+ 220   1              count = (int8) ((int16) tmpCnt -
+ 221   1                      (int16) QuadDecoder_COUNTER_INIT_VALUE);
+ 222   1      
+ 223   1          #endif /* QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT */ 
+ 224   1      
+ 225   1          return (count);
+ 226   1      }
+ 227          
+ 228          
+ 229          /*******************************************************************************
+ 230          * Function Name: QuadDecoder_SetCounter
+ 231          ********************************************************************************
+ 232          *
+ 233          * Summary:
+ 234          *  Sets the current value of the counter.
+ 235          *
+ 236          * Parameters:
+ 237          *  value:  The new value. Parameter type is signed and per the counter size
+ 238          *  setting.
+ 239          *
+C51 COMPILER V9.51   QUADDECODER                                                           06/30/2014 14:51:06 PAGE 5   
+
+ 240          * Return:
+ 241          *  None.
+ 242          *
+ 243          * Global variables:
+ 244          *  QuadDecoder_count32SoftPart - modified to set hi 16 bit for current
+ 245          *  value of the 32-bit counter, when Counter size equal 32-bit.
+ 246          *
+ 247          * Reentrant:
+ 248          *  No.
+ 249          *
+ 250          *******************************************************************************/
+ 251          void QuadDecoder_SetCounter(int8 value) 
+ 252          {
+ 253   1          #if ((QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_8_BIT) || \
+ 254   1               (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_16_BIT))
+ 255   1              uint8 count;
+ 256   1              
+ 257   1              if (value >= 0)
+ 258   1              {
+ 259   2                  count = (uint8) value + QuadDecoder_COUNTER_INIT_VALUE;
+ 260   2              }
+ 261   1              else
+ 262   1              {
+ 263   2                  count = (uint8) (-value);
+ 264   2              }
+ 265   1              #if (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_8_BIT)
+ 266   1                  QuadDecoder_Cnt8_WriteCounter(count);
+ 267   1              #else /* (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_16_BIT) */
+                          QuadDecoder_Cnt16_WriteCounter(count);
+                      #endif  /* QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_8_BIT */
+ 270   1          #else /* (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT) */
+                      CyIntDisable(QuadDecoder_ISR_NUMBER);
+              
+                      QuadDecoder_Cnt16_WriteCounter(QuadDecoder_COUNTER_INIT_VALUE);
+                      QuadDecoder_count32SoftPart = value;
+              
+                      CyIntEnable(QuadDecoder_ISR_NUMBER);
+                  #endif  /* (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_8_BIT) ||
+                           * (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_16_BIT)
+                           */
+ 280   1      }
+ 281          
+ 282          
+ 283          /*******************************************************************************
+ 284          * Function Name: QuadDecoder_GetEvents
+ 285          ********************************************************************************
+ 286          * 
+ 287          * Summary:
+ 288          *   Reports the current status of events. This function clears the bits of the 
+ 289          *   status register.
+ 290          *
+ 291          * Parameters:
+ 292          *  None.
+ 293          *
+ 294          * Return:
+ 295          *  The events, as bits in an unsigned 8-bit value:
+ 296          *    Bit      Description
+ 297          *     0        Counter overflow.
+ 298          *     1        Counter underflow.
+ 299          *     2        Counter reset due to index, if index input is used.
+ 300          *     3        Invalid A, B inputs state transition.
+ 301          *
+C51 COMPILER V9.51   QUADDECODER                                                           06/30/2014 14:51:06 PAGE 6   
+
+ 302          *******************************************************************************/
+ 303          uint8 QuadDecoder_GetEvents(void) 
+ 304          {
+ 305   1          return (QuadDecoder_STATUS_REG & QuadDecoder_INIT_INT_MASK);
+ 306   1      }
+ 307          
+ 308          
+ 309          /*******************************************************************************
+ 310          * Function Name: QuadDecoder_SetInterruptMask
+ 311          ********************************************************************************
+ 312          *
+ 313          * Summary:
+ 314          *  Enables / disables interrupts due to the events.
+ 315          *  For the 32-bit counter, the overflow, underflow and reset interrupts cannot
+ 316          *  be disabled, these bits are ignored.
+ 317          *
+ 318          * Parameters:
+ 319          *  mask: Enable / disable bits in an 8-bit value, where 1 enables the interrupt.
+ 320          *
+ 321          * Return:
+ 322          *  None.
+ 323          *
+ 324          *******************************************************************************/
+ 325          void QuadDecoder_SetInterruptMask(uint8 mask) 
+ 326          {
+ 327   1          #if (QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT)
+                      /* Underflow, Overflow and Reset interrupts for 32-bit Counter are always enable */
+                      mask |= (QuadDecoder_COUNTER_OVERFLOW | QuadDecoder_COUNTER_UNDERFLOW |
+                               QuadDecoder_COUNTER_RESET);
+                  #endif /* QuadDecoder_COUNTER_SIZE == QuadDecoder_COUNTER_SIZE_32_BIT */
+ 332   1      
+ 333   1          QuadDecoder_STATUS_MASK = mask;
+ 334   1      }
+ 335          
+ 336          
+ 337          /*******************************************************************************
+ 338          * Function Name: QuadDecoder_GetInterruptMask
+ 339          ********************************************************************************
+ 340          *
+ 341          * Summary:
+ 342          *  Reports the current interrupt mask settings.
+ 343          *
+ 344          * Parameters:
+ 345          *  None.
+ 346          *
+ 347          * Return:
+ 348          *  Enable / disable bits in an 8-bit value, where 1 enables the interrupt.
+ 349          *  For the 32-bit counter, the overflow, underflow and reset enable bits are
+ 350          *  always set.
+ 351          *
+ 352          *******************************************************************************/
+ 353          uint8 QuadDecoder_GetInterruptMask(void) 
+ 354          {
+ 355   1          return (QuadDecoder_STATUS_MASK & QuadDecoder_INIT_INT_MASK);
+ 356   1      }
+ 357          
+ 358          
+ 359          /* [] END OF FILE */
+C51 COMPILER V9.51   QUADDECODER                                                           06/30/2014 14:51:06 PAGE 7   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION QuadDecoder_Init (BEGIN)
+                                           ; SOURCE LINE # 42
+                                           ; SOURCE LINE # 43
+                                           ; SOURCE LINE # 52
+0000 22                RET     
+             ; FUNCTION QuadDecoder_Init (END)
+
+             ; FUNCTION QuadDecoder_Enable (BEGIN)
+                                           ; SOURCE LINE # 70
+                                           ; SOURCE LINE # 71
+                                           ; SOURCE LINE # 74
+0000 7F0F              MOV     R7,#0FH
+0002 120000      R     LCALL   _QuadDecoder_SetInterruptMask
+                                           ; SOURCE LINE # 76
+0005 120000      E     LCALL   CyEnterCriticalSection
+0008 900000      R     MOV     DPTR,#enableInterrupts
+000B EF                MOV     A,R7
+000C F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 79
+000D 90649E            MOV     DPTR,#0649EH
+0010 E0                MOVX    A,@DPTR
+0011 FF                MOV     R7,A
+0012 EF                MOV     A,R7
+0013 4410              ORL     A,#010H
+0015 FF                MOV     R7,A
+0016 EF                MOV     A,R7
+0017 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 81
+0018 900000      R     MOV     DPTR,#enableInterrupts
+001B E0                MOVX    A,@DPTR
+001C FF                MOV     R7,A
+001D 120000      E     LCALL   _CyExitCriticalSection
+                                           ; SOURCE LINE # 87
+0020 22                RET     
+             ; FUNCTION QuadDecoder_Enable (END)
+
+             ; FUNCTION QuadDecoder_Start (BEGIN)
+                                           ; SOURCE LINE # 113
+                                           ; SOURCE LINE # 114
+                                           ; SOURCE LINE # 116
+0000 120000      E     LCALL   QuadDecoder_Cnt8_Start
+                                           ; SOURCE LINE # 117
+0003 7F80              MOV     R7,#080H
+0005 120000      E     LCALL   _QuadDecoder_Cnt8_WriteCounter
+                                           ; SOURCE LINE # 126
+0008 900000      R     MOV     DPTR,#QuadDecoder_initVar
+000B E0                MOVX    A,@DPTR
+000C FF                MOV     R7,A
+000D EF                MOV     A,R7
+000E 7009              JNZ     ?C0003
+                                           ; SOURCE LINE # 127
+                                           ; SOURCE LINE # 128
+0010 120000      R     LCALL   QuadDecoder_Init
+                                           ; SOURCE LINE # 129
+0013 900000      R     MOV     DPTR,#QuadDecoder_initVar
+0016 7401              MOV     A,#01H
+0018 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 130
+0019         ?C0003:
+C51 COMPILER V9.51   QUADDECODER                                                           06/30/2014 14:51:06 PAGE 8   
+
+                                           ; SOURCE LINE # 132
+0019 120000      R     LCALL   QuadDecoder_Enable
+                                           ; SOURCE LINE # 133
+001C 22                RET     
+             ; FUNCTION QuadDecoder_Start (END)
+
+             ; FUNCTION QuadDecoder_Stop (BEGIN)
+                                           ; SOURCE LINE # 150
+                                           ; SOURCE LINE # 151
+                                           ; SOURCE LINE # 155
+0000 120000      E     LCALL   QuadDecoder_Cnt8_Stop
+                                           ; SOURCE LINE # 163
+0003 120000      E     LCALL   CyEnterCriticalSection
+0006 900000      R     MOV     DPTR,#enableInterrupts
+0009 EF                MOV     A,R7
+000A F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 166
+000B 90649E            MOV     DPTR,#0649EH
+000E E0                MOVX    A,@DPTR
+000F FF                MOV     R7,A
+0010 EF                MOV     A,R7
+0011 54EF              ANL     A,#0EFH
+0013 FF                MOV     R7,A
+0014 EF                MOV     A,R7
+0015 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 168
+0016 900000      R     MOV     DPTR,#enableInterrupts
+0019 E0                MOVX    A,@DPTR
+001A FF                MOV     R7,A
+001B 120000      E     LCALL   _CyExitCriticalSection
+                                           ; SOURCE LINE # 173
+001E 22                RET     
+             ; FUNCTION QuadDecoder_Stop (END)
+
+             ; FUNCTION QuadDecoder_GetCounter (BEGIN)
+                                           ; SOURCE LINE # 195
+                                           ; SOURCE LINE # 196
+                                           ; SOURCE LINE # 215
+0000 120000      E     LCALL   QuadDecoder_Cnt8_ReadCounter
+0003 900000      R     MOV     DPTR,#tmpCnt
+0006 EF                MOV     A,R7
+0007 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 221
+0008 900000      R     MOV     DPTR,#tmpCnt
+000B E0                MOVX    A,@DPTR
+000C FF                MOV     R7,A
+000D 7E00              MOV     R6,#00H
+000F EF                MOV     A,R7
+0010 2480              ADD     A,#080H
+0012 FF                MOV     R7,A
+0013 900000      R     MOV     DPTR,#count
+0016 EF                MOV     A,R7
+0017 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 225
+0018 900000      R     MOV     DPTR,#count
+001B E0                MOVX    A,@DPTR
+001C FF                MOV     R7,A
+                                           ; SOURCE LINE # 226
+001D         ?C0006:
+001D 22                RET     
+             ; FUNCTION QuadDecoder_GetCounter (END)
+
+C51 COMPILER V9.51   QUADDECODER                                                           06/30/2014 14:51:06 PAGE 9   
+
+             ; FUNCTION _QuadDecoder_SetCounter (BEGIN)
+                                           ; SOURCE LINE # 251
+0000 900000      R     MOV     DPTR,#value
+0003 EF                MOV     A,R7
+0004 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 252
+                                           ; SOURCE LINE # 257
+0005 900000      R     MOV     DPTR,#value
+0008 E0                MOVX    A,@DPTR
+0009 FF                MOV     R7,A
+000A C3                CLR     C
+000B EF                MOV     A,R7
+000C 6480              XRL     A,#080H
+000E 9480              SUBB    A,#080H
+0010 4010              JC      ?C0007
+                                           ; SOURCE LINE # 258
+                                           ; SOURCE LINE # 259
+0012 900000      R     MOV     DPTR,#value
+0015 E0                MOVX    A,@DPTR
+0016 FF                MOV     R7,A
+0017 EF                MOV     A,R7
+0018 2480              ADD     A,#080H
+001A FF                MOV     R7,A
+001B 900000      R     MOV     DPTR,#count
+001E EF                MOV     A,R7
+001F F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 260
+0020 800E              SJMP    ?C0008
+0022         ?C0007:
+                                           ; SOURCE LINE # 262
+                                           ; SOURCE LINE # 263
+0022 900000      R     MOV     DPTR,#value
+0025 E0                MOVX    A,@DPTR
+0026 FF                MOV     R7,A
+0027 EF                MOV     A,R7
+0028 F4                CPL     A
+0029 04                INC     A
+002A FF                MOV     R7,A
+002B 900000      R     MOV     DPTR,#count
+002E EF                MOV     A,R7
+002F F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 264
+0030         ?C0008:
+                                           ; SOURCE LINE # 266
+0030 900000      R     MOV     DPTR,#count
+0033 E0                MOVX    A,@DPTR
+0034 FF                MOV     R7,A
+0035 120000      E     LCALL   _QuadDecoder_Cnt8_WriteCounter
+                                           ; SOURCE LINE # 280
+0038 22                RET     
+             ; FUNCTION _QuadDecoder_SetCounter (END)
+
+             ; FUNCTION QuadDecoder_GetEvents (BEGIN)
+                                           ; SOURCE LINE # 303
+                                           ; SOURCE LINE # 304
+                                           ; SOURCE LINE # 305
+0000 90646E            MOV     DPTR,#0646EH
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 EF                MOV     A,R7
+0006 540F              ANL     A,#0FH
+0008 FF                MOV     R7,A
+C51 COMPILER V9.51   QUADDECODER                                                           06/30/2014 14:51:06 PAGE 10  
+
+                                           ; SOURCE LINE # 306
+0009         ?C0010:
+0009 22                RET     
+             ; FUNCTION QuadDecoder_GetEvents (END)
+
+             ; FUNCTION _QuadDecoder_SetInterruptMask (BEGIN)
+                                           ; SOURCE LINE # 325
+0000 900000      R     MOV     DPTR,#mask
+0003 EF                MOV     A,R7
+0004 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 326
+                                           ; SOURCE LINE # 333
+0005 900000      R     MOV     DPTR,#mask
+0008 E0                MOVX    A,@DPTR
+0009 FF                MOV     R7,A
+000A 90648E            MOV     DPTR,#0648EH
+000D EF                MOV     A,R7
+000E F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 334
+000F 22                RET     
+             ; FUNCTION _QuadDecoder_SetInterruptMask (END)
+
+             ; FUNCTION QuadDecoder_GetInterruptMask (BEGIN)
+                                           ; SOURCE LINE # 353
+                                           ; SOURCE LINE # 354
+                                           ; SOURCE LINE # 355
+0000 90648E            MOV     DPTR,#0648EH
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 EF                MOV     A,R7
+0006 540F              ANL     A,#0FH
+0008 FF                MOV     R7,A
+                                           ; SOURCE LINE # 356
+0009         ?C0012:
+0009 22                RET     
+             ; FUNCTION QuadDecoder_GetInterruptMask (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    217    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1       7
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>offset</class>
+ <widget class="QWidget" name="offset">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>239</width>
+    <height>170</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">border:1px solid black;
+color:white;
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #94aaa1, stop: 1 #000000);
+</string>
+  </property>
+  <widget class="QPushButton" name="Gdown">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>190</y>
+     <width>50</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+         border: 2px solid rgba(0,0,0,0);
+         border-radius: 15px;
+         background-color: rgba(0,0,0,0);
+     }
+
+     QPushButton:pressed {
+		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="svgResource.qrc">
+     <normaloff>:/Button-Download-icon.png</normaloff>:/Button-Download-icon.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Glbl">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>150</y>
+     <width>81</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>DAC G :</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Gleft">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>190</y>
+     <width>50</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+         border: 2px solid rgba(0,0,0,0);
+         border-radius: 15px;
+         background-color: rgba(0,0,0,0);
+     }
+
+     QPushButton:pressed {
+		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="svgResource.qrc">
+     <normaloff>:/Button-Previous-icon.png</normaloff>:/Button-Previous-icon.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Gright">
+   <property name="geometry">
+    <rect>
+     <x>122</x>
+     <y>190</y>
+     <width>50</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>13</pointsize>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+         border: 2px solid rgba(0,0,0,0);
+         border-radius: 15px;
+         background-color: rgba(0,0,0,0);
+     }
+
+     QPushButton:pressed {
+		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="svgResource.qrc">
+     <normaloff>:/Button-Next-icon.png</normaloff>:/Button-Next-icon.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Gup">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>190</y>
+     <width>50</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+         border: 2px solid rgba(0,0,0,0);
+         border-radius: 15px;
+         background-color: rgba(0,0,0,0);
+     }
+
+     QPushButton:pressed {
+		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="svgResource.qrc">
+     <normaloff>:/Button-Upload-icon.png</normaloff>:/Button-Upload-icon.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="Gedit">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>140</y>
+     <width>151</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"> QLineEdit {
+     border: 2px solid gray;
+     border-radius: 8px;
+     padding: 0 8px;
+     background: white;
+     selection-background-color: darkgray;
+	 color:black;
+     font: bold 12px;
+ }</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="OffsetDAC">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>240</width>
+     <height>170</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QGroupBox {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);
+     border: 2px solid gray;
+     border-radius: 10px;
+     margin-top: 1ex; /* leave space at the top for the title */
+	font:18px bold;
+	color:black;
+ }
+
+ QGroupBox::title {
+     subcontrol-origin: margin;
+     subcontrol-position: top center; /* position at the top center */
+     padding: 0 3px;
+	 background-color:white;
+     border:2px solid black;
+	border-radius:10px;
+ }</string>
+   </property>
+   <property name="title">
+    <string>Offset DAC</string>
+   </property>
+   <widget class="QPushButton" name="Fdown">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>90</y>
+      <width>50</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid rgba(0,0,0,0);
+         border-radius: 15px;
+         background-color: rgba(0,0,0,0);
+     }
+
+     QPushButton:pressed {
+		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="svgResource.qrc">
+      <normaloff>:/Button-Download-icon.png</normaloff>:/Button-Download-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Fleft">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>90</y>
+      <width>50</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid rgba(0,0,0,0);
+         border-radius: 15px;
+         background-color: rgba(0,0,0,0);
+     }
+
+     QPushButton:pressed {
+		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="svgResource.qrc">
+      <normaloff>:/Button-Previous-icon.png</normaloff>:/Button-Previous-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Fright">
+    <property name="geometry">
+     <rect>
+      <x>72</x>
+      <y>90</y>
+      <width>50</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid rgba(0,0,0,0);
+         border-radius: 15px;
+         background-color: rgba(0,0,0,0);
+     }
+
+     QPushButton:pressed {
+		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="svgResource.qrc">
+      <normaloff>:/Button-Next-icon.png</normaloff>:/Button-Next-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Fup">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>90</y>
+      <width>50</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid rgba(0,0,0,0);
+         border-radius: 15px;
+         background-color: rgba(0,0,0,0);
+     }
+
+     QPushButton:pressed {
+		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="svgResource.qrc">
+      <normaloff>:/Button-Upload-icon.png</normaloff>:/Button-Upload-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Fedit">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>40</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"> QLineEdit {
+     border: 2px solid gray;
+     border-radius: 8px;
+     padding: 0 8px;
+     background: white;
+     selection-background-color: darkgray;
+	 color:black;
+     font: bold 12px;
+ }</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>207</x>
+      <y>13</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid rgba(0,0,0,0);
+         border-radius: 15px;
+         background-color: rgba(0,0,0,0);
+     }
+
+     QPushButton:pressed {
+		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="svgResource.qrc">
+      <normaloff>:/Actions-window-close-icon.png</normaloff>:/Actions-window-close-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="svgResource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

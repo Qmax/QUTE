@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>SLBG9.png</file>
+        <file>bg.png</file>
+    </qresource>
+</RCC>

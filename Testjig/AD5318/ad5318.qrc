@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>bg.png</file>
+        <file>settings_iOS4.png</file>
+    </qresource>
+</RCC>

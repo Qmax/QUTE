@@ -1,0 +1,40 @@
+<RCC>
+    <qresource prefix="/">
+        <file>R1.png</file>
+        <file>svgbutton/Beryl/hovered.svg</file>
+        <file>svgbutton/Beryl/pressed.svg</file>
+        <file>svgbutton/Beryl/normal.svg</file>
+        <file>svgbutton/BerylSquare/hovered.svg</file>
+        <file>svgbutton/BerylSquare/pressed.svg</file>
+        <file>svgbutton/BerylSquare/normal.svg</file>
+        <file>svgbutton/Beryl/background_hover.svg</file>
+        <file>svgbutton/Beryl/background.svg</file>
+        <file>svgbutton/Beryl/knob_off.svg</file>
+        <file>svgbutton/Beryl/knob_on.svg</file>
+        <file>Control-Panel-icon.png</file>
+        <file>Button-Download-icon.png</file>
+        <file>Button-Next-icon.png</file>
+        <file>Button-Previous-icon.png</file>
+        <file>Button-Stop-icon.png</file>
+        <file>Button-Upload-icon.png</file>
+        <file>Actions-window-close-icon.png</file>
+        <file>robe.png</file>
+        <file>blue-cross-icon.png</file>
+        <file>glossy-3d-blue-delete-icon.png</file>
+        <file>logout-icon.png</file>
+        <file>icm.png</file>
+        <file>Letter-C-icon.png</file>
+        <file>Letter-G-icon.png</file>
+        <file>Letter-R-icon.png</file>
+        <file>Letter-A-icon.png</file>
+        <file>svgbutton/Beryl/pressedOrange.png</file>
+        <file>fuse.png</file>
+        <file>Button-Blank-Gray-icon.png</file>
+        <file>48L.png</file>
+        <file>48M.png</file>
+        <file>48R.png</file>
+        <file>app0.png</file>
+        <file>app3.png</file>
+        <file>graph.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MuxJig</class>
+ <widget class="QWidget" name="MuxJig">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>610</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MuxJig</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QGroupBox" name="testChannel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>780</width>
+     <height>220</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>DejaVu Sans</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:white;</string>
+   </property>
+   <property name="title">
+    <string>Test Channel</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="refChannel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>230</y>
+     <width>780</width>
+     <height>220</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>DejaVu Sans</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:white;</string>
+   </property>
+   <property name="title">
+    <string>Reference Channel</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>450</y>
+     <width>780</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>DejaVu Sans</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QGroupBox{
+color:white;
+}</string>
+   </property>
+   <property name="title">
+    <string>Control</string>
+   </property>
+   <widget class="QCheckBox" name="extMux">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>141</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox{
+font: 14px;
+color:white;
+}
+ QCheckBox::indicator {
+     width: 20px;
+     height:20px;
+   border: 2px solid black;
+	 border-radius:1;
+
+ }
+ QCheckBox::indicator::unchecked {
+		background-color:white;
+     }
+
+     QCheckBox::indicator:unchecked:hover {
+		background-color:white;
+     }
+
+     QCheckBox::indicator:unchecked:pressed {
+		background-color:white;
+     }
+
+     QCheckBox::indicator::checked {
+		background-color:#f2a400;
+     }
+
+     QCheckBox::indicator:checked:hover {
+		background-color:#f2a400;
+     }
+
+     QCheckBox::indicator:checked:pressed {
+		background-color:#f2a400;
+     }</string>
+    </property>
+    <property name="text">
+     <string>Enable Ext Mux</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>30</y>
+      <width>97</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid #8f8f91;
+         border-radius: 10px;
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #f6f7fa, stop: 1 #dadbde);
+         min-width: 80px;
+     }
+
+     QPushButton:pressed {
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string>Self Test</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>70</y>
+      <width>150</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid #8f8f91;
+         border-radius: 10px;
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #f6f7fa, stop: 1 #dadbde);
+         min-width: 80px;
+     }
+
+     QPushButton:pressed {
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string>Switch Ext Test_Ref</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="reset">
+    <property name="geometry">
+     <rect>
+      <x>443</x>
+      <y>70</y>
+      <width>120</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid #8f8f91;
+         border-radius: 10px;
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #f6f7fa, stop: 1 #dadbde);
+         min-width: 80px;
+     }
+
+     QPushButton:pressed {
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string>Reset_PSoC</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="reset_2">
+    <property name="geometry">
+     <rect>
+      <x>443</x>
+      <y>30</y>
+      <width>120</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid #8f8f91;
+         border-radius: 10px;
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #f6f7fa, stop: 1 #dadbde);
+         min-width: 80px;
+     }
+
+     QPushButton:pressed {
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string>PSoC_App_Bck</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="resetRefCh">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>70</y>
+      <width>100</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid #8f8f91;
+         border-radius: 10px;
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #f6f7fa, stop: 1 #dadbde);
+         min-width: 80px;
+     }
+
+     QPushButton:pressed {
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string>Reset Ref Ch</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="resetTestCh">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>30</y>
+      <width>100</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid #8f8f91;
+         border-radius: 10px;
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #f6f7fa, stop: 1 #dadbde);
+         min-width: 80px;
+     }
+
+     QPushButton:pressed {
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string>Reset Test Ch</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="resetBothCh">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>30</y>
+      <width>84</width>
+      <height>68</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid #8f8f91;
+         border-radius: 10px;
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #f6f7fa, stop: 1 #dadbde);
+         min-width: 80px;
+     }
+
+     QPushButton:pressed {
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string>Reset
+ Both 
+ Channels</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_5">
+    <property name="geometry">
+     <rect>
+      <x>671</x>
+      <y>30</y>
+      <width>97</width>
+      <height>68</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid #8f8f91;
+         border-radius: 10px;
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #f6f7fa, stop: 1 #dadbde);
+         min-width: 80px;
+     }
+
+     QPushButton:pressed {
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string>Exit
+MuxJig</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="switchExtMux">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>70</y>
+      <width>97</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid #8f8f91;
+         border-radius: 10px;
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #f6f7fa, stop: 1 #dadbde);
+         min-width: 80px;
+     }
+
+     QPushButton:pressed {
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string>Switch Ext</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="readCodeId">
+    <property name="geometry">
+     <rect>
+      <x>175</x>
+      <y>30</y>
+      <width>60</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid #8f8f91;
+         border-radius: 10px;
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #f6f7fa, stop: 1 #dadbde);
+     }
+
+     QPushButton:pressed {
+         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                           stop: 0 #dadbde, stop: 1 #f6f7fa);
+     }
+
+     QPushButton:flat {
+         border: none; /* no border for a flat push button */
+     }
+
+     QPushButton:default {
+         border-color: navy; /* make the default button prominent */
+     }</string>
+    </property>
+    <property name="text">
+     <string>Read
+Mux
+CodeId</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

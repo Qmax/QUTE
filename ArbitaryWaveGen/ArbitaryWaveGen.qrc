@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/Aqua-Play-icon.png</file>
+        <file>res/Aqua-Stop-icon.png</file>
+        <file>res/logout-icon.png</file>
+        <file>res/LH1-Play-icon.png</file>
+        <file>res/LH1-Standby-icon.png</file>
+        <file>res/LH1-Stop-icon.png</file>
+        <file>res/Refresh-icon.png</file>
+        <file>res/Zoom-icon.png</file>
+        <file>res/Zoom-In-icon.png</file>
+        <file>res/Zoom-Out-icon.png</file>
+        <file>res/automatic-512.png</file>
+    </qresource>
+</RCC>

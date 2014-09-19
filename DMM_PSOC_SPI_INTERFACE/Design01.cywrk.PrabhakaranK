@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcCustomData" version="4">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<TreeKeys>
+<v>Source</v>
+<v>Components</v>
+<v>Output</v>
+</TreeKeys>
+<TreeStates>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Design01\Design01\Source Files\main.c">
+<ExpandedNodeIds>
+<v>Design01</v>
+<v>Design01\Design01</v>
+<v>Design01\Design01\Design01.cydwr</v>
+<v>Design01\Design01\Header Files</v>
+<v>Design01\Design01\Header Files\device.h</v>
+<v>Design01\Design01\Source Files</v>
+<v>Design01\Design01\Source Files\main.c</v>
+<v>Design01\Design01\Generated_Source</v>
+<v>Design01\Design01\Generated_Source\PSoC3</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CK</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CK\CK.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CK\CK.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CK\CK_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CS</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CS\CS.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CS\CS.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CS\CS_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyBootAsmKeil.a51</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyDmac.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyDmac.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyFlash.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyFlash.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyLib.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyLib.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\cymem.a51</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\cypins.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\cyPm.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\cyPm.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CySpc.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CySpc.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\cytypes.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\cyutils.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\KeilStart.a51</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\PSoC3_8051.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\PSoC3_8051.inc</v>
+<v>Design01\Design01\Generated_Source\PSoC3\DIn</v>
+<v>Design01\Design01\Generated_Source\PSoC3\DIn\DIn.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\DIn\DIn.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\DIn\DIn_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\DOut</v>
+<v>Design01\Design01\Generated_Source\PSoC3\DOut\DOut.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\DOut\DOut.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\DOut\DOut_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_DI0</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_DI0\ISO_DI0.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_DI0\ISO_DI0.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_DI0\ISO_DI0_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SCLK</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SCLK\ISO_SCLK.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SCLK\ISO_SCLK.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SCLK\ISO_SCLK_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SCS</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SCS\ISO_SCS.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SCS\ISO_SCS.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SCS\ISO_SCS_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SDI</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SDI\ISO_SDI.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SDI\ISO_SDI.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SDI\ISO_SDI_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SDO</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SDO\ISO_SDO.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SDO\ISO_SDO.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\ISO_SDO\ISO_SDO_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL1_CTR</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL1_CTR\RL1_CTR.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL1_CTR\RL1_CTR.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL1_CTR\RL1_CTR_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL2_CTR</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL2_CTR\RL2_CTR.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL2_CTR\RL2_CTR.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL2_CTR\RL2_CTR_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL3_CTR</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL3_CTR\RL3_CTR.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL3_CTR\RL3_CTR.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL3_CTR\RL3_CTR_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL4_CTR</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL4_CTR\RL4_CTR.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL4_CTR\RL4_CTR.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL4_CTR\RL4_CTR_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL5_CTR</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL5_CTR\RL5_CTR.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL5_CTR\RL5_CTR.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL5_CTR\RL5_CTR_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL6_CTR</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL6_CTR\RL6_CTR.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL6_CTR\RL6_CTR.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL6_CTR\RL6_CTR_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL7_CTR</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL7_CTR\RL7_CTR.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL7_CTR\RL7_CTR.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\RL7_CTR\RL7_CTR_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\SPIS</v>
+<v>Design01\Design01\Generated_Source\PSoC3\SPIS\SPIS.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\SPIS\SPIS.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\SPIS\SPIS_INT.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\SPIS\SPIS_PM.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\SPIS_IntClock</v>
+<v>Design01\Design01\Generated_Source\PSoC3\SPIS_IntClock\SPIS_IntClock.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\SPIS_IntClock\SPIS_IntClock.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cydevice.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cydevice_trm.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cydevicekeil.inc</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cydevicekeil_trm.inc</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cyfitter.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cyfitter_cfg.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cyfitter_cfg.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cyfitterkeil.inc</v>
+<v>Design01\Design01\Generated_Source\PSoC3\project.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\Clock_1</v>
+<v>Design01\Design01\Generated_Source\PSoC3\Clock_1\Clock_1.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\Clock_1\Clock_1.h</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>Design01</v>
+<v>Design01\Design01</v>
+<v>Design01\Design01\TopDesign.cysch</v>
+<v>Design01\Design01\Design01.cydwr</v>
+<v>Design01\Design01\Header Files</v>
+<v>Design01\Design01\Header Files\device.h</v>
+<v>Design01\Design01\Source Files</v>
+<v>Design01\Design01\Source Files\main.c</v>
+<v>Design01\Design01\Generated_Source</v>
+<v>Design01\Design01\Generated_Source\PSoC3</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CK</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CK\CK.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CK\CK.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CK\CK_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CS</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CS\CS.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CS\CS.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\CS\CS_aliases.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyBootAsmKeil.a51</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyDmac.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyDmac.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyFlash.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyFlash.h</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyLib.c</v>
+<v>Design01\Design01\Generated_Source\PSoC3\cy_boot\CyLib.h</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>Design01</v>
+<v>Design01\Design01</v>
+<v>Design01\Design01\TopDesign</v>
+<v>Design01\Design01\TopDesign\TopDesign.cysch</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>Design01</v>
+<v>Design01\Design01</v>
+<v>Design01\Design01\TopDesign</v>
+<v>Design01\Design01\TopDesign\TopDesign.cysch</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>Design01</v>
+<v>Design01\Design01</v>
+<v>Design01\Design01\Design01.rpt</v>
+<v>Design01\Design01\Design01_timing.html</v>
+<v>Design01\Design01\DP8051</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>Design01</v>
+<v>Design01\Design01</v>
+<v>Design01\Design01\Design01.cycdx</v>
+<v>Design01\Design01\Design01.rpt</v>
+<v>Design01\Design01\Design01_timing.html</v>
+<v>Design01\Design01\DP8051</v>
+<v>Design01\Design01\DP8051\DP8051_Keil_903</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStates>
+</CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<Unloaded />
+<OpenDocs>
+<name v=".\Design01.cydsn\main.c" />
+<name v=".\Design01.cydsn\Design01.cydwr" />
+<name v=".\Design01.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\design01.cydsn\generated_source\psoc3\SPIS.c" />
+<name v=".\design01.cydsn\generated_source\psoc3\SPIS_INT.c" />
+<name v=".\Design01.cydsn\device.h" />
+</OpenDocs>
+<config v="" />
+</CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
+</CyXmlSerializer>

@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/gradient_oval1.png</file>
+        <file>images/image93.png</file>
+        <file>images/imageIdle.png</file>
+        <file>images/PTFront.PNG</file>
+        <file>images/Tamil_ohm2.png</file>
+        <file>Desktop/app0.png</file>
+        <file>Desktop/app1.png</file>
+        <file>Desktop/app2.png</file>
+        <file>Desktop/app3.png</file>
+        <file>Desktop/app4.png</file>
+        <file>Desktop/app5.png</file>
+        <file>Desktop/app6.png</file>
+        <file>Desktop/app7.png</file>
+        <file>Desktop/app8.png</file>
+        <file>Desktop/app9.png</file>
+        <file>Desktop/Power.png</file>
+        <file>images/simple_gray.png</file>
+    </qresource>
+</RCC>

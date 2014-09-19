@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>test_CalibReportInterfaceClass</class>
+ <widget class="QWidget" name="test_CalibReportInterfaceClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>test_CalibReportInterface</string>
+  </property>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>80</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+color:white;
+border: 1px solid #2D5059;
+border-radius: 20px;
+background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);
+font:bold;
+}
+QPushButton:pressed {
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+QPushButton:flat {
+border: none; 
+}
+QPushButton:default {
+border-color: navy; 
+}
+
+QPushButton:disabled
+{
+color:lightgrey;
+background-color:grey
+}</string>
+   </property>
+   <property name="text">
+    <string>GENERATE</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>170</y>
+     <width>171</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+color:white;
+border: 1px solid #2D5059;
+border-radius: 20px;
+background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);
+font:bold;
+}
+QPushButton:pressed {
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+QPushButton:flat {
+border: none; 
+}
+QPushButton:default {
+border-color: navy; 
+}
+
+QPushButton:disabled
+{
+color:lightgrey;
+background-color:grey
+}</string>
+   </property>
+   <property name="text">
+    <string>GENERATE FROM FILE</string>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

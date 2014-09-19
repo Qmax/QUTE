@@ -1,0 +1,101 @@
+<PortableTester>
+  <Application ApplicationName="DSONavigation" />
+  <SupportedPlatforms Platforms="Linux" />
+  <Version FileVersion="FVER00001" />
+  <Date FileCreated="24/03/2014 9:00:55 AM" />
+      <DSONavigation>
+	  <Channel DisplayValue ="Channel" hasChild = "Yes" Description = "Options for Channel1 and Channel2" isToggle = "No" ToggleKey="">
+	      <Coupling DisplayValue ="Coupling" hasChild = "Yes" isToggle = "No" ToggleKey="">
+		  <AC DisplayValue ="AC" hasChild = "No" isToggle = "No" ToggleKey="" ></AC>
+		  <GND DisplayValue ="GND" hasChild = "No" isToggle = "No" ToggleKey=""></GND>
+		  <DC1Mohm DisplayValue ="DC1Mohm" hasChild = "No" isToggle = "No" ToggleKey=""></DC1Mohm>
+	      </Coupling>
+	      <Bandwidth DisplayValue ="Bandwidth" hasChild = "Yes" isToggle = "No" ToggleKey="">
+		  <FULL DisplayValue ="Full" hasChild = "No" isToggle = "No" ToggleKey=""></FULL>
+		  <F20Khz DisplayValue ="20Khz" hasChild = "No" isToggle = "No" ToggleKey=""></F20Khz>
+		  <F20Mhz DisplayValue ="20Mhz" hasChild = "No" isToggle = "No" ToggleKey=""></F20Mhz>
+	      </Bandwidth>
+	      <Probe DisplayValue ="Probe" hasChild = "Yes" isToggle = "No" ToggleKey="">
+		  <Option1  DisplayValue ="1:1" hasChild = "No" isToggle = "No" ToggleKey=""></Option1>
+		  <Option2 DisplayValue ="10:1" hasChild = "No" isToggle = "No" ToggleKey=""></Option2>
+	      </Probe>
+	      <Invert DisplayValue ="Invert" hasChild = "No" isToggle = "Yes" ToggleKey="On,Off"></Invert>
+	      <VoltsDiv DisplayValue ="Volts/Div" hasChild = "No" isToggle = "Yes" ToggleKey="Coarse,Fine"></VoltsDiv>
+	  </Channel>
+	  <Timebase DisplayValue ="Timebase" hasChild = "Yes" isToggle = "No" ToggleKey="">
+	      <Mode DisplayValue ="Mode" hasChild = "Yes" isToggle = "No" ToggleKey="">
+		  <Normal DisplayValue ="Normal" hasChild ="No" isToggle = "No" ToggleKey =""></Normal>
+		  <PeakDetect DisplayValue ="PeakDetect" hasChild ="No" isToggle = "No" ToggleKey =""></PeakDetect>
+		  <Average DisplayValue ="Average" hasChild ="No" isToggle = "Yes" ToggleKey ="Samples"></Average>
+		  <HiRes DisplayValue ="HiRes" hasChild ="No" isToggle = "No" ToggleKey =""></HiRes>
+	      </Mode>
+      	      <Equivalent DisplayValue ="Equivalent" hasChild = "No" isToggle = "Yes" ToggleKey="On,Off"></Equivalent>
+	      <RollMode DisplayValue ="RollMode" hasChild = "No" isToggle = "Yes" ToggleKey="On,Off"></RollMode>
+	      <MaxMemory DisplayValue = "MaxMemory" hasChild = "Yes" isToggle ="No" ToggleKey ="">
+		  <M1 DisplayValue = "" hasChild = "No" isToggle ="No" ToggleKey =""></M1>
+		  <M2 DisplayValue = "" hasChild = "No" isToggle ="No" ToggleKey =""></M2>
+		  <M3 DisplayValue = "" hasChild = "No" isToggle ="No" ToggleKey =""></M3>
+	      </MaxMemory>
+	  </Timebase>
+	  <Trigger DisplayValue = "Trigger" hasChild = "Yes" isToggle ="No" ToggleKey ="">
+	      <Edge DisplayValue = "Edge" hasChild = "Yes" isToggel ="No" ToggleKey ="">
+		  <PulseWidth DisplayValue = "PulseWidth" hasChild = "No" isToggel ="No" ToggleKey =""></PulseWidth>
+		  <Period DisplayValue = "Period" hasChild = "No" isToggel ="No" ToggleKey =""></Period>
+		  <PulseCount DisplayValue = "PulseCount" hasChild = "No" isToggel ="No" ToggleKey =""></PulseCount>
+	      </Edge>
+	      <Source DisplayValue = "Source" hasChild = "No" isToggel ="Yes" ToggleKey ="CH1,CH2"></Source>
+	      <Slope DisplayValue = "Slope" hasChild = "Yes" isToggel ="No" ToggleKey ="">
+		  <Rising DisplayValue = "Rising" hasChild = "No" isToggle ="No" ToggleKey =""></Rising>
+		  <Falling DisplayValue = "Falling" hasChild = "No" isToggle ="No" ToggleKey =""></Falling>
+	      </Slope>
+      	      <Coupling DisplayValue ="Coupling" hasChild = "Yes" isToggle = "No" ToggleKey="">
+		  <AC DisplayValue ="AC" hasChild = "No" isToggle = "No" ToggleKey="" ></AC>
+		  <DC DisplayValue ="DC" hasChild = "No" isToggle = "No" ToggleKey=""></DC>
+	      </Coupling>
+	      <Hold DisplayValue = "Hold" hasChild = "No" isToggel ="Yes" ToggleKey ="On,Off"></Hold>
+	  </Trigger>
+	  <Measurements DisplayValue ="Measure" hasChild = "Yes" isToggle = "No" ToggleKey="">
+	      <MeasureNo DisplayValue ="MeasureNo" hasChild = "No" isToggle = "Yes" ToggleKey="A,B,C,D"></MeasureNo>
+	      <Source DisplayValue = "Source" hasChild = "No" isToggel ="Yes" ToggleKey ="CH1,CH2"></Source>
+	      <MeasureItem DisplayValue = "MeasureItem" hasChild = "Yes" isToggel ="No" ToggleKey ="">
+		  <Vertical DisplayValue = "Vertical" hasChild = "Yes" isToggel ="No" ToggleKey ="">
+		      <Maximum DisplayValue = "Maximum" hasChild = "No" isToggle ="No" ToggleKey =""></Maximum>
+		      <Minimum DisplayValue = "Minimum" hasChild = "No" isToggle ="No" ToggleKey =""></Minimum>
+		      <PeaktoPeak DisplayValue = "Peak-Peak" hasChild = "No" isToggle ="No" ToggleKey =""></PeaktoPeak>
+		      <RMS DisplayValue = "RMS" hasChild = "No" isToggle ="No" ToggleKey =""></RMS>
+		      <CycleRMS DisplayValue = "CycleRMS" hasChild = "No" isToggle ="No" ToggleKey =""></CycleRMS>
+		      <Mean DisplayValue = "Mean" hasChild = "No" isToggle ="No" ToggleKey =""></Mean>
+		      <CycleMean DisplayValue = "CycleMean" hasChild = "No" isToggle ="No" ToggleKey =""></CycleMean>
+		      <Top DisplayValue = "Top" hasChild = "No" isToggle ="No" ToggleKey =""></Top>
+		      <Bottom DisplayValue = "Bottom" hasChild = "No" isToggle ="No" ToggleKey =""></Bottom>
+		      <TopBottom DisplayValue = "TopBottom" hasChild = "No" isToggle ="No" ToggleKey =""></TopBottom>
+		      <Overshootpositive DisplayValue = "+overshoot" hasChild = "No" isToggle ="No" ToggleKey =""></Overshootpositive>
+		      <Overshootnegative DisplayValue = "-overshoot" hasChild = "No" isToggle ="No" ToggleKey =""></Overshootnegative>
+		  </Vertical>
+		  <Horizontal DisplayValue = "Horizontal" hasChild = "Yes" isToggel ="No" ToggleKey ="">
+		      <Tr20to80 DisplayValue = "Tr10-90%" hasChild = "No" isToggel ="No" ToggleKey =""></Tr20to80>
+		      <Tr80to20 DisplayValue = "Tf10-90%" hasChild = "No" isToggel ="No" ToggleKey =""></Tr80to20>
+		      <Frequency DisplayValue = "Frequency" hasChild = "No" isToggel ="No" ToggleKey =""></Frequency>
+		      <Period DisplayValue = "Period" hasChild = "No" isToggel ="No" ToggleKey =""></Period>
+		      <PulsewidthPostive DisplayValue = "+pulsewidth" hasChild = "No" isToggel ="No" ToggleKey =""></PulsewidthPostive>
+		      <PulsewidthNegative DisplayValue = "-pulsewidth" hasChild = "No" isToggel ="No" ToggleKey =""></PulsewidthNegative>
+		      <Dutycycle DisplayValue = "dutycycle" hasChild = "No" isToggel ="No" ToggleKey =""></Dutycycle>
+		  </Horizontal>
+	    </MeasureItem>
+	</Measurements>
+	<Cursors DisplayValue = "Cursors" hasChild = "Yes" isToggel ="No" ToggleKey ="">
+	    <Time DisplayValue = "Time" hasChild = "Yes" isToggel ="No" ToggleKey ="">
+		<Cursor1 DisplayValue = "Cursor1" hasChild = "No" isToggel ="No" ToggleKey =""></Cursor1>
+		<Cursor2 DisplayValue = "Cursor2" hasChild = "No" isToggel ="No" ToggleKey =""></Cursor2>
+		<Track DisplayValue = "TrackCursors" hasChild = "No" isToggel ="No" ToggleKey =""></Track>
+	    </Time>
+	    <Amplitude DisplayValue = "Amplitude" hasChild = "Yes" isToggel ="No" ToggleKey ="">
+		    <Cursor1 DisplayValue = "Cursor1" hasChild = "No" isToggel ="No" ToggleKey =""></Cursor1>
+		    <Cursor2 DisplayValue = "Cursor2" hasChild = "No" isToggel ="No" ToggleKey =""></Cursor2>
+		    <Track DisplayValue = "TrackCursors" hasChild = "No" isToggel ="No" ToggleKey =""></Track>
+	    </Amplitude>
+	    <ValueatCursor DisplayValue = "ValueatCursor" hasChild = "Yes" isToggel ="No" ToggleKey =""></ValueatCursor>
+	</Cursors>
+    </DSONavigation>
+</PortableTester>
+  

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>dialWidget</class>
+ <widget class="QWidget" name="dialWidget">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>367</width>
+    <height>246</height>
+   </rect>
+  </property>
+  <property name="cursor">
+   <cursorShape>BlankCursor</cursorShape>
+  </property>
+  <property name="windowTitle">
+   <string>Dial Selection</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+background-color: rgb(108, 108, 107);
+}</string>
+  </property>
+  <property name="windowFilePath">
+   <string>DialSelection</string>
+  </property>
+  <widget class="QGroupBox" name="grpVoltDiv">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>25</y>
+     <width>170</width>
+     <height>170</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>BlankCursor</cursorShape>
+   </property>
+   <property name="title">
+    <string>Volt/Div</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="grpTimeDiv">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>25</y>
+     <width>170</width>
+     <height>170</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>BlankCursor</cursorShape>
+   </property>
+   <property name="title">
+    <string>Time/Div</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="butClose">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>200</y>
+     <width>71</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

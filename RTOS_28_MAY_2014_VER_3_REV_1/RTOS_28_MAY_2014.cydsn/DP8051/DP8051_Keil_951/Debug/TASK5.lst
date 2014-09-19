@@ -1,0 +1,214 @@
+C51 COMPILER V9.51   TASK5                                                                 06/30/2014 18:26:36 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE TASK5
+OBJECT MODULE PLACED IN .\DP8051\DP8051_Keil_951\Debug\TASK5.obj
+COMPILER INVOKED BY: C:\Program Files\Cypress\PSoC Creator\3.0\PSoC Creator\import\keil\pk51\9.51\C51\BIN\c51.exe .\TASK
+                    -5.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051\DP8051_Keil_951\Debug\TASK5.lst) CD DB NOIP OT(2,SIZE) INCDIR(.,.\Generated
+                    -_Source\PSoC3) OJ(.\DP8051\DP8051_Keil_951\Debug\TASK5.obj)
+
+line level    source
+
+   1          /* ========================================
+   2           *
+   3           * Copyright YOUR COMPANY, THE YEAR
+   4           * All Rights Reserved
+   5           * UNPUBLISHED, LICENSED SOFTWARE.
+   6           *
+   7           * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8           * WHICH IS THE PROPERTY OF your company.
+   9           *
+  10           * ========================================
+  11          */
+  12          #include "TASK1.h"
+  13          #include "TASK2.h"
+  14          #include "TASK3.h"
+  15          #include "TASK4.h"
+  16          #include "TASK5.h"
+  17          
+  18          uint16 qdCount=0,qdCountPrev=0;
+  19          
+  20          void task5 (void) _task_ 5{
+  21   1      //    while(1){
+  22   1      //            CyPins_ClearPin(PSoC_INT1_P3_6);          
+  23   1      //            CyDelayUs(100); 
+  24   1      //                      CyPins_SetPin(PSoC_INT1_P3_6);                  
+  25   1      //    }
+  26   1          for(;;){
+  27   2              uint16 m_u8MOSI;
+  28   2              CyDelay(10);
+  29   2              qdCount = QuadDecoder_GetCounter();// & 0x00FF;  // Get value of counts 
+  30   2              
+  31   2              if(!CyPins_ReadPin(EN_SW1_P6_7))
+  32   2                  qdCount = qdCount | 0x0100;
+  33   2              
+  34   2              //if(!CyPins_ReadPin(EN_SW1_P6_7))
+  35   2                //  qdCount = qdCount + 0x8000;
+  36   2              
+  37   2              //if(qdCount!=qdCountPrev){
+  38   2                  CyPins_ClearPin(PSoC_INT1_P3_6);            
+  39   2                  CyDelayUs(100); 
+  40   2                              CyPins_SetPin(PSoC_INT1_P3_6);  
+  41   2              //}
+  42   2              
+  43   2              //while(!(SPIS_ReadRxStatus() & SPIS_STS_RX_FIFO_EMPTY)){
+  44   2                      //m_u8MOSI=SPIS_ReadRxData();       // Read SPI Data 
+  45   2                      //SPIS_ClearRxBuffer();
+  46   2                  //}
+  47   2              //if(m_u8MOSI&0x80){
+  48   2              SPIS_WriteTxData(qdCount);
+  49   2              while(!(SPIS_ReadTxStatus() & SPIS_STS_TX_FIFO_EMPTY)){;}
+  50   2              CyDelayUs(100);
+  51   2              //}
+  52   2          }
+  53   1          /*for(;;){
+C51 COMPILER V9.51   TASK5                                                                 06/30/2014 18:26:36 PAGE 2   
+
+  54   1              qdCount = QuadDecoder_GetCounter();  // Get value of counts 
+  55   1              
+  56   1                  if(!CyPins_ReadPin(EN_SW1_P6_7))
+  57   1                      qdCount = qdCount + 0x5;
+  58   1             
+  59   1              UART_WriteTxData(qdCount);
+  60   1                      while(!(UART_ReadTxStatus() & UART_TX_STS_FIFO_EMPTY)){;}
+  61   1              CyDelay(500u);
+  62   1          }*/
+  63   1      }
+*** WARNING C280 IN LINE 27 OF .\TASK5.c: 'm_u8MOSI': unreferenced local variable
+  64          
+  65          void TASK_5 ()                                                          //      INITIALISATION FUNCTION OF TASK5
+  66          {
+  67   1              os_create_task(5);                                              //      CREATION OF TASK5
+  68   1      }
+  69          /* [] END OF FILE */
+*** WARNING C316 IN LINE 69 OF .\TASK5.c: unterminated conditionals
+C51 COMPILER V9.51   TASK5                                                                 06/30/2014 18:26:36 PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION task5 (BEGIN)
+                                           ; SOURCE LINE # 20
+                                           ; SOURCE LINE # 26
+0000         ?C0001:
+                                           ; SOURCE LINE # 28
+0000 7F0A              MOV     R7,#0AH
+0002 7E00              MOV     R6,#00H
+0004 7D00              MOV     R5,#00H
+0006 7C00              MOV     R4,#00H
+0008 120000      E     LCALL   _?CyDelay
+                                           ; SOURCE LINE # 29
+000B 120000      E     LCALL   QuadDecoder_GetCounter
+000E EF                MOV     A,R7
+000F 33                RLC     A
+0010 95E0              SUBB    A,ACC
+0012 FE                MOV     R6,A
+0013 900000      R     MOV     DPTR,#qdCount
+0016 EE                MOV     A,R6
+0017 F0                MOVX    @DPTR,A
+0018 A3                INC     DPTR
+0019 EF                MOV     A,R7
+001A F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 31
+001B 905037            MOV     DPTR,#05037H
+001E E0                MOVX    A,@DPTR
+001F FF                MOV     R7,A
+0020 EF                MOV     A,R7
+0021 5410              ANL     A,#010H
+0023 FF                MOV     R7,A
+0024 7E00              MOV     R6,#00H
+0026 EF                MOV     A,R7
+0027 4E                ORL     A,R6
+0028 7014              JNZ     ?C0003
+                                           ; SOURCE LINE # 32
+002A 900000      R     MOV     DPTR,#qdCount
+002D E0                MOVX    A,@DPTR
+002E FE                MOV     R6,A
+002F A3                INC     DPTR
+0030 E0                MOVX    A,@DPTR
+0031 FF                MOV     R7,A
+0032 EE                MOV     A,R6
+0033 4401              ORL     A,#01H
+0035 FE                MOV     R6,A
+0036 900000      R     MOV     DPTR,#qdCount
+0039 EE                MOV     A,R6
+003A F0                MOVX    @DPTR,A
+003B A3                INC     DPTR
+003C EF                MOV     A,R7
+003D F0                MOVX    @DPTR,A
+003E         ?C0003:
+                                           ; SOURCE LINE # 38
+003E 90501E            MOV     DPTR,#0501EH
+0041 E0                MOVX    A,@DPTR
+0042 FF                MOV     R7,A
+0043 EF                MOV     A,R7
+0044 54FE              ANL     A,#0FEH
+0046 FF                MOV     R7,A
+0047 EF                MOV     A,R7
+0048 F0                MOVX    @DPTR,A
+C51 COMPILER V9.51   TASK5                                                                 06/30/2014 18:26:36 PAGE 4   
+
+                                           ; SOURCE LINE # 39
+0049 7F64              MOV     R7,#064H
+004B 7E00              MOV     R6,#00H
+004D 120000      E     LCALL   _CyDelayUs
+                                           ; SOURCE LINE # 40
+0050 90501E            MOV     DPTR,#0501EH
+0053 E0                MOVX    A,@DPTR
+0054 FF                MOV     R7,A
+0055 EF                MOV     A,R7
+0056 4401              ORL     A,#01H
+0058 FF                MOV     R7,A
+0059 EF                MOV     A,R7
+005A F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 48
+005B 900000      R     MOV     DPTR,#qdCount
+005E E0                MOVX    A,@DPTR
+005F FE                MOV     R6,A
+0060 A3                INC     DPTR
+0061 E0                MOVX    A,@DPTR
+0062 FF                MOV     R7,A
+0063 120000      E     LCALL   _SPIS_WriteTxData
+0066         ?C0004:
+                                           ; SOURCE LINE # 49
+0066 120000      E     LCALL   SPIS_ReadTxStatus
+0069 EF                MOV     A,R7
+006A 30E2F9            JNB     ACC.2,?C0004
+006D         ?C0005:
+                                           ; SOURCE LINE # 50
+006D 7F64              MOV     R7,#064H
+006F 7E00              MOV     R6,#00H
+0071 120000      E     LCALL   _CyDelayUs
+                                           ; SOURCE LINE # 52
+0074 808A              SJMP    ?C0001
+0076 22                RET     
+             ; FUNCTION task5 (END)
+
+             ; FUNCTION TASK_5 (BEGIN)
+                                           ; SOURCE LINE # 65
+                                           ; SOURCE LINE # 66
+                                           ; SOURCE LINE # 67
+0000 7F05              MOV     R7,#05H
+0002 120000      E     LCALL   _os_create_task
+                                           ; SOURCE LINE # 68
+0005 22                RET     
+             ; FUNCTION TASK_5 (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    125    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      4       2
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>SLBG.png</file>
+        <file>SLBG5.png</file>
+        <file>bg.png</file>
+    </qresource>
+</RCC>

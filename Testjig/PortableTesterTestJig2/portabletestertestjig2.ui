@@ -1,0 +1,1226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PortableTesterTestJig2Class</class>
+ <widget class="QWidget" name="PortableTesterTestJig2Class">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="palette">
+   <palette>
+    <active>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>108</red>
+        <green>108</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>108</red>
+        <green>108</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>108</red>
+        <green>108</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>108</red>
+        <green>108</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>108</red>
+        <green>108</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>108</red>
+        <green>108</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>108</red>
+        <green>108</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
+   </palette>
+  </property>
+  <property name="font">
+   <font>
+    <family>DejaVu Sans</family>
+    <pointsize>11</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>PortableTesterTestJig2</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="pttj2.qrc">
+    <normaloff>:/images/pt1.png</normaloff>:/images/pt1.png</iconset>
+  </property>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>601</height>
+    </rect>
+   </property>
+   <property name="palette">
+    <palette>
+     <active>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>108</red>
+         <green>108</green>
+         <blue>107</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Light">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>162</red>
+         <green>162</green>
+         <blue>161</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Midlight">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>135</red>
+         <green>135</green>
+         <blue>134</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Dark">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>54</red>
+         <green>54</green>
+         <blue>53</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Mid">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>72</red>
+         <green>72</green>
+         <blue>71</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>108</red>
+         <green>108</green>
+         <blue>107</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="AlternateBase">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>54</red>
+         <green>54</green>
+         <blue>53</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </active>
+     <inactive>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>108</red>
+         <green>108</green>
+         <blue>107</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Light">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>162</red>
+         <green>162</green>
+         <blue>161</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Midlight">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>135</red>
+         <green>135</green>
+         <blue>134</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Dark">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>54</red>
+         <green>54</green>
+         <blue>53</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Mid">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>72</red>
+         <green>72</green>
+         <blue>71</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>108</red>
+         <green>108</green>
+         <blue>107</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="AlternateBase">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>54</red>
+         <green>54</green>
+         <blue>53</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </inactive>
+     <disabled>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>54</red>
+         <green>54</green>
+         <blue>53</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>108</red>
+         <green>108</green>
+         <blue>107</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Light">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>162</red>
+         <green>162</green>
+         <blue>161</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Midlight">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>135</red>
+         <green>135</green>
+         <blue>134</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Dark">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>54</red>
+         <green>54</green>
+         <blue>53</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Mid">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>72</red>
+         <green>72</green>
+         <blue>71</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>54</red>
+         <green>54</green>
+         <blue>53</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>54</red>
+         <green>54</green>
+         <blue>53</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>108</red>
+         <green>108</green>
+         <blue>107</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>108</red>
+         <green>108</green>
+         <blue>107</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="AlternateBase">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>54</red>
+         <green>54</green>
+         <blue>53</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </disabled>
+    </palette>
+   </property>
+   <property name="font">
+    <font>
+     <family>DejaVu Sans</family>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTabWidget{
+font: &quot;DejaVu Sans&quot;;
+}
+
+QTabBar::scroller {
+width: 50px;
+}
+
+QWidget{
+font: &quot;DejaVu Sans&quot;;
+}</string>
+   </property>
+   <property name="tabShape">
+    <enum>QTabWidget::Rounded</enum>
+   </property>
+   <property name="currentIndex">
+    <number>6</number>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+   <property name="elideMode">
+    <enum>Qt::ElideNone</enum>
+   </property>
+   <property name="documentMode">
+    <bool>true</bool>
+   </property>
+   <property name="tabsClosable">
+    <bool>false</bool>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <widget class="QWidget" name="AWG">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/awg.png</normaloff>:/images/awg.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>AWG</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="DMMSL">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/Dmmlg.png</normaloff>:/images/Dmmlg.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>DMM/SL</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="ICM">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/Icmbr.png</normaloff>:/images/Icmbr.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>ICM</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="VI">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/vib.png</normaloff>:/images/vib.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>VI</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="FM">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/ram.png</normaloff>:/images/ram.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>Flash</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="ACR">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/Pulse with modulation.png</normaloff>:/images/Pulse with modulation.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>ACR</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="PSOC">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/Shortr.png</normaloff>:/images/Shortr.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>PSOC</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="KeyKnob">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/key.png</normaloff>:/images/key.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>KeyKnob</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="DDS">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/sincos.png</normaloff>:/images/sincos.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>DDS</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="Plot">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/Plot.png</normaloff>:/images/Plot.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>Plot</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="HAADC">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/HAADC.png</normaloff>:/images/HAADC.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>HAADC</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="APPDRVRX">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/appdrvrx.png</normaloff>:/images/appdrvrx.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>APP_DRV_RX</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="AD5318">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/AD5318.png</normaloff>:/images/AD5318.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>AD5318</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="RAMData">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/ram-icon.png</normaloff>:/images/ram-icon.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>RAMData</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="AD9102">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/AD9102.png</normaloff>:/images/AD9102.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>AD9102</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="Viewer">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/viewer.png</normaloff>:/images/viewer.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>Viewer</string>
+    </attribute>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>730</width>
+       <height>520</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QScrollArea{
+
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 gray, stop: 1 #E0E0E0);
+     border: 1px solid black;
+     border-radius: 0px;
+}
+  </string>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>728</width>
+        <height>518</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>730</x>
+       <y>-6</y>
+       <width>70</width>
+       <height>300</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"> QGroupBox {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 gray, stop: 1 #E0E0E0);
+     border: 1px solid black;
+     border-radius: 0px;
+     margin-top: 1ex; /* leave space at the top for the title */
+ }
+</string>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QLabel" name="PAGElabel">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>91</y>
+        <width>51</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>DejaVu Sans</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>PAGE</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="pageSpinBox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>4</x>
+        <y>140</y>
+        <width>60</width>
+        <height>70</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>DejaVu Sans</family>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"> QSpinBox {
+ border: 2px solid #8f8f91;
+     border-radius: 6px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+ }
+
+ QSpinBox::up-button {
+     subcontrol-origin: border;
+     subcontrol-position: top right; /* position at the top right corner */
+     width: 70px; /* 16 + 2*1px border-width = 15px padding + 3px parent border */
+ }
+ QSpinBox::up-arrow {
+     width: 50px;
+     height: 50px;
+ }
+
+
+ QSpinBox::down-button {
+     subcontrol-origin: border;
+     subcontrol-position: bottom right; /* position at bottom right corner */
+     width: 70px;
+ }
+
+ QSpinBox::down-arrow {
+
+     width: 50px;
+     height: 50px;
+ }
+
+</string>
+      </property>
+      <property name="buttonSymbols">
+       <enum>QAbstractSpinBox::UpDownArrows</enum>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="LOADpushButton">
+      <property name="geometry">
+       <rect>
+        <x>2</x>
+        <y>24</y>
+        <width>64</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>DejaVu Sans</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+        <stylestrategy>PreferAntialias</stylestrategy>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+     border: 2px solid #8f8f91;
+     border-radius: 18px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+}
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+      </property>
+      <property name="text">
+       <string>OPEN 
+ FILE</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>105</y>
+        <width>40</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"> QLineEdit {
+ border: 2px solid #8f8f91;
+     border-radius: 6px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+ }
+</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="ZOOMlabel">
+      <property name="geometry">
+       <rect>
+        <x>16</x>
+        <y>230</y>
+        <width>70</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>DejaVu Sans</family>
+        <pointsize>12</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>SCALE</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="scaleComboBox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>249</y>
+        <width>60</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox {
+   border: 2px solid #8f8f91;
+     border-radius: 6px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+ }
+</string>
+      </property>
+      <property name="currentIndex">
+       <number>3</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>25%</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>50%</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>75%</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>100%</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>125%</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>150%</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>200%</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>300%</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>400%</string>
+       </property>
+      </item>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>730</x>
+       <y>287</y>
+       <width>70</width>
+       <height>233</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"> QGroupBox {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 gray, stop: 1 #E0E0E0);
+     border: 1px solid black;
+     border-radius: 0px;
+     margin-top: 1ex; /* leave space at the top for the title */
+ }
+</string>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>10</y>
+        <width>70</width>
+        <height>70</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+     border: 2px solid #8f8f91;
+     border-radius: 2px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+}
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+      </property>
+      <property name="text">
+       <string>AppCard
+Register
+Details</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>80</y>
+        <width>70</width>
+        <height>70</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+     border: 2px solid #8f8f91;
+     border-radius: 2px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+}
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+      </property>
+      <property name="text">
+       <string>BackPanel
+Register
+Details</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>150</y>
+        <width>70</width>
+        <height>70</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+     border: 2px solid #8f8f91;
+     border-radius: 2px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+}
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+      </property>
+      <property name="text">
+       <string>PSOC
+Commands
+Details</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>450</y>
+       <width>50</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+     border: 2px solid #8f8f91;
+     border-radius: 25px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+}
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+     </property>
+     <property name="text">
+      <string>-</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_5">
+     <property name="geometry">
+      <rect>
+       <x>600</x>
+       <y>450</y>
+       <width>50</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+     border: 2px solid #8f8f91;
+     border-radius: 25px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+}
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+     </property>
+     <property name="text">
+      <string>+</string>
+     </property>
+    </widget>
+    <zorder>scrollArea</zorder>
+    <zorder>groupBox</zorder>
+    <zorder>groupBox_2</zorder>
+    <zorder>pushButton_5</zorder>
+    <zorder>pushButton</zorder>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="pushButton_6">
+   <property name="geometry">
+    <rect>
+     <x>739</x>
+     <y>1</y>
+     <width>60</width>
+     <height>45</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>CLOSE</string>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="pttj2.qrc"/>
+ </resources>
+ <connections/>
+</ui>

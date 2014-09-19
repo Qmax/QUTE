@@ -1,0 +1,603 @@
+C51 COMPILER V9.51   K_ISR                                                                 06/30/2014 14:50:43 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE K_ISR
+OBJECT MODULE PLACED IN .\DP8051\DP8051_Keil_951\Debug\k_isr.obj
+COMPILER INVOKED BY: C:\Program Files\Cypress\PSoC Creator\3.0\PSoC Creator\import\keil\pk51\9.51\C51\BIN\c51.exe .\Gene
+                    -rated_Source\PSoC3\k_isr.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051\DP8051_Keil_951\Debug\k_isr.lst) CD DB NOIP OT(2,SIZ
+                    -E) INCDIR(.,.\Generated_Source\PSoC3) OJ(.\DP8051\DP8051_Keil_951\Debug\k_isr.obj)
+
+line level    source
+
+   1          /*******************************************************************************
+   2          * File Name: k_isr.c  
+   3          * Version 1.70
+   4          *
+   5          *  Description:
+   6          *   API for controlling the state of an interrupt.
+   7          *
+   8          *
+   9          *  Note:
+  10          *
+  11          ********************************************************************************
+  12          * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13          * You may use this file only in accordance with the license, terms, conditions, 
+  14          * disclaimers, and limitations in the end user license agreement accompanying 
+  15          * the software package with which this file was provided.
+  16          *******************************************************************************/
+  17          
+  18          #include <cydevice_trm.h>
+  19          #include <CyLib.h>
+  20          #include <k_isr.h>
+  21          
+  22          #if !defined(k_isr__REMOVED) /* Check for removal by optimization */
+  23          
+  24          /*******************************************************************************
+  25          *  Place your includes, defines and code here 
+  26          ********************************************************************************/
+  27          /* `#START k_isr_intc` */
+  28          #include <rtx51tny.h>
+  29          #include "TASK3.h"
+  30          /* `#END` */
+  31          
+  32          
+  33          /*******************************************************************************
+  34          * Function Name: k_isr_Start
+  35          ********************************************************************************
+  36          *
+  37          * Summary:
+  38          *  Set up the interrupt and enable it.
+  39          *
+  40          * Parameters:  
+  41          *   None
+  42          *
+  43          * Return:
+  44          *   None
+  45          *
+  46          *******************************************************************************/
+  47          void k_isr_Start(void) 
+  48          {
+  49   1          /* For all we know the interrupt is active. */
+  50   1          k_isr_Disable();
+  51   1      
+  52   1          /* Set the ISR to point to the k_isr Interrupt. */
+  53   1          k_isr_SetVector(&k_isr_Interrupt);
+C51 COMPILER V9.51   K_ISR                                                                 06/30/2014 14:50:43 PAGE 2   
+
+  54   1      
+  55   1          /* Set the priority. */
+  56   1          k_isr_SetPriority((uint8)k_isr_INTC_PRIOR_NUMBER);
+  57   1      
+  58   1          /* Enable it. */
+  59   1          k_isr_Enable();
+  60   1      }
+  61          
+  62          
+  63          /*******************************************************************************
+  64          * Function Name: k_isr_StartEx
+  65          ********************************************************************************
+  66          *
+  67          * Summary:
+  68          *  Set up the interrupt and enable it.
+  69          *
+  70          * Parameters:  
+  71          *   address: Address of the ISR to set in the interrupt vector table.
+  72          *
+  73          * Return:
+  74          *   None
+  75          *
+  76          *******************************************************************************/
+  77          void k_isr_StartEx(cyisraddress address) 
+  78          {
+  79   1          /* For all we know the interrupt is active. */
+  80   1          k_isr_Disable();
+  81   1      
+  82   1          /* Set the ISR to point to the k_isr Interrupt. */
+  83   1          k_isr_SetVector(address);
+  84   1      
+  85   1          /* Set the priority. */
+  86   1          k_isr_SetPriority((uint8)k_isr_INTC_PRIOR_NUMBER);
+  87   1      
+  88   1          /* Enable it. */
+  89   1          k_isr_Enable();
+  90   1      }
+  91          
+  92          
+  93          /*******************************************************************************
+  94          * Function Name: k_isr_Stop
+  95          ********************************************************************************
+  96          *
+  97          * Summary:
+  98          *   Disables and removes the interrupt.
+  99          *
+ 100          * Parameters:  
+ 101          *   None
+ 102          *
+ 103          * Return:
+ 104          *   None
+ 105          *
+ 106          *******************************************************************************/
+ 107          void k_isr_Stop(void) 
+ 108          {
+ 109   1          /* Disable this interrupt. */
+ 110   1          k_isr_Disable();
+ 111   1      }
+ 112          
+ 113          
+ 114          /*******************************************************************************
+ 115          * Function Name: k_isr_Interrupt
+C51 COMPILER V9.51   K_ISR                                                                 06/30/2014 14:50:43 PAGE 3   
+
+ 116          ********************************************************************************
+ 117          * Summary:
+ 118          *   The default Interrupt Service Routine for k_isr.
+ 119          *
+ 120          *   Add custom code between the coments to keep the next version of this file
+ 121          *   from over writting your code.
+ 122          *
+ 123          * Parameters:  
+ 124          *   None
+ 125          *
+ 126          * Return:
+ 127          *   None
+ 128          *
+ 129          *******************************************************************************/
+ 130          CY_ISR(k_isr_Interrupt)
+ 131          {
+ 132   1          /*  Place your Interrupt code here. */
+ 133   1          /* `#START k_isr_Interrupt` */
+ 134   1              
+ 135   1          /* `#END` */
+ 136   1      
+ 137   1          /* PSoC3 ES1, ES2 RTC ISR PATCH  */ 
+ 138   1          #if(CYDEV_CHIP_FAMILY_USED == CYDEV_CHIP_FAMILY_PSOC3)
+ 139   1              #if((CYDEV_CHIP_REVISION_USED <= CYDEV_CHIP_REVISION_3A_ES2) && (k_isr__ES2_PATCH ))      
+                          k_isr_ISR_PATCH();
+                      #endif /* CYDEV_CHIP_REVISION_USED */
+ 142   1          #endif /* (CYDEV_CHIP_FAMILY_USED == CYDEV_CHIP_FAMILY_PSOC3) */
+ 143   1      }
+ 144          
+ 145          
+ 146          /*******************************************************************************
+ 147          * Function Name: k_isr_SetVector
+ 148          ********************************************************************************
+ 149          *
+ 150          * Summary:
+ 151          *   Change the ISR vector for the Interrupt. Note calling k_isr_Start
+ 152          *   will override any effect this method would have had. To set the vector 
+ 153          *   before the component has been started use k_isr_StartEx instead.
+ 154          *
+ 155          * Parameters:
+ 156          *   address: Address of the ISR to set in the interrupt vector table.
+ 157          *
+ 158          * Return:
+ 159          *   None
+ 160          *
+ 161          *******************************************************************************/
+ 162          void k_isr_SetVector(cyisraddress address) 
+ 163          {
+ 164   1          CY_SET_REG16(k_isr_INTC_VECTOR, (uint16) address);
+ 165   1      }
+ 166          
+ 167          
+ 168          /*******************************************************************************
+ 169          * Function Name: k_isr_GetVector
+ 170          ********************************************************************************
+ 171          *
+ 172          * Summary:
+ 173          *   Gets the "address" of the current ISR vector for the Interrupt.
+ 174          *
+ 175          * Parameters:
+ 176          *   None
+ 177          *
+C51 COMPILER V9.51   K_ISR                                                                 06/30/2014 14:50:43 PAGE 4   
+
+ 178          * Return:
+ 179          *   Address of the ISR in the interrupt vector table.
+ 180          *
+ 181          *******************************************************************************/
+ 182          cyisraddress k_isr_GetVector(void) 
+ 183          {
+ 184   1          return (cyisraddress) CY_GET_REG16(k_isr_INTC_VECTOR);
+ 185   1      }
+ 186          
+ 187          
+ 188          /*******************************************************************************
+ 189          * Function Name: k_isr_SetPriority
+ 190          ********************************************************************************
+ 191          *
+ 192          * Summary:
+ 193          *   Sets the Priority of the Interrupt. Note calling k_isr_Start
+ 194          *   or k_isr_StartEx will override any effect this method would 
+ 195          *   have had. This method should only be called after k_isr_Start or 
+ 196          *   k_isr_StartEx has been called. To set the initial
+ 197          *   priority for the component use the cydwr file in the tool.
+ 198          *
+ 199          * Parameters:
+ 200          *   priority: Priority of the interrupt. 0 - 7, 0 being the highest.
+ 201          *
+ 202          * Return:
+ 203          *   None
+ 204          *
+ 205          *******************************************************************************/
+ 206          void k_isr_SetPriority(uint8 priority) 
+ 207          {
+ 208   1          *k_isr_INTC_PRIOR = priority << 5;
+ 209   1      }
+ 210          
+ 211          
+ 212          /*******************************************************************************
+ 213          * Function Name: k_isr_GetPriority
+ 214          ********************************************************************************
+ 215          *
+ 216          * Summary:
+ 217          *   Gets the Priority of the Interrupt.
+ 218          *
+ 219          * Parameters:
+ 220          *   None
+ 221          *
+ 222          * Return:
+ 223          *   Priority of the interrupt. 0 - 7, 0 being the highest.
+ 224          *
+ 225          *******************************************************************************/
+ 226          uint8 k_isr_GetPriority(void) 
+ 227          {
+ 228   1          uint8 priority;
+ 229   1      
+ 230   1      
+ 231   1          priority = *k_isr_INTC_PRIOR >> 5;
+ 232   1      
+ 233   1          return priority;
+ 234   1      }
+ 235          
+ 236          
+ 237          /*******************************************************************************
+ 238          * Function Name: k_isr_Enable
+ 239          ********************************************************************************
+C51 COMPILER V9.51   K_ISR                                                                 06/30/2014 14:50:43 PAGE 5   
+
+ 240          *
+ 241          * Summary:
+ 242          *   Enables the interrupt.
+ 243          *
+ 244          * Parameters:
+ 245          *   None
+ 246          *
+ 247          * Return:
+ 248          *   None
+ 249          *
+ 250          *******************************************************************************/
+ 251          void k_isr_Enable(void) 
+ 252          {
+ 253   1          /* Enable the general interrupt. */
+ 254   1          *k_isr_INTC_SET_EN = k_isr__INTC_MASK;
+ 255   1      }
+ 256          
+ 257          
+ 258          /*******************************************************************************
+ 259          * Function Name: k_isr_GetState
+ 260          ********************************************************************************
+ 261          *
+ 262          * Summary:
+ 263          *   Gets the state (enabled, disabled) of the Interrupt.
+ 264          *
+ 265          * Parameters:
+ 266          *   None
+ 267          *
+ 268          * Return:
+ 269          *   1 if enabled, 0 if disabled.
+ 270          *
+ 271          *******************************************************************************/
+ 272          uint8 k_isr_GetState(void) 
+ 273          {
+ 274   1          /* Get the state of the general interrupt. */
+ 275   1          return ((*k_isr_INTC_SET_EN & (uint8)k_isr__INTC_MASK) != 0u) ? 1u:0u;
+ 276   1      }
+ 277          
+ 278          
+ 279          /*******************************************************************************
+ 280          * Function Name: k_isr_Disable
+ 281          ********************************************************************************
+ 282          *
+ 283          * Summary:
+ 284          *   Disables the Interrupt.
+ 285          *
+ 286          * Parameters:
+ 287          *   None
+ 288          *
+ 289          * Return:
+ 290          *   None
+ 291          *
+ 292          *******************************************************************************/
+ 293          void k_isr_Disable(void) 
+ 294          {
+ 295   1          /* Disable the general interrupt. */
+ 296   1          *k_isr_INTC_CLR_EN = k_isr__INTC_MASK;
+ 297   1      }
+ 298          
+ 299          
+ 300          /*******************************************************************************
+ 301          * Function Name: k_isr_SetPending
+C51 COMPILER V9.51   K_ISR                                                                 06/30/2014 14:50:43 PAGE 6   
+
+ 302          ********************************************************************************
+ 303          *
+ 304          * Summary:
+ 305          *   Causes the Interrupt to enter the pending state, a software method of
+ 306          *   generating the interrupt.
+ 307          *
+ 308          * Parameters:
+ 309          *   None
+ 310          *
+ 311          * Return:
+ 312          *   None
+ 313          *
+ 314          *******************************************************************************/
+ 315          void k_isr_SetPending(void) 
+ 316          {
+ 317   1          *k_isr_INTC_SET_PD = k_isr__INTC_MASK;
+ 318   1      }
+ 319          
+ 320          
+ 321          /*******************************************************************************
+ 322          * Function Name: k_isr_ClearPending
+ 323          ********************************************************************************
+ 324          *
+ 325          * Summary:
+ 326          *   Clears a pending interrupt.
+ 327          *
+ 328          * Parameters:
+ 329          *   None
+ 330          *
+ 331          * Return:
+ 332          *   None
+ 333          *
+ 334          *******************************************************************************/
+ 335          void k_isr_ClearPending(void) 
+ 336          {
+ 337   1          *k_isr_INTC_CLR_PD = k_isr__INTC_MASK;
+ 338   1      }
+ 339          
+ 340          #endif /* End check for removal by optimization */
+ 341          
+ 342          
+ 343          /* [] END OF FILE */
+*** WARNING C316 IN LINE 343 OF .\Generated_Source\PSoC3\k_isr.c: unterminated conditionals
+C51 COMPILER V9.51   K_ISR                                                                 06/30/2014 14:50:43 PAGE 7   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION k_isr_Start (BEGIN)
+                                           ; SOURCE LINE # 47
+                                           ; SOURCE LINE # 48
+                                           ; SOURCE LINE # 50
+0000 120000      R     LCALL   k_isr_Disable
+                                           ; SOURCE LINE # 53
+0003 7E00        R     MOV     R6,#HIGH k_isr_Interrupt
+0005 7F00        R     MOV     R7,#LOW k_isr_Interrupt
+0007 120000      R     LCALL   _k_isr_SetVector
+                                           ; SOURCE LINE # 56
+000A 7F01              MOV     R7,#01H
+000C 120000      R     LCALL   _k_isr_SetPriority
+                                           ; SOURCE LINE # 59
+000F 120000      R     LCALL   k_isr_Enable
+                                           ; SOURCE LINE # 60
+0012 22                RET     
+             ; FUNCTION k_isr_Start (END)
+
+             ; FUNCTION _k_isr_StartEx (BEGIN)
+                                           ; SOURCE LINE # 77
+0000 900000      R     MOV     DPTR,#address
+0003 EE                MOV     A,R6
+0004 F0                MOVX    @DPTR,A
+0005 A3                INC     DPTR
+0006 EF                MOV     A,R7
+0007 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 78
+                                           ; SOURCE LINE # 80
+0008 120000      R     LCALL   k_isr_Disable
+                                           ; SOURCE LINE # 83
+000B 900000      R     MOV     DPTR,#address
+000E E0                MOVX    A,@DPTR
+000F FE                MOV     R6,A
+0010 A3                INC     DPTR
+0011 E0                MOVX    A,@DPTR
+0012 FF                MOV     R7,A
+0013 120000      R     LCALL   _k_isr_SetVector
+                                           ; SOURCE LINE # 86
+0016 7F01              MOV     R7,#01H
+0018 120000      R     LCALL   _k_isr_SetPriority
+                                           ; SOURCE LINE # 89
+001B 120000      R     LCALL   k_isr_Enable
+                                           ; SOURCE LINE # 90
+001E 22                RET     
+             ; FUNCTION _k_isr_StartEx (END)
+
+             ; FUNCTION k_isr_Stop (BEGIN)
+                                           ; SOURCE LINE # 107
+                                           ; SOURCE LINE # 108
+                                           ; SOURCE LINE # 110
+0000 120000      R     LCALL   k_isr_Disable
+                                           ; SOURCE LINE # 111
+0003 22                RET     
+             ; FUNCTION k_isr_Stop (END)
+
+             ; FUNCTION k_isr_Interrupt (BEGIN)
+                                           ; SOURCE LINE # 130
+                                           ; SOURCE LINE # 143
+0000 32                RETI    
+C51 COMPILER V9.51   K_ISR                                                                 06/30/2014 14:50:43 PAGE 8   
+
+             ; FUNCTION k_isr_Interrupt (END)
+
+             ; FUNCTION _k_isr_SetVector (BEGIN)
+                                           ; SOURCE LINE # 162
+0000 900000      R     MOV     DPTR,#address
+0003 EE                MOV     A,R6
+0004 F0                MOVX    @DPTR,A
+0005 A3                INC     DPTR
+0006 EF                MOV     A,R7
+0007 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 163
+                                           ; SOURCE LINE # 164
+0008 7B02              MOV     R3,#02H
+000A 7A44              MOV     R2,#044H
+000C 7912              MOV     R1,#012H
+000E 900000      R     MOV     DPTR,#address
+0011 E0                MOVX    A,@DPTR
+0012 FE                MOV     R6,A
+0013 A3                INC     DPTR
+0014 E0                MOVX    A,@DPTR
+0015 FF                MOV     R7,A
+0016 AD07              MOV     R5,AR7
+0018 AC06              MOV     R4,AR6
+001A 120000      E     LCALL   _cywrite16_nodpx
+                                           ; SOURCE LINE # 165
+001D 22                RET     
+             ; FUNCTION _k_isr_SetVector (END)
+
+             ; FUNCTION k_isr_GetVector (BEGIN)
+                                           ; SOURCE LINE # 182
+                                           ; SOURCE LINE # 183
+                                           ; SOURCE LINE # 184
+0000 7B02              MOV     R3,#02H
+0002 7A44              MOV     R2,#044H
+0004 7912              MOV     R1,#012H
+0006 120000      E     LCALL   _cyread16_nodpx
+                                           ; SOURCE LINE # 185
+0009         ?C0006:
+0009 22                RET     
+             ; FUNCTION k_isr_GetVector (END)
+
+             ; FUNCTION _k_isr_SetPriority (BEGIN)
+                                           ; SOURCE LINE # 206
+0000 900000      R     MOV     DPTR,#priority
+0003 EF                MOV     A,R7
+0004 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 207
+                                           ; SOURCE LINE # 208
+0005 900000      R     MOV     DPTR,#priority
+0008 E0                MOVX    A,@DPTR
+0009 FF                MOV     R7,A
+000A EF                MOV     A,R7
+000B C4                SWAP    A
+000C 33                RLC     A
+000D 54E0              ANL     A,#0E0H
+000F FF                MOV     R7,A
+0010 904489            MOV     DPTR,#04489H
+0013 EF                MOV     A,R7
+0014 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 209
+0015 22                RET     
+             ; FUNCTION _k_isr_SetPriority (END)
+C51 COMPILER V9.51   K_ISR                                                                 06/30/2014 14:50:43 PAGE 9   
+
+
+             ; FUNCTION k_isr_GetPriority (BEGIN)
+                                           ; SOURCE LINE # 226
+                                           ; SOURCE LINE # 227
+                                           ; SOURCE LINE # 231
+0000 904489            MOV     DPTR,#04489H
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 EF                MOV     A,R7
+0006 C4                SWAP    A
+0007 13                RRC     A
+0008 5407              ANL     A,#07H
+000A FF                MOV     R7,A
+000B 900000      R     MOV     DPTR,#priority
+000E EF                MOV     A,R7
+000F F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 233
+0010 900000      R     MOV     DPTR,#priority
+0013 E0                MOVX    A,@DPTR
+0014 FF                MOV     R7,A
+                                           ; SOURCE LINE # 234
+0015         ?C0008:
+0015 22                RET     
+             ; FUNCTION k_isr_GetPriority (END)
+
+             ; FUNCTION k_isr_Enable (BEGIN)
+                                           ; SOURCE LINE # 251
+                                           ; SOURCE LINE # 252
+                                           ; SOURCE LINE # 254
+0000 9044C1            MOV     DPTR,#044C1H
+0003 7402              MOV     A,#02H
+0005 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 255
+0006 22                RET     
+             ; FUNCTION k_isr_Enable (END)
+
+             ; FUNCTION k_isr_GetState (BEGIN)
+                                           ; SOURCE LINE # 272
+                                           ; SOURCE LINE # 273
+                                           ; SOURCE LINE # 275
+0000 9044C1            MOV     DPTR,#044C1H
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 EF                MOV     A,R7
+0006 30E104            JNB     ACC.1,?C0010
+0009 7F01              MOV     R7,#01H
+000B 8002              SJMP    ?C0011
+000D         ?C0010:
+000D 7F00              MOV     R7,#00H
+000F         ?C0011:
+                                           ; SOURCE LINE # 276
+000F         ?C0012:
+000F 22                RET     
+             ; FUNCTION k_isr_GetState (END)
+
+             ; FUNCTION k_isr_Disable (BEGIN)
+                                           ; SOURCE LINE # 293
+                                           ; SOURCE LINE # 294
+                                           ; SOURCE LINE # 296
+0000 9044C9            MOV     DPTR,#044C9H
+0003 7402              MOV     A,#02H
+0005 F0                MOVX    @DPTR,A
+C51 COMPILER V9.51   K_ISR                                                                 06/30/2014 14:50:43 PAGE 10  
+
+                                           ; SOURCE LINE # 297
+0006 22                RET     
+             ; FUNCTION k_isr_Disable (END)
+
+             ; FUNCTION k_isr_SetPending (BEGIN)
+                                           ; SOURCE LINE # 315
+                                           ; SOURCE LINE # 316
+                                           ; SOURCE LINE # 317
+0000 9044D1            MOV     DPTR,#044D1H
+0003 7402              MOV     A,#02H
+0005 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 318
+0006 22                RET     
+             ; FUNCTION k_isr_SetPending (END)
+
+             ; FUNCTION k_isr_ClearPending (BEGIN)
+                                           ; SOURCE LINE # 335
+                                           ; SOURCE LINE # 336
+                                           ; SOURCE LINE # 337
+0000 9044D9            MOV     DPTR,#044D9H
+0003 7402              MOV     A,#02H
+0005 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 338
+0006 22                RET     
+             ; FUNCTION k_isr_ClearPending (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    183    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----       6
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/down-icon.png</file>
+        <file>res/knob_off.svg</file>
+        <file>res/knob_on.svg</file>
+        <file>res/pressed.svg</file>
+        <file>res/pressedOrange.png</file>
+        <file>res/pressedRed.png</file>
+        <file>res/up-icon.png</file>
+        <file>res/normal.svg</file>
+        <file>res/48L.png</file>
+        <file>res/48LG.png</file>
+        <file>res/48M.png</file>
+        <file>res/48MG.png</file>
+        <file>res/48R.png</file>
+        <file>res/48RG.png</file>
+        <file>res/Calibar.png</file>
+        <file>res/Calibars.png</file>
+        <file>res/Clip.png</file>
+        <file>res/Clips.png</file>
+        <file>res/Delete.png</file>
+        <file>res/deletes.png</file>
+        <file>res/Probe.png</file>
+        <file>res/Probeg.png</file>
+        <file>res/start1.png</file>
+        <file>res/Start.png</file>
+        <file>res/Store.png</file>
+        <file>res/Stores.png</file>
+        <file>res/logout-icon.png</file>
+        <file>res/image.png</file>
+        <file>res/fuse.png</file>
+        <file>res/settings.png</file>
+        <file>res/Stop.png</file>
+        <file>res/chip-icon2.png</file>
+    </qresource>
+</RCC>

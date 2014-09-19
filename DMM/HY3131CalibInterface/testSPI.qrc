@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/R1.png</file>
+        <file>Images/pt6.png</file>
+        <file>Images/logout-icon.png</file>
+        <file>Images/dc.png</file>
+        <file>Images/D1.png</file>
+        <file>Images/C1.png</file>
+        <file>Images/ac.png</file>
+        <file>Images/images.png</file>
+        <file>Images/sp.png</file>
+        <file>Images/calibrate.png</file>
+        <file>Images/freq.png</file>
+        <file>Images/keithley.png</file>
+        <file>Images/reset.png</file>
+        <file>Images/clear.png</file>
+    </qresource>
+</RCC>

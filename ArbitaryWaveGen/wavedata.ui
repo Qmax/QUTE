@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WaveData</class>
+ <widget class="QDialog" name="WaveData">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>240</width>
+    <height>250</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog{border:1px solid black; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #dadbff);border-radius:10px;}
+</string>
+  </property>
+  <widget class="QPushButton" name="pb_Ok">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>210</y>
+     <width>70</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+color:white;
+border: 1px solid #2D5059;
+border-radius: 15px;
+background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #000000, stop: 0.6 #292929 , stop:1 #FFFFFF);
+font:bold;
+}
+QPushButton:pressed {
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+QPushButton:flat {
+border: none; 
+}
+QPushButton:default {
+border-color: navy; 
+}
+
+QPushButton:disabled
+{
+color:lightgrey;
+background-color:grey
+}
+</string>
+   </property>
+   <property name="text">
+    <string>OK</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_Cancel">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>210</y>
+     <width>70</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+color:white;
+border: 1px solid #2D5059;
+border-radius: 15px;
+background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #000000, stop: 0.6 #292929 , stop:1 #FFFFFF);
+font:bold;
+}
+QPushButton:pressed {
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+QPushButton:flat {
+border: none; 
+}
+QPushButton:default {
+border-color: navy; 
+}
+
+QPushButton:disabled
+{
+color:lightgrey;
+background-color:grey
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_Samples">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>110</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>DejaVu Sans</family>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgba(0,0,0,255);border: rgba(0,0,0,0);border-radius: 3px;background-color: rgba(0, 0, 0,0);qproperty-wordWrap: true;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="text">
+    <string>Samples :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_StartTick">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>110</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>DejaVu Sans</family>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgba(0,0,0,255);border: rgba(0,0,0,0);border-radius: 3px;background-color: rgba(0, 0, 0,0);qproperty-wordWrap: true;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="text">
+    <string>Start Tick:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_Endtick">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>110</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>DejaVu Sans</family>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgba(0,0,0,255);border: rgba(0,0,0,0);border-radius: 3px;background-color: rgba(0, 0, 0,0);qproperty-wordWrap: true;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="text">
+    <string>End Tick:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_DutyCycles">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>170</y>
+     <width>110</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>DejaVu Sans</family>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgba(0,0,0,255);border: rgba(0,0,0,0);border-radius: 3px;background-color: rgba(0, 0, 0,0);qproperty-wordWrap: true;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="text">
+    <string>Duty Cycle:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_Samples">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>45</y>
+     <width>113</width>
+     <height>30</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_StartTick">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>85</y>
+     <width>113</width>
+     <height>30</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_EndTick">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>125</y>
+     <width>113</width>
+     <height>30</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_DutyCycle">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>165</y>
+     <width>113</width>
+     <height>30</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_Title">
+   <property name="geometry">
+    <rect>
+     <x>4</x>
+     <y>4</y>
+     <width>232</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>DejaVu Sans</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #3a5976, stop: 1 #000000);color:white;border-radius:10px;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="text">
+    <string>Wave Settings</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

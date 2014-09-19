@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>fp_images/usb_symbol.png</file>
+        <file>fp_images/black.png</file>
+        <file>fp_images/guard.png</file>
+        <file>fp_images/power.png</file>
+        <file>fp_images/red.png</file>
+        <file>fp_images/ref.png</file>
+        <file>fp_images/VI_SL_ICM.png</file>
+        <file>fp_images/gnd.png</file>
+        <file>fp_images/usb.png</file>
+        <file>fp_images/fuse.png</file>
+        <file>fp_images/bnc.png</file>
+    </qresource>
+</RCC>

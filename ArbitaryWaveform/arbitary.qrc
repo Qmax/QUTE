@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ramp.png</file>
+        <file>Pulse.png</file>
+        <file>Pm.png</file>
+        <file>sinewave.png</file>
+        <file>square wave.png</file>
+        <file>Triangle.png</file>
+        <file>DC.png</file>
+        <file>ASK.png</file>
+        <file>Am.png</file>
+        <file>fm.png</file>
+        <file>awg.png</file>
+        <file>vdc.png</file>
+        <file>Button-exit-icon.png</file>
+    </qresource>
+</RCC>

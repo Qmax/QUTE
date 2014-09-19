@@ -1,0 +1,45 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/BNC.png</file>
+        <file>res/Triangle.png</file>
+        <file>res/square wave.png</file>
+        <file>res/sinewave.png</file>
+        <file>res/ramp.png</file>
+        <file>res/logout-icon.png</file>
+        <file>res/pressed.svg</file>
+        <file>res/normal.svg</file>
+        <file>res/knob_on.svg</file>
+        <file>res/knob_off.svg</file>
+        <file>res/up-icon.png</file>
+        <file>res/down-icon.png</file>
+        <file>res/pressedOrange.png</file>
+        <file>res/Awgb.png</file>
+        <file>res/down-icon_pressed.png</file>
+        <file>res/up-icon_released.png</file>
+        <file>res/pressedRed.png</file>
+        <file>res/left-icon.png</file>
+        <file>res/left-icon_pressed.png</file>
+        <file>res/right-icon.png</file>
+        <file>res/right-icon_preseed.png</file>
+        <file>res/Settings-icon.png</file>
+        <file>res/Settings-icon2.png</file>
+        <file>res/fuse.png</file>
+        <file>res/Button-Blank-Gray-icon.png</file>
+        <file>res/Letter-R-icon.png</file>
+        <file>res/Control-Panel-icon.png</file>
+        <file>res/upButton.png</file>
+        <file>res/rightButton.png</file>
+        <file>res/downButton.png</file>
+        <file>res/centerButton.png</file>
+        <file>res/leftButton.png</file>
+        <file>res/redSine.png</file>
+        <file>res/redSquare.png</file>
+        <file>res/redRamp.png</file>
+        <file>res/redTriangle.png</file>
+        <file>res/down.png</file>
+        <file>res/coarse.png</file>
+        <file>res/fine.png</file>
+        <file>res/awg2.png</file>
+        <file>res/awg3.png</file>
+    </qresource>
+</RCC>
