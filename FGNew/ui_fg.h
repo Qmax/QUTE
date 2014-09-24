@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'fg.ui'
 **
-** Created: Wed Sep 24 11:07:35 2014
+** Created: Wed Sep 24 11:14:29 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -705,6 +705,16 @@ public:
 "border:1px solid rgba(0,0,0,0);\n"
 "image: url(:/res/normal.svg);\n"
 "}\n"
+"QPushButton::pressed{\n"
+"background-color:rgba(0,0,0,0);\n"
+"border:1px solid rgba(0,0,0,0);\n"
+"image: url(:/res/pressedRed.png);\n"
+"}\n"
+"QPushButton::released{\n"
+"background-color:rgba(0,0,0,0);\n"
+"border:1px solid rgba(0,0,0,0);\n"
+"image: url(:/res/pressed.svg);\n"
+"}\n"
 ""));
         EXTCap = new QLabel(runMode);
         EXTCap->setObjectName(QString::fromUtf8("EXTCap"));
@@ -729,6 +739,16 @@ public:
 "background-color:rgba(0,0,0,0);\n"
 "border:1px solid rgba(0,0,0,0);\n"
 "image: url(:/res/normal.svg);\n"
+"}\n"
+"QPushButton::pressed{\n"
+"background-color:rgba(0,0,0,0);\n"
+"border:1px solid rgba(0,0,0,0);\n"
+"image: url(:/res/pressedRed.png);\n"
+"}\n"
+"QPushButton::released{\n"
+"background-color:rgba(0,0,0,0);\n"
+"border:1px solid rgba(0,0,0,0);\n"
+"image: url(:/res/pressed.svg);\n"
 "}\n"
 ""));
         modeBox = new QComboBox(runMode);

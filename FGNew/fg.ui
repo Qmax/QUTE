@@ -1335,6 +1335,16 @@ background-color:rgba(0,0,0,0);
 border:1px solid rgba(0,0,0,0);
 image: url(:/res/normal.svg);
 }
+QPushButton::pressed{
+background-color:rgba(0,0,0,0);
+border:1px solid rgba(0,0,0,0);
+image: url(:/res/pressedRed.png);
+}
+QPushButton::released{
+background-color:rgba(0,0,0,0);
+border:1px solid rgba(0,0,0,0);
+image: url(:/res/pressed.svg);
+}
 </string>
       </property>
       <property name="text">
@@ -1396,6 +1406,16 @@ border:1px solid rgba(0,0,0,0);
 background-color:rgba(0,0,0,0);
 border:1px solid rgba(0,0,0,0);
 image: url(:/res/normal.svg);
+}
+QPushButton::pressed{
+background-color:rgba(0,0,0,0);
+border:1px solid rgba(0,0,0,0);
+image: url(:/res/pressedRed.png);
+}
+QPushButton::released{
+background-color:rgba(0,0,0,0);
+border:1px solid rgba(0,0,0,0);
+image: url(:/res/pressed.svg);
 }
 </string>
       </property>
