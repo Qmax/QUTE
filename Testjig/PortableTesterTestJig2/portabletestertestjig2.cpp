@@ -4,6 +4,17 @@
 PortableTesterTestJig2::PortableTesterTestJig2(QWidget *parent) :
 QWidget(parent) {
 	ui.setupUi(this);
+//        LoginDialog* loginDialog = new LoginDialog( this );
+//        int retryloop=0;
+//           connect(loginDialog,SIGNAL(acceptLogin(QString&,QString&,int&)),this,SLOT(slotAcceptUserLogin(QString&,QString&)));
+//           do{
+//               loginDialog->exec();
+//               retryloop++;
+//               if(retryloop==3){
+//                   break;
+//                   parentWidget()->close();
+//               }
+//           }while(!m_nPassword);
 	m_bAPPDRVRECEUI=false;
 	m_bICMVI=false;
 	m_bADCUI=false;
@@ -364,4 +375,17 @@ PortableTesterTestJig2::~PortableTesterTestJig2() {
 void PortableTesterTestJig2::on_pushButton_6_clicked()
 {
     this->close();
+}
+void PortableTesterTestJig2::slotAcceptUserLogin(QString& name,QString& password){
+        if(name=="root" && password=="root"){
+                m_nPassword=true;
+        }else{
+                QMessageBox msg;
+                msg.setText("Login Error");
+                msg.setInformativeText("Invalid Username/Password");
+                msg.exec();
+                m_nPassword=false;
+                //        this->close();
+        }
+
 }

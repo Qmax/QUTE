@@ -3,7 +3,8 @@ CONFIG += plugin
 TARGET = AppBckPsoc
 QT += core \
     gui
-HEADERS += GenericInterface.h \
+HEADERS += DSOCardInterface.h \
+    GenericInterface.h \
     InterfaceFunctionalComponents.h \
     IPTAppBckPsocWidget.h \
     PTAppBckPsocInterface.h \

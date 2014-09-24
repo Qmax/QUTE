@@ -9,7 +9,6 @@ QMainWindow(parent), ui(new Ui::FG) {
 	InitialiseWaveData();
 	InitialiseLineEdit();
 	ConnectSignalsnSlots();
-
 }
 
 FG::~FG() {
@@ -226,10 +225,10 @@ void FG::InitialiseUIData(){
 	ui->burstBut->setVisible(false);
 	ui->burstCap->setVisible(false);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	QModelIndex index=ui->modeBox->model()->index(2,0);// Get the index of the value to disable
-	QVariant v(0);// This is the effective 'disable' flag
-	ui->modeBox->model()->setData(index, v, Qt::UserRole - 1);// the magic
-	//QVariant v(1 | 32);	//To enable again
+//	QModelIndex index=ui->modeBox->model()->index(2,0);// Get the index of the value to disable
+//	QVariant v(0);// This is the effective 'disable' flag
+//	ui->modeBox->model()->setData(index, v, Qt::UserRole - 1);// the magic
+//	//QVariant v(1 | 32);	//To enable again
 
 	m_strWaveType="SINE";
 
@@ -268,7 +267,7 @@ void FG::InitialiseUIData(){
 
 	maxList.insert(FREQUENCY,5000000.0);
 	maxList.insert(AMPLITUDE,20.0);
-	maxList.insert(OFFSET,5.0);
+        maxList.insert(OFFSET,10.0);
 	maxList.insert(PHASE,360.0);
 	maxList.insert(PERIOD,100.0);
 	maxList.insert(HLEVEL,10.0);
@@ -280,7 +279,7 @@ void FG::InitialiseUIData(){
 
 	minList.insert(FREQUENCY,0.01);
 	minList.insert(AMPLITUDE,0.01);
-	minList.insert(OFFSET,-5.0);
+        minList.insert(OFFSET,-10.0);
 	minList.insert(PHASE,0.0);
 	minList.insert(PERIOD,5.00000e-7);
 	minList.insert(HLEVEL,-10.0);
@@ -303,13 +302,14 @@ void FG::InitialiseUIData(){
 	callType.insert(BURST_RATE,'T');
 
 	m_nAmplitude=5.0;
+	m_nOffset=0.0;
 
 	hwInterface=new HardwareInterface();
 	hwInterface->Init();
-	hwInterface->setHighImpedance(true);
+//	hwInterface->setHighImpedance(true);
 	hwInterface->setAmplitude(m_nAmplitude);
-	SetFrequency(1000);
-	hwInterface->setOffset(0);
+	hwInterface->setOffset(m_nOffset);
+        hwInterface->setFrequency(1000);
 	hwInterface->setPhase(0);
 	hwInterface->Drive(STOPDRIVE);
 
@@ -391,7 +391,7 @@ void FG::SetFrequency(double l_nFrequency){
 void FG::clickedPRSCR() {
     Pix = QPixmap();
     Pix = QPixmap::grabWindow(this->winId());
-    Pix.save("DMM.jpg");
+    Pix.save("FG.jpg");
     QClipboard *board = QApplication::clipboard();
     board->setPixmap(Pix);
     QWidget::showFullScreen();
@@ -408,6 +408,7 @@ void FG::receiveValue(double pValue){
 		hwInterface->setAmplitude(m_nAmplitude);
 		break;
 	case OFFSET:
+		m_nOffset=pValue;
 		hwInterface->setOffset(pValue);
 		break;
 	case PHASE:
@@ -728,13 +729,14 @@ void FG::on_RUNBut_clicked(){
 	HighlightButtons(RUN_STOP);
 	if(m_bRunMode){
 		IPsoc->FGMeasurement();
+		usleep(10000);
 		hwInterface->setAmplitude(hwInterface->getAmplitude());
 
 		if(ui->modeBox->currentIndex()==0)
 			hwInterface->SingleContinuous(CONTINUOUS_W);
 		else if(ui->modeBox->currentIndex()==1)
 			hwInterface->SingleContinuous(SINGLE_W);
-		else if(ui->modeBox->currentIndex()==3)
+                else if(ui->modeBox->currentIndex()==2)
 			hwInterface->SingleContinuous(BURST_W);
 
 		hwInterface->Drive(STARTDRIVE);
@@ -748,10 +750,16 @@ void FG::on_RUNBut_clicked(){
 }
 void FG::on_hiZBut_clicked() {
 	HighlightButtons(SRCHIZ);
-	if(m_bHiZ==true)
-		hwInterface->setHighImpedance(true);
-	else
-		hwInterface->setHighImpedance(false);
+        if(m_bHiZ==true){
+            lineEdit[AMPLITUDE]->setText(QString::number(m_nAmplitude)+"Vpp");
+            lineEdit[OFFSET]->setText(QString::number(m_nOffset)+"V");
+//		hwInterface->setHighImpedance(true);
+            }
+        else{
+            lineEdit[AMPLITUDE]->setText(QString::number(m_nAmplitude/2)+"Vpp");
+            lineEdit[OFFSET]->setText(QString::number(m_nOffset/2)+"V");
+//		hwInterface->setHighImpedance(false);
+            }
 }
 void FG::on_sineBut_clicked() {
 	m_strWaveType = "SINE";
@@ -1209,7 +1217,9 @@ void FG::on_upBut_clicked() {
 				lineEdit[pIndex]->setText(QString::number(inputNumber) + "Vpp");
 				Data.Amplitude = inputNumber;
 			}
-		}
+                }
+                m_nAmplitude=inputNumber;
+                VppOffset2HighLow(lineEdit[AMPLITUDE]->text(),lineEdit[OFFSET]->text());
 
 	} else if (pIndex == OFFSET) {
 		if (inputText_in.endsWith("mV") == true) {
@@ -1282,6 +1292,8 @@ void FG::on_upBut_clicked() {
 		//DDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		hwInterface->setOffset(inputNumber);
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		m_nOffset=inputNumber;
+                VppOffset2HighLow(lineEdit[AMPLITUDE]->text(),lineEdit[OFFSET]->text());
 	} else if (pIndex == PHASE) {
 		QString deg = QChar(0x00B0);
 		if (inputText_in.endsWith(deg) == true) {
@@ -1440,6 +1452,9 @@ void FG::on_upBut_clicked() {
     		hwInterface->setAmplitude((h_level - l_level));
 
     	}
+        m_nAmplitude=h_level-l_level;
+        m_nOffset=hl_offset;
+        HighLow2VppOffset(lineEdit[HLEVEL]->text(),lineEdit[LLEVEL]->text());
     } else if (pIndex == LLEVEL) {
     	if (inputText_in.endsWith("V") == true) {
     		inputText_in.chop(1);
@@ -1466,6 +1481,9 @@ void FG::on_upBut_clicked() {
     		hwInterface->setOffset(hl_offset);
     		hwInterface->setAmplitude((h_level - l_level));
     	}
+        m_nAmplitude=h_level-l_level;
+        m_nOffset=hl_offset;
+        HighLow2VppOffset(lineEdit[HLEVEL]->text(),lineEdit[LLEVEL]->text());
     }/* else if (pIndex == VARIANCE) {
 
     } else if (pIndex == MEAN) {
@@ -1679,7 +1697,7 @@ void FG::on_downBut_clicked(){
 				lineEdit[pIndex]->setText(QString::number(inputNumber) + "Vpp");
 				Data.Amplitude = inputNumber;
 			}
-		}
+		}m_nAmplitude=inputNumber;
 	} else if (pIndex == OFFSET) {
 		if (inputText_in.endsWith("mV") == true) {
 			inputText_in.chop(2);
@@ -1749,6 +1767,7 @@ void FG::on_downBut_clicked(){
 		//DDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		hwInterface->setOffset(inputNumber);
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		m_nOffset=inputNumber;
 	} else if (pIndex == PHASE) {
 		QString deg = QChar(0x00B0);
 		if (inputText_in.endsWith(deg) == true) {
@@ -2065,9 +2084,6 @@ void FG::on_modeBox_currentIndexChanged(int index)
         ui->singleBut->animateClick(1);
         break;
     case 2:
-        ui->GateBut->animateClick(1);
-        break;
-    case 3:
         ui->burstBut->animateClick(1);
         break;
     }

@@ -1491,11 +1491,6 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
       </item>
       <item>
        <property name="text">
-        <string>Gate</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
         <string>Burst</string>
        </property>
       </item>

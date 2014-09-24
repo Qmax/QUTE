@@ -22,7 +22,7 @@
 #include "GPIOInterfaces.h"
 #include "ApplicationCardInterface.h"
 #include "GenericInterface.h"
-
+#include "DSOCardInterface.h"
 
 
 #endif /* HEADERS_H_ */

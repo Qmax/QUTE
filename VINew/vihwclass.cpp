@@ -16,6 +16,7 @@ void VIHWClass::initializeHWLibraries()
     IAppCard->setDeviceName(SLOT0);
     IAppCard->enumerateAPPCard();
     qDebug() << "APPCard Code ID:" <<IAppCard->readAppCardCodeId();
+
     m_nInterruptValue = IAppCard->readScratchPad();
     qDebug()<<"Scratch:"<<m_nInterruptValue;
         //BackPanel Interface Plugin

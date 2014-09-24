@@ -38,6 +38,7 @@ protected:
     InterfaceGPIOPins *IGPIOPin;
     IApplicationCardInterface *IAppCard;
     IGenericInterface *IGenCard;
+    IDSOCardInterface *IDSOCard;
 
     IQmaxLineEdit *ILineEdit;
     IQmaxNumberPanel *INumberPanel;

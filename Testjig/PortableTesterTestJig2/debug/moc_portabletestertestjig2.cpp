@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'portabletestertestjig2.h'
 **
-** Created: Fri Sep 19 18:58:51 2014
+** Created: Sat Sep 20 16:02:17 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_PortableTesterTestJig2[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -31,14 +31,16 @@ static const uint qt_meta_data_PortableTesterTestJig2[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      24,   23,   23,   23, 0x08,
-      50,   23,   23,   23, 0x08,
+      38,   24,   23,   23, 0x08,
+      77,   23,   23,   23, 0x08,
+     103,   23,   23,   23, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_PortableTesterTestJig2[] = {
-    "PortableTesterTestJig2\0\0"
+    "PortableTesterTestJig2\0\0name,password\0"
+    "slotAcceptUserLogin(QString&,QString&)\0"
     "on_pushButton_6_clicked()\0checkIndex(int)\0"
 };
 
@@ -71,11 +73,12 @@ int PortableTesterTestJig2::qt_metacall(QMetaObject::Call _c, int _id, void **_a
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: on_pushButton_6_clicked(); break;
-        case 1: checkIndex((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 0: slotAcceptUserLogin((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 1: on_pushButton_6_clicked(); break;
+        case 2: checkIndex((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }

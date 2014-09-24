@@ -1,8 +1,12 @@
-TEMPLATE = app
 TARGET = PortableTesterTestJig2
 QT += core \
     gui
-HEADERS += IPSOCCommunication.h \
+TEMPLATE = lib
+CONFIG += plugin
+HEADERS += logindialog.h \
+    PTTestjigInterface.h \
+    IPTTestjigWidget.h \
+    IPSOCCommunication.h \
     serialdevice.h \
     PSoCTestJigInterface2.h \
     AD9102TestJigInterface.h \
@@ -27,7 +31,9 @@ HEADERS += IPSOCCommunication.h \
     appcardfunctiontemplate.h \
     portabletestertestjig2.h \
     appcardfunctiontemplate.h
-SOURCES += main.cpp \
+SOURCES += logindialog.cpp \
+    IPTTestjigWidget.cpp \
+    main.cpp \
     portabletestertestjig2.cpp
 FORMS += portabletestertestjig2.ui
 RESOURCES += pttj2.qrc

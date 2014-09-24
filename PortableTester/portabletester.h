@@ -36,6 +36,7 @@
 #include "QDigitalClock.h"
 #include "logindialog.h"
 
+#include "PTToolBoxInterface.h"
 
 #define _DMM_ 0
 #define _VI_  1
@@ -141,6 +142,7 @@ protected:
     IQmaxNumberPanel *INumberPanel;
     IQmaxLineEdit *ILineEdit;
 
+    IPTToolBoxInterface *toolBox;
 
 	QMessageBox *msgBox;
 	QPushButton *connectButton,*abortButton,*cancelButton;

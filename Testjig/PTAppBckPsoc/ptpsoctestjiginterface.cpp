@@ -44,6 +44,11 @@ void PTPSoCTestJigInterface::LoadPlugins(){
 	IAppCard->setDeviceName(SLOT0);
 	IAppCard->enumerateAPPCard();
 
+	QPluginLoader loaderDSO("libPTDSOcardInterface.so", this);
+	IDSOCard = qobject_cast<IDSOCardInterface*> (loaderDSO.instance());
+	IDSOCard->setDeviceName();
+	IDSOCard->enumerateDSOCard();
+
         QPluginLoader loaderGen("libPTGenericInterface.so", this);
         IGenCard = qobject_cast<IGenericInterface*> (loaderGen.instance());
         IGenCard->setDeviceName(SLOT0);
@@ -794,7 +799,7 @@ void PTPSoCTestJigInterface::on_pbGenRead_clicked()
     unsigned int com;
             bool ok = true;
             com = GenAddr->text().toUInt(&ok, 16);
-            GenData->setText(QString::number(IGenCard->readRegister(com),16));
+            GenData->setText(QString::number(IDSOCard->readRegister(com),16));
 }
 
 void PTPSoCTestJigInterface::on_pbGenWrite_clicked()
@@ -803,5 +808,5 @@ void PTPSoCTestJigInterface::on_pbGenWrite_clicked()
             bool ok = true;
             com1 = GenAddr->text().toUInt(&ok, 16);
             com2 = GenData->text().toUInt(&ok, 16);
-            IGenCard->writeRegister(com2,com1);
+            IDSOCard->writeRegister(com2,com1);
 }

@@ -25,7 +25,7 @@
 #include "AD5318TestJigInterface.h"
 #include "RAMTestJigInterface.h"
 #include "AD9102TestJigInterface.h"
-
+#include "logindialog.h"
 //pdf viewer
 //#include "documentwidget.h"
 #include <QFileDialog>
@@ -63,6 +63,7 @@ protected:
     bool m_bICMVI;
     bool m_bADCUI;
     bool m_bDDSUI;
+    bool m_nPassword;
 private:
     Ui::PortableTesterTestJig2Class ui;
 
@@ -72,6 +73,7 @@ private:
     QVector<qreal> scaleFactors;
 
 private slots:
+    void slotAcceptUserLogin(QString& name,QString& password);
 //    void on_pushButton_clicked();
 //    void on_pushButton_5_clicked();
 //    void on_pushButton_4_clicked();

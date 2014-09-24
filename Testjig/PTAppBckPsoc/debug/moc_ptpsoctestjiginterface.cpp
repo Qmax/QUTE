@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'ptpsoctestjiginterface.h'
 **
-** Created: Fri Sep 12 15:15:06 2014
+** Created: Tue Sep 23 14:27:04 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!

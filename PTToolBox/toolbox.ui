@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>286</width>
-    <height>252</height>
+    <width>350</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
     <rect>
      <x>7</x>
      <y>2</y>
-     <width>270</width>
+     <width>334</width>
      <height>125</height>
     </rect>
    </property>
@@ -64,7 +64,7 @@
    <property name="title">
     <string>UTILITY PANEL</string>
    </property>
-   <widget class="QPushButton" name="ACDC">
+   <widget class="QPushButton" name="pb_datetime">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -107,7 +107,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>81</y>
       <width>100</width>
       <height>30</height>
@@ -124,7 +124,7 @@ ADJUSTMENT</string>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>143</x>
+      <x>119</x>
       <y>81</y>
       <width>100</width>
       <height>30</height>
@@ -138,10 +138,10 @@ CALIBRATION</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="ACDC_3">
+   <widget class="QPushButton" name="pb_touchcalib">
     <property name="geometry">
      <rect>
-      <x>162</x>
+      <x>140</x>
       <y>25</y>
       <width>55</width>
       <height>55</height>
@@ -178,13 +178,70 @@ CALIBRATION</string>
      </size>
     </property>
    </widget>
+   <widget class="QPushButton" name="pb_curEnDis">
+    <property name="geometry">
+     <rect>
+      <x>247</x>
+      <y>25</y>
+      <width>55</width>
+      <height>55</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+         border: 2px solid rgba(0,0,0,0);
+         border-radius: 25px;
+         background-color: rgba(0,0,0,0);
+     }</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="toolbox.qrc">
+      <normaloff>:/res/Very-Basic-Cursor-icon.png</normaloff>:/res/Very-Basic-Cursor-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>48</width>
+      <height>48</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>227</x>
+      <y>81</y>
+      <width>100</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CURSOR
+ON/OFF</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
      <x>7</x>
      <y>122</y>
-     <width>270</width>
+     <width>335</width>
      <height>125</height>
     </rect>
    </property>
@@ -218,7 +275,7 @@ CALIBRATION</string>
    <property name="title">
     <string>TEST PANEL</string>
    </property>
-   <widget class="QPushButton" name="ACDC_2">
+   <widget class="QPushButton" name="pb_selftest">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -240,9 +297,15 @@ CALIBRATION</string>
     <property name="styleSheet">
      <string notr="true">QPushButton {
          border: 2px solid rgba(0,0,0,0);
-         border-radius: 25px;
+		 border-radius:25px;
          background-color: rgba(0,0,0,0);
-     }</string>
+     }
+ QPushButton:pressed {
+         border: 1px dotted rgba(1,1,1,255);
+		 border-radius:15px;	
+         background-color: rgba(0,0,0,0);
+}
+</string>
     </property>
     <property name="text">
      <string/>
@@ -290,7 +353,7 @@ CALIBRATION</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="ACDC_4">
+   <widget class="QPushButton" name="pb_testjig">
     <property name="geometry">
      <rect>
       <x>162</x>
@@ -330,6 +393,61 @@ CALIBRATION</string>
      </size>
     </property>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="pb_exit">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>250</y>
+     <width>100</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>-1</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+color:white;
+border: 1px solid #2D5059;
+border-radius: 10px;
+background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #000000, stop: 0.6 #292929 , stop:1 #FFFFFF);
+font:bold 14px;
+}
+QPushButton:pressed {
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+QPushButton:flat {
+border: none; 
+}
+QPushButton:default {
+border-color: navy; 
+}
+
+QPushButton:disabled
+{
+color:lightgrey;
+background-color:grey
+}</string>
+   </property>
+   <property name="text">
+    <string>CLOSE</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>65</width>
+     <height>40</height>
+    </size>
+   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

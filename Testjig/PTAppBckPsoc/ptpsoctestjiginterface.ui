@@ -3507,7 +3507,7 @@ E</string>
     </palette>
    </property>
    <property name="title">
-    <string>Generic Panel</string>
+    <string>DSO Panel</string>
    </property>
    <widget class="QLabel" name="label_48">
     <property name="geometry">

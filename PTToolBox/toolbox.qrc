@@ -6,5 +6,7 @@
         <file>res/Books-icon.png</file>
         <file>res/Apps-preferences-system-time-icon.png</file>
         <file>res/application-check-icon.png</file>
+        <file>res/Very-Basic-Hand-Cursor-icon.png</file>
+        <file>res/Very-Basic-Cursor-icon.png</file>
     </qresource>
 </RCC>

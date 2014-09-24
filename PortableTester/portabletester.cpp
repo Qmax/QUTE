@@ -49,6 +49,9 @@ PortableTester::PortableTester(QWidget *parent) :
 	//Set home Directory as Current Directory
 	QDir::setCurrent("/home");
 
+	QPluginLoader tools("libPTToolBox.so", this);
+	toolBox = qobject_cast<IPTToolBoxInterface*> (tools.instance());
+
 	//PT6 Application Interface Library
 	QPluginLoader apploader1("libPTComponentsInterface.so", this);
 	QObject *AppPlugin1 = apploader1.instance();
@@ -165,6 +168,13 @@ PortableTester::PortableTester(QWidget *parent) :
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	myID=0;
 	//	 qInstallMsgHandler(customMessageHandler);
+	//__________________________________________________________________________________________________________
+		QFile outFile;
+		outFile.setFileName("calibrate.sh");
+		outFile.open(QIODevice::WriteOnly);
+		QTextStream ts(&outFile);
+		ts << "";
+	//__________________________________________________________________________________________________________
 }
 void PortableTester::slotAcceptUserLogin(QString& name,QString& password){
 	if(name=="root" && password=="root"){
@@ -854,7 +864,9 @@ void PortableTester::buttonPressed(int pValue) {
 		Functions(_DSO_);
 	}
 	else if (pValue == 6) {
-		on_testjigButton_clicked();
+//		on_testjigButton_clicked();
+		QWidget *newWidget = toolBox->getPTToolBox();
+		newWidget->show();
 	}
 	else if (pValue == 7) {
             QProcess::execute("/usr/bin/qt-embedded/ts_calibrate");

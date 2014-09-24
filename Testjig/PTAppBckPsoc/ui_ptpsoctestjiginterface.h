@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ptpsoctestjiginterface.ui'
 **
-** Created: Fri Sep 12 14:52:49 2014
+** Created: Tue Sep 23 14:26:34 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -1411,7 +1411,7 @@ public:
 "O\n"
 "S\n"
 "E", 0, QApplication::UnicodeUTF8));
-        groupBox_3->setTitle(QApplication::translate("PTPSoCTestJigInterfaceClass", "Generic Panel", 0, QApplication::UnicodeUTF8));
+        groupBox_3->setTitle(QApplication::translate("PTPSoCTestJigInterfaceClass", "DSO Panel", 0, QApplication::UnicodeUTF8));
         label_48->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "Addr :", 0, QApplication::UnicodeUTF8));
         pbGenWrite->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "Write", 0, QApplication::UnicodeUTF8));
         pbGenRead->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "Read", 0, QApplication::UnicodeUTF8));
