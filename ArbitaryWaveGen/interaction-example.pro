@@ -13,7 +13,8 @@ SOURCES += wavedata.cpp \
     qcustomplot.cpp \
     main.cpp \
     mainwindow.cpp
-HEADERS += WaveDataClass.h \
+HEADERS += IPSOCCommunication.h \
+    WaveDataClass.h \
     wavedata.h \
     InterfaceFunctionalComponents.h \
     appcardcomponents.h \

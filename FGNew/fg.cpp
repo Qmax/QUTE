@@ -29,7 +29,7 @@ void FG::PluginsInitialisation(){
 
     QPluginLoader loader3("libPTPsocInterface2.so",this);
     IPsoc = qobject_cast<IPSOCCOMMUNICATION*>(loader3.instance());
-    IPsoc->openSerial();
+//    IPsoc->openSerial();
 
     QPluginLoader loader5("libGPIOEventInterface.so",this);
     IGPIOEvent = qobject_cast<PTGPIOEventInterface*>(loader5.instance());
@@ -58,7 +58,9 @@ void FG::PluginsInitialisation(){
 
     //	IBackPlane->writeBackPlaneRegister(0x2, 0x26);
     //	qDebug()<<"Before src imp selection";
+    IPsoc->openSerial();
     IPsoc->srcImpedanceSelection(SRC_IMP_50E);
+    IPsoc->closeSerial();
     //~~~~~~~~Check for debug panel~~~~~~~~~~~~~~~~~~~~~~~~
     QStringList debugPanel;
     QFile textFile2("debugPanel.txt");
@@ -107,6 +109,7 @@ void FG::doPTKeyFunction() {
             AWGWidget->close();
 	}else{
             IBackPlane->closeObject();
+            IPsoc->resetRelays();
             IPsoc->closeSerial();
             parentWidget()->close();
 	}
@@ -116,6 +119,7 @@ void FG::doPTKeyFunction() {
             AWGWidget->close();
 	}else{
             IBackPlane->closeObject();
+            IPsoc->resetRelays();
             IPsoc->closeSerial();
             parentWidget()->close();
 	}
@@ -733,6 +737,7 @@ void FG::on_EXTBut_clicked()
 void FG::on_RUNBut_clicked(){
     HighlightButtons(RUN_STOP);
     if(m_bRunMode){
+    	IPsoc->openSerial();
         IPsoc->FGMeasurement();
         usleep(10000);
 //        hwInterface->setAmplitude(hwInterface->getAmplitude());
@@ -749,6 +754,8 @@ void FG::on_RUNBut_clicked(){
     }
     else{
         IPsoc->resetRelays();
+        IPsoc->closeSerial();
+
         hwInterface->Drive(STOPDRIVE);
         IGPIOPin->illuminateRunStopButton(1);
     }
@@ -782,6 +789,8 @@ void FG::on_squareBut_clicked() {
 void FG::on_AWGBox_clicked()
 {
     IPsoc->resetRelays();
+	IPsoc->closeSerial();
+
     hwInterface->Drive(STOPDRIVE);
     IGPIOPin->illuminateRunStopButton(1);
 

@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent,Qt::FramelessWindowHint),
         ui(new Ui::MainWindow)
 {
+    QPluginLoader loader3("libPTPsocInterface2.so",this);
+    IPsoc = qobject_cast<IPSOCCOMMUNICATION*>(loader3.instance());
+    IPsoc->openSerial();
 
     QPluginLoader loader1("libQmaxPTInterface.so", this);
     INumberPanel = qobject_cast<IQmaxNumberPanel*> (loader1.instance());
@@ -959,6 +962,8 @@ void MainWindow::on_butRemoveAll_clicked(){
 void MainWindow::on_butExit_clicked()
 {
 	hwInterface->Drive(STOPDRIVE);
+	IPsoc->resetRelays();
+	IPsoc->closeSerial();
     this->close();
 }
 
@@ -1089,15 +1094,14 @@ void MainWindow::on_butStart_clicked()
     usleep(1000);
 
     hwInterface->Drive(STARTDRIVE);
-    //    IAppCard->startDrive(1);
-    //    while((IAppCard->readRegister(0x12)& 0x0001));
-    //    usleep(100);
+	IPsoc->FGMeasurement();
 }
 void MainWindow::on_butStop_clicked()
 {
     IAppCard->stopDrive();
     while((IAppCard->readRegister(0x12)& 0x0002));
     usleep(100);
+    IPsoc->resetRelays();
 }
 
 

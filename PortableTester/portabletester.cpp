@@ -843,7 +843,6 @@ void PortableTester::Functions(int pValue){
 
 }
 void PortableTester::buttonPressed(int pValue) {
-	//qDebug() << "pValue:" << pValue;
 	//~~~~~~~~~~~~~MAIN 6 FUNCTIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	if (pValue == 0) {
 		Functions(_DMM_);
