@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'IAWGUIInterface2.h'
 **
-** Created: Thu Sep 25 15:42:52 2014
+** Created: Thu Sep 25 16:59:03 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!

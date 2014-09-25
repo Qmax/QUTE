@@ -415,7 +415,7 @@ void PTPsocInterface2::FGMeasurement() {
 	QByteArray ackData,readData;
 	readData=obj->onReadyRead(ackData);
 	if(readData=="FGSEL"){
-//		qDebug() << "ptpsocinterface : FG Switched.";
+		qDebug() << "ptpsocinterface : FG Switched.";
 	}
 	else
 		qDebug() << "ptpsocinterface : FG Not Switched:"<<readData;

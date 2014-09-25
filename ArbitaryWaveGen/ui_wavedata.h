@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'wavedata.ui'
 **
-** Created: Wed Sep 24 14:52:39 2014
+** Created: Thu Sep 25 16:58:32 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

@@ -13,7 +13,6 @@
 #include "qcustomplot.h"
 #include <unistd.h>
 
-#include "IPSOCCommunication.h"
 #include "InterfacePTLibrary.h"
 #include "PTEventInterfaces.h"
 #include "ApplicationCardInterface.h"
@@ -106,7 +105,6 @@ protected:
   ISPIMemoryInterface *ISPIMemory;
   IPTAppBckPsocInterface *testjig;
   HardwareInterface *hwInterface;
-  IPSOCCOMMUNICATION *IPsoc;
 
   QmaxLineEdit *lineEdit[4];
   QmaxLabel *label[4];
@@ -129,6 +127,7 @@ protected:
   void customEvent(QEvent *eve);
 signals:
     void SendTotalSamples(int);
+//    void triggerFGRelay(bool);
 private slots:
   void on_butAppBck_clicked();
   void on_butRefresh_clicked();

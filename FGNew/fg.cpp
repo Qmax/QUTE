@@ -29,7 +29,7 @@ void FG::PluginsInitialisation(){
 
     QPluginLoader loader3("libPTPsocInterface2.so",this);
     IPsoc = qobject_cast<IPSOCCOMMUNICATION*>(loader3.instance());
-//    IPsoc->openSerial();
+    IPsoc->openSerial();
 
     QPluginLoader loader5("libGPIOEventInterface.so",this);
     IGPIOEvent = qobject_cast<PTGPIOEventInterface*>(loader5.instance());
@@ -56,11 +56,11 @@ void FG::PluginsInitialisation(){
     AWGWidget=AWGGUI2->getAWGUIInterface2();
     AWGWidget->setWindowTitle("Arbitary Waveform Generator");
 
+//    connect(AWGWidget,SIGNAL(triggerFGRelay(bool)),this,SLOT(switchFGRelay(bool)));
+
     //	IBackPlane->writeBackPlaneRegister(0x2, 0x26);
     //	qDebug()<<"Before src imp selection";
-    IPsoc->openSerial();
     IPsoc->srcImpedanceSelection(SRC_IMP_50E);
-    IPsoc->closeSerial();
     //~~~~~~~~Check for debug panel~~~~~~~~~~~~~~~~~~~~~~~~
     QStringList debugPanel;
     QFile textFile2("debugPanel.txt");
@@ -648,6 +648,13 @@ void FG::Mute(){
 	IBackPlane->writeBackPlaneRegister(0x1, 0x0E);
 	IBackPlane->writeBackPlaneRegister(0x1, 0x08);*/
 }
+//void FG::switchFGRelay(bool state){
+//	if(state==true){
+//		IPsoc->FGMeasurement();
+//	}else{
+//		IPsoc->resetRelays();
+//	}
+//}
 
 void FG::changeEvent(QEvent *e) {
     QMainWindow::changeEvent(e);
@@ -737,7 +744,6 @@ void FG::on_EXTBut_clicked()
 void FG::on_RUNBut_clicked(){
     HighlightButtons(RUN_STOP);
     if(m_bRunMode){
-    	IPsoc->openSerial();
         IPsoc->FGMeasurement();
         usleep(10000);
 //        hwInterface->setAmplitude(hwInterface->getAmplitude());
@@ -754,8 +760,6 @@ void FG::on_RUNBut_clicked(){
     }
     else{
         IPsoc->resetRelays();
-        IPsoc->closeSerial();
-
         hwInterface->Drive(STOPDRIVE);
         IGPIOPin->illuminateRunStopButton(1);
     }
@@ -788,9 +792,7 @@ void FG::on_squareBut_clicked() {
 }
 void FG::on_AWGBox_clicked()
 {
-    IPsoc->resetRelays();
-	IPsoc->closeSerial();
-
+//    IPsoc->resetRelays();
     hwInterface->Drive(STOPDRIVE);
     IGPIOPin->illuminateRunStopButton(1);
 
@@ -1046,7 +1048,6 @@ void FG::on_exit_clicked()
     IGPIOPin->illuminateRunStopButton(1);
     IBackPlane->closeObject();
     IPsoc->resetRelays();
-    IPsoc->closeSerial();
     parentWidget()->close();
 }
 void FG::on_upBut_clicked() {
@@ -2104,6 +2105,7 @@ void FG::on_modeBox_currentIndexChanged(int index)
     case 2:
         HighlightButtons(BURST);
         GenerateWave();
+        hwInterface->setPatternLoop(true);
         hwInterface->SingleContinuous(BURST_W);
         hwInterface->Drive(STARTDRIVE);
         for (int i = 0; i < 500; i++){

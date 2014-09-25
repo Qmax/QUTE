@@ -72,7 +72,7 @@ void ToolBox::on_pb_testjig_clicked()
 	                   break;
 	               }
 	           }while(!m_nPassword);
-           if(m_nPassword==true){
+           if(m_nPassword==true/* && retryloop!=3*/){
         	    QWidget *newWidget = testJig->getPTTestjig();
         	    newWidget->show();
            }

@@ -56,7 +56,8 @@ WaveData::WaveData(short waveNumber,QWidget *parent) :
 
 
     m_nLineEditIndex=0;
-    m_nDutyCycle=m_nSamples=m_nStartTick=m_nStoptick=0;
+    m_nDutyCycle=m_nSamples=m_nStartTick=m_nStoptick=1;
+
 }
 void WaveData::RxTotalSamples(int data){
     m_nTotalSamples=data;
@@ -88,6 +89,13 @@ void WaveData::receiveValue(double pValue){
             m_nSamples=(int)pValue;
 
         m_objSamples->setText(QString::number(m_nSamples));
+
+        m_objStartTick->setText("0");
+        m_nStartTick=0;
+        m_objStoptick->setText(QString::number(m_nSamples));
+        m_nStoptick=m_nTotalSamples;
+        m_objDutyCycle->setText("50");
+        m_nDutyCycle=50;
 
     }
     else if(m_nLineEditIndex==2){

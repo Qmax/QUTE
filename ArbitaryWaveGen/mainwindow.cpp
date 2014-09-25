@@ -8,10 +8,6 @@ MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent,Qt::FramelessWindowHint),
         ui(new Ui::MainWindow)
 {
-    QPluginLoader loader3("libPTPsocInterface2.so",this);
-    IPsoc = qobject_cast<IPSOCCOMMUNICATION*>(loader3.instance());
-    IPsoc->openSerial();
-
     QPluginLoader loader1("libQmaxPTInterface.so", this);
     INumberPanel = qobject_cast<IQmaxNumberPanel*> (loader1.instance());
 
@@ -27,8 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QPluginLoader testing("libAppBckPsoc.so", this);
     testjig = qobject_cast<IPTAppBckPsocInterface*> (testing.instance());
 
-    m_objWaveData=new WaveData(graphSelect,this);
-    m_objWaveData->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
 //    m_objWaveData->setVisible(false);
     //_______________________________________________
     m_nAmplitude=1.0;
@@ -177,6 +171,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_nTotalSamples=100;
     emit SendTotalSamples(m_nTotalSamples);
+//    emit triggerFGRelay(true);
+//    connect(this,SIGNAL(triggerFGRelay(bool)),parent,SLOT(switchFGRelay(bool)));
 }
 
 MainWindow::~MainWindow()
@@ -184,6 +180,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 void MainWindow::openWaveDataWindow(){
+    m_objWaveData=new WaveData(graphSelect,this);
+    m_objWaveData->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+    emit SendTotalSamples(m_nTotalSamples);
 
     QPropertyAnimation *animation = new QPropertyAnimation(m_objWaveData, "geometry");
     animation->setStartValue(QRect(250, 350, 240, 50));
@@ -449,7 +448,7 @@ void MainWindow::addSawtoothGraph(){
     graphSelect=5;
     clearGraphData();
     openWaveDataWindow();
-
+    
     double l_nYPoint =0.0,l_nDegree =0;
     unsigned int l_nSampleIndex=0,l_nIndex =0,l_nSamples=0,l_nTemp=0,l_nRemainder =0;
     l_nSamples = m_nWaveSamples / m_nCycles;
@@ -962,8 +961,7 @@ void MainWindow::on_butRemoveAll_clicked(){
 void MainWindow::on_butExit_clicked()
 {
 	hwInterface->Drive(STOPDRIVE);
-	IPsoc->resetRelays();
-	IPsoc->closeSerial();
+//            emit triggerFGRelay(false);
     this->close();
 }
 
@@ -1061,6 +1059,9 @@ void MainWindow::on_butStart_clicked()
     IAppCard->writeRegister(0x0000,0x06);      //BDR
     usleep(1000);
 
+    IAppCard->writeRegister(0x0181,0x68);      //BDR
+    usleep(1000);
+
     IAppCard->writeRegister(0x0100,0x1C);      //Start/Stop Delay
     usleep(1000);
 
@@ -1083,6 +1084,7 @@ void MainWindow::on_butStart_clicked()
     usleep(1000);
 
     loadRAM();
+    usleep(50000);
 
     IAppCard->writeRegister(0x0003,0x86);
     usleep(1000);
@@ -1094,14 +1096,14 @@ void MainWindow::on_butStart_clicked()
     usleep(1000);
 
     hwInterface->Drive(STARTDRIVE);
-	IPsoc->FGMeasurement();
+//        emit triggerFGRelay(true);
 }
 void MainWindow::on_butStop_clicked()
 {
     IAppCard->stopDrive();
     while((IAppCard->readRegister(0x12)& 0x0002));
     usleep(100);
-    IPsoc->resetRelays();
+//        emit triggerFGRelay(false);
 }
 
 

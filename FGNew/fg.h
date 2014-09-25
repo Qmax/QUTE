@@ -211,6 +211,8 @@ public slots:
     void callLineEditInput(int leFocussed);
     void Beep();
     void Mute();
+//    void switchFGRelay(bool);
+
 private slots:
     void on_AWGBox_clicked();
     void on_modeBox_currentIndexChanged(int index);
