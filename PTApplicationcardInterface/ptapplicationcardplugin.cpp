@@ -133,7 +133,7 @@ void PTApplicationCardPlugin::setDSOTriggerSource(RECEIVER_CONF pReceInfo,DSO_TR
 	if(pTriggerSource == PULSE_NEGATIVE)
 		l_nRegValue |= 0x06;
 
-	qDebug() << "Selected Trigger Source and Trigger:"<<hex<<l_nRegValue;
+	//qDebug() << "Selected Trigger Source and Trigger:"<<hex<<l_nRegValue;
 	writeRegister(l_nRegValue,PT_APPCARD_MODULES::PT_DSO_TR);
 }
 
@@ -373,13 +373,13 @@ unsigned short PTApplicationCardPlugin::readReceiveRAMData()
 
 void PTApplicationCardPlugin::setDriveRAMStarAddress(unsigned short pStartAddress)
 {
-	qDebug()<<"RAM Start Address:"<<pStartAddress;
+	//qDebug()<<"RAM Start Address:"<<pStartAddress;
     writeRegister(pStartAddress,PT_APPCARD_MODULES::PT_SRAM_APPCARD_DRSAR);
 }
 
 void PTApplicationCardPlugin::setDriveRAMEndAddress(unsigned short pEndAddress)
 {
-	qDebug()<<"RAM End Address:"<<pEndAddress;
+	//qDebug()<<"RAM End Address:"<<pEndAddress;
     writeRegister(pEndAddress,PT_APPCARD_MODULES::PT_SRAM_APPCARD_DREAR);
 }
 

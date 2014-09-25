@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'fg.h'
 **
-** Created: Thu Sep 25 11:10:23 2014
+** Created: Thu Sep 25 11:36:46 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -158,7 +158,7 @@ static const uint qt_meta_data_FG[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      29,   14, // methods
+      25,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -183,18 +183,14 @@ static const uint qt_meta_data_FG[] = {
      315,    3,    3,    3, 0x08,
      334,    3,    3,    3, 0x08,
      355,    3,    3,    3, 0x08,
-     376,    3,    3,    3, 0x08,
-     396,    3,    3,    3, 0x08,
-     416,    3,    3,    3, 0x08,
-     436,    3,    3,    3, 0x08,
-     456,    3,    3,    3, 0x08,
-     476,    3,    3,    3, 0x08,
+     375,    3,    3,    3, 0x08,
+     395,    3,    3,    3, 0x08,
+     415,    3,    3,    3, 0x08,
+     435,    3,    3,    3, 0x08,
+     455,    3,    3,    3, 0x08,
+     480,    3,    3,    3, 0x08,
      501,    3,    3,    3, 0x08,
-     522,    3,    3,    3, 0x08,
-     545,    3,    3,    3, 0x08,
-     566,    3,    3,    3, 0x08,
-     589,    3,    3,    3, 0x08,
-     611,    3,    3,    3, 0x08,
+     524,    3,    3,    3, 0x08,
 
        0        // eod
 };
@@ -209,13 +205,11 @@ static const char qt_meta_stringdata_FG[] = {
     "on_fineCoarse_clicked()\0on_leftBut_clicked()\0"
     "on_rightBut_clicked()\0on_exit_clicked()\0"
     "on_upBut_clicked()\0on_downBut_clicked()\0"
-    "on_GateBut_clicked()\0on_EXTBut_clicked()\0"
-    "on_INTBut_clicked()\0on_MANBut_clicked()\0"
-    "on_RUNBut_clicked()\0on_hiZBut_clicked()\0"
-    "on_triangleBut_clicked()\0on_rampBut_clicked()\0"
-    "on_squareBut_clicked()\0on_sineBut_clicked()\0"
-    "on_singleBut_clicked()\0on_burstBut_clicked()\0"
-    "on_continuousBut_clicked()\0"
+    "on_EXTBut_clicked()\0on_INTBut_clicked()\0"
+    "on_MANBut_clicked()\0on_RUNBut_clicked()\0"
+    "on_hiZBut_clicked()\0on_triangleBut_clicked()\0"
+    "on_rampBut_clicked()\0on_squareBut_clicked()\0"
+    "on_sineBut_clicked()\0"
 };
 
 const QMetaObject FG::staticMetaObject = {
@@ -263,22 +257,18 @@ int FG::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 13: on_exit_clicked(); break;
         case 14: on_upBut_clicked(); break;
         case 15: on_downBut_clicked(); break;
-        case 16: on_GateBut_clicked(); break;
-        case 17: on_EXTBut_clicked(); break;
-        case 18: on_INTBut_clicked(); break;
-        case 19: on_MANBut_clicked(); break;
-        case 20: on_RUNBut_clicked(); break;
-        case 21: on_hiZBut_clicked(); break;
-        case 22: on_triangleBut_clicked(); break;
-        case 23: on_rampBut_clicked(); break;
-        case 24: on_squareBut_clicked(); break;
-        case 25: on_sineBut_clicked(); break;
-        case 26: on_singleBut_clicked(); break;
-        case 27: on_burstBut_clicked(); break;
-        case 28: on_continuousBut_clicked(); break;
+        case 16: on_EXTBut_clicked(); break;
+        case 17: on_INTBut_clicked(); break;
+        case 18: on_MANBut_clicked(); break;
+        case 19: on_RUNBut_clicked(); break;
+        case 20: on_hiZBut_clicked(); break;
+        case 21: on_triangleBut_clicked(); break;
+        case 22: on_rampBut_clicked(); break;
+        case 23: on_squareBut_clicked(); break;
+        case 24: on_sineBut_clicked(); break;
         default: ;
         }
-        _id -= 29;
+        _id -= 25;
     }
     return _id;
 }

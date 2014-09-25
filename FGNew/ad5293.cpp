@@ -179,7 +179,7 @@ void AD5293::calculateADC5293DATA(AD5293_Template pObjstAD5293)
             //RWA = ((1024-pObjstAD5293.m_nData) / 1024) * RAB;
             l_nRegisterData |= l_nD;
         }
-        qDebug() <<"Data:"<<pObjstAD5293.m_nData<<":"<<l_nD;
+        //qDebug() <<"Data:"<<pObjstAD5293.m_nData<<":"<<l_nD;
     }
     else
     {

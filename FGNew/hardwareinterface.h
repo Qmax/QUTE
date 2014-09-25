@@ -84,8 +84,8 @@ public:
          l_nAD5318DW.m_bUniPolor = false;
          m_objAD5318Component->configureADC5318Data(l_nAD5318DW);
 
-         if(m_eSelect==DACF)  qDebug()<<"Set DAC F Done with "<<dacVoltage<<" Voltage";
-         if(m_eSelect==DACG)  qDebug()<<"Set DAC G Done with "<<dacVoltage<<" Voltage";
+//         if(m_eSelect==DACF)  qDebug()<<"Set DAC F Done with "<<dacVoltage<<" Voltage";
+//         if(m_eSelect==DACG)  qDebug()<<"Set DAC G Done with "<<dacVoltage<<" Voltage";
     }
     void set_BTUR_BDR(unsigned short l_nBTUR,unsigned short l_nBDR){
     	IAppCard->basicTimeUnit(l_nBTUR - 1);
@@ -300,7 +300,7 @@ public:
     	 //qDebug()<<"FG Model Data Interacted";
      }
      void setFrequency(double fValue){
-    	 qDebug()<<"setFrequency:"<<fValue;
+    	 //qDebug()<<"setFrequency:"<<fValue;
 
 /*    	 double l_dTime[6]=		{	0.0000001,	0.000001,0.00001,	0.0001,	0.001,	0.01	};//100ns,1us,10us,100us,1ms,10ms
     	 unsigned int m_uBTU[6]={	0x10,		0x100,	 0x100,		0x1000,	0x1000,	0x1000	};
@@ -357,6 +357,7 @@ public:
    		 setAmplitude(m_nAmplitudeIn);
      }
      void setAmplitude(double ampValue){
+    	 qDebug()<<"Amplitude:"<<ampValue;
     	 m_nAmplitudeIn=ampValue;
     	 if(m_bHighImpedance)
     		 ampValue=ampValue/2;
@@ -379,7 +380,7 @@ public:
     		}else if(ampValue<=0.6){
     			index=0;
     		}
-
+    		qDebug()<<"Range:"<<m_nVoltRangeArray[index];
     		short int l_nAmpValue = pow(2, index);
     	    		unsigned int l_nRegisterAddress = 0x48;
     		 if (index > 0){
@@ -493,19 +494,19 @@ public:
 
  		if(compValue>0.6&&compValue<=1.5){
  			index=1;
- 			qDebug()<<"Range : 1.5, Value:"<<ampValue;
+ 			//qDebug()<<"Range : 1.5, Value:"<<ampValue;
  		}else if(compValue>1.5&&compValue<=3.5){
  			index=2;
- 			qDebug()<<"Range : 3.5, Value:"<<ampValue;
+ 			//qDebug()<<"Range : 3.5, Value:"<<ampValue;
  		}else if(compValue>3.5&&compValue<=7){
  			index=3;
- 			qDebug()<<"Range : 7, Value:"<<ampValue;
+ 			//qDebug()<<"Range : 7, Value:"<<ampValue;
  		}else if(compValue>7&&compValue<=13){
  			index=4;
- 			qDebug()<<"Range : 13, Value:"<<ampValue;
+ 			//qDebug()<<"Range : 13, Value:"<<ampValue;
  		}else if(compValue<=0.6){
  			index=0;
- 			qDebug()<<"Range : 0.6, Value:"<<ampValue;
+ 			//qDebug()<<"Range : 0.6, Value:"<<ampValue;
  		}
 
 		short int l_nAmpValue=0;
@@ -518,7 +519,7 @@ public:
 
    	 m_nParallelDACOutput=ampValue/(m_nVoltRangeArray[index]/0.6);
    	 m_nParallelDACHexCode=(unsigned int)(((m_nParallelDACOutput+0.6)*(pow(2,14)-1))/(2*0.6));
-   	 qDebug()<<"m_nParallelDACHexCode :"<<hex<<m_nParallelDACHexCode;
+   	 //qDebug()<<"m_nParallelDACHexCode :"<<hex<<m_nParallelDACHexCode;
    	 IAppCard->writeRegister(m_nParallelDACHexCode,0x76);
      IAppCard->writeRegister(0x01,0x12);
 

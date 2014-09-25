@@ -102,7 +102,7 @@ void FG::readEncoderData(){
     m_nSwitch=spiData & 0x0100;
 }
 void FG::doPTKeyFunction() {
-    if(m_nPTKeyCode==1){qDebug()<<("\nMENU");
+    if(m_nPTKeyCode==1){//qDebug()<<("\nMENU");
 	if(AWGWidget->isVisible()){
             AWGWidget->close();
 	}else{
@@ -111,7 +111,7 @@ void FG::doPTKeyFunction() {
             parentWidget()->close();
 	}
     }
-    else if(m_nPTKeyCode==2){qDebug()<<("\nESC");
+    else if(m_nPTKeyCode==2){//qDebug()<<("\nESC");
 	if(AWGWidget->isVisible()){
             AWGWidget->close();
 	}else{
@@ -120,36 +120,36 @@ void FG::doPTKeyFunction() {
             parentWidget()->close();
 	}
     }
-    else if(m_nPTKeyCode==3){qDebug()<<("\nNULL");
+    else if(m_nPTKeyCode==3){//qDebug()<<("\nNULL");
     }
-    else if(m_nPTKeyCode==4){qDebug()<<("\nF1");
+    else if(m_nPTKeyCode==4){//qDebug()<<("\nF1");
 	ui->sineBut->animateClick(1);
     }
-    else if(m_nPTKeyCode==5){qDebug()<<("\nF2");
+    else if(m_nPTKeyCode==5){//qDebug()<<("\nF2");
 	ui->squareBut->animateClick(1);
     }
-    else if(m_nPTKeyCode==6){qDebug()<<("\nF3");
+    else if(m_nPTKeyCode==6){//qDebug()<<("\nF3");
 	ui->rampBut->animateClick(1);
     }
-    else if(m_nPTKeyCode==7){qDebug()<<("\nF4");
+    else if(m_nPTKeyCode==7){//qDebug()<<("\nF4");
 	ui->triangleBut->animateClick(1);
     }
-    else if(m_nPTKeyCode==8){qDebug()<<("\nF5");
+    else if(m_nPTKeyCode==8){//qDebug()<<("\nF5");
         ui->AWGBox->animateClick(1);
     }
-    else if(m_nPTKeyCode==9){qDebug()<<("\nUP");
+    else if(m_nPTKeyCode==9){//qDebug()<<("\nUP");
 	ui->upBut->animateClick(1);
     }
-    else if(m_nPTKeyCode==10){qDebug()<<("\nDOWN");
+    else if(m_nPTKeyCode==10){//qDebug()<<("\nDOWN");
 	ui->downBut->animateClick(1);
     }
-    else if(m_nPTKeyCode==11){qDebug()<<("\nRIGHT");
-	qDebug()<<"rightBut_clicked";
+    else if(m_nPTKeyCode==11){//qDebug()<<("\nRIGHT");
+	//qDebug()<<"rightBut_clicked";
 	for(int i=0;i<8;i++){
             if(lineEdit[i]->hasFocus()){
                 //			qDebug()<<"Focussed "<<i<<" LineEdit";
                 if(i!=7){
-                    qDebug()<<"To Focuss "<<i+1<<" LineEdit";
+                    //qDebug()<<"To Focuss "<<i+1<<" LineEdit";
                     lineEdit[i+1]->setFocus();
                     m_nLineEditIndex=i+1;
                 }
@@ -166,8 +166,8 @@ void FG::doPTKeyFunction() {
             m_nLineEditIndex=0;
 	}
     }
-    else if(m_nPTKeyCode==12){qDebug()<<("\nLEFT");
-	qDebug()<<"leftBut_clicked";
+    else if(m_nPTKeyCode==12){//qDebug()<<("\nLEFT");
+	//qDebug()<<"leftBut_clicked";
 	for(int i=0;i<8;i++){
             if(lineEdit[i]->hasFocus()){
                 //			qDebug()<<"Focussed "<<i<<" LineEdit";
@@ -189,32 +189,32 @@ void FG::doPTKeyFunction() {
             m_nLineEditIndex=0;
 	}
     }
-    else if(m_nPTKeyCode==13){qDebug()<<("\nENTER");
+    else if(m_nPTKeyCode==13){//qDebug()<<("\nENTER");
     }
-    else if(m_nPTKeyCode==14){qDebug()<<("\nSETUP");
+    else if(m_nPTKeyCode==14){//qDebug()<<("\nSETUP");
     }
-    else if(m_nPTKeyCode==15){qDebug()<<("\nDEFAULT");
+    else if(m_nPTKeyCode==15){//qDebug()<<("\nDEFAULT");
     }
-    else if(m_nPTKeyCode==16){qDebug()<<("\nTOUCH");
+    else if(m_nPTKeyCode==16){//qDebug()<<("\nTOUCH");
 	IGPIOPin->toggleTouchButton();
     }
-    else if(m_nPTKeyCode==17){qDebug()<<("\nFILE");
+    else if(m_nPTKeyCode==17){//qDebug()<<("\nFILE");
 	clickedPRSCR();
     }
-    else if(m_nPTKeyCode==18){qDebug()<<("\nSCALE");
+    else if(m_nPTKeyCode==18){//qDebug()<<("\nSCALE");
 	if (fineCoarse == true) {
             fineCoarse = false;
-            qDebug() << "Coarse Activated";
+            //qDebug() << "Coarse Activated";
             IGPIOPin->illuminateScaleButton(1);
             ui->fineCoarse->setStyleSheet("QPushButton{background-color:rgba(0,0,0,0);border:1px solid rgba(0,0,0,0);image: url(:/res/coarse.png);}");
 	} else {
             fineCoarse = true;
-            qDebug() << "Fine Activated";
+            //qDebug() << "Fine Activated";
             IGPIOPin->illuminateScaleButton(0);
             ui->fineCoarse->setStyleSheet("QPushButton{background-color:rgba(0,0,0,0);border:1px solid rgba(0,0,0,0);image: url(:/res/fine.png);}");
 	}
     }
-    else if(m_nPTKeyCode==19){qDebug()<<("\nRUN/STOP");
+    else if(m_nPTKeyCode==19){//qDebug()<<("\nRUN/STOP");
         ui->RUNBut->animateClick(1);
     }
 }
@@ -656,43 +656,43 @@ void FG::changeEvent(QEvent *e) {
     }
 }
 
-void FG::on_singleBut_clicked() {
-    m_bContinuous = false;
-    HighlightButtons(SINGLE);
-    GenerateWave();
-    hwInterface->setPatternLoop(false);
-    hwInterface->SingleContinuous(SINGLE_W);
-}
+//void FG::on_singleBut_clicked() {
+//    m_bContinuous = false;
+//    HighlightButtons(SINGLE);
+//    GenerateWave();
+//    hwInterface->setPatternLoop(false);
+//    hwInterface->SingleContinuous(SINGLE_W);
+//}
 
-void FG::on_continuousBut_clicked() {
-    m_bContinuous = true;
-    HighlightButtons(CONTINUOUS);
-    GenerateWave();
-    hwInterface->setPatternLoop(false);
-    hwInterface->SingleContinuous(CONTINUOUS_W);
-    hwInterface->Drive(STARTDRIVE);
-    IGPIOPin->illuminateRunStopButton(0);
-}
+//void FG::on_continuousBut_clicked() {
+//    m_bContinuous = true;
+//    HighlightButtons(CONTINUOUS);
+//    GenerateWave();
+//    hwInterface->setPatternLoop(false);
+//    hwInterface->SingleContinuous(CONTINUOUS_W);
+//    hwInterface->Drive(STARTDRIVE);
+//    IGPIOPin->illuminateRunStopButton(0);
+//}
 
-void FG::on_burstBut_clicked() {
-    HighlightButtons(BURST);
-    GenerateWave();
-    hwInterface->SingleContinuous(BURST_W);
-    hwInterface->Drive(STARTDRIVE);
-    for (int i = 0; i < 500; i++){
-        IGPIOPin->illuminateRunStopButton(0);
-    }	IGPIOPin->illuminateRunStopButton(1);
-}
+//void FG::on_burstBut_clicked() {
+//    HighlightButtons(BURST);
+//    GenerateWave();
+//    hwInterface->SingleContinuous(BURST_W);
+//    hwInterface->Drive(STARTDRIVE);
+//    for (int i = 0; i < 500; i++){
+//        IGPIOPin->illuminateRunStopButton(0);
+//    }	IGPIOPin->illuminateRunStopButton(1);
+//}
 
-void FG::on_GateBut_clicked()
-{
-    HighlightButtons(GATE);
-    GenerateWave();
-    hwInterface->Drive(STARTDRIVE);
-    for (int i = 0; i < 500; i++){
-        IGPIOPin->illuminateRunStopButton(0);
-    }	IGPIOPin->illuminateRunStopButton(1);
-}
+//void FG::on_GateBut_clicked()
+//{
+//    HighlightButtons(GATE);
+//    GenerateWave();
+//    hwInterface->Drive(STARTDRIVE);
+//    for (int i = 0; i < 500; i++){
+//        IGPIOPin->illuminateRunStopButton(0);
+//    }	IGPIOPin->illuminateRunStopButton(1);
+//}
 void FG::on_MANBut_clicked()
 {
     if(m_bBurst==true)

@@ -222,7 +222,7 @@ private slots:
     void on_exit_clicked();
     void on_upBut_clicked();
     void on_downBut_clicked();
-    void on_GateBut_clicked();
+//    void on_GateBut_clicked();
     void on_EXTBut_clicked();
     void on_INTBut_clicked();
     void on_MANBut_clicked();
@@ -232,9 +232,9 @@ private slots:
     void on_rampBut_clicked();
     void on_squareBut_clicked();
     void on_sineBut_clicked();
-    void on_singleBut_clicked();
-    void on_burstBut_clicked();
-    void on_continuousBut_clicked();
+//    void on_singleBut_clicked();
+//    void on_burstBut_clicked();
+//    void on_continuousBut_clicked();
 };
 
 #endif // FG_H

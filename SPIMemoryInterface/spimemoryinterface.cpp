@@ -7,7 +7,7 @@ SPIMemoryInterface::SPIMemoryInterface(QObject *parent)
     QPluginLoader loader2("libBackPlaneInterface.so", this);
     IBackPlane = qobject_cast<IntefaceBackPlane*> (loader2.instance());
     IBackPlane->InitializeBpObject();
-    qDebug()<<"SPI Memory Initialized";
+    //qDebug()<<"SPI Memory Initialized";
 }
 
 void SPIMemoryInterface::accessSPIMemory(SPIMEMORY_ACCESS pSPISelect)
@@ -29,17 +29,17 @@ unsigned int SPIMemoryInterface::getSPICodeID() {
 		}
 		else if(m_MemorySelect == APPLICATIONCARD)
 		{
-			qDebug()<<"SPIMemoryInterface::getSPICodeID-Appcard";
+			//qDebug()<<"SPIMemoryInterface::getSPICodeID-Appcard";
 			IAppCard->setSPITXMSW(0x9F00,SPI1);
 			IAppCard->setSPITXLSW(0x0000,SPI1);
 			IAppCard->setSPICW(0x0207,SPI1);
 			checkMemoryBusy();
 
 			l_nData = 0x00FFFFFF & IAppCard->getSPIRXMSW(SPI1);
-			qDebug() << "MSW:"<<hex<<l_nData;
+			//qDebug() << "MSW:"<<hex<<l_nData;
 	        l_nData = l_nData << 16;
 	        l_nData |= IAppCard->getSPIRXLSW(SPI1);
-	        qDebug() << "LSW:"<<hex<<l_nData;
+	        //qDebug() << "LSW:"<<hex<<l_nData;
 		}
 //	printf("MSW DATA:%X\n", l_nData);
 //	printf("LSW DATA:%X\n", l_nData);
@@ -199,7 +199,7 @@ unsigned int SPIMemoryInterface::startTx8Bit() {
 void SPIMemoryInterface::checkSPIMemoryWrite()
 {
 
-	qDebug()<<"check SPI Memory Write";
+	//qDebug()<<"check SPI Memory Write";
 	unsigned int l_npageWrLsw, l_npageWrMsw, l_npageWrite;
     writeEnable();
     l_npageWrite = 0x0A000000;
@@ -234,7 +234,7 @@ void SPIMemoryInterface::checkSPIMemoryRead()
 	//usleep(1000);
 	checkMemoryBusy();
 	stopDrive();
-	qDebug()<<"Data:"<<(IAppCard->getSPIRXLSW(SPI1) & 0x00FF);
+	//qDebug()<<"Data:"<<(IAppCard->getSPIRXLSW(SPI1) & 0x00FF);
 }
 void SPIMemoryInterface::writeSPIMemory(unsigned int pnWraddr, unsigned int pnBytes,
                 unsigned short int *pnData)
@@ -390,12 +390,12 @@ unsigned int SPIMemoryInterface::WriteSPI(unsigned int pgWraddr, unsigned int l_
         unsigned short int *l_ndataWr;
         l_ndataWr = l_nWriteData;
         l_npageWrite = 0x0A000000 | pgWraddr;
-        qDebug() << "Page Write:"<<l_npageWrite;
+        //qDebug() << "Page Write:"<<l_npageWrite;
         l_npageWrLsw = l_npageWrite & 0x0000FFFF;
-        qDebug()<< "Page Write LSW:"<<l_npageWrLsw;
+        //qDebug()<< "Page Write LSW:"<<l_npageWrLsw;
         printf("page writelsw %x\n", l_npageWrLsw);
         l_npageWrMsw = (l_npageWrite & 0xFFFF0000) >> 16;
-        qDebug()<< "Page Write LSW:"<<l_npageWrMsw;
+        //qDebug()<< "Page Write LSW:"<<l_npageWrMsw;
 
         if(m_MemorySelect == BACKPLANE)
 		{
