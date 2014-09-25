@@ -781,6 +781,10 @@ void FG::on_squareBut_clicked() {
 }
 void FG::on_AWGBox_clicked()
 {
+    IPsoc->resetRelays();
+    hwInterface->Drive(STOPDRIVE);
+    IGPIOPin->illuminateRunStopButton(1);
+
     AWGWidget->show();
     HighlightButtons(AWG_WAVE);
 }
@@ -1032,6 +1036,7 @@ void FG::on_exit_clicked()
     hwInterface->Drive(STOPDRIVE);
     IGPIOPin->illuminateRunStopButton(1);
     IBackPlane->closeObject();
+    IPsoc->resetRelays();
     IPsoc->closeSerial();
     parentWidget()->close();
 }

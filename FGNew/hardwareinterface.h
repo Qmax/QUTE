@@ -110,6 +110,7 @@ public:
     	 switch(drvmode){
     	 case STARTDRIVE:
     		 IAppCard->startDrive(1);
+    		 setAmplitude(m_nAmplitude);
     		 //qDebug()<<"HardwareInterface Start Drive";
     		 break;
     	 case STOPDRIVE:

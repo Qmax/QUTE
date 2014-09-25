@@ -958,6 +958,7 @@ void MainWindow::on_butRemoveAll_clicked(){
 
 void MainWindow::on_butExit_clicked()
 {
+	hwInterface->Drive(STOPDRIVE);
     this->close();
 }
 
