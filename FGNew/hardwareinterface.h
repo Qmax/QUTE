@@ -70,6 +70,7 @@ public:
 		 m_bHighImpedance=true;
 
 		 m_nWaveFlag=SINE_W;
+
     }
     void setDAC(AD5318_DACSELECT m_eSelect,double dacVoltage){
     	IAppCard->setSPIAppendBit(0xC000);

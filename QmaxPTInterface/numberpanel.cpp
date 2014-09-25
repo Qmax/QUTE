@@ -21,8 +21,8 @@ NumberPanel::NumberPanel(short int pDeciValue,QWidget *parent) :
     connect(this,SIGNAL(passText(uint)),parent,SLOT(receiveValue(uint)));
     connect(this,SIGNAL(passText1(double)),parent,SLOT(receiveValue(double)));
     connect(this,SIGNAL(passText2(QString)),parent,SLOT(receiveValue(QString)));
-    Max=2000000;
-    Min=-2000000;
+    Max=117440512;
+    Min=-7000000;
     alert=new QMessageBox(this);
     alert->setFont(QFont("DejaVu Sans",14,50,false));
 }

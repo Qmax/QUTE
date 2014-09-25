@@ -107,12 +107,13 @@ void ToolBox::on_pb_touchcalib_clicked()
 	QTextStream ts(&outFile);
 	ts << "/usr/bin/qt-embedded/ts_calibrate";
 
-	 QMessageBox msgBox;
-	 msgBox.setWindowFlags(Qt::FramelessWindowHint);
-	 msgBox.setIcon(QMessageBox::Information);
-	 msgBox.setText("Touch Screen Calibration Enabled.\nRestart the System to Calibrate.");
-	 msgBox.setStandardButtons(QMessageBox::Ok);
-	 msgBox.exec();
+    QMessageBox msgbox;
+    msgbox.setWindowFlags(Qt::Widget | Qt::FramelessWindowHint);
+    msgbox.setFont(QFont("DejaVu Sans", 15, 50, false));
+    msgbox.setIcon(QMessageBox::Information);
+	 msgbox.setText("Touch Screen Calibration Enabled.\nRestart the System to Calibrate.");
+	 msgbox.setStandardButtons(QMessageBox::Ok);
+	 msgbox.exec();
 	 //__________________________________________________________________________________________________________
 }
 

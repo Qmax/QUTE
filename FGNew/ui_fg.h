@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'fg.ui'
 **
-** Created: Wed Sep 24 11:14:29 2014
+** Created: Wed Sep 24 15:49:47 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -57,14 +57,6 @@ public:
     QLabel *hiZCap;
     QPushButton *hiZBut;
     QGroupBox *runMode;
-    QLabel *continuousCap;
-    QPushButton *singleBut;
-    QPushButton *continuousBut;
-    QLabel *singleCap;
-    QLabel *burstCap;
-    QPushButton *burstBut;
-    QLabel *GateCap;
-    QPushButton *GateBut;
     QLabel *ManCap;
     QPushButton *MANBut;
     QLabel *INTCap;
@@ -206,7 +198,9 @@ public:
         AWGBox->setFocusPolicy(Qt::NoFocus);
         AWGBox->setStyleSheet(QString::fromUtf8("QPushButton {border: 1px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0,);\n"
 "	\n"
-"image: url(:/res/awg2.png);}"));
+"	image: url(:/res/awg.png);\n"
+"\n"
+"}"));
         AWGBox->setIconSize(QSize(55, 55));
         selectFrame = new QFrame(centralWidget);
         selectFrame->setObjectName(QString::fromUtf8("selectFrame"));
@@ -478,14 +472,15 @@ public:
 " }"));
         RUNBut = new QPushButton(sourceImpedance);
         RUNBut->setObjectName(QString::fromUtf8("RUNBut"));
-        RUNBut->setGeometry(QRect(130, 0, 50, 50));
+        RUNBut->setGeometry(QRect(136, 1, 50, 50));
         RUNBut->setFont(font);
         RUNBut->setFocusPolicy(Qt::NoFocus);
         RUNBut->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "background-color:rgba(0,0,0,0);\n"
-"border:1px solid rgba(0,0,0,0);\n"
-"	image: url(:/res/knob_off.svg);\n"
+"border:1px solid rgba(0,0,0,0);image: url(:/res/knob_off.svg);\n"
+"\n"
 "}\n"
+"\n"
 ""));
         RUNCap = new QLabel(sourceImpedance);
         RUNCap->setObjectName(QString::fromUtf8("RUNCap"));
@@ -551,104 +546,9 @@ public:
 "	 color:white;\n"
 "     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);\n"
 " }"));
-        continuousCap = new QLabel(runMode);
-        continuousCap->setObjectName(QString::fromUtf8("continuousCap"));
-        continuousCap->setGeometry(QRect(60, 31, 99, 30));
-        continuousCap->setFont(font1);
-        continuousCap->setStyleSheet(QString::fromUtf8("QLabel::Enabled{\n"
-"color:white;\n"
-"background-color:rgba(0,0,0,0);\n"
-"border:1px solid rgba(0,0,0,0);\n"
-"}\n"
-"QLabel::Disabled{\n"
-"color:black;\n"
-"}"));
-        singleBut = new QPushButton(runMode);
-        singleBut->setObjectName(QString::fromUtf8("singleBut"));
-        singleBut->setGeometry(QRect(10, 62, 40, 40));
-        singleBut->setFont(font);
-        singleBut->setFocusPolicy(Qt::NoFocus);
-        singleBut->setStyleSheet(QString::fromUtf8("QPushButton{\n"
-"background-color:rgba(0,0,0,0);\n"
-"border:1px solid rgba(0,0,0,0);\n"
-"	image: url(:/res/knob_off.svg)\n"
-"}\n"
-""));
-        continuousBut = new QPushButton(runMode);
-        continuousBut->setObjectName(QString::fromUtf8("continuousBut"));
-        continuousBut->setGeometry(QRect(10, 23, 40, 40));
-        continuousBut->setFont(font);
-        continuousBut->setFocusPolicy(Qt::NoFocus);
-        continuousBut->setStyleSheet(QString::fromUtf8("QPushButton{\n"
-"background-color:rgba(0,0,0,0);\n"
-"border:1px solid rgba(0,0,0,0);\n"
-"image: url(:/res/knob_on.svg);\n"
-"}\n"
-""));
-        singleCap = new QLabel(runMode);
-        singleCap->setObjectName(QString::fromUtf8("singleCap"));
-        singleCap->setGeometry(QRect(60, 66, 70, 30));
-        singleCap->setFont(font1);
-        singleCap->setStyleSheet(QString::fromUtf8("QLabel::Enabled{\n"
-"/*color:#5293DE;*/\n"
-"color:white;\n"
-"background-color:rgba(0,0,0,0);\n"
-"border:1px solid rgba(0,0,0,0);\n"
-"}\n"
-"QLabel::Disabled{\n"
-"color:black;\n"
-"}"));
-        burstCap = new QLabel(runMode);
-        burstCap->setObjectName(QString::fromUtf8("burstCap"));
-        burstCap->setGeometry(QRect(200, 68, 60, 30));
-        burstCap->setFont(font1);
-        burstCap->setStyleSheet(QString::fromUtf8("QLabel::Enabled{\n"
-"/*color:#5293DE;*/\n"
-"color:white;\n"
-"background-color:rgba(0,0,0,0);\n"
-"border:1px solid rgba(0,0,0,0);\n"
-"}\n"
-"QLabel::Disabled{\n"
-"color:black;\n"
-"}"));
-        burstBut = new QPushButton(runMode);
-        burstBut->setObjectName(QString::fromUtf8("burstBut"));
-        burstBut->setGeometry(QRect(150, 62, 40, 40));
-        burstBut->setFont(font);
-        burstBut->setFocusPolicy(Qt::NoFocus);
-        burstBut->setStyleSheet(QString::fromUtf8("QPushButton{\n"
-"background-color:rgba(0,0,0,0);\n"
-"border:1px solid rgba(0,0,0,0);\n"
-"	image: url(:/res/knob_off.svg);\n"
-"}\n"
-""));
-        GateCap = new QLabel(runMode);
-        GateCap->setObjectName(QString::fromUtf8("GateCap"));
-        GateCap->setGeometry(QRect(198, 29, 60, 30));
-        GateCap->setFont(font1);
-        GateCap->setStyleSheet(QString::fromUtf8("QLabel::Enabled{\n"
-"/*color:#5293DE;*/\n"
-"color:white;\n"
-"background-color:rgba(0,0,0,0);\n"
-"border:1px solid rgba(0,0,0,0);\n"
-"}\n"
-"QLabel::Disabled{\n"
-"color:black;\n"
-"}"));
-        GateBut = new QPushButton(runMode);
-        GateBut->setObjectName(QString::fromUtf8("GateBut"));
-        GateBut->setGeometry(QRect(149, 23, 40, 40));
-        GateBut->setFont(font);
-        GateBut->setFocusPolicy(Qt::NoFocus);
-        GateBut->setStyleSheet(QString::fromUtf8("QPushButton{\n"
-"background-color:rgba(0,0,0,0);\n"
-"border:1px solid rgba(0,0,0,0);\n"
-"image: url(:/res/knob_off.svg);\n"
-"}\n"
-""));
         ManCap = new QLabel(runMode);
         ManCap->setObjectName(QString::fromUtf8("ManCap"));
-        ManCap->setGeometry(QRect(42, 80, 50, 30));
+        ManCap->setGeometry(QRect(80, 80, 50, 30));
         ManCap->setFont(font1);
         ManCap->setStyleSheet(QString::fromUtf8("QLabel::Enabled{\n"
 "color:white;\n"
@@ -662,28 +562,30 @@ public:
 "}"));
         MANBut = new QPushButton(runMode);
         MANBut->setObjectName(QString::fromUtf8("MANBut"));
-        MANBut->setGeometry(QRect(10, 75, 40, 40));
+        MANBut->setGeometry(QRect(36, 75, 40, 40));
         MANBut->setFont(font);
         MANBut->setFocusPolicy(Qt::NoFocus);
         MANBut->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "background-color:rgba(0,0,0,0);\n"
 "border:1px solid rgba(0,0,0,0);\n"
-"image: url(:/res/normal.svg);\n"
+"	image: url(:/res/pb-red.png);\n"
 "}\n"
 "QPushButton::pressed{\n"
 "background-color:rgba(0,0,0,0);\n"
 "border:1px solid rgba(0,0,0,0);\n"
-"image: url(:/res/pressedRed.png);\n"
+"	image: url(:/res/pb-green.png);\n"
+"\n"
 "}\n"
 "QPushButton::released{\n"
 "background-color:rgba(0,0,0,0);\n"
 "border:1px solid rgba(0,0,0,0);\n"
-"image: url(:/res/pressed.svg);\n"
+"image: url(:/res/pb-red.png);\n"
+"\n"
 "}\n"
 ""));
         INTCap = new QLabel(runMode);
         INTCap->setObjectName(QString::fromUtf8("INTCap"));
-        INTCap->setGeometry(QRect(124, 80, 50, 30));
+        INTCap->setGeometry(QRect(194, 80, 50, 30));
         INTCap->setFont(font1);
         INTCap->setStyleSheet(QString::fromUtf8("QLabel::Enabled{\n"
 "color:white;\n"
@@ -697,23 +599,25 @@ public:
 "}"));
         INTBut = new QPushButton(runMode);
         INTBut->setObjectName(QString::fromUtf8("INTBut"));
-        INTBut->setGeometry(QRect(90, 75, 40, 40));
+        INTBut->setGeometry(QRect(150, 75, 40, 40));
         INTBut->setFont(font);
         INTBut->setFocusPolicy(Qt::NoFocus);
         INTBut->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "background-color:rgba(0,0,0,0);\n"
 "border:1px solid rgba(0,0,0,0);\n"
-"image: url(:/res/normal.svg);\n"
+"	image: url(:/res/pb-red.png);\n"
 "}\n"
 "QPushButton::pressed{\n"
 "background-color:rgba(0,0,0,0);\n"
 "border:1px solid rgba(0,0,0,0);\n"
-"image: url(:/res/pressedRed.png);\n"
+"	image: url(:/res/pb-green.png);\n"
+"\n"
 "}\n"
 "QPushButton::released{\n"
 "background-color:rgba(0,0,0,0);\n"
 "border:1px solid rgba(0,0,0,0);\n"
-"image: url(:/res/pressed.svg);\n"
+"image: url(:/res/pb-red.png);\n"
+"\n"
 "}\n"
 ""));
         EXTCap = new QLabel(runMode);
@@ -738,17 +642,17 @@ public:
         EXTBut->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "background-color:rgba(0,0,0,0);\n"
 "border:1px solid rgba(0,0,0,0);\n"
-"image: url(:/res/normal.svg);\n"
+"image: url(:/res/knob_off.svg);\n"
 "}\n"
 "QPushButton::pressed{\n"
 "background-color:rgba(0,0,0,0);\n"
 "border:1px solid rgba(0,0,0,0);\n"
-"image: url(:/res/pressedRed.png);\n"
+"image: url(:/res/knob_on.svg);\n"
 "}\n"
 "QPushButton::released{\n"
 "background-color:rgba(0,0,0,0);\n"
 "border:1px solid rgba(0,0,0,0);\n"
-"image: url(:/res/pressed.svg);\n"
+"image: url(:/res/knob_off.svg);\n"
 "}\n"
 ""));
         modeBox = new QComboBox(runMode);
@@ -1419,14 +1323,6 @@ public:
         hiZCap->setText(QApplication::translate("FG", "Hi-Z", 0, QApplication::UnicodeUTF8));
         hiZBut->setText(QString());
         runMode->setTitle(QApplication::translate("FG", "Run Mode", 0, QApplication::UnicodeUTF8));
-        continuousCap->setText(QApplication::translate("FG", "Continuous", 0, QApplication::UnicodeUTF8));
-        singleBut->setText(QString());
-        continuousBut->setText(QString());
-        singleCap->setText(QApplication::translate("FG", "Trigger", 0, QApplication::UnicodeUTF8));
-        burstCap->setText(QApplication::translate("FG", "Burst", 0, QApplication::UnicodeUTF8));
-        burstBut->setText(QString());
-        GateCap->setText(QApplication::translate("FG", "Gate", 0, QApplication::UnicodeUTF8));
-        GateBut->setText(QString());
         ManCap->setText(QApplication::translate("FG", "MAN", 0, QApplication::UnicodeUTF8));
         MANBut->setText(QString());
         INTCap->setText(QApplication::translate("FG", "INT", 0, QApplication::UnicodeUTF8));

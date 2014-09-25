@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'hardwareinterface.h'
 **
-** Created: Tue Sep 23 10:34:44 2014
+** Created: Thu Sep 25 11:10:17 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!

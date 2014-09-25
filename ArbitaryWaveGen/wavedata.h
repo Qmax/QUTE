@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QDebug>
 #include <QLineEdit>
+#include <QMessageBox>
 #include <QPluginLoader>
 #include "InterfacePTLibrary.h"
 

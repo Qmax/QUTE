@@ -1,5 +1,5 @@
 # -------------------------------------------------
-# Project created by QtCreator 2013-10-22T17:31:59
+# Project created by Ravivarman 2013-10-22T17:31:59
 # -------------------------------------------------
 TARGET = FGInterface
 CONFIG += plugin

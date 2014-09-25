@@ -14,7 +14,7 @@
 
      The Applicationcard module is interfaced with CPU module via WEIM Bus, to access Application card internal registers.
         Base Address        :   0xB0000000 ( EIMM_CS0S0 )
-        Memory              :   0xB000_0000 - 0xB00FF_FFFF (32 MB)
+        Memory              :   0xB000_0000 - 0xB0FF_FFFF (32 MB)
 
         Base Address        :   0xB2000000 ( EIMM_CS0S1 )
         Memory              :   0xB200_0000 - 0xB2FF_FFFF (32 MB)

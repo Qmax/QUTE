@@ -11,5 +11,9 @@
         <file>fp_images/usb.png</file>
         <file>fp_images/fuse.png</file>
         <file>fp_images/bnc.png</file>
+        <file>res/up-icon_released.png</file>
+        <file>res/pb-red.png</file>
+        <file>res/pb-green.png</file>
+        <file>res/awg.png</file>
     </qresource>
 </RCC>

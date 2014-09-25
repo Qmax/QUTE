@@ -553,17 +553,19 @@ void DMM::onMeasure() {
             dis->setRange(500);
         }
         if (Flag.buzzerFlag == 1) {
-            if (n2WResistanceCur == 0 && display.retval < 5)
+            if (n2WResistanceCur == 0 && display.retval < 1)
                 Beep(true);
-            else if (n2WResistanceCur == 1 && display.retval < 50)
+            else if (n2WResistanceCur == 1 && display.retval < 10)
                 Beep(true);
-            else if (n2WResistanceCur == 2 && display.retval < 500)
+            else if (n2WResistanceCur == 2 && display.retval < 100)
                 Beep(true);
-            else if (n2WResistanceCur == 3 && display.retval < 5000)
+            else if (n2WResistanceCur == 3 && display.retval < 1000)
                 Beep(true);
-            else if (n2WResistanceCur == 4 && display.retval < 50000)
+            else if (n2WResistanceCur == 4 && display.retval < 10000)
                 Beep(true);
-            else if (n2WResistanceCur == 5 && display.retval < 500000)
+            else if (n2WResistanceCur == 5 && display.retval < 100000)
+                Beep(true);
+            else if (n2WResistanceCur == 6 && display.retval < 1000000)
                 Beep(true);
             else
                 Beep(false);
@@ -1632,22 +1634,22 @@ void DMM::AutoRange() {
                 buttonPressed(13);
         }
         if (Flag.buzzerFlag == 1) {
-            if (n2WResistanceCur == 0 && display.retval < 10)
+            if (n2WResistanceCur == 0 && display.retval < 1)
                 Beep(true);
 
-            else if (n2WResistanceCur == 1 && display.retval < 100)
+            else if (n2WResistanceCur == 1 && display.retval < 10)
                 Beep(true);
 
-            else if (n2WResistanceCur == 2 && display.retval < 1000)
+            else if (n2WResistanceCur == 2 && display.retval < 100)
                 Beep(true);
 
-            else if (n2WResistanceCur == 3 && display.retval < 10000)
+            else if (n2WResistanceCur == 3 && display.retval < 1000)
                 Beep(true);
 
-            else if (n2WResistanceCur == 4 && display.retval < 100000)
+            else if (n2WResistanceCur == 4 && display.retval < 10000)
                 Beep(true);
 
-            else if (n2WResistanceCur == 5 && display.retval < 1000000)
+            else if (n2WResistanceCur == 5 && display.retval < 100000)
                 Beep(true);
 
             else if (n2WResistanceCur == 6 && display.retval < 1000000)

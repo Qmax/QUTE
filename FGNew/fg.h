@@ -1,3 +1,7 @@
+// -------------------------------------------------
+// Project created by Ravivarman 2013-10-22T17:31:59
+// -------------------------------------------------
+
 #ifndef FG_H
 #define FG_H
 
@@ -114,6 +118,7 @@ protected:
     void HighlightButtons(int but);
     void ConnectSignalsnSlots();
     void GenerateWave();
+    void DefaultSettings();
 
     void Frequency2Period(QString);
     void Period2Frequency(QString);

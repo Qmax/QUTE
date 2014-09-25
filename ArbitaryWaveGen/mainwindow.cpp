@@ -1,3 +1,6 @@
+//# -------------------------------------------------
+//# Project created by Ravivarman 2014-09-02T23:24:55
+//# -------------------------------------------------
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -21,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QPluginLoader testing("libAppBckPsoc.so", this);
     testjig = qobject_cast<IPTAppBckPsocInterface*> (testing.instance());
 
+    m_objWaveData=new WaveData(graphSelect,this);
+    m_objWaveData->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+//    m_objWaveData->setVisible(false);
     //_______________________________________________
     m_nAmplitude=1.0;
     m_nOffset=0.0;
@@ -175,8 +181,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 void MainWindow::openWaveDataWindow(){
-    m_objWaveData=new WaveData(graphSelect,this);
-    m_objWaveData->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
 
     QPropertyAnimation *animation = new QPropertyAnimation(m_objWaveData, "geometry");
     animation->setStartValue(QRect(250, 350, 240, 50));

@@ -68,23 +68,65 @@ void WaveData::receiveValue(unsigned int pValue){
     }
 
 void WaveData::receiveValue(double pValue){
+    QMessageBox msgbox;
+    msgbox.setWindowFlags(Qt::Widget | Qt::FramelessWindowHint);
+    msgbox.setFont(QFont("DejaVu Sans", 15, 50, false));
+    msgbox.setIcon(QMessageBox::Warning);
+
+
     if(m_nLineEditIndex==1){
-        m_nSamples=(int)pValue;
+        if(pValue>m_nTotalSamples){
+            msgbox.setText("Entered no of Samples is greater than Total no of Samples.Click OK for Maximum no of Samples.");
+            msgbox.setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+            int ret = msgbox.exec();
+            if(ret==QMessageBox::Ok)
+                m_nSamples=m_nTotalSamples;
+            else
+                m_nSamples=0;
+        }
+        else
+            m_nSamples=(int)pValue;
+
+        m_objSamples->setText(QString::number(m_nSamples));
+
     }
     else if(m_nLineEditIndex==2){
-        m_nStartTick=(int)pValue;
+        if(pValue>m_nSamples){
+            msgbox.setText("Start Tick is greater than no of Samples.Click OK to Start with Minimum no of Ticks.");
+            msgbox.setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+            int ret = msgbox.exec();
+            if(ret==QMessageBox::Ok)
+                m_nStartTick=m_nSamples;
+            else
+                m_nStartTick=0;
+        }else
+            m_nStartTick=(int)pValue;
     }
     else if(m_nLineEditIndex==3){
-        m_nStoptick=(int)pValue;
+        if(pValue>m_nSamples){
+            msgbox.setText("Stop Tick is greater than no of Samples.Click OK to End with Maximum no of Ticks.");
+            msgbox.setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+            int ret = msgbox.exec();
+            if(ret==QMessageBox::Ok)
+                m_nStoptick=m_nSamples;
+            else
+                m_nStoptick=0;
+        }else
+            m_nStoptick=(int)pValue;
     }
     else if(m_nLineEditIndex==4){
-        m_nDutyCycle=(int)pValue;
+        if(pValue>100){
+            msgbox.setText("Duty Cycle should be less than 100.");
+            msgbox.setStandardButtons(QMessageBox::Ok);
+            msgbox.exec();
+        }else
+            m_nDutyCycle=(int)pValue;
     }
 }
 
 void WaveData::receiveValue(QString pText){
     if(m_nLineEditIndex==1){
-        m_objSamples->setText(pText);
+//        m_objSamples->setText(pText);
     }
     else if(m_nLineEditIndex==2){
         m_objStartTick->setText(pText);

@@ -82,7 +82,6 @@ void PTPSoCTestJigInterface::Initialization(){
 
         GenBaseAddr = ILineEdit->QmaxLineEdit(1,ui.groupBox_3);
         GenBaseAddr->setGeometry(ui.leGenBaseAddr->geometry());
-        GenBaseAddr->setText("0x00000000");
 }
 void PTPSoCTestJigInterface::customEvent(QEvent *eve) {
 
