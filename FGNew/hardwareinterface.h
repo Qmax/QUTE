@@ -84,8 +84,8 @@ public:
          l_nAD5318DW.m_bUniPolor = false;
          m_objAD5318Component->configureADC5318Data(l_nAD5318DW);
 
-//         if(m_eSelect==DACF)  qDebug()<<"Set DAC F Done with "<<dacVoltage<<" Voltage";
-//         if(m_eSelect==DACG)  qDebug()<<"Set DAC G Done with "<<dacVoltage<<" Voltage";
+         if(m_eSelect==DACF)  qDebug()<<"Set DAC F Done with "<<dacVoltage<<" Voltage";
+         if(m_eSelect==DACG)  qDebug()<<"Set DAC G Done with "<<dacVoltage<<" Voltage";
     }
     void set_BTUR_BDR(unsigned short l_nBTUR,unsigned short l_nBDR){
     	IAppCard->basicTimeUnit(l_nBTUR - 1);
@@ -414,7 +414,7 @@ public:
     	    m_nOffset=offValue;
     	    m_nLLevel=m_nOffset-(m_nAmplitude/2);
     	    m_nHLevel=m_nLLevel+m_nAmplitude;
-    	    setDAC(DACF,-m_nOffset);
+    	    setDAC(DACF,-m_nOffset/2);
      }
      double getOffset(){
     	 return m_nOffset;

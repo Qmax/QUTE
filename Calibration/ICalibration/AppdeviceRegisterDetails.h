@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #ifndef APPDEVICEREGISTERDETAILS_H
 #define APPDEVICEREGISTERDETAILS_H
 #include <QFlags>

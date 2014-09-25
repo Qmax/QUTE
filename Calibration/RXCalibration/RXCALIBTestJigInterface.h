@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #ifndef RXCALIBINTERFACE_H
 #define RXCALIBINTERFACE_H
 #include <QObject>

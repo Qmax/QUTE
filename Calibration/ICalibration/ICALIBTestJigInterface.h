@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #ifndef ICALIBINTERFACE_H
 #define ICALIBINTERFACE_H
 #include <QObject>

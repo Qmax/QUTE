@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #ifndef APPCARDCOMPONENTS_H
 #define APPCARDCOMPONENTS_H
 #include <math.h>

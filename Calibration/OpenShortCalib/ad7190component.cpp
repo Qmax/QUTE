@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #include "ad7190component.h"
 
 AD7190Component::AD7190Component(IApplicationCardInterface *pobj)

@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #ifndef PTLIBRARYINTERFACES_H
 #define PTLIBRARYINTERFACES_H
 #include <QList>

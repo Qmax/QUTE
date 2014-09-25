@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #include "openshortcalib.h"
 #include "ui_openshortcalib.h"
 #include <QPropertyAnimation>

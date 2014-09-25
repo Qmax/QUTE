@@ -628,11 +628,11 @@ void FG::DefaultSettings(){
     	m_nOffset=0.0;
 
 	//    hwInterface->setHighImpedance(true);
-	    hwInterface->setAmplitude(m_nAmplitude);
+	    hwInterface->Drive(STOPDRIVE);
 	    hwInterface->setOffset(m_nOffset);
 	    hwInterface->setFrequency(1000.0);
 	    hwInterface->setPhase(0);
-	    hwInterface->Drive(STOPDRIVE);
+	    hwInterface->setAmplitude(m_nAmplitude);
 }
 void FG::Beep(){
     /*	IBackPlane->setBuzzerTone(1000, 0, 50);
@@ -735,7 +735,7 @@ void FG::on_RUNBut_clicked(){
     if(m_bRunMode){
         IPsoc->FGMeasurement();
         usleep(10000);
-        hwInterface->setAmplitude(hwInterface->getAmplitude());
+//        hwInterface->setAmplitude(hwInterface->getAmplitude());
 
         if(ui->modeBox->currentIndex()==0)
             hwInterface->SingleContinuous(CONTINUOUS_W);

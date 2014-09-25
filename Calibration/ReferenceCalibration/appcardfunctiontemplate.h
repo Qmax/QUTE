@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #ifndef APPCARDFUNCTIONTEMPLATE_H
 #define APPCARDFUNCTIONTEMPLATE_H
 #include <math.h>

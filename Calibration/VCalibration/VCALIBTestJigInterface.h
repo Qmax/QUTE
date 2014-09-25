@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #ifndef VCALIBINTERFACE_H
 #define VCALIBINTERFACE_H
 #include <QObject>

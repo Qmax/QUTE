@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #ifndef BACKPLANEINTERFACE_H
 #define BACKPLANEINTERFACE_H
 #include<QObject>

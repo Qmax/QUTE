@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #include "ad5318components.h"
 
 AD5318Components::AD5318Components(IApplicationCardInterface *pObjAppcard)

@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #include "daccalibration.h"
 #include <qmessagebox.h>
 DACCalibration::DACCalibration(QWidget *parent)

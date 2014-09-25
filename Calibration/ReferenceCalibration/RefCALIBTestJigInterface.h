@@ -1,3 +1,6 @@
+/***********************************************************
+***************Created by Ravivarman.R,Qmax*****************
+***********************************************************/
 #ifndef RefCALIBINTERFACE_H
 #define RefCALIBINTERFACE_H
 #include <QObject>
