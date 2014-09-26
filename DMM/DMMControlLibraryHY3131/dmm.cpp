@@ -103,6 +103,10 @@ DMM::DMM(QWidget *parent) :
     DMMGraph->setGraphCount(3);
     DMMGraph->setLegendVisible(false);
     DMMGraph->setupGraphWindow();
+
+    xData.resize(100);yData.resize(100);yMaxData.resize(100);yMinData.resize(100);
+    graphLoop=0;
+
 //_______________________________________________________________________
 
 
@@ -724,7 +728,35 @@ void DMM::onMeasure() {
     InsertGraphData(display.retval2);
  }
 void DMM::InsertGraphData(double gData){
-	qDebug()<<"~~~~~~~~~~ Range:"<<ui->label->text()<<"~~~~~~~~~~ Value:"<<gData;
+	qDebug()<<"~~~~ GrapLoop"<<graphLoop<<"~~~~ Range:"<<ui->label->text()<<"~~~~ Value:"<<gData<<"~~~~";
+
+	if(graphLoop==100){
+		graphLoop=0;
+		for(int i=0;i<100;i++){
+			xData[i]=0;yData[i]=0;
+		}
+	}
+
+	xData[graphLoop]=graphLoop;
+	yData[graphLoop]=gData;
+	graphLoop=graphLoop+1;
+
+	if(yMaxData[0]<gData){
+		for(int j=0;j<100;j++){
+			yMaxData[j]=gData;
+		}
+	}
+	if(yMinData[graphLoop]>gData){
+		for(int k=0;k<100;k++){
+			yMinData[k]=gData;
+		}
+	}
+
+	DMMGraph->setGraphRange("Time",0,99,ui->label->text()+" Range",0,convertToValues(ui->label->text()));
+	DMMGraph->setGraphData(0,xData,yData);
+	DMMGraph->setGraphData(1,xData,yMaxData);
+	DMMGraph->setGraphData(2,xData,yMinData);
+	DMMGraph->plotGraphWindow();
 
 }
 void DMM::CalibrateDisplay(QString value) {
@@ -783,7 +815,7 @@ void DMM::CalibrateDisplay(QString value) {
 
 }
 void DMM::Beep(bool state) {
-    qDebug()<<"Beep:"<<state;
+//    qDebug()<<"Beep:"<<state;
     if (state == true) {
         //		IBackPlane->writeBackPlaneRegister(0x4, 0x32);
         //		IBackPlane->setBuzzerTone(1000, 1, 50);

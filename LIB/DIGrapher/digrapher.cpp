@@ -58,6 +58,7 @@ void DIGrapher::plot(QCustomPlot *customPlot){
         customPlot->graph(i)->setData(xData[i],yData[i]);
 //        customPlot->rescaleAxes();
     }
+    customPlot->replot();
 }
 
 DIGrapher::~DIGrapher()

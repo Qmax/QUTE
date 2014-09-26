@@ -162,6 +162,7 @@ protected:
     QWidget *graphWidget;
     void InsertGraphData(double gData);
     QVector<double> xData,yData,yMaxData,yMinData;
+    int graphLoop;
 
     void doKnobFunction();
     void changeByKnob(double Angle,int totalSteps);
