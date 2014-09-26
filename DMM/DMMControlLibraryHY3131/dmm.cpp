@@ -551,8 +551,13 @@ void DMM::onMeasure() {
             display.retvalHY3131 = hy3131DMM->Measure(CNTY);
             display.retval = display.retvalHY3131;
             dis->setRange(500);
+            ui->label->setText(mapResistance.value(1));
+            if(display.retval < 10)
+            	Beep(true);
+            else
+            	Beep(false);
         }
-        if (Flag.buzzerFlag == 1) {
+        if (Flag.r2wFlag==1 && Flag.buzzerFlag == 1) {
             if (n2WResistanceCur == 0 && display.retval < 1)
                 Beep(true);
             else if (n2WResistanceCur == 1 && display.retval < 10)
