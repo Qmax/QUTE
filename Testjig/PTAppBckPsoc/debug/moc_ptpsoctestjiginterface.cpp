@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'ptpsoctestjiginterface.h'
 **
-** Created: Tue Sep 23 14:27:04 2014
+** Created: Fri Sep 26 10:41:06 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_PTPSoCTestJigInterface[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      53,   14, // methods
+      29,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -46,44 +46,20 @@ static const uint qt_meta_data_PTPSoCTestJigInterface[] = {
      347,   23,   23,   23, 0x08,
      373,   23,   23,   23, 0x08,
      386,   23,   23,   23, 0x08,
-     398,   23,   23,   23, 0x08,
-     411,   23,   23,   23, 0x08,
-     424,   23,   23,   23, 0x08,
-     438,   23,   23,   23, 0x08,
-     452,   23,   23,   23, 0x08,
-     465,   23,   23,   23, 0x08,
-     480,   23,   23,   23, 0x08,
-     500,   23,   23,   23, 0x08,
-     515,   23,   23,   23, 0x08,
-     538,   23,   23,   23, 0x08,
-     555,   23,   23,   23, 0x08,
-     568,   23,   23,   23, 0x08,
-     580,   23,   23,   23, 0x08,
-     592,   23,   23,   23, 0x08,
-     605,   23,   23,   23, 0x08,
-     624,   23,   23,   23, 0x08,
-     643,   23,   23,   23, 0x08,
-     666,   23,   23,   23, 0x08,
-     684,   23,   23,   23, 0x08,
-     710,   23,   23,   23, 0x08,
-     731,   23,   23,   23, 0x08,
-     752,   23,   23,   23, 0x08,
-     767,   23,   23,   23, 0x08,
-     786,   23,   23,   23, 0x08,
-     804,   23,   23,   23, 0x08,
-     823,   23,   23,   23, 0x08,
-     837,   23,   23,   23, 0x08,
-     851,   23,   23,   23, 0x08,
-     865,   23,   23,   23, 0x08,
-     879,   23,   23,   23, 0x08,
-     893,   23,   23,   23, 0x08,
-     907,   23,   23,   23, 0x08,
-     922,   23,   23,   23, 0x08,
-     936,   23,   23,   23, 0x08,
-     958,   23,   23,   23, 0x08,
-     974,   23,   23,   23, 0x08,
-     993,   23,   23,   23, 0x08,
-    1014,   23,   23,   23, 0x08,
+     400,   23,   23,   23, 0x08,
+     414,   23,   23,   23, 0x08,
+     433,   23,   23,   23, 0x08,
+     447,   23,   23,   23, 0x08,
+     461,   23,   23,   23, 0x08,
+     475,   23,   23,   23, 0x08,
+     489,   23,   23,   23, 0x08,
+     503,   23,   23,   23, 0x08,
+     517,   23,   23,   23, 0x08,
+     532,   23,   23,   23, 0x08,
+     554,   23,   23,   23, 0x08,
+     570,   23,   23,   23, 0x08,
+     589,   23,   23,   23, 0x08,
+     610,   23,   23,   23, 0x08,
 
        0        // eod
 };
@@ -100,21 +76,11 @@ static const char qt_meta_stringdata_PTPSoCTestJigInterface[] = {
     "on_pushButton_9_clicked()\0"
     "on_pushButton_2_clicked()\0"
     "on_pushButton_clicked()\0"
-    "on_pushButton_5_clicked()\0TestButton()\0"
-    "SwitchMux()\0ReadCodeID()\0ReadRelays()\0"
-    "ResetRelays()\0SendCommand()\0Multimeter()\0"
-    "Oscilloscope()\0FunctionGenerator()\0"
-    "ShortLocator()\0InCircuitMeasurement()\0"
-    "VoltageCurrent()\0Voltage(int)\0R2Wire(int)\0"
-    "R4Wire(int)\0Current(int)\0Oscilloscope1(int)\0"
-    "Oscilloscope2(int)\0FunctionGenerater(int)\0"
-    "ShortLocater(int)\0InCircuitMeasureMent(int)\0"
-    "VoltageCurrent1(int)\0VoltageCurrent2(int)\0"
-    "MuxInputs(int)\0callMuxTestInput()\0"
-    "callMuxRefInput()\0callCommandInput()\0"
-    "callAppAddr()\0callAppData()\0callBckAddr()\0"
-    "callBckData()\0callGenData()\0callGenAddr()\0"
-    "callBaseAddr()\0EmbeddedKey()\0"
+    "on_pushButton_5_clicked()\0ReadRelays()\0"
+    "ResetRelays()\0SendCommand()\0"
+    "callCommandInput()\0callAppAddr()\0"
+    "callAppData()\0callBckAddr()\0callBckData()\0"
+    "callGenData()\0callGenAddr()\0callBaseAddr()\0"
     "CommandSelection(int)\0psocError(bool)\0"
     "receiveValue(uint)\0receiveValue(double)\0"
     "receiveValue(QString)\0"
@@ -162,49 +128,25 @@ int PTPSoCTestJigInterface::qt_metacall(QMetaObject::Call _c, int _id, void **_a
         case 10: on_pushButton_2_clicked(); break;
         case 11: on_pushButton_clicked(); break;
         case 12: on_pushButton_5_clicked(); break;
-        case 13: TestButton(); break;
-        case 14: SwitchMux(); break;
-        case 15: ReadCodeID(); break;
-        case 16: ReadRelays(); break;
-        case 17: ResetRelays(); break;
-        case 18: SendCommand(); break;
-        case 19: Multimeter(); break;
-        case 20: Oscilloscope(); break;
-        case 21: FunctionGenerator(); break;
-        case 22: ShortLocator(); break;
-        case 23: InCircuitMeasurement(); break;
-        case 24: VoltageCurrent(); break;
-        case 25: Voltage((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 26: R2Wire((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 27: R4Wire((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 28: Current((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 29: Oscilloscope1((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 30: Oscilloscope2((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 31: FunctionGenerater((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 32: ShortLocater((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 33: InCircuitMeasureMent((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 34: VoltageCurrent1((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 35: VoltageCurrent2((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 36: MuxInputs((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 37: callMuxTestInput(); break;
-        case 38: callMuxRefInput(); break;
-        case 39: callCommandInput(); break;
-        case 40: callAppAddr(); break;
-        case 41: callAppData(); break;
-        case 42: callBckAddr(); break;
-        case 43: callBckData(); break;
-        case 44: callGenData(); break;
-        case 45: callGenAddr(); break;
-        case 46: callBaseAddr(); break;
-        case 47: EmbeddedKey(); break;
-        case 48: CommandSelection((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 49: psocError((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 50: receiveValue((*reinterpret_cast< uint(*)>(_a[1]))); break;
-        case 51: receiveValue((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 52: receiveValue((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 13: ReadRelays(); break;
+        case 14: ResetRelays(); break;
+        case 15: SendCommand(); break;
+        case 16: callCommandInput(); break;
+        case 17: callAppAddr(); break;
+        case 18: callAppData(); break;
+        case 19: callBckAddr(); break;
+        case 20: callBckData(); break;
+        case 21: callGenData(); break;
+        case 22: callGenAddr(); break;
+        case 23: callBaseAddr(); break;
+        case 24: CommandSelection((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 25: psocError((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 26: receiveValue((*reinterpret_cast< uint(*)>(_a[1]))); break;
+        case 27: receiveValue((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 28: receiveValue((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 53;
+        _id -= 29;
     }
     return _id;
 }

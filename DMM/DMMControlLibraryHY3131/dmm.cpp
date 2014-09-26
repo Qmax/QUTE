@@ -893,9 +893,9 @@ void DMM::callMeasure(void) {
         }
         //***********************Continuity*************************************
         if (Flag.continuityFlag == 1) {
-            if (ui->label_5->text() == mapResistance.value(0)) {
+//            if (ui->label_5->text() == mapResistance.value(1)) {
                 hy3131DMM->Configure(CNTY);
-            }
+//            }
         }
         //		usleep(10000);//commented on Apr 28 5PM
         if (Flag.runFlag == 1)
@@ -1048,7 +1048,7 @@ void DMM::buttonPressed(int pPressed) {
         showSymbol(0);
 
         ui->textEdit_5->setText("CNTY");
-        ui->label->setText("");
+        ui->label->setText(mapResistance.value(1));
 
         //Value Mapping--------------------------------------------
         ui->label_6->setText(mapResistance.value(0));
@@ -1549,12 +1549,12 @@ void DMM::AutoRange() {
                 || (display.retval >= 510000.0 && n2WResistanceCur == 4)
                 || (display.retval >= 5100000.0 && n2WResistanceCur == 5))
                 buttonPressed(12);
-            else if ((display.retval < 5100000.0 && n2WResistanceCur == 6)
-                || (display.retval < 510000.0 && n2WResistanceCur == 5)
-                || (display.retval < 51000.0 && n2WResistanceCur == 4)
-                || (display.retval < 5100.0 && n2WResistanceCur == 3)
-                || (display.retval < 510.0 && n2WResistanceCur == 2)
-                || (display.retval < 51.0 && n2WResistanceCur == 1))
+            else if ((display.retval < 4900000.0 && n2WResistanceCur == 6)
+                || (display.retval < 490000.0 && n2WResistanceCur == 5)
+                || (display.retval < 49000.0 && n2WResistanceCur == 4)
+                || (display.retval < 4900.0 && n2WResistanceCur == 3)
+                || (display.retval < 490.0 && n2WResistanceCur == 2)
+                || (display.retval < 49.0 && n2WResistanceCur == 1))
                 buttonPressed(13);
         }
     }
@@ -1571,11 +1571,11 @@ void DMM::AutoRange() {
                     || ((display.retval >= 51000.0) && nVoltageCur == 3)
                     || ((display.retval >= 510000.0) && nVoltageCur == 4))
                     buttonPressed(12);
-                else if (((display.retval < 510000.0) && nVoltageCur == 5)
-                    || ((display.retval < 51000.0) && nVoltageCur == 4)
-                    || ((display.retval < 5100.0) && nVoltageCur == 3)
-                    || ((display.retval < 510.0) && nVoltageCur == 2)
-                    || ((display.retval < 51.0) && nVoltageCur == 1))
+                else if (((display.retval < 490000.0) && nVoltageCur == 5)
+                    || ((display.retval < 49000.0) && nVoltageCur == 4)
+                    || ((display.retval < 4900.0) && nVoltageCur == 3)
+                    || ((display.retval < 490.0) && nVoltageCur == 2)
+                    || ((display.retval < 49.0) && nVoltageCur == 1))
                     buttonPressed(13);
             }
             if (display.retval < 0) {
@@ -1585,11 +1585,11 @@ void DMM::AutoRange() {
                     || ((display.retval < -51000.0) && nVoltageCur == 3)
                     || ((display.retval < -510000.0) && nVoltageCur == 4))
                     buttonPressed(12);
-                else if (((display.retval >= -510000.0) && nVoltageCur == 5)
-                    || ((display.retval >= -51000.0) && nVoltageCur == 4)
-                    || ((display.retval >= -5100.0) && nVoltageCur == 3)
-                    || ((display.retval >= -510.0) && nVoltageCur == 2)
-                    || ((display.retval >= -51.0) && nVoltageCur == 1))
+                else if (((display.retval >= -490000.0) && nVoltageCur == 5)
+                    || ((display.retval >= -49000.0) && nVoltageCur == 4)
+                    || ((display.retval >= -4900.0) && nVoltageCur == 3)
+                    || ((display.retval >= -490.0) && nVoltageCur == 2)
+                    || ((display.retval >= -49.0) && nVoltageCur == 1))
                     buttonPressed(13);
             }
         }
@@ -1602,13 +1602,13 @@ void DMM::AutoRange() {
             if (display.retval >= 0) {
                 if (((display.retval >= 510.0e-6) && nCurrentCur == 0) || ((display.retval >= 5.1e-3) && nCurrentCur == 1) || ((display.retval >= 51.0e-3) && nCurrentCur == 2) || ((display.retval >= 510.0e-3) && nCurrentCur == 3))
                     buttonPressed(12);
-                else if (((display.retval < 510.0e-3) && nCurrentCur == 4) || ((display.retval < 51.0e-3) && nCurrentCur == 3) || ((display.retval < 5.1e-3) && nCurrentCur == 2) || ((display.retval < 510.0e-6) && nCurrentCur == 1))
+                else if (((display.retval < 490.0e-3) && nCurrentCur == 4) || ((display.retval < 49.0e-3) && nCurrentCur == 3) || ((display.retval < 4.9e-3) && nCurrentCur == 2) || ((display.retval < 490.0e-6) && nCurrentCur == 1))
                     buttonPressed(13);
             }
             if (display.retval < 0) {
                 if (((display.retval < -500.0e-6) && nCurrentCur == 0) || ((display.retval < -5.1e-3) && nCurrentCur == 1) || ((display.retval < -51.0e-3) && nCurrentCur == 2) || ((display.retval < -510.0e-3) && nCurrentCur == 3))
                     buttonPressed(12);
-                else if (((display.retval < -510.0e-3) && nCurrentCur == 4) || ((display.retval < -51.0e-3) && nCurrentCur == 3) || ((display.retval < -5.1e-3) && nCurrentCur == 2) || ((display.retval < -510.0e-6) && nCurrentCur == 1))
+                else if (((display.retval < -490.0e-3) && nCurrentCur == 4) || ((display.retval < -49.0e-3) && nCurrentCur == 3) || ((display.retval < -4.9e-3) && nCurrentCur == 2) || ((display.retval < -490.0e-6) && nCurrentCur == 1))
                     buttonPressed(13);
             }
         }
@@ -1618,20 +1618,20 @@ void DMM::AutoRange() {
         if (display.retval >= 999999999)
             buttonPressed(12);
         else {
-            if ((display.retval >= 51.0 && n2WResistanceCur == 0)
+/*            if ((display.retval >= 51.0 && n2WResistanceCur == 0)
                 || (display.retval >= 510.0 && n2WResistanceCur == 1)
                 || (display.retval >= 5100.0 && n2WResistanceCur == 2)
                 || (display.retval >= 51000.0 && n2WResistanceCur == 3)
                 || (display.retval >= 510000.0 && n2WResistanceCur == 4)
                 || (display.retval >= 5100000.0 && n2WResistanceCur == 5))
                 buttonPressed(12);
-            else if ((display.retval < 5100000.0 && n2WResistanceCur == 6)
-                || (display.retval < 510000.0 && n2WResistanceCur == 5)
-                || (display.retval < 51000.0 && n2WResistanceCur == 4)
-                || (display.retval < 5100.0 && n2WResistanceCur == 3)
-                || (display.retval < 510.0 && n2WResistanceCur == 2)
-                || (display.retval < 51.0 && n2WResistanceCur == 1))
-                buttonPressed(13);
+            else if ((display.retval < 4900000.0 && n2WResistanceCur == 6)
+                || (display.retval < 490000.0 && n2WResistanceCur == 5)
+                || (display.retval < 49000.0 && n2WResistanceCur == 4)
+                || (display.retval < 4900.0 && n2WResistanceCur == 3)
+                || (display.retval < 490.0 && n2WResistanceCur == 2)
+                || (display.retval < 49.0 && n2WResistanceCur == 1))
+                buttonPressed(13);*/
         }
         if (Flag.buzzerFlag == 1) {
             if (n2WResistanceCur == 0 && display.retval < 1)

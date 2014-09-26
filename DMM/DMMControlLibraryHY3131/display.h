@@ -89,7 +89,7 @@ public:
 		setXYWH();
 	}
 	void setValue(double l_nValue) {
-		qDebug() << "display.h-Data:" << l_nValue<<" Range:"<<m_intRange;
+		qDebug() << "display.h:\tDATA:" << l_nValue<<"\tRANGE:"<<m_intRange;
 
 		QString l_strDecimelValue;
 		QString Inf=QChar(0x221E);

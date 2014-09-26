@@ -67,35 +67,35 @@ private slots:
         void on_pushButton_2_clicked();
         void on_pushButton_clicked();
         void on_pushButton_5_clicked();
-        void TestButton();
-        void SwitchMux();
-        void ReadCodeID();
+//        void TestButton();
+//        void SwitchMux();
+//        void ReadCodeID();
         void ReadRelays();
         void ResetRelays();
         void SendCommand();
 
-        void Multimeter();
-        void Oscilloscope();
-        void FunctionGenerator();
-        void ShortLocator();
-        void InCircuitMeasurement();
-        void VoltageCurrent();
+//        void Multimeter();
+//        void Oscilloscope();
+//        void FunctionGenerator();
+//        void ShortLocator();
+//        void InCircuitMeasurement();
+//        void VoltageCurrent();
 
-        void Voltage(int);
-        void R2Wire(int);
-        void R4Wire(int);
-        void Current(int);
-        void Oscilloscope1(int);
-        void Oscilloscope2(int);
-        void FunctionGenerater(int);
-        void ShortLocater(int);
-        void InCircuitMeasureMent(int);
-        void VoltageCurrent1(int);
-        void VoltageCurrent2(int);
-        void MuxInputs(int);
+//        void Voltage(int);
+//        void R2Wire(int);
+//        void R4Wire(int);
+//        void Current(int);
+//        void Oscilloscope1(int);
+//        void Oscilloscope2(int);
+//        void FunctionGenerater(int);
+//        void ShortLocater(int);
+//        void InCircuitMeasureMent(int);
+//        void VoltageCurrent1(int);
+//        void VoltageCurrent2(int);
+//        void MuxInputs(int);
 
-        void callMuxTestInput();
-        void callMuxRefInput();
+//        void callMuxTestInput();
+//        void callMuxRefInput();
         void callCommandInput();
         void callAppAddr();
         void callAppData();
@@ -106,7 +106,7 @@ private slots:
         void callGenAddr();
         void callBaseAddr();
 
-        void EmbeddedKey();
+//        void EmbeddedKey();
         void CommandSelection(int);
 
         void psocError(bool);

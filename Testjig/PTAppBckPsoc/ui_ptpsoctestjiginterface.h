@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ptpsoctestjiginterface.ui'
 **
-** Created: Tue Sep 23 14:26:34 2014
+** Created: Fri Sep 26 10:40:44 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
