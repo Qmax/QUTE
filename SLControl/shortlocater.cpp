@@ -64,12 +64,12 @@ QWidget(parent) {
 	//
 	//    toolboxFlag=false;
 	//    ToolBox(toolboxFlag);
-	//Check Probe~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	IPsoc->writeSerial(0x01);
-	usleep(1000);
-	if((IPsoc->readSerial()&0x08)!=0x08)
-		showMessageBox(true,false,"Connect Probe1");
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//	//Check Probe~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//	IPsoc->writeSerial(0x01);
+//	usleep(1000);
+//	if((IPsoc->readSerial()&0x08)!=0x08)
+//		showMessageBox(true,false,"Connect Probe1");
+//	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	Initializations();
 
