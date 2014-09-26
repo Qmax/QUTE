@@ -81,7 +81,7 @@ void DIGrapher::changeEvent(QEvent *e)
 void DIGrapher::on_ZoomOut_clicked()
 {
     QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
-    animation->setEasingCurve(QEasingCurve::OutCubic);
+    animation->setEasingCurve(QEasingCurve::Linear);
     animation->setDuration(300);
     animation->setStartValue(QRect(geometry().x(),geometry().y(),geometry().width(),geometry().height()));
     animation->setEndValue(QRect(zoX,zoY,zoW,zoH));
@@ -93,7 +93,7 @@ void DIGrapher::on_ZoomOut_clicked()
 void DIGrapher::on_ZoomIn_clicked()
 {
     QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
-    animation->setEasingCurve(QEasingCurve::InCubic);
+    animation->setEasingCurve(QEasingCurve::Linear);
     animation->setDuration(300);
     animation->setStartValue(QRect(geometry().x(),geometry().y(),geometry().width(),geometry().height()));
     animation->setEndValue(QRect(ziX,ziY,ziW,ziH));

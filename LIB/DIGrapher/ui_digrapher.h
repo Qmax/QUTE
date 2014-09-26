@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'digrapher.ui'
 **
-** Created: Wed Sep 10 15:47:05 2014
+** Created: Fri Sep 26 15:18:53 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -35,7 +35,7 @@ public:
     {
         if (DIGrapher->objectName().isEmpty())
             DIGrapher->setObjectName(QString::fromUtf8("DIGrapher"));
-        DIGrapher->resize(600, 200);
+        DIGrapher->resize(713, 178);
         gridLayout = new QGridLayout(DIGrapher);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -49,7 +49,7 @@ public:
         plotter->setSizePolicy(sizePolicy);
         ZoomIn = new QPushButton(plotter);
         ZoomIn->setObjectName(QString::fromUtf8("ZoomIn"));
-        ZoomIn->setGeometry(QRect(0, -2, 31, 31));
+        ZoomIn->setGeometry(QRect(595, -2, 50, 50));
         ZoomIn->setFocusPolicy(Qt::NoFocus);
         ZoomIn->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "border: 1px solid rgba(0,0,0,0);\n"
@@ -58,7 +58,7 @@ public:
 "}"));
         ZoomOut = new QPushButton(plotter);
         ZoomOut->setObjectName(QString::fromUtf8("ZoomOut"));
-        ZoomOut->setGeometry(QRect(0, -2, 31, 31));
+        ZoomOut->setGeometry(QRect(595, -2, 50, 50));
         ZoomOut->setFocusPolicy(Qt::NoFocus);
         ZoomOut->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "border: 1px solid rgba(0,0,0,0);\n"
@@ -67,7 +67,7 @@ public:
 "}"));
         Refresh = new QPushButton(plotter);
         Refresh->setObjectName(QString::fromUtf8("Refresh"));
-        Refresh->setGeometry(QRect(26, -2, 31, 31));
+        Refresh->setGeometry(QRect(640, -2, 50, 50));
         Refresh->setFocusPolicy(Qt::NoFocus);
         Refresh->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "border: 1px solid rgba(0,0,0,0);\n"

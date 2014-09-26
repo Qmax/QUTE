@@ -576,7 +576,7 @@ void DMM::onMeasure() {
             else
                 Beep(false);
         }
-        ui->displayInput->setText(QString::number(display.retval, 'f', 15));
+        ui->displayInput->setText(QString::number(display.retval, 'f', 5));
 
         //		display.retval2 = display.retval;
         display.retval2 = display.retvalHY3131;
@@ -720,12 +720,12 @@ void DMM::onMeasure() {
             emit DMM2AccuCalc(display.retvalHY3131, ui->label_5->text());
         }
         ////qDebug()<<"Display.retavl:"<<display.retval;
-        /*ADC values = IDMMLib->getAdcDatas();
-
-                 ui->adcRawData->setText(QString::number(values.Data, 10));
-                 ui->adcConvData->setText(QString::number(values.ConvertedData, 'f', 16));*/
-    }
-    InsertGraphData(display.retval2);
+//        ADC values = IDMMLib->getAdcDatas();
+//
+//                 ui->adcRawData->setText(QString::number(values.Data, 10));
+//                 ui->adcConvData->setText(QString::number(values.ConvertedData, 'f', 16));
+    }	if(graphWidget->isVisible())
+    		InsertGraphData(display.retval2);
  }
 void DMM::configGraphData(){
 	DMMGraph->setGraphRange("Time",0,99,ui->label->text()+" Range",0,convertToValues(ui->label->text()));
@@ -944,7 +944,8 @@ void DMM::callMeasure(void) {
         if (Flag.runFlag == 1)
             m_nADCtimer->start(500);
     }
-    configGraphData();
+    if(graphWidget->isVisible())
+    	configGraphData();
 }
 void DMM::case_v() {
     ////qDebug()<<"case V";
@@ -1981,8 +1982,10 @@ void DMM::on_ohmMeter_2_clicked() {
    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if(graphWidget->isVisible())
         	graphWidget->setVisible(false);
-        else
+        else{
         	graphWidget->setVisible(true);
+        	graphLoop=0;
+        }
 
 
 }
