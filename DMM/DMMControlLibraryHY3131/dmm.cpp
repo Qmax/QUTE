@@ -576,7 +576,7 @@ void DMM::onMeasure() {
             else
                 Beep(false);
         }
-        ui->displayInput->setText(QString::number(display.retval, 'f', 5));
+        ui->displayInput->setText(QString::number(display.retval, 'f', 15));
 
         //		display.retval2 = display.retval;
         display.retval2 = display.retvalHY3131;

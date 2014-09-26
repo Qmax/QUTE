@@ -4896,9 +4896,9 @@ Data :</string>
    <widget class="QLineEdit" name="displayInput">
     <property name="geometry">
      <rect>
-      <x>390</x>
+      <x>370</x>
       <y>84</y>
-      <width>210</width>
+      <width>230</width>
       <height>29</height>
      </rect>
     </property>

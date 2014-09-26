@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dmm.ui'
 **
-** Created: Fri Sep 26 12:03:41 2014
+** Created: Fri Sep 26 16:02:06 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -1485,7 +1485,7 @@ public:
         adcConvData->setAlignment(Qt::AlignCenter);
         displayInput = new QLineEdit(debugPanel);
         displayInput->setObjectName(QString::fromUtf8("displayInput"));
-        displayInput->setGeometry(QRect(390, 84, 210, 29));
+        displayInput->setGeometry(QRect(370, 84, 230, 29));
         displayInput->setFont(font5);
         displayInput->setAlignment(Qt::AlignCenter);
         label_25 = new QLabel(debugPanel);
