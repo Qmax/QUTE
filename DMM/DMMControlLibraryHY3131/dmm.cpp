@@ -552,12 +552,9 @@ void DMM::onMeasure() {
             display.retval = display.retvalHY3131;
             dis->setRange(500);
             ui->label->setText(mapResistance.value(1));
-            if(display.retval < 10)
-            	Beep(true);
-            else
-            	Beep(false);
+            n2WResistanceCur=1;
         }
-        if (Flag.r2wFlag==1 && Flag.buzzerFlag == 1) {
+        if (Flag.buzzerFlag == 1) {
             if (n2WResistanceCur == 0 && display.retval < 1)
                 Beep(true);
             else if (n2WResistanceCur == 1 && display.retval < 10)
@@ -724,7 +721,12 @@ void DMM::onMeasure() {
                  ui->adcRawData->setText(QString::number(values.Data, 10));
                  ui->adcConvData->setText(QString::number(values.ConvertedData, 'f', 16));*/
     }
+    InsertGraphData(display.retval2);
  }
+void DMM::InsertGraphData(double gData){
+	qDebug()<<"~~~~~~~~~~ Range:"<<ui->label->text()<<"~~~~~~~~~~ Value:"<<gData;
+
+}
 void DMM::CalibrateDisplay(QString value) {
     QString l_strFileName;
     l_strFileName = "DMMCalibration.xml";
@@ -781,7 +783,7 @@ void DMM::CalibrateDisplay(QString value) {
 
 }
 void DMM::Beep(bool state) {
-    //qDebug()<<"Beep:"<<state;
+    qDebug()<<"Beep:"<<state;
     if (state == true) {
         //		IBackPlane->writeBackPlaneRegister(0x4, 0x32);
         //		IBackPlane->setBuzzerTone(1000, 1, 50);

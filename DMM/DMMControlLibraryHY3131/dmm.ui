@@ -4137,10 +4137,10 @@ p, li { white-space: pre-wrap; }
    <zorder>label</zorder>
    <zorder>lineEdit_4</zorder>
    <zorder>holdLabel</zorder>
-   <zorder>label_3</zorder>
    <zorder>lineEdit_3</zorder>
    <zorder>textEdit_5</zorder>
    <zorder>label_12</zorder>
+   <zorder>label_3</zorder>
   </widget>
   <widget class="QTextEdit" name="textEdit">
    <property name="enabled">

@@ -160,6 +160,8 @@ protected:
 
     DIGrapherInterface *DMMGraph;
     QWidget *graphWidget;
+    void InsertGraphData(double gData);
+    QVector<double> xData,yData,yMaxData,yMinData;
 
     void doKnobFunction();
     void changeByKnob(double Angle,int totalSteps);
