@@ -160,6 +160,7 @@ protected:
 
     DIGrapherInterface *DMMGraph;
     QWidget *graphWidget;
+    void configGraphData();
     void InsertGraphData(double gData);
     QVector<double> xData,yData,yMaxData,yMinData;
     int graphLoop;

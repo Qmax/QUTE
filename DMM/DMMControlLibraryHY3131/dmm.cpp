@@ -104,7 +104,7 @@ DMM::DMM(QWidget *parent) :
     DMMGraph->setLegendVisible(false);
     DMMGraph->setupGraphWindow();
 
-    xData.resize(100);yData.resize(100);yMaxData.resize(100);yMinData.resize(100);
+    xData.resize(110);yData.resize(110);yMaxData.resize(110);yMinData.resize(110);
     graphLoop=0;
 
 //_______________________________________________________________________
@@ -727,32 +727,36 @@ void DMM::onMeasure() {
     }
     InsertGraphData(display.retval2);
  }
+void DMM::configGraphData(){
+	DMMGraph->setGraphRange("Time",0,99,ui->label->text()+" Range",0,convertToValues(ui->label->text()));
+}
 void DMM::InsertGraphData(double gData){
 	qDebug()<<"~~~~ GrapLoop"<<graphLoop<<"~~~~ Range:"<<ui->label->text()<<"~~~~ Value:"<<gData<<"~~~~";
 
-	if(graphLoop==100){
-		graphLoop=0;
+	if(graphLoop>=100){
+		graphLoop=0;yMaxData[0]=0;yMinData[0]=55000000;
 		for(int i=0;i<100;i++){
-			xData[i]=0;yData[i]=0;
+			xData[i]=0;
+			yData[i]=yData[i+1];
 		}
 	}
 
 	xData[graphLoop]=graphLoop;
 	yData[graphLoop]=gData;
+
+		if(gData>yMaxData[0]){
+			for(int j=0;j<100;j++){
+				yMaxData[j]=gData;
+			}
+		}
+		if(gData<yMinData[0]){
+			for(int k=0;k<100;k++){
+				yMinData[k]=gData;
+			}
+		}
+
 	graphLoop=graphLoop+1;
 
-	if(yMaxData[0]<gData){
-		for(int j=0;j<100;j++){
-			yMaxData[j]=gData;
-		}
-	}
-	if(yMinData[graphLoop]>gData){
-		for(int k=0;k<100;k++){
-			yMinData[k]=gData;
-		}
-	}
-
-	DMMGraph->setGraphRange("Time",0,99,ui->label->text()+" Range",0,convertToValues(ui->label->text()));
 	DMMGraph->setGraphData(0,xData,yData);
 	DMMGraph->setGraphData(1,xData,yMaxData);
 	DMMGraph->setGraphData(2,xData,yMinData);
@@ -940,6 +944,7 @@ void DMM::callMeasure(void) {
         if (Flag.runFlag == 1)
             m_nADCtimer->start(500);
     }
+    configGraphData();
 }
 void DMM::case_v() {
     ////qDebug()<<"case V";
@@ -1802,6 +1807,7 @@ void DMM::on_voltMeter_clicked() {
     setHighlight(0);
     buttonPressed(0);
 
+    graphLoop=100;
 }
 
 void DMM::on_ampMeter_clicked() {
@@ -1823,6 +1829,8 @@ void DMM::on_ampMeter_clicked() {
 
     setHighlight(3);
     buttonPressed(3);
+
+    graphLoop=100;
 }
 
 void DMM::on_ohmMeter_clicked() {
@@ -1845,6 +1853,8 @@ void DMM::on_ohmMeter_clicked() {
 
     setHighlight(7);
     buttonPressed(7);
+
+    graphLoop=100;
 }
 
 void DMM::on_Null_clicked() {
