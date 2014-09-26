@@ -1,7 +1,7 @@
 #include "ptapplicationcardplugin.h"
 
 
-static const char *device = "/dev/emiapp";
+//static const char *device = "/dev/emiapp";
 
 
 
@@ -27,7 +27,7 @@ unsigned int PTApplicationCardPlugin::readScratchPad()
 
 void PTApplicationCardPlugin::setDeviceName(APP_SLOTS pSlotNo)
 {
-
+	Q_UNUSED(pSlotNo)
 	mapDeviceString.insert(0,"/dev/emiapp");
 	mapDeviceString.insert(1,"/dev/emics3");
 	mapDeviceString.insert(2,"/dev/emics4");
@@ -40,20 +40,9 @@ void PTApplicationCardPlugin::enumerateAPPCard()
 {
     tempAddr=0;
     baseAddr = 0x0000000;
-//    qDebug() <<"Selected Device:" << m_strdevice;
-//    m_nAppFD = open(m_strdevice,O_RDWR);
-//    if (m_nAppFD < 0)
-//    {
-//        printf("Can't open device for Application card communication.\n");
-//        close(m_nAppFD);
-//        //return 0;
-//    }
-//    m_ptrWriteValues = (unsigned int*)malloc(2*sizeof(unsigned int));
-//    m_ptrReadValues = (unsigned int*)malloc(1*sizeof(unsigned int));
-    //qDebug()<<hex<<readAppCardCodeId();
-    for(int l_nAppcardIndex=0;l_nAppcardIndex<4;l_nAppcardIndex++)
+
+    for(int l_nAppcardIndex=1;l_nAppcardIndex<4;l_nAppcardIndex++)
     {
-//    	qDebug()<<mapDeviceString.value(l_nAppcardIndex);
     	int l_nAppFD = open(mapDeviceString.value(l_nAppcardIndex),O_RDWR);
     	if (l_nAppFD < 0)
 		{
@@ -79,8 +68,7 @@ void PTApplicationCardPlugin::enumerateAPPCard()
     		{
     			writeScratchpad(0x01);
     		}
-    		qDebug()<</*l_nAppFD*/"APPCARD CODE ID:"<<hex<<readAppCardCodeId();
-//        	qDebug()<<"Selected Device:"<<mapDeviceString.value(l_nAppcardIndex);
+    		qDebug()<<"APPCARD CODE ID:"<<hex<<readAppCardCodeId();
         	break;
     	}
     }
@@ -139,6 +127,7 @@ void PTApplicationCardPlugin::setDSOTriggerSource(RECEIVER_CONF pReceInfo,DSO_TR
 
 void PTApplicationCardPlugin::setDSOSampleCount(unsigned int pCount)
 {
+	Q_UNUSED(pCount)
 	//writeRegister(pCount,PT_APPCARD_MODULES::PT_DSO_SCR);
 }
 bool PTApplicationCardPlugin::checkDSODriveDone()
