@@ -4,7 +4,8 @@
 TARGET = FGInterface
 CONFIG += plugin
 TEMPLATE = lib
-SOURCES += ad5293.cpp \
+SOURCES += IPTFGApp.cpp \
+    ad5293.cpp \
     ad5318components.cpp \
     colors.cpp \
     fgmodel.cpp \
@@ -13,7 +14,9 @@ SOURCES += ad5293.cpp \
     ptfginterface.cpp \
     main.cpp \
     fg.cpp
-HEADERS += AWGUIInterface2.h \
+HEADERS += FGAppInterface.h \
+    IPTFGApp.h \
+    AWGUIInterface2.h \
     AWGUIInterface.h \
     serialdevice.h \
     RefCALIBTestJigInterface.h \

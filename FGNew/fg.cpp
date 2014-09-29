@@ -8,12 +8,12 @@
 FG::FG(QWidget *parent) :
         QMainWindow(parent), ui(new Ui::FG) {
     ui->setupUi(this);
-    PluginsInitialisation();
-    InitialiseUIData();
-    InitialiseWaveData();
-    InitialiseLineEdit();
-    ConnectSignalsnSlots();
-    DefaultSettings();
+//    PluginsInitialisation();
+//    InitialiseUIData();
+//    InitialiseWaveData();
+//    InitialiseLineEdit();
+//    ConnectSignalsnSlots();
+//    DefaultSettings();
 }
 
 FG::~FG() {

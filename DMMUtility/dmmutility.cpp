@@ -30,14 +30,14 @@ void DMMUtility::changeEvent(QEvent *e)
 void DMMUtility::on_pushButton_12_clicked()
 {
     if(geometry().height()==80){
-        setGeometry(0,0,270,140);
+        setGeometry(0,0,270,145);
         ui->pushButton_12->setText("Shrink");
     }
     else if(geometry().height()==200){
         setGeometry(0,0,270,80);
         ui->pushButton_12->setText("Expand");
     }
-    else if(geometry().height()==140){
+    else if(geometry().height()==145){
         setGeometry(0,0,270,80);
         ui->pushButton_12->setText("Expand");
     }
@@ -51,13 +51,13 @@ void DMMUtility::on_pushButton_13_clicked()
         ui->pushButton_13->setText("Manual");
          ui->pushButton_12->setText("Shrink");
     }
-    else if(geometry().height()==140){
+    else if(geometry().height()==145){
         setGeometry(0,0,270,200);
         ui->pushButton_13->setText("Manual");
          ui->pushButton_12->setText("Shrink");
     }
     else if(geometry().height()==200){
-        setGeometry(0,0,270,140);
+        setGeometry(0,0,270,145);
         ui->pushButton_13->setText("Auto");
          ui->pushButton_12->setText("Shrink");
     }

@@ -11,7 +11,9 @@ SOURCES += logindialog.cpp \
     probestatus.cpp \
     qmaxbutton.cpp \
     colors.cpp
-HEADERS += PTTestjigInterface.h \
+HEADERS += FGAppInterface.h \
+    interfaceHeader.h \
+    PTTestjigInterface.h \
     PTToolBoxInterface.h \
     logindialog.h \
     serialdevice.h \

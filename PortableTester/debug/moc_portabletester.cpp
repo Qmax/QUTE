@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'portabletester.h'
 **
-** Created: Thu Sep 25 15:25:05 2014
+** Created: Sat Sep 27 13:57:56 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -98,7 +98,7 @@ static const uint qt_meta_data_PortableTester[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -107,18 +107,19 @@ static const uint qt_meta_data_PortableTester[] = {
 
  // slots: signature, parameters, type, tag, flags
       16,   15,   15,   15, 0x0a,
-      35,   15,   15,   15, 0x0a,
-      46,   15,   15,   15, 0x0a,
-      61,   15,   15,   15, 0x0a,
-      70,   15,   15,   15, 0x0a,
-      84,   15,   15,   15, 0x0a,
-     111,   97,   15,   15, 0x0a,
+      26,   15,   15,   15, 0x0a,
+      45,   15,   15,   15, 0x0a,
+      56,   15,   15,   15, 0x0a,
+      71,   15,   15,   15, 0x0a,
+      80,   15,   15,   15, 0x0a,
+      94,   15,   15,   15, 0x0a,
+     121,  107,   15,   15, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_PortableTester[] = {
-    "PortableTester\0\0buttonPressed(int)\0"
+    "PortableTester\0\0startFG()\0buttonPressed(int)\0"
     "poweroff()\0houseKeeping()\0UnHide()\0"
     "checkButton()\0idleScreen()\0name,password\0"
     "slotAcceptUserLogin(QString&,QString&)\0"
@@ -153,16 +154,17 @@ int PortableTester::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: buttonPressed((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 1: poweroff(); break;
-        case 2: houseKeeping(); break;
-        case 3: UnHide(); break;
-        case 4: checkButton(); break;
-        case 5: idleScreen(); break;
-        case 6: slotAcceptUserLogin((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 0: startFG(); break;
+        case 1: buttonPressed((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 2: poweroff(); break;
+        case 3: houseKeeping(); break;
+        case 4: UnHide(); break;
+        case 5: checkButton(); break;
+        case 6: idleScreen(); break;
+        case 7: slotAcceptUserLogin((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         default: ;
         }
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

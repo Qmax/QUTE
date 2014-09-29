@@ -42,7 +42,7 @@ background-color:grey
    <property name="geometry">
     <rect>
      <x>4</x>
-     <y>87</y>
+     <y>90</y>
      <width>51</width>
      <height>51</height>
     </rect>
@@ -55,7 +55,7 @@ background-color:grey
    <property name="geometry">
     <rect>
      <x>57</x>
-     <y>87</y>
+     <y>90</y>
      <width>51</width>
      <height>51</height>
     </rect>
@@ -68,7 +68,7 @@ background-color:grey
    <property name="geometry">
     <rect>
      <x>111</x>
-     <y>87</y>
+     <y>90</y>
      <width>51</width>
      <height>51</height>
     </rect>
@@ -81,7 +81,7 @@ background-color:grey
    <property name="geometry">
     <rect>
      <x>163</x>
-     <y>87</y>
+     <y>90</y>
      <width>51</width>
      <height>51</height>
     </rect>
@@ -94,7 +94,7 @@ background-color:grey
    <property name="geometry">
     <rect>
      <x>216</x>
-     <y>87</y>
+     <y>90</y>
      <width>51</width>
      <height>51</height>
     </rect>
@@ -171,8 +171,8 @@ background-color:grey
   <widget class="QPushButton" name="pushButton_12">
    <property name="geometry">
     <rect>
-     <x>3</x>
-     <y>53</y>
+     <x>0</x>
+     <y>55</y>
      <width>191</width>
      <height>30</height>
     </rect>
@@ -184,9 +184,9 @@ background-color:grey
   <widget class="QPushButton" name="pushButton_13">
    <property name="geometry">
     <rect>
-     <x>196</x>
-     <y>53</y>
-     <width>71</width>
+     <x>191</x>
+     <y>55</y>
+     <width>79</width>
      <height>30</height>
     </rect>
    </property>
@@ -197,9 +197,9 @@ background-color:grey
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>6</x>
+     <x>1</x>
      <y>3</y>
-     <width>191</width>
+     <width>199</width>
      <height>56</height>
     </rect>
    </property>
@@ -208,6 +208,10 @@ background-color:grey
      <family>DejaVu Sans</family>
      <pointsize>40</pointsize>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(0, 0, 0);
+color: rgb(255, 255, 0);</string>
    </property>
    <property name="text">
     <string>1.0003</string>
@@ -218,7 +222,7 @@ background-color:grey
     <rect>
      <x>200</x>
      <y>3</y>
-     <width>64</width>
+     <width>70</width>
      <height>56</height>
     </rect>
    </property>
@@ -228,10 +232,28 @@ background-color:grey
      <pointsize>25</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(0, 0, 0);
+color: rgb(255, 255, 0);</string>
+   </property>
    <property name="text">
     <string>mE</string>
    </property>
   </widget>
+  <zorder>pushButton</zorder>
+  <zorder>pushButton_2</zorder>
+  <zorder>pushButton_3</zorder>
+  <zorder>pushButton_4</zorder>
+  <zorder>pushButton_5</zorder>
+  <zorder>pushButton_6</zorder>
+  <zorder>pushButton_7</zorder>
+  <zorder>pushButton_8</zorder>
+  <zorder>pushButton_9</zorder>
+  <zorder>pushButton_10</zorder>
+  <zorder>label</zorder>
+  <zorder>label_2</zorder>
+  <zorder>pushButton_13</zorder>
+  <zorder>pushButton_12</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

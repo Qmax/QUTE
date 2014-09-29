@@ -175,6 +175,10 @@ PortableTester::PortableTester(QWidget *parent) :
 		QTextStream ts(&outFile);
 		ts << "";
 	//__________________________________________________________________________________________________________
+                QPushButton *but=new QPushButton(this);
+                but->setGeometry(500,400,50,50);
+                but->setText("FG");
+                connect(but,SIGNAL(clicked()),this,SLOT(startFG()));
 }
 void PortableTester::slotAcceptUserLogin(QString& name,QString& password){
 	if(name=="root" && password=="root"){
@@ -765,13 +769,23 @@ void PortableTester::Functions(int pValue){
 	else if (pValue == _FG_) {
 		//		char connectStatus=showMessageBox(true,true,false,"Ensure proper FG cables connected.");
 		//		if(connectStatus=='Y'){
-		IPT->LoadFGPlugins();
+/*~~~~~	IPT->LoadFGPlugins();
 		myID = 0x46474D;
 		QWidget *FG = IPT->InvokeApplication(myID);
 		l_objMainView->InitHeaderView(0, "ARBITARY WAVEFORM GENERATOR");
 		connect(FG, SIGNAL(destroyed()), this, SLOT(UnHide()));
 		ui->mdiArea->addSubWindow(FG, Qt::FramelessWindowHint);
+		FG->show();~~~~~~~~~~~*/
+
+		QPluginLoader pluginFG("libFGInterface.so",this);
+		ptFG = qobject_cast<IPTFGAppInterface*> (pluginFG.instance());
+		QWidget *FG=ptFG->getFGApp();
+
+		l_objMainView->InitHeaderView(0, "ARBITARY WAVEFORM GENERATOR");
+		connect(FG, SIGNAL(destroyed()), this, SLOT(UnHide()));
+		ui->mdiArea->addSubWindow(FG, Qt::FramelessWindowHint);
 		FG->show();
+
 		//		}
 	//		else if(connectStatus=='N'){
 		//			msgBox->close();
@@ -842,6 +856,10 @@ void PortableTester::Functions(int pValue){
 	}
 
 }
+void PortableTester::startFG(){
+    buttonPressed(2);
+}
+
 void PortableTester::buttonPressed(int pValue) {
 	//~~~~~~~~~~~~~MAIN 6 FUNCTIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	if (pValue == 0) {

@@ -36,6 +36,8 @@
 #include "QDigitalClock.h"
 #include "logindialog.h"
 
+#include "FGAppInterface.h"
+
 #include "PTToolBoxInterface.h"
 
 #define _DMM_ 0
@@ -129,6 +131,8 @@ public:
     QProcess process;
     QDigitalClock *clock;
 protected:
+    IPTFGAppInterface *ptFG;
+
     IntefaceBackPlane *IBackPlane;	////BackPlaneInterfacePlugin
     IPSOCCOMMUNICATION *IPsoc;				//PSOC Interface Plugin
     IApplicationCardInterface	*IAppCard;
@@ -188,6 +192,7 @@ private:
 	Ui::PortableTester *ui;
 
 public slots:
+        void startFG();
 	void buttonPressed(int);
 	void poweroff();
 	void houseKeeping();
