@@ -30,7 +30,8 @@
 #include "GPIOInterfaces.h"
 #include "PTGPIOEventInterfaces.h"
 #include "PTEventInterfaces.h"
-#include "qcustomplot.h"
+//#include "qcustomplot.h"
+#include "DIGrapherInterface.h"
 
 #define		GPIOINT		0x0100
 #define		KNOBINT		0x0800
@@ -82,8 +83,17 @@ public:
     PANEL panelStatus;
     double m_nActualGain;
 
-    //graphing
-    void setupSimpleDemo(QCustomPlot *customPlot);
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		DIGrapherInterface *ICMGraph;
+		QWidget *graphWidget;
+		void configGraphData();
+		void InsertGraphData(double gData);
+		QVector<double> xData,yData,yMaxData,yMinData;
+		int graphLoop;
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    //old and sweep graphing
+/*    void setupSimpleDemo(QCustomPlot *customPlot);
     void plotSimpleDemo(QCustomPlot *customPlot);
     void graphSetup(QCustomPlot *customPlot);
     void graphPlotter(QCustomPlot *customPlot);
@@ -93,7 +103,8 @@ public:
     int m_nSweepStartFrequency,m_nSweepEndFrequency,m_nSweepInterval;
     int m_nSweepStartFrequency2,m_nSweepEndFrequency2,m_nSweepInterval2;
     int m_nSweepStartFrequencyUnit,m_nSweepEndFrequencyUnit,m_nSweepIntervalUnit;
-    int xSize,ySize,yRangeMax;
+    int xSize,ySize,yRangeMax;*/
+    //-------------------------------------------------------------------
 
 
 protected:

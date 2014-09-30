@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'portabletestertestjig2.ui'
 **
-** Created: Sat Sep 20 15:45:10 2014
+** Created: Mon Sep 29 20:02:21 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -31,12 +31,7 @@ class Ui_PortableTesterTestJig2Class
 {
 public:
     QTabWidget *tabWidget;
-    QWidget *AWG;
-    QWidget *DMMSL;
-    QWidget *ICM;
-    QWidget *VI;
     QWidget *FM;
-    QWidget *ACR;
     QWidget *PSOC;
     QWidget *KeyKnob;
     QWidget *DDS;
@@ -44,6 +39,11 @@ public:
     QWidget *HAADC;
     QWidget *APPDRVRX;
     QWidget *AD5318;
+    QWidget *ACR;
+    QWidget *AWG;
+    QWidget *DMMSL;
+    QWidget *ICM;
+    QWidget *VI;
     QWidget *RAMData;
     QWidget *AD9102;
     QWidget *Viewer;
@@ -62,7 +62,6 @@ public:
     QPushButton *pushButton_4;
     QPushButton *pushButton;
     QPushButton *pushButton_5;
-    QPushButton *pushButton_6;
 
     void setupUi(QWidget *PortableTesterTestJig2Class)
     {
@@ -158,74 +157,75 @@ public:
         tabWidget->setTabShape(QTabWidget::Rounded);
         tabWidget->setIconSize(QSize(32, 32));
         tabWidget->setElideMode(Qt::ElideNone);
+        tabWidget->setUsesScrollButtons(false);
         tabWidget->setDocumentMode(true);
         tabWidget->setTabsClosable(false);
         tabWidget->setMovable(false);
-        AWG = new QWidget();
-        AWG->setObjectName(QString::fromUtf8("AWG"));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/images/awg.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(AWG, icon1, QString());
-        DMMSL = new QWidget();
-        DMMSL->setObjectName(QString::fromUtf8("DMMSL"));
-        QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/images/Dmmlg.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(DMMSL, icon2, QString());
-        ICM = new QWidget();
-        ICM->setObjectName(QString::fromUtf8("ICM"));
-        QIcon icon3;
-        icon3.addFile(QString::fromUtf8(":/images/Icmbr.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(ICM, icon3, QString());
-        VI = new QWidget();
-        VI->setObjectName(QString::fromUtf8("VI"));
-        QIcon icon4;
-        icon4.addFile(QString::fromUtf8(":/images/vib.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(VI, icon4, QString());
         FM = new QWidget();
         FM->setObjectName(QString::fromUtf8("FM"));
-        QIcon icon5;
-        icon5.addFile(QString::fromUtf8(":/images/ram.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(FM, icon5, QString());
-        ACR = new QWidget();
-        ACR->setObjectName(QString::fromUtf8("ACR"));
-        QIcon icon6;
-        icon6.addFile(QString::fromUtf8(":/images/Pulse with modulation.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(ACR, icon6, QString());
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/images/ram.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(FM, icon1, QString());
         PSOC = new QWidget();
         PSOC->setObjectName(QString::fromUtf8("PSOC"));
-        QIcon icon7;
-        icon7.addFile(QString::fromUtf8(":/images/Shortr.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(PSOC, icon7, QString());
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/images/Shortr.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(PSOC, icon2, QString());
         KeyKnob = new QWidget();
         KeyKnob->setObjectName(QString::fromUtf8("KeyKnob"));
-        QIcon icon8;
-        icon8.addFile(QString::fromUtf8(":/images/key.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(KeyKnob, icon8, QString());
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/images/key.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(KeyKnob, icon3, QString());
         DDS = new QWidget();
         DDS->setObjectName(QString::fromUtf8("DDS"));
-        QIcon icon9;
-        icon9.addFile(QString::fromUtf8(":/images/sincos.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(DDS, icon9, QString());
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/images/sincos.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(DDS, icon4, QString());
         Plot = new QWidget();
         Plot->setObjectName(QString::fromUtf8("Plot"));
-        QIcon icon10;
-        icon10.addFile(QString::fromUtf8(":/images/Plot.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(Plot, icon10, QString());
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/images/Plot.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(Plot, icon5, QString());
         HAADC = new QWidget();
         HAADC->setObjectName(QString::fromUtf8("HAADC"));
-        QIcon icon11;
-        icon11.addFile(QString::fromUtf8(":/images/HAADC.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(HAADC, icon11, QString());
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/images/HAADC.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(HAADC, icon6, QString());
         APPDRVRX = new QWidget();
         APPDRVRX->setObjectName(QString::fromUtf8("APPDRVRX"));
-        QIcon icon12;
-        icon12.addFile(QString::fromUtf8(":/images/appdrvrx.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(APPDRVRX, icon12, QString());
+        QIcon icon7;
+        icon7.addFile(QString::fromUtf8(":/images/appdrvrx.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(APPDRVRX, icon7, QString());
         AD5318 = new QWidget();
         AD5318->setObjectName(QString::fromUtf8("AD5318"));
+        QIcon icon8;
+        icon8.addFile(QString::fromUtf8(":/images/AD5318.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(AD5318, icon8, QString());
+        ACR = new QWidget();
+        ACR->setObjectName(QString::fromUtf8("ACR"));
+        QIcon icon9;
+        icon9.addFile(QString::fromUtf8(":/images/Pulse with modulation.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(ACR, icon9, QString());
+        AWG = new QWidget();
+        AWG->setObjectName(QString::fromUtf8("AWG"));
+        QIcon icon10;
+        icon10.addFile(QString::fromUtf8(":/images/awg.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(AWG, icon10, QString());
+        DMMSL = new QWidget();
+        DMMSL->setObjectName(QString::fromUtf8("DMMSL"));
+        QIcon icon11;
+        icon11.addFile(QString::fromUtf8(":/images/Dmmlg.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(DMMSL, icon11, QString());
+        ICM = new QWidget();
+        ICM->setObjectName(QString::fromUtf8("ICM"));
+        QIcon icon12;
+        icon12.addFile(QString::fromUtf8(":/images/Icmbr.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(ICM, icon12, QString());
+        VI = new QWidget();
+        VI->setObjectName(QString::fromUtf8("VI"));
         QIcon icon13;
-        icon13.addFile(QString::fromUtf8(":/images/AD5318.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tabWidget->addTab(AD5318, icon13, QString());
+        icon13.addFile(QString::fromUtf8(":/images/vib.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tabWidget->addTab(VI, icon13, QString());
         RAMData = new QWidget();
         RAMData->setObjectName(QString::fromUtf8("RAMData"));
         QIcon icon14;
@@ -522,13 +522,10 @@ public:
         groupBox_2->raise();
         pushButton_5->raise();
         pushButton->raise();
-        pushButton_6 = new QPushButton(PortableTesterTestJig2Class);
-        pushButton_6->setObjectName(QString::fromUtf8("pushButton_6"));
-        pushButton_6->setGeometry(QRect(739, 1, 60, 45));
 
         retranslateUi(PortableTesterTestJig2Class);
 
-        tabWidget->setCurrentIndex(6);
+        tabWidget->setCurrentIndex(0);
         scaleComboBox->setCurrentIndex(3);
 
 
@@ -538,12 +535,7 @@ public:
     void retranslateUi(QWidget *PortableTesterTestJig2Class)
     {
         PortableTesterTestJig2Class->setWindowTitle(QApplication::translate("PortableTesterTestJig2Class", "PortableTesterTestJig2", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(AWG), QApplication::translate("PortableTesterTestJig2Class", "AWG", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(DMMSL), QApplication::translate("PortableTesterTestJig2Class", "DMM/SL", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(ICM), QApplication::translate("PortableTesterTestJig2Class", "ICM", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(VI), QApplication::translate("PortableTesterTestJig2Class", "VI", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(FM), QApplication::translate("PortableTesterTestJig2Class", "Flash", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(ACR), QApplication::translate("PortableTesterTestJig2Class", "ACR", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(PSOC), QApplication::translate("PortableTesterTestJig2Class", "PSOC", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(KeyKnob), QApplication::translate("PortableTesterTestJig2Class", "KeyKnob", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(DDS), QApplication::translate("PortableTesterTestJig2Class", "DDS", 0, QApplication::UnicodeUTF8));
@@ -551,6 +543,11 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(HAADC), QApplication::translate("PortableTesterTestJig2Class", "HAADC", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(APPDRVRX), QApplication::translate("PortableTesterTestJig2Class", "APP_DRV_RX", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(AD5318), QApplication::translate("PortableTesterTestJig2Class", "AD5318", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(ACR), QApplication::translate("PortableTesterTestJig2Class", "ACR", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(AWG), QApplication::translate("PortableTesterTestJig2Class", "AWG", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(DMMSL), QApplication::translate("PortableTesterTestJig2Class", "DMM/SL", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(ICM), QApplication::translate("PortableTesterTestJig2Class", "ICM", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(VI), QApplication::translate("PortableTesterTestJig2Class", "VI", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(RAMData), QApplication::translate("PortableTesterTestJig2Class", "RAMData", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(AD9102), QApplication::translate("PortableTesterTestJig2Class", "AD9102", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QString());
@@ -583,7 +580,6 @@ public:
         pushButton->setText(QApplication::translate("PortableTesterTestJig2Class", "-", 0, QApplication::UnicodeUTF8));
         pushButton_5->setText(QApplication::translate("PortableTesterTestJig2Class", "+", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(Viewer), QApplication::translate("PortableTesterTestJig2Class", "Viewer", 0, QApplication::UnicodeUTF8));
-        pushButton_6->setText(QApplication::translate("PortableTesterTestJig2Class", "CLOSE", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

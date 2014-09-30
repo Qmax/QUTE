@@ -724,11 +724,18 @@ void DMM::onMeasure() {
 //
 //                 ui->adcRawData->setText(QString::number(values.Data, 10));
 //                 ui->adcConvData->setText(QString::number(values.ConvertedData, 'f', 16));
-    }	if(graphWidget->isVisible())
-    		InsertGraphData(display.retval2);
+    }	if((graphWidget->isVisible()) && (display.retvalHY3131<55000000))
+    		InsertGraphData(display.retvalHY3131);
  }
 void DMM::configGraphData(){
-	DMMGraph->setGraphRange("Time",0,99,ui->label->text()+" Range",0,convertToValues(ui->label->text()));
+	QString str=ui->label->text();
+	if(str.endsWith("V")||str.endsWith("E")||str.endsWith("A"))
+		str.chop(1);
+	if(str.endsWith("u")||str.endsWith("m")||str.endsWith("K")||str.endsWith("M"))
+		str.chop(1);
+	bool ok=true;
+	double rang=str.toDouble(&ok);
+	DMMGraph->setGraphRange("Time",0,99,ui->label->text()+" Range",0,rang/*convertToValues(ui->label->text())*/);
 }
 void DMM::InsertGraphData(double gData){
 	qDebug()<<"~~~~ GrapLoop"<<graphLoop<<"~~~~ Range:"<<ui->label->text()<<"~~~~ Value:"<<gData<<"~~~~";

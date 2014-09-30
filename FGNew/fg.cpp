@@ -8,12 +8,12 @@
 FG::FG(QWidget *parent) :
         QMainWindow(parent), ui(new Ui::FG) {
     ui->setupUi(this);
-//    PluginsInitialisation();
-//    InitialiseUIData();
-//    InitialiseWaveData();
-//    InitialiseLineEdit();
-//    ConnectSignalsnSlots();
-//    DefaultSettings();
+    PluginsInitialisation();
+    InitialiseUIData();
+    InitialiseWaveData();
+    InitialiseLineEdit();
+    ConnectSignalsnSlots();
+    DefaultSettings();
 }
 
 FG::~FG() {
@@ -368,16 +368,28 @@ void FG::SetFrequency(double l_nFrequency){
         if(l_nFrequency<((1/m_nBurstRate)*2))
             showMessageBox(true,false,"Value is lesser than minimum value","Ok","");
         else{
-            if(m_strWaveType=="TRIANGLE")
+            if(m_strWaveType=="TRIANGLE"){
                 hwInterface->setFrequency(l_nFrequency*2);
-            else
+                m_nFrequency=l_nFrequency*2;
+                m_nPeriod=1/m_nFrequency;
+            }
+            else{
                 hwInterface->setFrequency(l_nFrequency);
+                m_nFrequency=l_nFrequency;
+                m_nPeriod=1/m_nFrequency;
+            }
         }
     }else{
-        if(m_strWaveType=="TRIANGLE")
+        if(m_strWaveType=="TRIANGLE"){
             hwInterface->setFrequency(l_nFrequency*2);
-        else
+            m_nFrequency=l_nFrequency*2;
+            m_nPeriod=1/m_nFrequency;
+        }
+        else{
             hwInterface->setFrequency(l_nFrequency);
+            m_nFrequency=l_nFrequency;
+            m_nPeriod=1/m_nFrequency;
+        }
     }
 }
 void FG::clickedPRSCR() {
@@ -630,11 +642,13 @@ void FG::DefaultSettings(){
 
     	m_nAmplitude=5.0;
     	m_nOffset=0.0;
+    	m_nFrequency=1000.0;
+    	m_nPeriod=1/m_nFrequency;
 
 	//    hwInterface->setHighImpedance(true);
 	    hwInterface->Drive(STOPDRIVE);
 	    hwInterface->setOffset(m_nOffset);
-	    hwInterface->setFrequency(1000.0);
+	    hwInterface->setFrequency(m_nFrequency);
 	    hwInterface->setPhase(0);
 	    hwInterface->setAmplitude(m_nAmplitude);
 }
@@ -723,7 +737,8 @@ void FG::on_INTBut_clicked()
 {
     if(m_bInternal==false){
         hwInterface->setPatternLoop(true);
-        callLineEditInput(9);
+//        callLineEditInput(9);
+        hwInterface->setBurstRate(m_nPeriod*2);
         HighlightButtons(INT);
         hwInterface->Drive(STARTDRIVE);
         for (int i = 0; i < 500; i++){

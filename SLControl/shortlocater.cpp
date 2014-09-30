@@ -94,7 +94,7 @@ void ShortLocater::ToolBox(bool flag) {
 }
 void ShortLocater::Initializations() {
 
-	objDACFValue = ILineEdit->getLineEdit(1, 26, 85, 113, 29, "DAC-A",
+        objDACFValue = ILineEdit->getLineEdit(1, 26, 85, 113, 29, "DAC",
 			ui.debugPanel);
 	connect(objDACFValue, SIGNAL(focussed(bool)), this, SLOT(DACFValueEdit()));
 	objDACFValue->setStyleSheet(
@@ -1718,4 +1718,9 @@ void ShortLocater::on_selectApp_clicked()
 //    QWidget *DMM = IPT->InvokeApplication(myID);
 ////    ui->mdiArea->addSubWindow(DMM, Qt::FramelessWindowHint);
 //    DMM->show();
+}
+
+void ShortLocater::on_SpinSamples_valueChanged(int data)
+{
+    movingAverage = data;
 }

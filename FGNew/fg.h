@@ -180,7 +180,7 @@ protected:
 
     int m_nLineEditIndex,m_nPTKeyCode;
     double m_nAmplitude,m_nBurstCount,m_nBurstRate;
-    double m_nOffset;
+    double m_nOffset,m_nPeriod,m_nFrequency;
 
 	double n_vpp,n_offset,n_high,n_low;
 	QString str_vpp,str_offset,str_high,str_low;

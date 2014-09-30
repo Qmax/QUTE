@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'shortlocater.ui'
 **
-** Created: Thu Sep 25 11:27:08 2014
+** Created: Mon Sep 29 15:27:11 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -24,6 +24,7 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
+#include <QtGui/QSpinBox>
 #include <QtGui/QWidget>
 #include <qcustomplot.h>
 
@@ -106,6 +107,8 @@ public:
     QGroupBox *selectLib;
     QRadioButton *oldLib;
     QRadioButton *newLib;
+    QLabel *label_2;
+    QSpinBox *SpinSamples;
     QWidget *HAADC_WIDGET;
     QFrame *frontPanel_SHLOC;
     QFrame *framePowerUSB;
@@ -1446,13 +1449,13 @@ public:
         label_25->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         pushButton_2 = new QPushButton(debugPanel);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setGeometry(QRect(150, 67, 113, 30));
+        pushButton_2->setGeometry(QRect(210, 32, 71, 30));
         pushButton_3 = new QPushButton(debugPanel);
         pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-        pushButton_3->setGeometry(QRect(150, 130, 114, 30));
+        pushButton_3->setGeometry(QRect(210, 68, 71, 30));
         lineEdit = new QLineEdit(debugPanel);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        lineEdit->setGeometry(QRect(150, 100, 113, 29));
+        lineEdit->setGeometry(QRect(150, 70, 61, 29));
         openShortEnable = new QCheckBox(debugPanel);
         openShortEnable->setObjectName(QString::fromUtf8("openShortEnable"));
         openShortEnable->setGeometry(QRect(330, 30, 160, 30));
@@ -1493,7 +1496,7 @@ public:
         openShortEnable->setChecked(false);
         displayOffset = new QLineEdit(debugPanel);
         displayOffset->setObjectName(QString::fromUtf8("displayOffset"));
-        displayOffset->setGeometry(QRect(150, 34, 113, 29));
+        displayOffset->setGeometry(QRect(150, 34, 61, 29));
         left = new QPushButton(debugPanel);
         left->setObjectName(QString::fromUtf8("left"));
         left->setGeometry(QRect(10, 125, 40, 33));
@@ -1608,13 +1611,49 @@ public:
         newLib->setObjectName(QString::fromUtf8("newLib"));
         newLib->setGeometry(QRect(10, 20, 115, 22));
         newLib->setChecked(true);
+        label_2 = new QLabel(debugPanel);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setGeometry(QRect(150, 97, 67, 17));
+        SpinSamples = new QSpinBox(debugPanel);
+        SpinSamples->setObjectName(QString::fromUtf8("SpinSamples"));
+        SpinSamples->setGeometry(QRect(180, 109, 96, 48));
+        SpinSamples->setStyleSheet(QString::fromUtf8("QSpinBox::up-button {\n"
+"     width: 40px; \n"
+" }\n"
+"QSpinBox::down-button {\n"
+"     width: 40px;\n"
+" }"));
+        pushButton_16->raise();
+        pushButton->raise();
+        HAADC->raise();
+        calibrateDisplay->raise();
+        haadcFrame->raise();
+        label_22->raise();
+        label_23->raise();
+        adcRawData->raise();
+        adcConvData->raise();
+        displayInput->raise();
+        label_25->raise();
+        pushButton_2->raise();
+        pushButton_3->raise();
+        lineEdit->raise();
+        openShortEnable->raise();
+        displayOffset->raise();
+        left->raise();
+        right->raise();
+        down->raise();
+        up->raise();
+        checkBox->raise();
+        selectLib->raise();
+        SpinSamples->raise();
+        label_2->raise();
         HAADC_WIDGET = new QWidget(ShortLocaterClass);
         HAADC_WIDGET->setObjectName(QString::fromUtf8("HAADC_WIDGET"));
         HAADC_WIDGET->setGeometry(QRect(633, 525, 50, 2));
         HAADC_WIDGET->setStyleSheet(QString::fromUtf8(""));
         frontPanel_SHLOC = new QFrame(ShortLocaterClass);
         frontPanel_SHLOC->setObjectName(QString::fromUtf8("frontPanel_SHLOC"));
-        frontPanel_SHLOC->setGeometry(QRect(10, 434, 693, 160));
+        frontPanel_SHLOC->setGeometry(QRect(800, 434, 693, 160));
         frontPanel_SHLOC->setStyleSheet(QString::fromUtf8("/*QFrame{border:1px solid black; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #dadbff);border-radius:10px;}\n"
 "QLabel{border:1px solid rgba(0,0,0,0);}*/\n"
 "QFrame {\n"
@@ -2274,6 +2313,7 @@ public:
         selectLib->setTitle(QString());
         oldLib->setText(QApplication::translate("ShortLocaterClass", "OLD LIB", 0, QApplication::UnicodeUTF8));
         newLib->setText(QApplication::translate("ShortLocaterClass", "NEW LIB", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("ShortLocaterClass", "Samples:", 0, QApplication::UnicodeUTF8));
         fp_powerLabel->setText(QApplication::translate("ShortLocaterClass", "POWER", 0, QApplication::UnicodeUTF8));
         ah3_label->setText(QApplication::translate("ShortLocaterClass", "AH3", 0, QApplication::UnicodeUTF8));
         ah1_label->setText(QApplication::translate("ShortLocaterClass", "AH1", 0, QApplication::UnicodeUTF8));

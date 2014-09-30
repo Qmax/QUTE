@@ -175,10 +175,10 @@ PortableTester::PortableTester(QWidget *parent) :
 		QTextStream ts(&outFile);
 		ts << "";
 	//__________________________________________________________________________________________________________
-                QPushButton *but=new QPushButton(this);
-                but->setGeometry(500,400,50,50);
-                but->setText("FG");
-                connect(but,SIGNAL(clicked()),this,SLOT(startFG()));
+//                QPushButton *but=new QPushButton(this);
+//                but->setGeometry(500,400,50,50);
+//                but->setText("FG");
+//                connect(but,SIGNAL(clicked()),this,SLOT(startFG()));
 }
 void PortableTester::slotAcceptUserLogin(QString& name,QString& password){
 	if(name=="root" && password=="root"){

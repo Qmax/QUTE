@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'shortlocater.h'
 **
-** Created: Thu Sep 25 11:27:56 2014
+** Created: Mon Sep 29 15:27:33 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_ShortLocater[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      40,   14, // methods
+      41,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -34,49 +34,51 @@ static const uint qt_meta_data_ShortLocater[] = {
       14,   13,   13,   13, 0x0a,
       24,   13,   13,   13, 0x0a,
       39,   13,   13,   13, 0x08,
-      62,   13,   13,   13, 0x08,
-      81,   13,   13,   13, 0x08,
-     101,   13,   13,   13, 0x08,
-     129,  121,   13,   13, 0x08,
-     155,   13,   13,   13, 0x08,
-     174,   13,   13,   13, 0x08,
-     192,   13,   13,   13, 0x08,
-     210,   13,   13,   13, 0x08,
-     226,   13,   13,   13, 0x08,
-     245,   13,   13,   13, 0x08,
-     266,   13,   13,   13, 0x08,
-     288,   13,   13,   13, 0x08,
-     304,   13,   13,   13, 0x08,
-     325,  121,   13,   13, 0x08,
-     358,   13,   13,   13, 0x08,
-     380,   13,   13,   13, 0x08,
-     402,   13,   13,   13, 0x08,
-     428,   13,   13,   13, 0x08,
-     447,   13,   13,   13, 0x08,
-     471,   13,   13,   13, 0x08,
-     495,   13,   13,   13, 0x08,
-     513,   13,   13,   13, 0x08,
-     536,   13,   13,   13, 0x08,
-     554,   13,   13,   13, 0x08,
-     574,   13,   13,   13, 0x08,
-     592,   13,   13,   13, 0x08,
-     612,   13,   13,   13, 0x08,
-     630,   13,   13,   13, 0x08,
-     653,   13,   13,   13, 0x08,
-     673,   13,   13,   13, 0x08,
-     694,   13,   13,   13, 0x08,
-     720,   13,   13,   13, 0x08,
-     744,   13,   13,   13, 0x08,
-     770,   13,   13,   13, 0x08,
-     796,   13,   13,   13, 0x08,
-     820,   13,   13,   13, 0x08,
-     832,   13,   13,   13, 0x08,
+      72,   13,   13,   13, 0x08,
+      95,   13,   13,   13, 0x08,
+     114,   13,   13,   13, 0x08,
+     134,   13,   13,   13, 0x08,
+     162,  154,   13,   13, 0x08,
+     188,   13,   13,   13, 0x08,
+     207,   13,   13,   13, 0x08,
+     225,   13,   13,   13, 0x08,
+     243,   13,   13,   13, 0x08,
+     259,   13,   13,   13, 0x08,
+     278,   13,   13,   13, 0x08,
+     299,   13,   13,   13, 0x08,
+     321,   13,   13,   13, 0x08,
+     337,   13,   13,   13, 0x08,
+     358,  154,   13,   13, 0x08,
+     391,   13,   13,   13, 0x08,
+     413,   13,   13,   13, 0x08,
+     435,   13,   13,   13, 0x08,
+     461,   13,   13,   13, 0x08,
+     480,   13,   13,   13, 0x08,
+     504,   13,   13,   13, 0x08,
+     528,   13,   13,   13, 0x08,
+     546,   13,   13,   13, 0x08,
+     569,   13,   13,   13, 0x08,
+     587,   13,   13,   13, 0x08,
+     607,   13,   13,   13, 0x08,
+     625,   13,   13,   13, 0x08,
+     645,   13,   13,   13, 0x08,
+     663,   13,   13,   13, 0x08,
+     686,   13,   13,   13, 0x08,
+     706,   13,   13,   13, 0x08,
+     727,   13,   13,   13, 0x08,
+     753,   13,   13,   13, 0x08,
+     777,   13,   13,   13, 0x08,
+     803,   13,   13,   13, 0x08,
+     829,   13,   13,   13, 0x08,
+     853,   13,   13,   13, 0x08,
+     865,   13,   13,   13, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_ShortLocater[] = {
     "ShortLocater\0\0Measure()\0Configure(int)\0"
+    "on_SpinSamples_valueChanged(int)\0"
     "on_selectApp_clicked()\0on_graph_clicked()\0"
     "on_newLib_clicked()\0on_oldLib_clicked()\0"
     "checked\0on_checkBox_clicked(bool)\0"
@@ -133,47 +135,48 @@ int ShortLocater::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         switch (_id) {
         case 0: Measure(); break;
         case 1: Configure((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 2: on_selectApp_clicked(); break;
-        case 3: on_graph_clicked(); break;
-        case 4: on_newLib_clicked(); break;
-        case 5: on_oldLib_clicked(); break;
-        case 6: on_checkBox_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 7: on_right_clicked(); break;
-        case 8: on_left_clicked(); break;
-        case 9: on_down_clicked(); break;
-        case 10: on_up_clicked(); break;
-        case 11: receiveValue((*reinterpret_cast< uint(*)>(_a[1]))); break;
-        case 12: receiveValue((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 13: receiveValue((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 14: DACFValueEdit(); break;
-        case 15: on_butZoom_clicked(); break;
-        case 16: on_openShortEnable_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 17: on_External_clicked(); break;
-        case 18: on_Internal_clicked(); break;
-        case 19: on_pushButton_2_clicked(); break;
-        case 20: on_HAADC_clicked(); break;
-        case 21: on_haadcClose_clicked(); break;
-        case 22: on_pushButton_clicked(); break;
-        case 23: on_hold_clicked(); break;
-        case 24: on_microOhms_clicked(); break;
-        case 25: on_Null_clicked(); break;
-        case 26: on_offset_clicked(); break;
-        case 27: on_Auto_clicked(); break;
-        case 28: on_buzzer_clicked(); break;
-        case 29: on_exit_clicked(); break;
-        case 30: on_r200mEBut_clicked(); break;
-        case 31: on_r2EBut_clicked(); break;
-        case 32: on_r200But_clicked(); break;
-        case 33: on_ShortCalib_2_clicked(); break;
-        case 34: on_ShortCalib_clicked(); break;
-        case 35: on_pushButton_5_clicked(); break;
-        case 36: on_pushButton_3_clicked(); break;
-        case 37: on_printImage_clicked(); break;
-        case 38: startStop(); break;
-        case 39: Exit(); break;
+        case 2: on_SpinSamples_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: on_selectApp_clicked(); break;
+        case 4: on_graph_clicked(); break;
+        case 5: on_newLib_clicked(); break;
+        case 6: on_oldLib_clicked(); break;
+        case 7: on_checkBox_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 8: on_right_clicked(); break;
+        case 9: on_left_clicked(); break;
+        case 10: on_down_clicked(); break;
+        case 11: on_up_clicked(); break;
+        case 12: receiveValue((*reinterpret_cast< uint(*)>(_a[1]))); break;
+        case 13: receiveValue((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 14: receiveValue((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 15: DACFValueEdit(); break;
+        case 16: on_butZoom_clicked(); break;
+        case 17: on_openShortEnable_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 18: on_External_clicked(); break;
+        case 19: on_Internal_clicked(); break;
+        case 20: on_pushButton_2_clicked(); break;
+        case 21: on_HAADC_clicked(); break;
+        case 22: on_haadcClose_clicked(); break;
+        case 23: on_pushButton_clicked(); break;
+        case 24: on_hold_clicked(); break;
+        case 25: on_microOhms_clicked(); break;
+        case 26: on_Null_clicked(); break;
+        case 27: on_offset_clicked(); break;
+        case 28: on_Auto_clicked(); break;
+        case 29: on_buzzer_clicked(); break;
+        case 30: on_exit_clicked(); break;
+        case 31: on_r200mEBut_clicked(); break;
+        case 32: on_r2EBut_clicked(); break;
+        case 33: on_r200But_clicked(); break;
+        case 34: on_ShortCalib_2_clicked(); break;
+        case 35: on_ShortCalib_clicked(); break;
+        case 36: on_pushButton_5_clicked(); break;
+        case 37: on_pushButton_3_clicked(); break;
+        case 38: on_printImage_clicked(); break;
+        case 39: startStop(); break;
+        case 40: Exit(); break;
         default: ;
         }
-        _id -= 40;
+        _id -= 41;
     }
     return _id;
 }

@@ -4867,9 +4867,9 @@ Data :</string>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>67</y>
-      <width>113</width>
+      <x>210</x>
+      <y>32</y>
+      <width>71</width>
       <height>30</height>
      </rect>
     </property>
@@ -4880,9 +4880,9 @@ Data :</string>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>130</y>
-      <width>114</width>
+      <x>210</x>
+      <y>68</y>
+      <width>71</width>
       <height>30</height>
      </rect>
     </property>
@@ -4894,8 +4894,8 @@ Data :</string>
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>100</y>
-      <width>113</width>
+      <y>70</y>
+      <width>61</width>
       <height>29</height>
      </rect>
     </property>
@@ -4957,7 +4957,7 @@ color:black;
      <rect>
       <x>150</x>
       <y>34</y>
-      <width>113</width>
+      <width>61</width>
       <height>29</height>
      </rect>
     </property>
@@ -5200,6 +5200,61 @@ color:black;
      </property>
     </widget>
    </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>97</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Samples:</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="SpinSamples">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>109</y>
+      <width>96</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSpinBox::up-button {
+     width: 40px; 
+ }
+QSpinBox::down-button {
+     width: 40px;
+ }</string>
+    </property>
+   </widget>
+   <zorder>pushButton_16</zorder>
+   <zorder>pushButton</zorder>
+   <zorder>HAADC</zorder>
+   <zorder>calibrateDisplay</zorder>
+   <zorder>haadcFrame</zorder>
+   <zorder>label_22</zorder>
+   <zorder>label_23</zorder>
+   <zorder>adcRawData</zorder>
+   <zorder>adcConvData</zorder>
+   <zorder>displayInput</zorder>
+   <zorder>label_25</zorder>
+   <zorder>pushButton_2</zorder>
+   <zorder>pushButton_3</zorder>
+   <zorder>lineEdit</zorder>
+   <zorder>openShortEnable</zorder>
+   <zorder>displayOffset</zorder>
+   <zorder>left</zorder>
+   <zorder>right</zorder>
+   <zorder>down</zorder>
+   <zorder>up</zorder>
+   <zorder>checkBox</zorder>
+   <zorder>selectLib</zorder>
+   <zorder>SpinSamples</zorder>
+   <zorder>label_2</zorder>
   </widget>
   <widget class="QWidget" name="HAADC_WIDGET" native="true">
    <property name="geometry">
@@ -5217,7 +5272,7 @@ color:black;
   <widget class="QFrame" name="frontPanel_SHLOC">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>800</x>
      <y>434</y>
      <width>693</width>
      <height>160</height>

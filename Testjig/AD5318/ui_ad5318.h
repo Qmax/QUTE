@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ad5318.ui'
 **
-** Created: Wed Sep 17 12:44:42 2014
+** Created: Mon Sep 29 19:52:05 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -2318,7 +2318,7 @@ public:
         pushButton_2->setGeometry(QRect(680, 270, 110, 41));
         appBck = new QPushButton(AD5318);
         appBck->setObjectName(QString::fromUtf8("appBck"));
-        appBck->setGeometry(QRect(730, 340, 61, 61));
+        appBck->setGeometry(QRect(30, 20, 61, 61));
         appBck->setFocusPolicy(Qt::NoFocus);
         appBck->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "         border: 2px solid rgba(0,0,0,0);\n"

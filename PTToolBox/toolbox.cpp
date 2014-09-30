@@ -176,4 +176,15 @@ void ToolBox::on_pb_curEnDis_clicked()
 	else				ts2<<envTouch;
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    QMessageBox msgbox;
+    msgbox.setWindowFlags(Qt::Widget | Qt::FramelessWindowHint);
+    msgbox.setFont(QFont("DejaVu Sans", 15, 50, false));
+    msgbox.setIcon(QMessageBox::Information);
+    if(m_bCursor==true)
+	 msgbox.setText("Mouse Enabled.\nRestart the System.");
+    else
+     msgbox.setText("Touch Enabled.\nRestart the System.");
+	 msgbox.setStandardButtons(QMessageBox::Ok);
+	 msgbox.exec();
+
 }

@@ -454,7 +454,7 @@ font: &quot;DejaVu Sans&quot;;
     <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
-    <number>6</number>
+    <number>0</number>
    </property>
    <property name="iconSize">
     <size>
@@ -465,6 +465,9 @@ font: &quot;DejaVu Sans&quot;;
    <property name="elideMode">
     <enum>Qt::ElideNone</enum>
    </property>
+   <property name="usesScrollButtons">
+    <bool>false</bool>
+   </property>
    <property name="documentMode">
     <bool>true</bool>
    </property>
@@ -474,42 +477,6 @@ font: &quot;DejaVu Sans&quot;;
    <property name="movable">
     <bool>false</bool>
    </property>
-   <widget class="QWidget" name="AWG">
-    <attribute name="icon">
-     <iconset resource="pttj2.qrc">
-      <normaloff>:/images/awg.png</normaloff>:/images/awg.png</iconset>
-    </attribute>
-    <attribute name="title">
-     <string>AWG</string>
-    </attribute>
-   </widget>
-   <widget class="QWidget" name="DMMSL">
-    <attribute name="icon">
-     <iconset resource="pttj2.qrc">
-      <normaloff>:/images/Dmmlg.png</normaloff>:/images/Dmmlg.png</iconset>
-    </attribute>
-    <attribute name="title">
-     <string>DMM/SL</string>
-    </attribute>
-   </widget>
-   <widget class="QWidget" name="ICM">
-    <attribute name="icon">
-     <iconset resource="pttj2.qrc">
-      <normaloff>:/images/Icmbr.png</normaloff>:/images/Icmbr.png</iconset>
-    </attribute>
-    <attribute name="title">
-     <string>ICM</string>
-    </attribute>
-   </widget>
-   <widget class="QWidget" name="VI">
-    <attribute name="icon">
-     <iconset resource="pttj2.qrc">
-      <normaloff>:/images/vib.png</normaloff>:/images/vib.png</iconset>
-    </attribute>
-    <attribute name="title">
-     <string>VI</string>
-    </attribute>
-   </widget>
    <widget class="QWidget" name="FM">
     <attribute name="icon">
      <iconset resource="pttj2.qrc">
@@ -517,15 +484,6 @@ font: &quot;DejaVu Sans&quot;;
     </attribute>
     <attribute name="title">
      <string>Flash</string>
-    </attribute>
-   </widget>
-   <widget class="QWidget" name="ACR">
-    <attribute name="icon">
-     <iconset resource="pttj2.qrc">
-      <normaloff>:/images/Pulse with modulation.png</normaloff>:/images/Pulse with modulation.png</iconset>
-    </attribute>
-    <attribute name="title">
-     <string>ACR</string>
     </attribute>
    </widget>
    <widget class="QWidget" name="PSOC">
@@ -589,6 +547,51 @@ font: &quot;DejaVu Sans&quot;;
     </attribute>
     <attribute name="title">
      <string>AD5318</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="ACR">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/Pulse with modulation.png</normaloff>:/images/Pulse with modulation.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>ACR</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="AWG">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/awg.png</normaloff>:/images/awg.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>AWG</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="DMMSL">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/Dmmlg.png</normaloff>:/images/Dmmlg.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>DMM/SL</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="ICM">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/Icmbr.png</normaloff>:/images/Icmbr.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>ICM</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="VI">
+    <attribute name="icon">
+     <iconset resource="pttj2.qrc">
+      <normaloff>:/images/vib.png</normaloff>:/images/vib.png</iconset>
+    </attribute>
+    <attribute name="title">
+     <string>VI</string>
     </attribute>
    </widget>
    <widget class="QWidget" name="RAMData">
@@ -1203,19 +1206,6 @@ Details</string>
     <zorder>pushButton_5</zorder>
     <zorder>pushButton</zorder>
    </widget>
-  </widget>
-  <widget class="QPushButton" name="pushButton_6">
-   <property name="geometry">
-    <rect>
-     <x>739</x>
-     <y>1</y>
-     <width>60</width>
-     <height>45</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>CLOSE</string>
-   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

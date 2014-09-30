@@ -30,14 +30,14 @@ QMainWindow(parent), ui(new Ui::ICM) {
 	ui->label_LC->setVisible(false);
 	ui->value_XLXC->setVisible(false);
 
-	loopOut = 0;//graphing
+//	loopOut = 0;//graphing
 	ui->plottingWindow->setVisible(false);
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nSweepStartFrequency2=m_nSweepEndFrequency2=0;
-	m_nSweepStartFrequencyUnit=m_nSweepEndFrequencyUnit=m_nSweepIntervalUnit=1;
-
-        graphSetup(ui->graphPlot);
-        panelStatus.fPanel=true;
-        ui->frontPanel_ICM->setVisible(true);
+		ui->graphPlotting->setVisible(false);
+		ui->graphPlot->setVisible(false);
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nSweepStartFrequency2=m_nSweepEndFrequency2=0;
+//	m_nSweepStartFrequencyUnit=m_nSweepEndFrequencyUnit=m_nSweepIntervalUnit=1;
+//    graphSetup(ui->graphPlot);
+//
 }
 void ICM::ToolBox(bool hide) {
 	ui->calibrateDisplay->setVisible(hide);
@@ -69,7 +69,7 @@ void ICM::ToolBox(bool hide) {
 	ui->RacRdc->setVisible(hide);
 
 }
-void ICM::graphSetup(QCustomPlot *customPlot){
+/*void ICM::graphSetup(QCustomPlot *customPlot){
     customPlot->addGraph();
     QPen pen;
     int minRange, maxRange;
@@ -145,14 +145,14 @@ void ICM::graphSetup(QCustomPlot *customPlot){
     customPlot->setInteractions(QCP::iRangeZoom | QCP::iMultiSelect
                     | QCP::iSelectPlottables | QCP::iSelectAxes | QCP::iSelectLegend
                     | QCP::iSelectItems | QCP::iSelectOther);
-}
+}*/
 
-void ICM::graphPlotter(QCustomPlot *customPlot){
+/*void ICM::graphPlotter(QCustomPlot *customPlot){
     customPlot->graph(0)->setData(x, y);
     customPlot->graph(0)->rescaleAxes();
-}
+}*/
 
-void ICM::setupSimpleDemo(QCustomPlot *customPlot) {
+/*void ICM::setupSimpleDemo(QCustomPlot *customPlot) {
 	customPlot->addGraph();
 	QPen pen;
 	int minRange, maxRange;
@@ -228,9 +228,9 @@ void ICM::setupSimpleDemo(QCustomPlot *customPlot) {
 	customPlot->setInteractions(QCP::iRangeZoom | QCP::iMultiSelect
 			| QCP::iSelectPlottables | QCP::iSelectAxes | QCP::iSelectLegend
 			| QCP::iSelectItems | QCP::iSelectOther);
-}
-void ICM::plotSimpleDemo(QCustomPlot *customPlot) {
-	/*QDateTime dateTime = QDateTime::currentDateTime();
+}*/
+/*void ICM::plotSimpleDemo(QCustomPlot *customPlot) {
+	QDateTime dateTime = QDateTime::currentDateTime();
     QString dateTimeString = dateTime.toString();
 
     //Save to File START ~~~~~~~~~~~~~~~~~~~~~~~
@@ -239,10 +239,10 @@ void ICM::plotSimpleDemo(QCustomPlot *customPlot) {
         outFile.open(QIODevice::WriteOnly | QIODevice::Text);
     else
         outFile.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append);
-    QTextStream ts(&outFile);*/
+    QTextStream ts(&outFile);
 	//Save to File END ~~~~~~~~~~~~~~~~~~~~~~~
 
-	/*    if (loopOut != 250) {
+	    if (loopOut != 250) {
         if (loopOut > 60) {
             customPlot->xAxis->setRange(loopOut - 60, loopOut);
         }
@@ -275,12 +275,12 @@ void ICM::plotSimpleDemo(QCustomPlot *customPlot) {
         }
 
         loopOut = 59;
-    }*/
+    }
 
 	customPlot->graph(0)->setData(x, y);
 	customPlot->graph(0)->rescaleAxes();
 
-}
+}*/
 
 void ICM::GCalib2ICM(double value, QString comp) {
 	//	if(comp=="ICM-R")
@@ -336,6 +336,25 @@ void ICM::openNumKBPanel(short int pValue, double incRatio, char type,double max
 }
 
 void ICM::initialiseHWLibraries() {
+
+	//_______________________________________________________________________
+	    QPluginLoader graphLoader("libDIGrapher.so", this);
+	    ICMGraph = qobject_cast<DIGrapherInterface*> (graphLoader.instance());
+	    graphWidget = ICMGraph->getDIGraph();
+	    graphWidget->setParent(this);
+	    graphWidget->setVisible(false);
+	    ICMGraph->setGraphGeometry(0,424,713,180);
+	    ICMGraph->setZoomOutGraphGeometry(0,424,713,180);
+	    ICMGraph->setZoomInGraphGeometry(0,192,713,412);
+	    ICMGraph->setGraphCount(3);
+	    ICMGraph->setLegendVisible(false);
+	    ICMGraph->setupGraphWindow();
+
+	    xData.resize(110);yData.resize(110);yMaxData.resize(110);yMinData.resize(110);
+	    graphLoop=0;
+
+	//_______________________________________________________________________
+
 	QPluginLoader loader4("libQmaxPTInterface.so", this);
 	ILineEdit = qobject_cast<IQmaxLineEdit*> (loader4.instance());
 	INumberPanel = qobject_cast<IQmaxNumberPanel*> (loader4.instance());
@@ -399,7 +418,7 @@ void ICM::initialiseHWLibraries() {
 	test = qobject_cast<IPTAppBckPsocInterface*> (testing.instance());
 
 
-        panelStatus.dPanel=panelStatus.fPanel=panelStatus.sPanel=panelStatus.gPanel=false;
+//        panelStatus.dPanel=panelStatus.fPanel=panelStatus.sPanel=panelStatus.gPanel=false;
 
 	//~~~~~~~~Check for debug panel~~~~~~~~~~~~~~~~~~~~~~~~
 	QStringList debugPanel;
@@ -419,10 +438,14 @@ void ICM::initialiseHWLibraries() {
 		}
         }
         textFile2.close();
-        if(panelStatus.dPanel)    ui->debugPanel->setVisible(true);      else ui->debugPanel->setVisible(false);
-        if(panelStatus.fPanel)    ui->frontPanel_ICM->setVisible(true);  else ui->frontPanel_ICM->setVisible(false);
-        if(panelStatus.sPanel)    ui->plottingWindow->setVisible(true);  else ui->plottingWindow->setVisible(false);
-        if(panelStatus.gPanel)    ui->graphPlotting->setVisible(true);   else ui->graphPlotting->setVisible(false);
+     	if(panelStatus.dPanel){
+     		ui->frontPanel_ICM->setVisible(false);
+     		ui->debugPanel->setVisible(true);
+     	}
+     	else{
+     		ui->frontPanel_ICM->setVisible(true);
+     		ui->debugPanel->setVisible(false);
+     	}
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	IAppCard->setSPIAppendBit(0xC000);
@@ -472,6 +495,49 @@ void ICM::initialiseHWLibraries() {
 			&m_nGPIOCode);
 
 	IBackPlane->writeBackPlaneRegister(0x0001, 0x0024);
+
+}
+void ICM::configGraphData(){
+	QString str=ui->rangeLabel->text();
+	if(str.endsWith("H")||str.endsWith("E")||str.endsWith("F"))
+		str.chop(1);
+	if(str.endsWith("p")||str.endsWith("n")||str.endsWith("u")||str.endsWith("m")||str.endsWith("K")||str.endsWith("M"))
+		str.chop(1);
+	bool ok=true;
+	double rang=str.toDouble(&ok);
+	ICMGraph->setGraphRange("Time",0,99,ui->rangeLabel->text()+" Range",0,rang);
+}
+void ICM::InsertGraphData(double gData){
+	qDebug()<<"~~~~ GrapLoop"<<graphLoop<<"~~~~ Range:"<<ui->rangeLabel->text()<<"~~~~ Value:"<<gData<<"~~~~";
+
+	if(graphLoop>=100){
+		graphLoop=0;yMaxData[0]=0;yMinData[0]=55000000;
+		for(int i=0;i<100;i++){
+			xData[i]=0;
+			yData[i]=yData[i+1];
+		}
+	}
+
+	xData[graphLoop]=graphLoop;
+	yData[graphLoop]=gData;
+
+		if(gData>yMaxData[0]){
+			for(int j=0;j<100;j++){
+				yMaxData[j]=gData;
+			}
+		}
+		if(gData<yMinData[0]){
+			for(int k=0;k<100;k++){
+				yMinData[k]=gData;
+			}
+		}
+
+	graphLoop=graphLoop+1;
+
+	ICMGraph->setGraphData(0,xData,yData);
+	ICMGraph->setGraphData(1,xData,yMaxData);
+	ICMGraph->setGraphData(2,xData,yMinData);
+	ICMGraph->plotGraphWindow();
 
 }
 void ICM::KnobFunction() {
@@ -879,10 +945,14 @@ void ICM::readADC(){
 	if(ui->CapacitanceRanges->isVisible()){
 		readADC2();
 	}
-        if(panelStatus.dPanel)    ui->debugPanel->setVisible(true);      else ui->debugPanel->setVisible(false);
-        if(panelStatus.fPanel)    ui->frontPanel_ICM->setVisible(true);  else ui->frontPanel_ICM->setVisible(false);
-        if(panelStatus.sPanel)    ui->plottingWindow->setVisible(true);  else ui->plottingWindow->setVisible(false);
-        if(panelStatus.gPanel)    ui->graphPlotting->setVisible(true);   else ui->graphPlotting->setVisible(false);
+ 	if(panelStatus.dPanel){
+ 		ui->frontPanel_ICM->setVisible(false);
+ 		ui->debugPanel->setVisible(true);
+ 	}
+ 	else{
+ 		ui->frontPanel_ICM->setVisible(true);
+ 		ui->debugPanel->setVisible(false);
+ 	}
 }
 void ICM::DisplayR(){
 	ui->label_X->setVisible(false);
@@ -936,6 +1006,8 @@ void ICM::DisplayR(){
 		}
 		dis->setRange(int_range);
 		dis->setValue(dbl_value);
+		if(dbl_value<12000000)
+			InsertGraphData(dbl_value);
 
 		//        qDebug()<<"strRange:"<<str_range<<"str_value:"<<str_value;
 		//        qDebug()<<"intRange:"<<int_range<<"dbl_value:"<<dbl_value;
@@ -943,6 +1015,7 @@ void ICM::DisplayR(){
 	}
 
 	ui->rangeLabel->setText(m_mapResistance.value(R_Index));
+	configGraphData();//~~~~~~~~~~~~~~Graph Configuration~~~~~~~~~~
 	emit ICM2GCalib(m_nResistance, "ICM-R");
 	QApplication::processEvents();
 }
@@ -1051,6 +1124,7 @@ void ICM::readADC2() {
 		ui->value_XLXC->setText(QString::number(m_nResistance,'f',6));
 		GetDisplayCapcitance(m_nCapacitance, C_Index);
 		ui->rangeLabel->setText(m_mapCapacitance.value(C_Index));
+		configGraphData();//~~~~~~~~~~~~~~Graph Configuration~~~~~~~~~~
 		emit ICM2GCalib(m_nCapacitance, "ICM-C");
 	}
 
@@ -1062,6 +1136,7 @@ void ICM::readADC2() {
 		ui->value_XLXC->setText(QString::number(m_nResistance,'f',6));
 		GetDisplayInductance(m_nInductance, L_Index);
 		ui->rangeLabel->setText(m_mapInductance.value(L_Index));
+		configGraphData();//~~~~~~~~~~~~~~Graph Configuration~~~~~~~~~~
 		emit ICM2GCalib(m_nInductance, "ICM-L");
 	}
 }
@@ -1103,6 +1178,7 @@ double ICM::readADCR(QString str) {
 	ui->label_7->setText(QString::number(l_nResistance, 'f', 12));
 
 	ui->rangeLabel->setText(m_mapResistance.value(R_Index));
+	configGraphData();//~~~~~~~~~~~~~~Graph Configuration~~~~~~~~~~
 	        qDebug()<<"ReadADC Resistance for"<<str<<":"<<l_nResistance;
 	m_nResistance = l_nResistance;
 	return l_nResistance;
@@ -1748,7 +1824,7 @@ void ICM::on_C100pF_clicked() {
 	hwInterface->setFrequency(8000);
 	m_nFrequency = 8000;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(8);
 	ui->sweep_endfreq->setValue(8);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -1769,7 +1845,7 @@ void ICM::on_C1nF_clicked() {
 	hwInterface->setFrequency(8000);
 	m_nFrequency = 8000;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(8);
 	ui->sweep_endfreq->setValue(8);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -1790,7 +1866,7 @@ void ICM::on_C10nF_clicked() {
 	hwInterface->setFrequency(2400);
 	m_nFrequency = 2400;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(2);
 	ui->sweep_endfreq->setValue(2);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -1811,7 +1887,7 @@ void ICM::on_C100nF_clicked() {
 	hwInterface->setFrequency(2400);
 	m_nFrequency = 2400;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(2);
 	ui->sweep_endfreq->setValue(2);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -1832,7 +1908,7 @@ void ICM::on_C1uF_clicked() {
 	hwInterface->setFrequency(454);
 	m_nFrequency = 454;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(m_nFrequency);
 	ui->sweep_endfreq->setValue(m_nFrequency);
 	ui->sweep_startfreq_unit->setCurrentIndex(0);
@@ -1853,7 +1929,7 @@ void ICM::on_C10uF_clicked() {
 	hwInterface->setFrequency(454);
 	m_nFrequency = 454;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(m_nFrequency);
 	ui->sweep_endfreq->setValue(m_nFrequency);
 	ui->sweep_startfreq_unit->setCurrentIndex(0);
@@ -1874,7 +1950,7 @@ void ICM::on_C100uF_clicked() {
 	hwInterface->setFrequency(2200);
 	m_nFrequency = 2200;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(2);
 	ui->sweep_endfreq->setValue(2);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -1895,7 +1971,7 @@ void ICM::on_C1mF_clicked() {
 	hwInterface->setFrequency(220);
 	m_nFrequency = 220;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(m_nFrequency);
 	ui->sweep_endfreq->setValue(m_nFrequency);
 	ui->sweep_startfreq_unit->setCurrentIndex(0);
@@ -1916,7 +1992,7 @@ void ICM::on_C10mF_clicked() {
 	hwInterface->setFrequency(44);
 	m_nFrequency = 44;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(m_nFrequency);
 	ui->sweep_endfreq->setValue(m_nFrequency);
 	ui->sweep_startfreq_unit->setCurrentIndex(0);
@@ -1937,7 +2013,7 @@ void ICM::on_R10E_clicked() {
 	hwInterface->setFrequency(1000);
 	m_nFrequency = 1000;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(1);
 	ui->sweep_endfreq->setValue(1);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -1961,7 +2037,7 @@ void ICM::on_R100E_clicked() {
 	hwInterface->setFrequency(1000);
 	m_nFrequency = 1000;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(1);
 	ui->sweep_endfreq->setValue(1);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -1986,7 +2062,7 @@ void ICM::on_R1KE_clicked() {
 	hwInterface->setFrequency(1000);
 	m_nFrequency = 1000;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(1);
 	ui->sweep_endfreq->setValue(1);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -2011,7 +2087,7 @@ void ICM::on_R10KE_clicked() {
 	hwInterface->setFrequency(1000);
 	m_nFrequency = 1000;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(1);
 	ui->sweep_endfreq->setValue(1);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -2037,7 +2113,7 @@ void ICM::on_R100KE_clicked() {
 	hwInterface->setFrequency(1000);
 	m_nFrequency = 1000;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(1);
 	ui->sweep_endfreq->setValue(1);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -2062,7 +2138,7 @@ void ICM::on_R1ME_clicked() {
 	hwInterface->setFrequency(1000);
 	m_nFrequency = 1000;
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(1);
 	ui->sweep_endfreq->setValue(1);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -2087,7 +2163,7 @@ void ICM::on_L30uH_clicked() {
 	//	IBackPlane->writeBackPlaneRegister(0x3, 0x26);
 	IPsoc->srcImpedanceSelection(SRC_IMP_100E);
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(200);
 	ui->sweep_endfreq->setValue(200);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -2116,7 +2192,7 @@ void ICM::on_L300uH_clicked() {
 	//	IBackPlane->writeBackPlaneRegister(0x3, 0x26);
 	IPsoc->srcImpedanceSelection(SRC_IMP_100E);
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(200);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
 	ui->sweep_endfreq->setValue(200);
@@ -2135,7 +2211,7 @@ void ICM::on_L3mH_clicked() {
 	IAppCard->writeRegister(0x1, 0x16);
 	IPsoc->srcImpedanceSelection(SRC_IMP_0E);//added for 0E Selection
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(2);
 	ui->sweep_endfreq->setValue(2);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -2155,7 +2231,7 @@ void ICM::on_L30mH_clicked() {
 	//	IBackPlane->writeBackPlaneRegister(0x4, 0x26);
 	IPsoc->srcImpedanceSelection(SRC_IMP_200E);
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(1);
 	ui->sweep_endfreq->setValue(1);
 	ui->sweep_startfreq_unit->setCurrentIndex(1);
@@ -2175,7 +2251,7 @@ void ICM::on_L300mH_clicked() {
 	//	IBackPlane->writeBackPlaneRegister(0x4, 0x26);
 	IPsoc->srcImpedanceSelection(SRC_IMP_200E);
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(m_nFrequency);
 	ui->sweep_endfreq->setValue(m_nFrequency);
 	ui->sweep_startfreq_unit->setCurrentIndex(0);
@@ -2195,7 +2271,7 @@ void ICM::on_L3H_clicked() {
 	//	IBackPlane->writeBackPlaneRegister(0x6, 0x26);
 	IPsoc->srcImpedanceSelection(SRC_IMP_1KE);
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(m_nFrequency);
 	ui->sweep_endfreq->setValue(m_nFrequency);
 	ui->sweep_startfreq_unit->setCurrentIndex(0);
@@ -2215,7 +2291,7 @@ void ICM::on_L30H_clicked() {
 	//	IBackPlane->writeBackPlaneRegister(0x6, 0x26);
 	IPsoc->srcImpedanceSelection(SRC_IMP_1KE);
 
-	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
+//	m_nSweepStartFrequency=m_nSweepEndFrequency=m_nFrequency;
 	ui->sweep_startfreq->setValue(m_nFrequency);
 	ui->sweep_endfreq->setValue(m_nFrequency);
 	ui->sweep_startfreq_unit->setCurrentIndex(0);
@@ -2421,6 +2497,8 @@ void ICM::GetDisplayResistance(double pResistanceValue, double pRangeValue) {
 
 	dis->setRange(int_range);
 	dis->setValue(dbl_value);
+	if(dbl_value<12000000)
+		InsertGraphData(dbl_value);
 
 	qDebug()<<"strRange:"<<str_range<<"str_value:"<<str_value;
 	qDebug()<<"intRange:"<<int_range<<"dbl_value:"<<dbl_value;
@@ -2621,6 +2699,8 @@ void ICM::GetDisplayCapcitance(double p_nData, short int p_nRange) {
 	dis->setValue(dbl_value);
 	qDebug()<<"strRange:"<<str_range<<"str_value:"<<str_value;
 	qDebug()<<"intRange:"<<int_range<<"dbl_value:"<<dbl_value;
+	if(dbl_value<12000000)
+		InsertGraphData(dbl_value);
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 void ICM::GetDisplayInductance(double p_nData, short int p_nRange) {
@@ -2723,6 +2803,8 @@ void ICM::GetDisplayInductance(double p_nData, short int p_nRange) {
 	dis->setRange(int_range);
 	double dbl_value=str_value.toDouble(&ok);
 	dis->setValue(dbl_value);
+	if(dbl_value<12000000)
+		InsertGraphData(dbl_value);
 /*	qDebug()<<"strRange:"<<str_range<<"str_value:"<<str_value;
 	qDebug()<<"dblValue:"<<int_range<<"dbl_value:"<<dbl_value;*/
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -3365,7 +3447,7 @@ void ICM::on_exit_clicked()
 
 void ICM::on_rBut_clicked()
 {
-	m_strRLC = "Resistance";
+//	m_strRLC = "Resistance";
 	ui->selectFrame->setGeometry(701,54,10,60);
 	ui->rBox->setStyleSheet("QGroupBox{border:1px solid white; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde); border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;}");
 	ui->lBox->setStyleSheet("QGroupBox{border:1px solid white; background-color: #dadbde;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde);border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;border-top:1px solid gray; border-top-right-radius: 0px; border-top-left-radius: 0px;}");
@@ -3376,7 +3458,7 @@ void ICM::on_rBut_clicked()
 
 void ICM::on_lBut_clicked()
 {
-	m_strRLC = "Inductance";
+//	m_strRLC = "Inductance";
 	ui->selectFrame->setGeometry(701,154,10,60);
 	ui->rBox->setStyleSheet("QGroupBox{border:1px solid white; background-color: #dadbde;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde); border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;}");
 	ui->lBox->setStyleSheet("QGroupBox{border:1px solid white; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde);border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;border-top:1px solid gray; border-top-right-radius: 0px; border-top-left-radius: 0px;}");
@@ -3387,7 +3469,7 @@ void ICM::on_lBut_clicked()
 
 void ICM::on_cBut_clicked()
 {
-	m_strRLC = "Capacitance";
+//	m_strRLC = "Capacitance";
 	ui->selectFrame->setGeometry(701,254,10,60);
 	ui->rBox->setStyleSheet("QGroupBox{border:1px solid white; background-color: #dadbde;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde); border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;}");
 	ui->lBox->setStyleSheet("QGroupBox{border:1px solid white; background-color: #dadbde;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde);border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;border-top:1px solid gray; border-top-right-radius: 0px; border-top-left-radius: 0px;}");
@@ -3403,20 +3485,29 @@ void ICM::on_ACDC_clicked()
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Frequency Sweep~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void ICM::on_graphBut_clicked()
 {
-    if(panelStatus.gPanel){
-        panelStatus.gPanel=false;
-        panelStatus.fPanel=true;
+    if(graphWidget->isVisible()){
+     	graphWidget->setVisible(false);
+     	if(panelStatus.dPanel){
+     		ui->frontPanel_ICM->setVisible(false);
+     		ui->debugPanel->setVisible(true);
+     	}
+     	else{
+     		ui->frontPanel_ICM->setVisible(true);
+     		ui->debugPanel->setVisible(false);
+     	}
     }
-    else{
-        panelStatus.gPanel=true;
-        panelStatus.fPanel=false;
-    }
+     else{
+        ui->frontPanel_ICM->setVisible(false);
+        ui->debugPanel->setVisible(false);
+     	graphWidget->setVisible(true);
+     	graphLoop=0;
+     }
 }
 
 void ICM::on_sweep_capture_clicked()
 {
 
-
+/*
 	x.clear();y.clear();
 	QFile outFile("ICMGraph.log");
 	//    if (outFile.size() > 1298368)
@@ -3427,7 +3518,7 @@ void ICM::on_sweep_capture_clicked()
 	int loop=0;
 	xSize = ySize = m_nSweepEndFrequency;
 
-	/*if(ui->rangeLabel->text().endsWith("pF")){
+	if(ui->rangeLabel->text().endsWith("pF")){
                 ySize = convertToValues(ui->rangeLabel->text())*10e12;
         }else if(ui->rangeLabel->text().endsWith("nF")){
                 ySize = convertToValues(ui->rangeLabel->text())*10e9;
@@ -3439,7 +3530,7 @@ void ICM::on_sweep_capture_clicked()
                 ySize = convertToValues(ui->rangeLabel->text());
         }else if(ui->rangeLabel->text().endsWith("ME")){
                 ySize = convertToValues(ui->rangeLabel->text());
-        }*/
+        }
 
 	setupSimpleDemo(ui->customPlot);
 	qDebug()<<"xSize"<<xSize<<"ySize"<<ySize;
@@ -3475,56 +3566,58 @@ void ICM::on_sweep_capture_clicked()
 		QApplication::processEvents();
 	}
 	plotSimpleDemo(ui->customPlot);
-	ui->customPlot->replot();
+	ui->customPlot->replot();*/
 }
 
 void ICM::on_sweep_startfreq_valueChanged(int value )
 {
-	m_nSweepStartFrequency2=value;
-	m_nSweepStartFrequency=m_nSweepStartFrequency2*m_nSweepStartFrequencyUnit;
+/*	m_nSweepStartFrequency2=value;
+	m_nSweepStartFrequency=m_nSweepStartFrequency2*m_nSweepStartFrequencyUnit;*/
 }
 
 void ICM::on_sweep_startfreq_unit_currentIndexChanged(int index)
 {
+/*
 	if(index==0)		m_nSweepStartFrequencyUnit=1;
 	else if(index==1)	m_nSweepStartFrequencyUnit=1000;
 	m_nSweepStartFrequency=m_nSweepStartFrequency2*m_nSweepStartFrequencyUnit;
 
+*/
 
 }
 
 void ICM::on_sweep_endfreq_valueChanged(int value )
 {
-	m_nSweepEndFrequency2=value;
-	m_nSweepEndFrequency=m_nSweepEndFrequency2*m_nSweepEndFrequencyUnit;
+/*	m_nSweepEndFrequency2=value;
+	m_nSweepEndFrequency=m_nSweepEndFrequency2*m_nSweepEndFrequencyUnit;*/
 }
 
 void ICM::on_sweep_endfreq_unit_currentIndexChanged(int index)
 {
-	if(index==0)		m_nSweepEndFrequencyUnit=1;
+/*	if(index==0)		m_nSweepEndFrequencyUnit=1;
 	else if(index==1)	m_nSweepEndFrequencyUnit=1000;
-	m_nSweepEndFrequency=m_nSweepEndFrequency2*m_nSweepEndFrequencyUnit;
+	m_nSweepEndFrequency=m_nSweepEndFrequency2*m_nSweepEndFrequencyUnit;*/
 
 }
 
 void ICM::on_sweep_interval_valueChanged(int value)
 {
-	m_nSweepInterval2=value;
-	m_nSweepInterval=m_nSweepInterval2*m_nSweepIntervalUnit;
+/*	m_nSweepInterval2=value;
+	m_nSweepInterval=m_nSweepInterval2*m_nSweepIntervalUnit;*/
 }
 
 void ICM::on_sweep_interval_unit_currentIndexChanged(int index)
 {
-	if(index==0)		m_nSweepIntervalUnit=1;
+/*	if(index==0)		m_nSweepIntervalUnit=1;
 	else if(index==1)	m_nSweepIntervalUnit=1000;
-	m_nSweepInterval=m_nSweepInterval2*m_nSweepIntervalUnit;
+	m_nSweepInterval=m_nSweepInterval2*m_nSweepIntervalUnit;*/
 }
 
 
 
 void ICM::on_butZoom_clicked()
 {
-    QPropertyAnimation *animation = new QPropertyAnimation(ui->graphPlot, "geometry");
+/*    QPropertyAnimation *animation = new QPropertyAnimation(ui->graphPlot, "geometry");
     animation->setEasingCurve(QEasingCurve::Linear);
     animation->setDuration(200);
     QPropertyAnimation *animation2 = new QPropertyAnimation(ui->graphPlotting, "geometry");
@@ -3547,5 +3640,5 @@ void ICM::on_butZoom_clicked()
         animation2->setEndValue(QRect(10,434,690,147));
         animation->start();
         animation2->start();
-    }
+    }*/
 }

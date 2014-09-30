@@ -32,7 +32,7 @@ void PTApplicationCardPlugin::setDeviceName(APP_SLOTS pSlotNo)
 	mapDeviceString.insert(1,"/dev/emics3");
 	mapDeviceString.insert(2,"/dev/emics4");
 	mapDeviceString.insert(3,"/dev/emics5");
-	m_strdevice = mapDeviceString.value(0);
+//	m_strdevice = mapDeviceString.value(0);
 	//qDebug() <<"Selected Device:" << m_strdevice;
 }
 
@@ -41,7 +41,7 @@ void PTApplicationCardPlugin::enumerateAPPCard()
     tempAddr=0;
     baseAddr = 0x0000000;
 
-    for(int l_nAppcardIndex=1;l_nAppcardIndex<4;l_nAppcardIndex++)
+    for(int l_nAppcardIndex=0;l_nAppcardIndex<4;l_nAppcardIndex++)
     {
     	int l_nAppFD = open(mapDeviceString.value(l_nAppcardIndex),O_RDWR);
     	if (l_nAppFD < 0)

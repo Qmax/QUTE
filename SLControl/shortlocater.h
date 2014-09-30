@@ -152,6 +152,7 @@ public slots:
 
 private slots:
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    void on_SpinSamples_valueChanged(int );
     void on_selectApp_clicked();
     void on_graph_clicked();
     void on_newLib_clicked();

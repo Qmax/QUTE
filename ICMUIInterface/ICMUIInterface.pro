@@ -17,7 +17,8 @@ SOURCES += qcustomplot.cpp \
     icm.cpp \
     pticminterface.cpp \
     settings.cpp
-HEADERS += qcustomplot.h \
+HEADERS += DIGrapherInterface.h \
+    qcustomplot.h \
     serialdevice.h \
     display.h \
     GPIOInterfaces.h \
