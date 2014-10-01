@@ -110,8 +110,8 @@ public:
     	 switch(drvmode){
     	 case STARTDRIVE:
     		 IAppCard->startDrive(1);
-    		 setAmplitude(m_nAmplitude);
-    		 //qDebug()<<"HardwareInterface Start Drive";
+//    		 setAmplitude(m_nAmplitude);
+    		 qDebug()<<"HardwareInterface Start Drive";
     		 break;
     	 case STOPDRIVE:
 
@@ -130,7 +130,7 @@ public:
 //    		  else{
 //    			  IAppCard->stopDrive();
 //    		  }
-    		 //qDebug()<<"HardwareInterface Stop Drive";
+    		 qDebug()<<"HardwareInterface Stop Drive";
     		 break;
     	 }
      }
@@ -140,7 +140,7 @@ public:
     	     		 DDSLoop=false;
     	     	     m_nDDSCycle=(1<<8)|0x1;
     	     	     IAppCard->writeRegister(m_nDDSCycle,0x0068);
-    	     		 //qDebug()<<"HardwareInterface Single Drive";
+    	     		 qDebug()<<"HardwareInterface Single Drive";
     	     		 break;
     	     	 case CONTINUOUS_W:
 
@@ -153,13 +153,13 @@ public:
                        m_nDDSCycle=(1<<8)|0x1;
     	    	       temp=m_nDDSCycle|0x80;
     	    	       IAppCard->writeRegister(temp,0x0068);
-    	    	       //qDebug()<<"HardwareInterface Continuous DDS Drive";
+    	    	       qDebug()<<"HardwareInterface Continuous DDS Drive";
     	     		 }
 
     	     		 break;
     	    	 case BURST_W:
     	    		 DDSLoop=false;
-    	    		 //qDebug()<<"HardwareInterface Burst Drive";
+    	    		 qDebug()<<"HardwareInterface Burst Drive";
     	    		 break;
 
     	 }

@@ -57,7 +57,7 @@ double CalibrationInterface::SerialDACCalibration(short range){
 //	qDebug()<<"Inside SerialDACCalibration";
 //    Mapping(SERIALDAC);
     double Vout,Vx;
-//    readXmlFile("CurrentCalibration.xml","CurrentRange");
+    readXmlFile("CurrentCalibration.xml","CurrentRange");
 
 //    qDebug()<<"Force Current :"<<Ix.value(range)<<"Feedback Resistance :"<<Rf.value(range);
 
