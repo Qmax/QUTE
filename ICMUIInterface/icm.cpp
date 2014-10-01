@@ -23,7 +23,7 @@ QMainWindow(parent), ui(new Ui::ICM) {
 	//	IPsoc->switchFly();
 	//	m_bExternal = true;
 	IPsoc->icmMeasurement();
-	m_bExternal = false;
+	m_bExternal = true;
 	on_pushButton_clicked();//internal selection
 
 	ui->label_X->setVisible(false);

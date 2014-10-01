@@ -27,7 +27,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QLabel>
-
+#include "PTDACFInterface.h"
 #include "AD5318TestJigInterface.h"
 
 #define MAXCOUNT 5
@@ -71,6 +71,7 @@ protected:
     PTSplashScreen *ISplash;
 
     IAD5318TestJigInterface *AD5318;
+    IPTDACFInterface *DACFValues;
 
 
     // Objects
@@ -187,7 +188,8 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
-	void on_AD5318Panel_clicked();
+        void on_DACFValues_clicked();
+ void on_AD5318Panel_clicked();
     void on_butZoom_clicked();
     void on_yAxisBox_valueChanged(double );
     void on_xAxisBox_valueChanged(double );

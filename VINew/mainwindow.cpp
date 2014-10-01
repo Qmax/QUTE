@@ -3553,9 +3553,17 @@ void MainWindow::on_butZoom_clicked()
 void MainWindow::on_AD5318Panel_clicked()
 {
 	QWidget *newwidget = new QWidget();
-//	newwidget->setGeometry(0,0,800,500);
 	QPluginLoader loaderad5318("libAD5318.so", this);
 	AD5318 = qobject_cast<IAD5318TestJigInterface*> (loaderad5318.instance());
 	AD5318->setAD5318(newwidget);
 	newwidget->show();
+}
+
+void MainWindow::on_DACFValues_clicked()
+{
+    QWidget *newwidget2 = new QWidget();
+    QPluginLoader loader("libPTDACFManual.so", this);
+    DACFValues = qobject_cast<IPTDACFInterface*>(loader.instance());
+    newwidget2=DACFValues->getPTDACF();
+    newwidget2->show();
 }

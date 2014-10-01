@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>OffsetWindowClass</class>
+ <widget class="QWidget" name="OffsetWindowClass">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>529</width>
+    <height>117</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Select DAC</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QLineEdit{border-width: 2px;border-style: outset;border-color: gray; border-radius: 2px;  padding: 0 8px;     background: black;     selection-background-color: yellow;   color:white;     font: 14px;}
+
+QLineEdit:disabled{border-width: 2px;border-style: outset;border-color: gray; border-radius: 2px;  padding: 0 8px;     background: gray;     selection-background-color: yellow;   color:white;     font: 14px;}
+
+QGroupBox{ 
+background:qlineargradient(
+x1: 0, y1: 0, x2: 1, y2: 1, 
+stop: 0 #a9aa96,stop: 0.2 #bab9a9,
+stop: 0.4 #d8d7c8,stop: 0.6 #a9aa96, 
+stop: 0.8 #bab9a9,stop: 1 #717164); 
+border:2px solid white;
+border-radius:20px; }
+ QGroupBox::title {
+	border:rgba(0,0,0,0);
+	border-radius:8px;
+     subcontrol-origin: margin;
+     subcontrol-position: top middle; 
+     padding: 0 20px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #d8dff2, stop: 1 #FFFFFF);
+ }
+QPushButton{
+color:white;
+border: 1px solid #2D5059;
+background-color: 
+qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,
+stop: 0 #1A74DB, 
+stop: 0.6 #5293DE, 
+stop:1 #FFFFFF);
+}
+
+QComboBox{border: 2px solid gray;border-radius: 10px;color:black;}
+
+QToolButton {border: 1px solid black; border-radius: 5px;font:18px bold;background-color:rgba(170,170,170,255);}
+
+QSpinBox{border: 2px solid gray;border-radius: 10px;color:black;}
+
+QDoubleSpinBox{border: 2px solid gray;border-radius: 10px;color:black;}
+
+QCheckBox{font: bold 14px;} QCheckBox::indicator {width:20px;height:20px;border: 2px solid black;border-radius:1; } QCheckBox::indicator::unchecked {background-color:white;}QCheckBox::indicator:unchecked:hover {background-color:white; }
+QCheckBox::indicator:unchecked:pressed {	background-color:white; }
+QCheckBox::indicator::checked {background-color:#f2a400;}  QCheckBox::indicator:checked:hover {background-color:#f2a400;}
+QCheckBox::indicator:checked:pressed {	background-color:#f2a400;}
+
+QLabel{font:bold 14px;color:black;}
+QRadioButton{
+font:14px;
+color:white;
+}
+ QRadioButton::indicator {
+     width: 15px;
+     height:15px;
+   border: 1px solid black;
+	 border-radius:8px;
+
+ }
+ QRadioButton::indicator::unchecked {
+		background-color:white;
+     }
+
+     QRadioButton::indicator:unchecked:hover {
+		background-color:white;
+     }
+
+     QRadioButton::indicator:unchecked:pressed {
+		background-color:white;
+     }
+
+     QRadioButton::indicator::checked {
+		background-color:#f2a400;
+     }
+
+     QRadioButton::indicator:checked:hover {
+		background-color:#f2a400;
+     }
+
+     QRadioButton::indicator:checked:pressed {
+		background-color:#f2a400;
+     }
+
+</string>
+  </property>
+  <widget class="QGroupBox" name="m_tabDAC">
+   <property name="geometry">
+    <rect>
+     <x>1</x>
+     <y>-6</y>
+     <width>531</width>
+     <height>125</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>-1</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QGroupBox {
+   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #4a79b5, stop: 1 #0f0f0f);
+/*                                       stop: 0 #3a5976, stop: 1 #000000);*/
+     border: 2px solid gray;
+     border-radius: 5px;
+     margin-top: 1ex; /* leave space at the top for the title */
+	 font:bold 12px;	
+ }
+
+ QGroupBox::title {
+	border:2px solid white;
+	border-radius:5px;
+     subcontrol-origin: margin;
+     subcontrol-position: top left; /* position at the top center */
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #d8dff2, stop: 1 #FFFFFF);
+ }
+QLabel{
+	color:white;
+}</string>
+   </property>
+   <property name="title">
+    <string/>
+   </property>
+   <widget class="QDoubleSpinBox" name="dblDACSpin">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>30</y>
+      <width>101</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="decimals">
+     <number>4</number>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>17</y>
+      <width>387</width>
+      <height>97</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QRadioButton" name="m_rbDACA">
+       <property name="text">
+        <string>DAC A
+(DSO1-OFF)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QRadioButton" name="m_rbDACC">
+       <property name="text">
+        <string>DAC C
+(DSO 2-OFF)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QRadioButton" name="m_rbDACE">
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="Text">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="Text">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="Text">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
+       <property name="text">
+        <string>DAC E
+(DSO-E-T-OFF)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QRadioButton" name="m_rbDACB">
+       <property name="text">
+        <string>DAC B
+(DSO1-T-OFF)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" colspan="2">
+      <widget class="QRadioButton" name="m_rbDACD">
+       <property name="text">
+        <string>DAC D
+(DSO 2-T-OFF)</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

@@ -15,5 +15,6 @@
         <file>res/pb-red.png</file>
         <file>res/pb-green.png</file>
         <file>res/awg.png</file>
+        <file>res/pb-gray.png</file>
     </qresource>
 </RCC>

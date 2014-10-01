@@ -193,10 +193,22 @@ void MainWindow::openWaveDataWindow(){
     m_objWaveData->exec();
     qDebug()<<"Samples:"<<m_nWaveSamples<<"Start Tick:"<<m_nWaveStartTick<<"Stop Tick:"<<m_nWaveStopTick<<"DutyCycle:"<<m_nWaveDutyCycle;
 }
-void MainWindow::RxSamples(int data){m_nWaveSamples=data;qDebug()<<"Rxd m_nWaveSamples :"<<m_nWaveSamples;}
-void MainWindow::RxStartTick(int data){m_nWaveStartTick=data;qDebug()<<"Rxd m_nWaveStartTick :"<<m_nWaveStartTick;}
-void MainWindow::RxStopTick(int data){m_nWaveStopTick=data;qDebug()<<"Rxd m_nWaveStopTick :"<<m_nWaveStopTick;}
-void MainWindow::RxDutyCycle(int data){m_nWaveDutyCycle=data;qDebug()<<"Rxd m_nWaveDutyCycle :"<<m_nWaveDutyCycle;}
+void MainWindow::RxSamples(int data){
+	m_nWaveSamples=data;
+	qDebug()<<"Rxd m_nWaveSamples :"<<m_nWaveSamples;
+}
+void MainWindow::RxStartTick(int data){
+	m_nWaveStartTick=data;
+	qDebug()<<"Rxd m_nWaveStartTick :"<<m_nWaveStartTick;
+}
+void MainWindow::RxStopTick(int data){
+	m_nWaveStopTick=data;
+	qDebug()<<"Rxd m_nWaveStopTick :"<<m_nWaveStopTick;
+}
+void MainWindow::RxDutyCycle(int data){
+	m_nWaveDutyCycle=data;
+	qDebug()<<"Rxd m_nWaveDutyCycle :"<<m_nWaveDutyCycle;
+}
 
 void MainWindow::customEvent(QEvent *e) {
 

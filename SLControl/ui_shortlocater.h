@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'shortlocater.ui'
 **
-** Created: Mon Sep 29 15:27:11 2014
+** Created: Tue Sep 30 19:43:50 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -1653,7 +1653,7 @@ public:
         HAADC_WIDGET->setStyleSheet(QString::fromUtf8(""));
         frontPanel_SHLOC = new QFrame(ShortLocaterClass);
         frontPanel_SHLOC->setObjectName(QString::fromUtf8("frontPanel_SHLOC"));
-        frontPanel_SHLOC->setGeometry(QRect(800, 434, 693, 160));
+        frontPanel_SHLOC->setGeometry(QRect(10, 434, 693, 160));
         frontPanel_SHLOC->setStyleSheet(QString::fromUtf8("/*QFrame{border:1px solid black; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #dadbff);border-radius:10px;}\n"
 "QLabel{border:1px solid rgba(0,0,0,0);}*/\n"
 "QFrame {\n"

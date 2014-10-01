@@ -32,5 +32,6 @@
         <file>res/settings.png</file>
         <file>res/Stop.png</file>
         <file>res/chip-icon2.png</file>
+        <file>res/chip-icon3.png</file>
     </qresource>
 </RCC>

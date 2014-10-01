@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'ptdmmlibinterface.h'
 **
-** Created: Fri Sep 12 17:21:13 2014
+** Created: Tue Sep 30 19:43:21 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!

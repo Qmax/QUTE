@@ -104,12 +104,12 @@ void MainWindow::InitializeHardwareLibs(){
         QPluginLoader backplane("libBackPlaneInterface.so",this);
         IBackPlane = qobject_cast<IntefaceBackPlane*>(backplane.instance());
         IBackPlane->InitializeBpObject();
-    //    qDebug()<<"BackPlane initialized";
+        qDebug()<<"BackPlane initialized";
 
-        QPluginLoader psoc("libPTPsocInterface.so",this);
+        QPluginLoader psoc("libPTPsocInterface2.so",this);
         IPsoc = qobject_cast<IPSOCCOMMUNICATION*>(psoc.instance());
         IPsoc->openSerial();
-   //     qDebug()<<"PSoC initialized";
+        qDebug()<<"PSoC initialized";
 
         // GPIO Events
         QPluginLoader loader3("libGPIOEventInterface.so",this);
@@ -1756,11 +1756,13 @@ void MainWindow::on_cmbLMHVoltage_currentIndexChanged(int index)
                 }
         if(m_nChannel1Value == 1)
         {
-            IPsoc->FG_Scope12(0,m_objDSODataSettings->getFPAtteunationFactor(CHANNEL_1),0xF);
+        	//commented by rrv sep30,2014
+//            IPsoc->FG_Scope12(0,m_objDSODataSettings->getFPAtteunationFactor(CHANNEL_1),0xF);
         }
         if(m_nChannel2Value == 1)
         {
-            IPsoc->FG_Scope12(0,0xF,m_objDSODataSettings->getFPAtteunationFactor(CHANNEL_2));
+        	//commented by rrv sep30,2014
+//            IPsoc->FG_Scope12(0,0xF,m_objDSODataSettings->getFPAtteunationFactor(CHANNEL_2));
         }
     	ui->dblVerticalTrigger->setMaximum(m_objLMH6518Component->getVoltPerDivision(index)*4);
     	ui->dblVerticalTrigger->setMinimum(m_objLMH6518Component->getVoltPerDivision(index)*-4);

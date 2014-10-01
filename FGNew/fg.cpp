@@ -344,8 +344,13 @@ void FG::InitialiseLineEdit(){
     connect(burstRateEdit,SIGNAL(focussed(bool)),burstRateLabel,SLOT(setlabelFocus(bool)));
     connect(burstRateEdit,SIGNAL(focussed(int)),this,SLOT(callLineEditInput(int)));
 
-    burstCountEdit->setEnabled(false);burstCountLabel->setEnabled(false);
-    burstRateEdit->setEnabled(false);burstRateLabel->setEnabled(false);
+    burstCountEdit->setEnabled(false);
+    burstCountEdit->stylesheetSet("color: rgb(255, 255, 255);""background-color: gray;border:1px solid rgba(100,100,100,255);border-radius:5px;");
+    burstCountLabel->setEnabled(false);
+
+    burstRateEdit->setEnabled(false);
+    burstRateEdit->stylesheetSet("color: rgb(255, 255, 255);""background-color: gray;border:1px solid rgba(100,100,100,255);border-radius:5px;");
+    burstRateLabel->setEnabled(false);
 
 }
 void FG::callLineEditInput(int leFocussed){
@@ -368,28 +373,28 @@ void FG::SetFrequency(double l_nFrequency){
         if(l_nFrequency<((1/m_nBurstRate)*2))
             showMessageBox(true,false,"Value is lesser than minimum value","Ok","");
         else{
-            if(m_strWaveType=="TRIANGLE"){
-                hwInterface->setFrequency(l_nFrequency*2);
-                m_nFrequency=l_nFrequency*2;
-                m_nPeriod=1/m_nFrequency;
-            }
-            else{
+//            if(m_strWaveType=="TRIANGLE"){
+//                hwInterface->setFrequency(l_nFrequency*2);
+//                m_nFrequency=l_nFrequency*2;
+//                m_nPeriod=1/m_nFrequency;
+//            }
+//            else{
                 hwInterface->setFrequency(l_nFrequency);
                 m_nFrequency=l_nFrequency;
                 m_nPeriod=1/m_nFrequency;
-            }
+//            }
         }
     }else{
-        if(m_strWaveType=="TRIANGLE"){
-            hwInterface->setFrequency(l_nFrequency*2);
-            m_nFrequency=l_nFrequency*2;
-            m_nPeriod=1/m_nFrequency;
-        }
-        else{
+//        if(m_strWaveType=="TRIANGLE"){
+//            hwInterface->setFrequency(l_nFrequency*2);
+//            m_nFrequency=l_nFrequency*2;
+//            m_nPeriod=1/m_nFrequency;
+//        }
+//        else{
             hwInterface->setFrequency(l_nFrequency);
             m_nFrequency=l_nFrequency;
             m_nPeriod=1/m_nFrequency;
-        }
+//        }
     }
 }
 void FG::clickedPRSCR() {
@@ -553,9 +558,9 @@ QString FG::convertToUnits(double l_nvalue){
         value=value*1000000000;  unit="n";
     }
     if(l_nvalue>0)
-        return (QString::number(value,'f',3)+unit);
+        return (QString::number(value,'f',0)+unit);
     if(l_nvalue<0)
-        return (QString::number((value*-1),'f',3)+unit);
+        return (QString::number((value*-1),'f',0)+unit);
 }
 double FG::convertToValues(QString input){
 
@@ -720,16 +725,23 @@ void FG::changeEvent(QEvent *e) {
 //}
 void FG::on_MANBut_clicked()
 {
-    if(m_bBurst==true)
-        hwInterface->setPatternLoop(true);
-    else
-        hwInterface->setPatternLoop(false);
+//    if(m_bBurst==true)
+//        hwInterface->setPatternLoop(true);
+//    else
+//        hwInterface->setPatternLoop(false);
     if(m_bContinuous!=true){
         HighlightButtons(MANUAL);
         hwInterface->Drive(STARTDRIVE);
         for (int i = 0; i < 500; i++){
             IGPIOPin->illuminateRunStopButton(0);
         }	IGPIOPin->illuminateRunStopButton(1);
+
+        if(m_strWaveType=="TRIANGLE"){
+            SetFrequency(m_nFrequency);
+            hwInterface->setBurstCount(2);
+        }else{
+            hwInterface->setBurstCount(1);
+        }
     }
 
 }
@@ -739,15 +751,23 @@ void FG::on_INTBut_clicked()
         hwInterface->setPatternLoop(true);
 //        callLineEditInput(9);
         hwInterface->setBurstRate(m_nPeriod*2);
+        burstRateEdit->setText((convertToUnits(convertToValues(lineEdit[PERIOD]->text())*2))+"sec");
         HighlightButtons(INT);
         hwInterface->Drive(STARTDRIVE);
         for (int i = 0; i < 500; i++){
             IGPIOPin->illuminateRunStopButton(0);
         }	IGPIOPin->illuminateRunStopButton(1);
+
+        ui->MANBut->setEnabled(false);
+        ui->modeBox->setEnabled(false);
+
     }else{
             hwInterface->setPatternLoop(false);
             HighlightButtons(MANUAL);
             hwInterface->Drive(STOPDRIVE);
+
+            ui->MANBut->setEnabled(true);
+            ui->modeBox->setEnabled(true);
     }
 
 }
@@ -943,9 +963,13 @@ void FG::HighlightButtons(int but){
         ui->selectFrame->setGeometry(701,454,10,60);
 
     case SINGLE:
-        burstCountEdit->setEnabled(false);burstCountLabel->setEnabled(false);
-        burstRateEdit->setEnabled(false); burstRateLabel->setEnabled(false);
-        burstCountEdit->setText("1");     hwInterface->setBurstCount(1);
+        burstCountEdit->setEnabled(false);
+        burstCountEdit->stylesheetSet("color: rgb(255, 255, 255);""background-color: gray;border:1px solid rgba(100,100,100,255);border-radius:5px;");
+        burstCountLabel->setEnabled(false);
+        burstRateEdit->setEnabled(false);
+        burstRateEdit->stylesheetSet("color: rgb(255, 255, 255);""background-color: gray;border:1px solid rgba(100,100,100,255);border-radius:5px;");
+        burstRateLabel->setEnabled(false);
+        burstCountEdit->setText("1");
 
         m_bContinuous=false;m_bBurst=false;	m_bSingle=true;m_bGate=false;
         m_bManual=true;m_bInternal=false;m_bExternal=false;
@@ -959,8 +983,12 @@ void FG::HighlightButtons(int but){
 
         break;
     case CONTINUOUS:
-        burstCountEdit->setEnabled(false);burstCountLabel->setEnabled(false);
-        burstRateEdit->setEnabled(false); burstRateLabel->setEnabled(false);
+        burstCountEdit->setEnabled(false);
+        burstCountEdit->stylesheetSet("color: rgb(255, 255, 255);""background-color: gray;border:1px solid rgba(100,100,100,255);border-radius:5px;");
+        burstCountLabel->setEnabled(false);
+        burstRateEdit->setEnabled(false);
+        burstRateEdit->stylesheetSet("color: rgb(255, 255, 255);""background-color: gray;border:1px solid rgba(100,100,100,255);border-radius:5px;");
+        burstRateLabel->setEnabled(false);
 
         m_bContinuous=true;m_bBurst=false;	m_bSingle=false;m_bGate=false;
         m_bManual=false;m_bInternal=false;m_bExternal=false;
@@ -974,8 +1002,12 @@ void FG::HighlightButtons(int but){
 
         break;
     case BURST:
-        burstCountEdit->setEnabled(true);burstCountLabel->setEnabled(true);
-        burstRateEdit->setEnabled(false); burstRateLabel->setEnabled(false);
+        burstCountEdit->setEnabled(true);
+        burstCountEdit->stylesheetSet("color: rgb(255, 255, 255);""background-color: black;border:1px solid rgba(100,100,100,255);border-radius:5px;");
+        burstCountLabel->setEnabled(true);
+        burstRateEdit->setEnabled(false);
+        burstRateEdit->stylesheetSet("color: rgb(255, 255, 255);""background-color: gray;border:1px solid rgba(100,100,100,255);border-radius:5px;");
+        burstRateLabel->setEnabled(false);
         burstCountEdit->setText("2");     hwInterface->setBurstCount(2);
 
         m_bContinuous=false;m_bBurst=true;m_bSingle=false;m_bGate=false;
@@ -1002,7 +1034,9 @@ void FG::HighlightButtons(int but){
         break;
     case MANUAL:
 
-        burstRateEdit->setEnabled(false); burstRateLabel->setEnabled(false);
+        burstRateEdit->setEnabled(false);
+        burstRateEdit->stylesheetSet("color: rgb(255, 255, 255);""background-color: gray;border:1px solid rgba(100,100,100,255);border-radius:5px;");
+        burstRateLabel->setEnabled(false);
         m_bManual=true;m_bInternal=false;m_bExternal=false;
 
 //        ui->MANBut->setStyleSheet(knobON);
@@ -1011,7 +1045,9 @@ void FG::HighlightButtons(int but){
         break;
     case INT:
 
-            burstRateEdit->setEnabled(true); burstRateLabel->setEnabled(true);
+            burstRateEdit->setEnabled(true);
+            burstRateEdit->stylesheetSet("color: rgb(255, 255, 255);""background-color: black;border:1px solid rgba(100,100,100,255);border-radius:5px;");
+            burstRateLabel->setEnabled(true);
 
             m_bManual=false;m_bInternal=true;m_bExternal=false;
 

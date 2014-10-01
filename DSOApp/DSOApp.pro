@@ -45,3 +45,5 @@ FORMS += mainwindow.ui \
     channelwidget.ui \
     dialwidget.ui
 RESOURCES += dso.qrc
+DESTDIR = /exports/nfsroot-ccwmx51js/home
+

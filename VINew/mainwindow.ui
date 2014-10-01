@@ -138,7 +138,7 @@ border-top:1px solid gray; border-top-right-radius: 0px;
       <string/>
      </property>
      <property name="icon">
-      <iconset>
+      <iconset resource="vi.qrc">
        <normaloff>:/res/Delete.png</normaloff>:/res/Delete.png</iconset>
      </property>
      <property name="iconSize">
@@ -463,7 +463,7 @@ background-color:grey
       <string/>
      </property>
      <property name="icon">
-      <iconset>
+      <iconset resource="vi.qrc">
        <normaloff>:/res/Probe.png</normaloff>:/res/Probe.png</iconset>
      </property>
      <property name="iconSize">
@@ -584,7 +584,7 @@ border-top:1px solid gray; border-top-right-radius: 0px;
       <string/>
      </property>
      <property name="icon">
-      <iconset>
+      <iconset resource="vi.qrc">
        <normaloff>:/res/Store.png</normaloff>:/res/Store.png</iconset>
      </property>
      <property name="iconSize">
@@ -686,7 +686,7 @@ border-top:1px solid gray; border-top-right-radius: 0px;
       <string/>
      </property>
      <property name="icon">
-      <iconset>
+      <iconset resource="vi.qrc">
        <normaloff>:/res/Calibar.png</normaloff>:/res/Calibar.png</iconset>
      </property>
      <property name="iconSize">
@@ -760,7 +760,7 @@ border-top:1px solid gray; border-top-right-radius: 0px;
       <string/>
      </property>
      <property name="icon">
-      <iconset>
+      <iconset resource="vi.qrc">
        <normaloff>:/res/Start.png</normaloff>:/res/Start.png</iconset>
      </property>
      <property name="iconSize">
@@ -843,7 +843,7 @@ background-color:rgba(0,0,0,0)</string>
        <string/>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="vi.qrc">
         <normaloff>:/res/up-icon.png</normaloff>:/res/up-icon.png</iconset>
       </property>
       <property name="iconSize">
@@ -874,7 +874,7 @@ background-color:rgba(0,0,0,0);</string>
        <string/>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="vi.qrc">
         <normaloff>:/res/down-icon.png</normaloff>:/res/down-icon.png</iconset>
       </property>
       <property name="iconSize">
@@ -4347,7 +4347,7 @@ background-color:grey
 }</string>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="vi.qrc">
         <normaloff>:/res/settings.png</normaloff>:/res/settings.png</iconset>
       </property>
       <property name="iconSize">
@@ -4381,7 +4381,7 @@ border:1px solid rgba(0,0,0,0);
        <string/>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="vi.qrc">
         <normaloff>:/res/pressedOrange.png</normaloff>:/res/pressedOrange.png</iconset>
       </property>
       <property name="iconSize">
@@ -8029,7 +8029,7 @@ border:1px solid rgba(0,0,0,0);
        <string/>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="vi.qrc">
         <normaloff>:/res/48L.png</normaloff>:/res/48L.png</iconset>
       </property>
       <property name="iconSize">
@@ -8068,7 +8068,7 @@ border:1px solid rgba(0,0,0,0);
        <string/>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="vi.qrc">
         <normaloff>:/res/48M.png</normaloff>:/res/48M.png</iconset>
       </property>
       <property name="iconSize">
@@ -8108,7 +8108,7 @@ border:1px solid rgba(0,0,0,0);
        <string/>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="vi.qrc">
         <normaloff>:/res/48R.png</normaloff>:/res/48R.png</iconset>
       </property>
       <property name="iconSize">
@@ -8286,7 +8286,7 @@ background-color:grey
        <string/>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="vi.qrc">
         <normaloff>:/res/settings.png</normaloff>:/res/settings.png</iconset>
       </property>
       <property name="iconSize">
@@ -9848,8 +9848,44 @@ QDoubleSpinBox::down-button {
       <string/>
      </property>
      <property name="icon">
-      <iconset>
+      <iconset resource="vi.qrc">
        <normaloff>:/res/chip-icon2.png</normaloff>:/res/chip-icon2.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>48</width>
+       <height>70</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="DACFValues">
+     <property name="geometry">
+      <rect>
+       <x>567</x>
+       <y>94</y>
+       <width>60</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {border: 1px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0);color:blue;
+}
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="vi.qrc">
+       <normaloff>:/res/chip-icon3.png</normaloff>:/res/chip-icon3.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -11879,6 +11915,8 @@ color: rgba(0, 0, 0, 0); }</string>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="vi.qrc"/>
+ </resources>
  <connections/>
 </ui>

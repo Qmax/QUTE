@@ -97,8 +97,8 @@ DMM::DMM(QWidget *parent) :
     graphWidget = DMMGraph->getDIGraph();
     graphWidget->setParent(this);
     graphWidget->setVisible(false);
-    DMMGraph->setGraphGeometry(0,425,713,178);
-    DMMGraph->setZoomOutGraphGeometry(0,425,713,178);
+    DMMGraph->setGraphGeometry(0,424,713,180);
+    DMMGraph->setZoomOutGraphGeometry(0,424,713,180);
     DMMGraph->setZoomInGraphGeometry(0,192,713,412);
     DMMGraph->setGraphCount(3);
     DMMGraph->setLegendVisible(false);
@@ -1617,7 +1617,8 @@ void DMM::AutoRange() {
             buttonPressed(12);
         else {
             if (display.retval >= 0) {
-                if (((display.retval > 51.0) && nVoltageCur == 0)
+                qDebug()<<"Autorange-Voltage";
+                if (((display.retval >=51.0) && nVoltageCur == 0)
                     || ((display.retval >= 510.0) && nVoltageCur == 1)
                     || ((display.retval >= 5100.0) && nVoltageCur == 2)
                     || ((display.retval >= 51000.0) && nVoltageCur == 3)

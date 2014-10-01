@@ -47,11 +47,13 @@ class QmaxLineEdit:public QLineEdit{
 public:
     QmaxLineEdit(int pIndex,QWidget *p=0):QLineEdit(p){
         m_nIndex=pIndex;
-        setStyleSheet("color: rgb(255, 255, 255);""background-color: black;border:1px solid rgba(100,100,100,255);border-radius:5px;");
+        stylesheetSet("color: rgb(255, 255, 255);""background-color: black;border:1px solid rgba(100,100,100,255);border-radius:5px;");
         setFrame(false);
         setFont(QFont("DejaVu Sans",14,50,false));
     }
-
+    void stylesheetSet(QString style){
+    	setStyleSheet(style);
+    }
 protected:
     virtual void focusInEvent(QFocusEvent *e){
         QLineEdit::focusInEvent(e);

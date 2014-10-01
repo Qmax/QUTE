@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'offset.ui'
 **
-** Created: Thu Sep 25 11:27:08 2014
+** Created: Tue Sep 30 19:43:50 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

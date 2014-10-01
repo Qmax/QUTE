@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Fri Sep 19 18:15:31 2014
+** Created: Tue Sep 30 16:02:31 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      31,   14, // methods
+      32,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,43 +32,44 @@ static const uint qt_meta_data_MainWindow[] = {
 
  // slots: signature, parameters, type, tag, flags
       12,   11,   11,   11, 0x08,
-      37,   11,   11,   11, 0x08,
-      58,   11,   11,   11, 0x08,
-      91,   11,   11,   11, 0x08,
-     124,   11,   11,   11, 0x08,
-     151,   11,   11,   11, 0x08,
-     177,   11,   11,   11, 0x08,
-     203,   11,   11,   11, 0x08,
+      36,   11,   11,   11, 0x08,
+      61,   11,   11,   11, 0x08,
+      82,   11,   11,   11, 0x08,
+     115,   11,   11,   11, 0x08,
+     148,   11,   11,   11, 0x08,
+     175,   11,   11,   11, 0x08,
+     201,   11,   11,   11, 0x08,
      227,   11,   11,   11, 0x08,
-     250,   11,   11,   11, 0x08,
-     272,   11,   11,   11, 0x08,
-     291,   11,   11,   11, 0x08,
-     314,   11,   11,   11, 0x08,
-     337,   11,   11,   11, 0x08,
-     353,   11,   11,   11, 0x08,
-     370,   11,   11,   11, 0x08,
-     388,   11,   11,   11, 0x08,
-     406,   11,   11,   11, 0x08,
-     424,   11,   11,   11, 0x08,
-     445,   11,   11,   11, 0x08,
-     464,   11,   11,   11, 0x08,
-     482,   11,   11,   11, 0x08,
-     507,   11,   11,   11, 0x08,
-     533,   11,   11,   11, 0x08,
-     558,   11,   11,   11, 0x08,
-     580,   11,   11,   11, 0x08,
-     601,   11,   11,   11, 0x08,
-     626,   11,   11,   11, 0x08,
+     251,   11,   11,   11, 0x08,
+     274,   11,   11,   11, 0x08,
+     296,   11,   11,   11, 0x08,
+     315,   11,   11,   11, 0x08,
+     338,   11,   11,   11, 0x08,
+     361,   11,   11,   11, 0x08,
+     377,   11,   11,   11, 0x08,
+     394,   11,   11,   11, 0x08,
+     412,   11,   11,   11, 0x08,
+     430,   11,   11,   11, 0x08,
+     448,   11,   11,   11, 0x08,
+     469,   11,   11,   11, 0x08,
+     488,   11,   11,   11, 0x08,
+     506,   11,   11,   11, 0x08,
+     531,   11,   11,   11, 0x08,
+     557,   11,   11,   11, 0x08,
+     582,   11,   11,   11, 0x08,
+     604,   11,   11,   11, 0x08,
+     625,   11,   11,   11, 0x08,
      650,   11,   11,   11, 0x08,
-     669,   11,   11,   11, 0x08,
-     688,   11,   11,   11, 0x08,
+     674,   11,   11,   11, 0x08,
+     693,   11,   11,   11, 0x08,
+     712,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
-    "MainWindow\0\0on_AD5318Panel_clicked()\0"
-    "on_butZoom_clicked()\0"
+    "MainWindow\0\0on_DACFValues_clicked()\0"
+    "on_AD5318Panel_clicked()\0on_butZoom_clicked()\0"
     "on_yAxisBox_valueChanged(double)\0"
     "on_xAxisBox_valueChanged(double)\0"
     "on_butExternal_2_clicked()\0"
@@ -120,40 +121,41 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: on_AD5318Panel_clicked(); break;
-        case 1: on_butZoom_clicked(); break;
-        case 2: on_yAxisBox_valueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 3: on_xAxisBox_valueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 4: on_butExternal_2_clicked(); break;
-        case 5: on_tblFrequency_clicked(); break;
-        case 6: on_tblImpedance_clicked(); break;
-        case 7: on_tblVoltage_clicked(); break;
-        case 8: on_butVerify_clicked(); break;
-        case 9: on_butLearn_clicked(); break;
-        case 10: on_butAM_clicked(); break;
-        case 11: on_butProbe2_clicked(); break;
-        case 12: on_butProbe1_clicked(); break;
-        case 13: shrinkSize((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 14: restoreSize((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 15: on_butR_clicked(); break;
-        case 16: on_butM_clicked(); break;
-        case 17: on_butL_clicked(); break;
-        case 18: on_butDown_clicked(); break;
-        case 19: on_butUP_clicked(); break;
-        case 20: on_exit_clicked(); break;
-        case 21: on_calibButton_clicked(); break;
-        case 22: on_deleteButton_clicked(); break;
-        case 23: on_storeButton_clicked(); break;
-        case 24: on_butProbe_clicked(); break;
-        case 25: on_butClip_clicked(); break;
-        case 26: on_startButton_clicked(); break;
-        case 27: on_butProClip_clicked(); break;
-        case 28: on_tblVI_clicked(); break;
-        case 29: on_tblVT_clicked(); break;
-        case 30: on_butViewTrace_clicked(); break;
+        case 0: on_DACFValues_clicked(); break;
+        case 1: on_AD5318Panel_clicked(); break;
+        case 2: on_butZoom_clicked(); break;
+        case 3: on_yAxisBox_valueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 4: on_xAxisBox_valueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 5: on_butExternal_2_clicked(); break;
+        case 6: on_tblFrequency_clicked(); break;
+        case 7: on_tblImpedance_clicked(); break;
+        case 8: on_tblVoltage_clicked(); break;
+        case 9: on_butVerify_clicked(); break;
+        case 10: on_butLearn_clicked(); break;
+        case 11: on_butAM_clicked(); break;
+        case 12: on_butProbe2_clicked(); break;
+        case 13: on_butProbe1_clicked(); break;
+        case 14: shrinkSize((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 15: restoreSize((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 16: on_butR_clicked(); break;
+        case 17: on_butM_clicked(); break;
+        case 18: on_butL_clicked(); break;
+        case 19: on_butDown_clicked(); break;
+        case 20: on_butUP_clicked(); break;
+        case 21: on_exit_clicked(); break;
+        case 22: on_calibButton_clicked(); break;
+        case 23: on_deleteButton_clicked(); break;
+        case 24: on_storeButton_clicked(); break;
+        case 25: on_butProbe_clicked(); break;
+        case 26: on_butClip_clicked(); break;
+        case 27: on_startButton_clicked(); break;
+        case 28: on_butProClip_clicked(); break;
+        case 29: on_tblVI_clicked(); break;
+        case 30: on_tblVT_clicked(); break;
+        case 31: on_butViewTrace_clicked(); break;
         default: ;
         }
-        _id -= 31;
+        _id -= 32;
     }
     return _id;
 }

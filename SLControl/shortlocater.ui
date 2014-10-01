@@ -5272,7 +5272,7 @@ QSpinBox::down-button {
   <widget class="QFrame" name="frontPanel_SHLOC">
    <property name="geometry">
     <rect>
-     <x>800</x>
+     <x>10</x>
      <y>434</y>
      <width>693</width>
      <height>160</height>

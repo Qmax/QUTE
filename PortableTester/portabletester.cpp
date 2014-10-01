@@ -5,112 +5,117 @@
 
 void customMessageHandler(QtMsgType type, const char *msg)
 {
-	QString dt = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm:ss");
-	QString txt = QString("[%1] ").arg(dt);
+    QString dt = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm:ss");
+    QString txt = QString("[%1] ").arg(dt);
 
-	switch (type)
-	{
-	case QtDebugMsg:
-		txt += QString("{Debug} \t\t %1").arg(msg);
-		break;
-	case QtWarningMsg:
-		txt += QString("{Warning} \t %1").arg(msg);
-		break;
-	case QtCriticalMsg:
-		txt += QString("{Critical} \t %1").arg(msg);
-		break;
-	case QtFatalMsg:
-		txt += QString("{Fatal} \t\t %1").arg(msg);
-		abort();
-		break;
-	}
+    switch (type)
+    {
+    case QtDebugMsg:
+        txt += QString("{Debug} \t\t %1").arg(msg);
+        break;
+    case QtWarningMsg:
+        txt += QString("{Warning} \t %1").arg(msg);
+        break;
+    case QtCriticalMsg:
+        txt += QString("{Critical} \t %1").arg(msg);
+        break;
+    case QtFatalMsg:
+        txt += QString("{Fatal} \t\t %1").arg(msg);
+        abort();
+        break;
+    }
 
-	QFile outFile("PT6LogFile.log");
-	outFile.open(QIODevice::WriteOnly | QIODevice::Append);
+    QFile outFile("PT6LogFile.log");
+    outFile.open(QIODevice::WriteOnly | QIODevice::Append);
 
-	QTextStream textStream(&outFile);
-	textStream << txt << endl;
-        outFile.close();
+    QTextStream textStream(&outFile);
+    textStream << txt << endl;
+    outFile.close();
 }
 
 PortableTester::PortableTester(QWidget *parent) :
-        		QMainWindow(parent, Qt::FramelessWindowHint | Qt::WindowSystemMenuHint),
-        		ui(new Ui::PortableTester) {
+        QMainWindow(parent, Qt::FramelessWindowHint | Qt::WindowSystemMenuHint),
+        ui(new Ui::PortableTester) {
 
-	ui->setupUi(this);
-	/*    LoginDialog* loginDialog = new LoginDialog( this );
+    ui->setupUi(this);
+    /*    LoginDialog* loginDialog = new LoginDialog( this );
     connect(loginDialog,SIGNAL(acceptLogin(QString&,QString&,int&)),this,SLOT(slotAcceptUserLogin(QString&,QString&)));
     do{
         loginDialog->exec();
     }while(!m_nPassword);*/
-	//qDebug()
-	//<< "----------------------------PORTABLE TESTER STARTS----------------------------";
+    //qDebug()
+    //<< "----------------------------PORTABLE TESTER STARTS----------------------------";
 
-	//Set home Directory as Current Directory
-	QDir::setCurrent("/home");
+    //Set home Directory as Current Directory
+    QDir::setCurrent("/home");
 
-	QPluginLoader tools("libPTToolBox.so", this);
-	toolBox = qobject_cast<IPTToolBoxInterface*> (tools.instance());
+    QPluginLoader loaderDSO("libPTDSOcardInterface.so", this);
+    IDSOCard = qobject_cast<IDSOCardInterface*> (loaderDSO.instance());
+    IDSOCard->setDeviceName();
+    IDSOCard->enumerateDSOCard();
 
-	//PT6 Application Interface Library
-	QPluginLoader apploader1("libPTComponentsInterface.so", this);
-	QObject *AppPlugin1 = apploader1.instance();
-	IPT = qobject_cast<IPTComponentsInterface*> (AppPlugin1);
+    QPluginLoader tools("libPTToolBox.so", this);
+    toolBox = qobject_cast<IPTToolBoxInterface*> (tools.instance());
 
-	//Application Card Interface Library
-	QPluginLoader loaderApp("libPTApplicationcardInterface.so", this);
-	IAppCard = qobject_cast<IApplicationCardInterface*> (loaderApp.instance());
-	IAppCard->setDeviceName(SLOT0);
-	IAppCard->enumerateAPPCard();
+    //PT6 Application Interface Library
+    QPluginLoader apploader1("libPTComponentsInterface.so", this);
+    QObject *AppPlugin1 = apploader1.instance();
+    IPT = qobject_cast<IPTComponentsInterface*> (AppPlugin1);
 
-	//Backplane Interface Library
-	QPluginLoader loader2("libBackPlaneInterface.so", this);
-	IBackPlane = qobject_cast<IntefaceBackPlane*> (loader2.instance());
-	IBackPlane->InitializeBpObject();
+    //Application Card Interface Library
+    QPluginLoader loaderApp("libPTApplicationcardInterface.so", this);
+    IAppCard = qobject_cast<IApplicationCardInterface*> (loaderApp.instance());
+    IAppCard->setDeviceName(SLOT0);
+    IAppCard->enumerateAPPCard();
 
-	//PSOC Interface Library
-	QPluginLoader loader3("libPTPsocInterface2.so", this);
-	IPsoc = qobject_cast<IPSOCCOMMUNICATION*> (loader3.instance());
-	IPsoc->openSerial();
-	objTimer = new QTimer(this);
-	connect(objTimer, SIGNAL(timeout()), this, SLOT(checkButton()));
+    //Backplane Interface Library
+    QPluginLoader loader2("libBackPlaneInterface.so", this);
+    IBackPlane = qobject_cast<IntefaceBackPlane*> (loader2.instance());
+    IBackPlane->InitializeBpObject();
 
-	//	idleTimer=new QTimer(this);
-	//	connect(idleTimer, SIGNAL(timeout()),this,SLOT(idleScreen()));
-	//	idleTimer->setInterval(23000);
-	//	idleTimer->start();
-	//QMax PT Interface Library
-	QPluginLoader loader4("libQmaxPTInterface.so", this);
-	IptLib = qobject_cast<IQmaxPTLibrary*> (loader4.instance());
-	//GPIO Event Interface Library
-	QPluginLoader loader5("libGPIOEventInterface.so", this);
-	IGPIOEvent = qobject_cast<PTGPIOEventInterface*> (loader5.instance());
-	//PT Keypad Interface Library
-	QPluginLoader loader6("libPTKeyEventInterfaces.so", this);
-	IPTKeyEvent = qobject_cast<PTEventInterface*> (loader6.instance());
-	//GPIO PIN Interface Library for toggle touch and kill
-	QPluginLoader loader7("libPTGPIOPinInterface.so", this);
-	IGPIOPin = qobject_cast<InterfaceGPIOPins*> (loader7.instance());
-	//    //Hardware Identification Library
-	//    QPluginLoader loader8("libPTHWIDInterface.so", this);
-	//    IHWID = qobject_cast<IHWIDInterface*> (loader8.instance());
-	//
-	//    //Utility Panel Interface Library
-	//    QPluginLoader loader9("libUtilityPanel.so", this);
-	//    IUtility = qobject_cast<UtilityInterface*> (loader9.instance());
+    //PSOC Interface Library
+    QPluginLoader loader3("libPTPsocInterface2.so", this);
+    IPsoc = qobject_cast<IPSOCCOMMUNICATION*> (loader3.instance());
+    IPsoc->openSerial();
+    objTimer = new QTimer(this);
+    connect(objTimer, SIGNAL(timeout()), this, SLOT(checkButton()));
+
+    //	idleTimer=new QTimer(this);
+    //	connect(idleTimer, SIGNAL(timeout()),this,SLOT(idleScreen()));
+    //	idleTimer->setInterval(23000);
+    //	idleTimer->start();
+    //QMax PT Interface Library
+    QPluginLoader loader4("libQmaxPTInterface.so", this);
+    IptLib = qobject_cast<IQmaxPTLibrary*> (loader4.instance());
+    //GPIO Event Interface Library
+    QPluginLoader loader5("libGPIOEventInterface.so", this);
+    IGPIOEvent = qobject_cast<PTGPIOEventInterface*> (loader5.instance());
+    //PT Keypad Interface Library
+    QPluginLoader loader6("libPTKeyEventInterfaces.so", this);
+    IPTKeyEvent = qobject_cast<PTEventInterface*> (loader6.instance());
+    //GPIO PIN Interface Library for toggle touch and kill
+    QPluginLoader loader7("libPTGPIOPinInterface.so", this);
+    IGPIOPin = qobject_cast<InterfaceGPIOPins*> (loader7.instance());
+    //    //Hardware Identification Library
+    //    QPluginLoader loader8("libPTHWIDInterface.so", this);
+    //    IHWID = qobject_cast<IHWIDInterface*> (loader8.instance());
+    //
+    //    //Utility Panel Interface Library
+    //    QPluginLoader loader9("libUtilityPanel.so", this);
+    //    IUtility = qobject_cast<UtilityInterface*> (loader9.instance());
 
 
-	IBackPlane->writeBackPlaneRegister(0x03, 0x14); // Initialize LCD Control
-	//    IptLib->InitPTLibrary("./PTUI.xml", "MainWindow");
-	initialitation();
-	IPTKeyEvent->InvokeGPIOEvent(this, "/dev/input/event2", "pt_kpp",&m_nPTKeyCode);
-	//    IGPIOEvent->InvokeGPIOEvent(this, "/dev/input/event3", "gpioshutdown", &m_nPTShutDown);//do not uncomment VI will not work properly
+    IBackPlane->writeBackPlaneRegister(0x03, 0x14); // Initialize LCD Control
+    //    IptLib->InitPTLibrary("./PTUI.xml", "MainWindow");
+    initialitation();
+    IPTKeyEvent->InvokeGPIOEvent(this, "/dev/input/event2", "pt_kpp",&m_nPTKeyCode);
+    //    IGPIOEvent->InvokeGPIOEvent(this, "/dev/input/event3", "gpioshutdown", &m_nPTShutDown);//do not uncomment VI will not work properly
 
-	//qDebug() << "PT win Id" << this->winId();
-	isWindowOpen = false;
+    //qDebug() << "PT win Id" << this->winId();
+    isWindowOpen = false;
 
-	msgBoxLive = false;
-	/*
+    msgBoxLive = false;
+    /*
 	QByteArray psocData;
 
 	QMessageBox failure;
@@ -139,158 +144,245 @@ PortableTester::PortableTester(QWidget *parent) :
 
 	qDebug() << "RESET DATA:" << psocData;
 	 */
+    //SELF TEST STARTS-----------------------------------------------------------
+/*    QString appResult,bckpResult,psocResult,dsoResult,dmmResult;
+    //Application Card Detection
+    //	QMessageBox testing;
+    if (IAppCard->readAppCardCodeId() != 0x1982) {
+        //                testing.setText("Check Application Card !!!");
+        //		testing.exec();
+        appResult="PASS";
+    }else
+        appResult="FAIL";
 
-	QMessageBox testing;
-	if (IAppCard->readAppCardCodeId() != 0x1982) {
-		testing.setText("Check Appcard !!!");
-		testing.exec();
-	}
-	if (IBackPlane->readBackPlaneCodeID() != 0x2704) {
-		testing.setText("Check Backpanel !!!");
-		testing.exec();
-	}
-	//	IAppCard->resetADC(1);
-	dmmPlugin = viPlugin = fgPlugin = slPlugin = icmPlugin = false;
-	m_bTouchFlag = true;
+    //Back panel Card Detection
+    if (IBackPlane->readBackPlaneCodeID() != 0x2704) {
+        //		testing.setText("Check Backpanel !!!");
+        //		testing.exec();
+        bckpResult="PASS";
+    }else
+        bckpResult="FAIL";
+    //Front panel Detection
+    if (IPsoc->readPsocCodeID() != 0x27) {
+        //		testing.setText("Check PSOC !!!");
+        //		testing.exec();
+        psocResult="PASS";
+    }else
+        psocResult="FAIL";
+    //DSO Card Detection
+    if (IDSOCard->readDSOCardCodeId()!= 0x1307) {
+        //                testing.setText("Check DSO Card !!!");
+        //                testing.exec();
+        dsoResult="PASS";
+    }else
+        dsoResult="FAIL";
+    //DMM Card Detection
+    writeDMMSPI(0x37,0x60);	usleep(10000);//Reset DMM
+    if (readDMMSPI(0x33)!= 0x20) {
+        //                testing.setText("Check DMM Card !!!");
+        //                testing.exec();
+        dmmResult="PASS";
+    }else
+        dmmResult="FAIL";
+    QWidget *PFWidget=new QWidget(this);
+    PFWidget->setGeometry(100,100,200,400);
+    QTableWidget tWidget;
+    tWidget.setParent(PFWidget);
+    tWidget.setItem(0,0,new QTableWidgetItem("APP CARD"));
+    tWidget.setItem(0,1,new QTableWidgetItem(appResult));
 
-	//~~~~~~~~~~~Transparent OM Symbol Splash~~~~~~~~~~~
-	/*	QPixmap pixmap(":/images/Tamil_ohm2.png");
+    tWidget.setItem(1,0,new QTableWidgetItem("BACK PANEL"));
+    tWidget.setItem(1,1,new QTableWidgetItem(bckpResult));
+
+    tWidget.setItem(2,0,new QTableWidgetItem("FRONT PANEL"));
+    tWidget.setItem(2,1,new QTableWidgetItem(psocResult));
+
+    tWidget.setItem(3,0,new QTableWidgetItem("DSO CARD"));
+    tWidget.setItem(3,1,new QTableWidgetItem(dsoResult));
+
+    tWidget.setItem(4,0,new QTableWidgetItem("DMM CARD"));
+    tWidget.setItem(4,1,new QTableWidgetItem(dmmResult));
+
+    tWidget.show();*/
+    //SELF TEST ENDS-----------------------------------------------------------
+
+    //	IAppCard->resetADC(1);
+    dmmPlugin = viPlugin = fgPlugin = slPlugin = icmPlugin = false;
+    m_bTouchFlag = true;
+
+    //~~~~~~~~~~~Transparent OM Symbol Splash~~~~~~~~~~~
+    /*	QPixmap pixmap(":/images/Tamil_ohm2.png");
 	QSplashScreen splash(pixmap);
 	splash.setMask(pixmap.mask());
 	splash.show();
 	splash.close();*/
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	//~~~~~~~~~~~~~~Digital Clock~~~~~~~~~~~~~~~~~~~~~~~
-	clock=new QDigitalClock(this);
-	clock->setGeometry(620,0,170,30);
-	clock->m_TextColor=QColor(255,255,255,255);
-	clock->setFont(QFont("DejaVu Sans",14,50,false));
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	myID=0;
-	//	 qInstallMsgHandler(customMessageHandler);
-	//__________________________________________________________________________________________________________
-		QFile outFile;
-		outFile.setFileName("calibrate.sh");
-		outFile.open(QIODevice::WriteOnly);
-		QTextStream ts(&outFile);
-		ts << "";
-	//__________________________________________________________________________________________________________
-//                QPushButton *but=new QPushButton(this);
-//                but->setGeometry(500,400,50,50);
-//                but->setText("FG");
-//                connect(but,SIGNAL(clicked()),this,SLOT(startFG()));
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~~~~~~Digital Clock~~~~~~~~~~~~~~~~~~~~~~~
+    clock=new QDigitalClock(this);
+    clock->setGeometry(620,0,170,30);
+    clock->m_TextColor=QColor(255,255,255,255);
+    clock->setFont(QFont("DejaVu Sans",14,50,false));
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    myID=0;
+    //	 qInstallMsgHandler(customMessageHandler);
+    //__________________________________________________________________________________________________________
+    QFile outFile;
+    outFile.setFileName("calibrate.sh");
+    outFile.open(QIODevice::WriteOnly);
+    QTextStream ts(&outFile);
+    ts << "";
+    //__________________________________________________________________________________________________________
+    //                QPushButton *but=new QPushButton(this);
+    //                but->setGeometry(500,400,50,50);
+    //                but->setText("FG");
+    //                connect(but,SIGNAL(clicked()),this,SLOT(startFG()));
 }
 void PortableTester::slotAcceptUserLogin(QString& name,QString& password){
-	if(name=="root" && password=="root"){
-		m_nPassword=true;
-	}else{
-		QMessageBox msg;
-		msg.setText("Login Error");
-		msg.setInformativeText("Invalid Username/Password");
-		msg.exec();
-		m_nPassword=false;
-		//        this->close();
-	}
+    if(name=="root" && password=="root"){
+        m_nPassword=true;
+    }else{
+        QMessageBox msg;
+        msg.setText("Login Error");
+        msg.setInformativeText("Invalid Username/Password");
+        msg.exec();
+        m_nPassword=false;
+        //        this->close();
+    }
 
 }
 
 void PortableTester::idleScreen(){
-	if (splashIdle->isEnabled()==true) {
-		splashIdle->setEnabled(false);
-		splashIdle->close();
-		//		idleTimer->start();
-	} else {
-		//		idleTimer->stop();
-		splashIdle->setEnabled(true);
-		splashIdle->show();
-	}
+    if (splashIdle->isEnabled()==true) {
+        splashIdle->setEnabled(false);
+        splashIdle->close();
+        //		idleTimer->start();
+    } else {
+        //		idleTimer->stop();
+        splashIdle->setEnabled(true);
+        splashIdle->show();
+    }
 }
 char PortableTester::showMessageBox(bool connect, bool abort,bool cancel, QString text,QString okText="Ok", QString NoText="Cancel",QString cancelText="Abort") {
-	msgBoxLive = true;
-	msgBox = new QMessageBox(this);
-	msgBox->setFont(QFont("DejaVu Sans", 15, 50, false));
-	msgBox->setIcon(QMessageBox::Information);
-	msgBox->setWindowIcon(QIcon(":/images/image.png"));
-	msgBox->setStyleSheet("color : white;background-color :rgb(88,88,87,255);");
-	msgBox->setText(text);
-	if (connect == true){
-		connectButton = msgBox->addButton(okText, QMessageBox::YesRole);
-		connectButton->setFont(QFont("DejaVu Sans", 18, 50, false));
-		//qDebug()<<"163";
-	}
-	if (abort == true){
-		abortButton = msgBox->addButton(NoText, QMessageBox::NoRole);
-		abortButton	 ->setFont(QFont("DejaVu Sans", 18, 50, false));
-		//qDebug()<<"167";
-	}
-	if (cancel==true){
-		cancelButton =msgBox->addButton(cancelText, QMessageBox::RejectRole);
-		cancelButton ->setFont(QFont("DejaVu Sans", 18, 50, false));
-		//qDebug()<<"171";
-	}
-	msgBox->exec();
-	//qDebug()<<"176";
-	if (msgBox->clickedButton() == connectButton){
-		//qDebug()<<"178";
-		return 'Y';
-	}
-	if (abort == true){
-		//qDebug()<<"182";
-		if (msgBox->clickedButton() == abortButton)
-			return 'N';
-	}
-	if (cancel == true){
-		//qDebug()<<"187";
-		if (msgBox->clickedButton() == cancelButton)
-			return 'A';
-	}
+    msgBoxLive = true;
+    msgBox = new QMessageBox(this);
+    msgBox->setFont(QFont("DejaVu Sans", 15, 50, false));
+    msgBox->setIcon(QMessageBox::Information);
+    msgBox->setWindowIcon(QIcon(":/images/image.png"));
+    msgBox->setStyleSheet("color : white;background-color :rgb(88,88,87,255);");
+    msgBox->setText(text);
+    if (connect == true){
+        connectButton = msgBox->addButton(okText, QMessageBox::YesRole);
+        connectButton->setFont(QFont("DejaVu Sans", 18, 50, false));
+        //qDebug()<<"163";
+    }
+    if (abort == true){
+        abortButton = msgBox->addButton(NoText, QMessageBox::NoRole);
+        abortButton	 ->setFont(QFont("DejaVu Sans", 18, 50, false));
+        //qDebug()<<"167";
+    }
+    if (cancel==true){
+        cancelButton =msgBox->addButton(cancelText, QMessageBox::RejectRole);
+        cancelButton ->setFont(QFont("DejaVu Sans", 18, 50, false));
+        //qDebug()<<"171";
+    }
+    msgBox->exec();
+    //qDebug()<<"176";
+    if (msgBox->clickedButton() == connectButton){
+        //qDebug()<<"178";
+        return 'Y';
+    }
+    if (abort == true){
+        //qDebug()<<"182";
+        if (msgBox->clickedButton() == abortButton)
+            return 'N';
+    }
+    if (cancel == true){
+        //qDebug()<<"187";
+        if (msgBox->clickedButton() == cancelButton)
+            return 'A';
+    }
 }
 
 void PortableTester::clickedPRSCR() {
 
-	QPixmap Pix = QPixmap();
-	Pix = QPixmap::grabWindow(QApplication::desktop()->winId());
-	Pix.save("mainscreen.jpg");
-	QClipboard *board = QApplication::clipboard();
-	board->setPixmap(Pix);
-	QWidget::showFullScreen();
+    QPixmap Pix = QPixmap();
+    Pix = QPixmap::grabWindow(QApplication::desktop()->winId());
+    Pix.save("mainscreen.jpg");
+    QClipboard *board = QApplication::clipboard();
+    board->setPixmap(Pix);
+    QWidget::showFullScreen();
 
 }
+u_int32_t PortableTester::readDMMSPI(u_int16_t _Address) {
+    u_int32_t D32Bit;
+    u_int32_t mAddr = 0, mLData = 0, mMData = 0;
+    IBackPlane->writeBackPlaneRegister(0x0, DMM_DATA_TX_MSW_BP);
+    IBackPlane->writeBackPlaneRegister(0x0, DMM_DATA_TX_LSW_BP);
 
+    mAddr = _Address;
+    mAddr = mAddr << 1;
+    mAddr = mAddr | 0x01;
+
+    IBackPlane->writeBackPlaneRegister(mAddr, DMM_ADDR_BP);
+    IBackPlane->writeBackPlaneRegister(0xC009, DMM_CMD_BP);
+    while ((IBackPlane->readBackPlaneRegister(DMM_CMD_BP) & 0x0001));
+
+    usleep(1000);
+
+    mMData = IBackPlane->readBackPlaneRegister(DMM_DATA_RX_MSW_BP);
+    mLData = IBackPlane->readBackPlaneRegister(DMM_DATA_RX_LSW_BP);
+
+    D32Bit = (((mMData << 16) & 0xFFFF0000)| (mLData & 0x0000FFFF));
+    return D32Bit;
+}
+void PortableTester::writeDMMSPI(u_int16_t _Address, u_int16_t _Data){
+    unsigned int mAddr = 0, mData = 0;
+
+    mAddr = _Address;
+    mAddr = mAddr << 1;
+    mAddr = mAddr & 0xFE;
+    IBackPlane->writeBackPlaneRegister(mAddr, DMM_ADDR_BP);
+    mData = _Data << 8;
+    IBackPlane->writeBackPlaneRegister(mData, DMM_DATA_TX_MSW_BP);
+    IBackPlane->writeBackPlaneRegister(0xC001, DMM_CMD_BP);
+    while ((IBackPlane->readBackPlaneRegister(DMM_CMD_BP) & 0x0001));
+
+    usleep(1000);
+}
 void PortableTester::checkButton() {
-	QTime objTime = QTime::currentTime();
-	l_objMainView->m_objDate = QDateTime::currentDateTime();
-	l_objMainView->m_strTime = l_objMainView->m_objDate.toString(Qt::TextDate);
-	l_objMainView->InitHeaderView(1, "PT6-QUTE");
+    QTime objTime = QTime::currentTime();
+    l_objMainView->m_objDate = QDateTime::currentDateTime();
+    l_objMainView->m_strTime = l_objMainView->m_objDate.toString(Qt::TextDate);
+    l_objMainView->InitHeaderView(1, "PT6-QUTE");
 }
 void PortableTester::poweroff() {
-	//qDebug()<<"poweroff";
-	IGPIOPin->killSystem();
-	//    QProcess::execute("poweroff");
+    //qDebug()<<"poweroff";
+    IGPIOPin->killSystem();
+    //    QProcess::execute("poweroff");
 
 }
 void PortableTester::houseKeeping() {
-	//qDebug()<<"houseKeeping";
-	IBackPlane->closeObject();
-	IPsoc->closeSerial();
-	objTimer->stop();
+    //qDebug()<<"houseKeeping";
+    IBackPlane->closeObject();
+    IPsoc->closeSerial();
+    objTimer->stop();
 
-	//    delete *AppButtons;
-	//    delete *FunctionalButtons;
-	//    delete l_objMainView;
+    //    delete *AppButtons;
+    //    delete *FunctionalButtons;
+    //    delete l_objMainView;
 }
 void PortableTester::CreateButton() {
 
-	QString icon = ":/Desktop/app";
-	for (int i = 0; i < APPLICATIONS; i++) {
-		if(i<APPLICATIONS){
-			//            			glowButton[i] = new QPushButton(this);//~~~~~~~~~~~~~
-			AppButton[i] = new QmaxPushButton(i, this);
+    QString icon = ":/Desktop/app";
+    for (int i = 0; i < APPLICATIONS; i++) {
+        if(i<APPLICATIONS){
+            //            			glowButton[i] = new QPushButton(this);//~~~~~~~~~~~~~
+            AppButton[i] = new QmaxPushButton(i, this);
 
-			//            			glowButton[i]->setStyleSheet("border:0.2px rgba(0,0,0,20);border-radius:10px;border-style: outset;background-color: rgba(255,255,255,150);");//~~~~~~~~~~~~~
-			//            			glowButton[i]->setFocusPolicy(Qt::NoFocus);//~~~~~~~~~~~~~
+            //            			glowButton[i]->setStyleSheet("border:0.2px rgba(0,0,0,20);border-radius:10px;border-style: outset;background-color: rgba(255,255,255,150);");//~~~~~~~~~~~~~
+            //            			glowButton[i]->setFocusPolicy(Qt::NoFocus);//~~~~~~~~~~~~~
 
-			/*if (i == 0 || i == 1 || i == 2){///*~~~~~~~~~~~~~
+            /*if (i == 0 || i == 1 || i == 2){///*~~~~~~~~~~~~~
 				glowButton[i]->setGeometry(172 + (125 * i), 142, 57, 57);
 				AppButton[i]->setGeometry(165 + (125 * i), 135, 70, 70);
 			}
@@ -375,401 +467,401 @@ void PortableTester::initialitation() {
 	 3. Creating Functional Keys View
 	 4. Creating Header View
 	 */
-	l_objMainView = new MainWindowView(this);
-	ui->mdiArea->addSubWindow(l_objMainView, Qt::FramelessWindowHint);
-	l_objMainView->showMaximized();
+    l_objMainView = new MainWindowView(this);
+    ui->mdiArea->addSubWindow(l_objMainView, Qt::FramelessWindowHint);
+    l_objMainView->showMaximized();
 
-	setCentralWidget(ui->mdiArea);
-	l_objMainView->InitPrimaryView();
-	//	l_objMainView->InitMainPane();	//Hiding Applications Panel
-	//	l_objMainView->InitSidePane();
-	//	l_objMainView->InitBasePane();
-	baseFrame=new QFrame(this);
-	baseFrame->setGeometry(100,470,600,145);
-	baseFrame->setStyleSheet("QFrame{image: url(:/images/gradient_oval1.png);}");
-	baseFrame->setVisible(true);
+    setCentralWidget(ui->mdiArea);
+    l_objMainView->InitPrimaryView();
+    //	l_objMainView->InitMainPane();	//Hiding Applications Panel
+    //	l_objMainView->InitSidePane();
+    //	l_objMainView->InitBasePane();
+    baseFrame=new QFrame(this);
+    baseFrame->setGeometry(100,470,600,145);
+    baseFrame->setStyleSheet("QFrame{image: url(:/images/gradient_oval1.png);}");
+    baseFrame->setVisible(true);
 
 
 
-	l_objMainView->m_objDate = QDateTime::currentDateTime();
-	l_objMainView->m_strTime = l_objMainView->m_objDate.toString(Qt::TextDate);
-	l_objMainView->timer = new QTimer(this);
-	l_objMainView->InitHeaderView(1, "PT6-QUTE");
+    l_objMainView->m_objDate = QDateTime::currentDateTime();
+    l_objMainView->m_strTime = l_objMainView->m_objDate.toString(Qt::TextDate);
+    l_objMainView->timer = new QTimer(this);
+    l_objMainView->InitHeaderView(1, "PT6-QUTE");
 
-	//	CreateButtons(this, "ApplicationPanel");
-	//	CreateButtons(this, "FunctionPanel");
+    //	CreateButtons(this, "ApplicationPanel");
+    //	CreateButtons(this, "FunctionPanel");
 
-	CreateButton();
+    CreateButton();
 
-	splashIdle = new QSplashScreen;
-	splashIdle->setPixmap(QPixmap(":/images/imageIdle.png").scaled(790, 590));
-	splashIdle->setEnabled(false);
+    splashIdle = new QSplashScreen;
+    splashIdle->setPixmap(QPixmap(":/images/imageIdle.png").scaled(790, 590));
+    splashIdle->setEnabled(false);
 }
 void PortableTester::on_shutDownButton_clicked() {
-	//qDebug()<<"on_shutDownButton_clicked";
-	char ret = showMessageBox(true, true,true,"Are you sure to shut down/Restart the system?", "Shutdown","Reboot","Cancel");
-	if (ret == 'Y') {
-		l_objMainView->hideWindows();
-		closeButtons();
-		QSplashScreen *splash = new QSplashScreen;
-		splash->setPixmap(QPixmap(":/images/image93.png").scaled(790, 590));
-		splash->show();
-		QTimer::singleShot(2000, this, SLOT(houseKeeping()));
-		QTimer::singleShot(5000, this, SLOT(poweroff()));
+    //qDebug()<<"on_shutDownButton_clicked";
+    char ret = showMessageBox(true, true,true,"Are you sure to shut down/Restart the system?", "Shutdown","Reboot","Cancel");
+    if (ret == 'Y') {
+        l_objMainView->hideWindows();
+        closeButtons();
+        QSplashScreen *splash = new QSplashScreen;
+        splash->setPixmap(QPixmap(":/images/image93.png").scaled(790, 590));
+        splash->show();
+        QTimer::singleShot(2000, this, SLOT(houseKeeping()));
+        QTimer::singleShot(5000, this, SLOT(poweroff()));
 
-	}
-	else if(ret=='N') {
-		l_objMainView->hideWindows();
-		closeButtons();
-		QTimer::singleShot(2000, this, SLOT(houseKeeping()));
-		QApplication::exit();
-		QProcess::execute("reboot");
-	}
-	else if(ret=='A'){
-		msgBox->close();
-	}
+    }
+    else if(ret=='N') {
+        l_objMainView->hideWindows();
+        closeButtons();
+        QTimer::singleShot(2000, this, SLOT(houseKeeping()));
+        QApplication::exit();
+        QProcess::execute("reboot");
+    }
+    else if(ret=='A'){
+        msgBox->close();
+    }
 }
 
 void PortableTester::on_testjigButton_clicked() {
-	QDir::setCurrent("/home");
-	QProcess::execute("./PortableTesterTestJig2 -qws");
-	QApplication::exit();
-	QDir::setCurrent("/home");
-	QProcess::execute("./PortableTester -qws");
+    QDir::setCurrent("/home");
+    QProcess::execute("./PortableTesterTestJig2 -qws");
+    QApplication::exit();
+    QDir::setCurrent("/home");
+    QProcess::execute("./PortableTester -qws");
 }
 void PortableTester::changeEvent(QEvent *e) {
-	//qDebug() << "Inside PortableTester Change Event" << e->type();
-	switch (e->type()) {
-	case QEvent::LanguageChange:
-		ui->retranslateUi(this);
-		break;
-	default:
-		break;
-	}
+    //qDebug() << "Inside PortableTester Change Event" << e->type();
+    switch (e->type()) {
+    case QEvent::LanguageChange:
+        ui->retranslateUi(this);
+        break;
+    default:
+        break;
+    }
 }
 
 void PortableTester::closeButtons() {
 
-	//	for(int i=0;i<6;i++)
-	//		AppButtons[i]->close();
+    //	for(int i=0;i<6;i++)
+    //		AppButtons[i]->close();
 
-	//	for(int i=0;i<6;i++)
-	//		FunctionalButtons[i]->close();
+    //	for(int i=0;i<6;i++)
+    //		FunctionalButtons[i]->close();
 
-	for (int i = 0; i < APPLICATIONS; i++)
-		AppButton[i]->setVisible(false);
+    for (int i = 0; i < APPLICATIONS; i++)
+        AppButton[i]->setVisible(false);
 
-	//	for (int i = 0; i < FUNCTIONS; i++)
-	//		FunctionalButton[i]->setVisible(false);
+    //	for (int i = 0; i < FUNCTIONS; i++)
+    //		FunctionalButton[i]->setVisible(false);
 
-	//    	for(int i=0;i<6;i++)//~~~~~~~~~~~~~~
-	//    		glowButton[i]->setVisible(false);//~~~~~~~~~~~~~~
+    //    	for(int i=0;i<6;i++)//~~~~~~~~~~~~~~
+    //    		glowButton[i]->setVisible(false);//~~~~~~~~~~~~~~
 
-	//	prevButton->setVisible(false);
-	//	nextButton->setVisible(false);
+    //	prevButton->setVisible(false);
+    //	nextButton->setVisible(false);
 
-	shutDownButton->setVisible(false);
-	shlocButton->setVisible(false);
+    shutDownButton->setVisible(false);
+    shlocButton->setVisible(false);
 
-	//	testjigButton->setVisible(false);
+    //	testjigButton->setVisible(false);
 
 
 
 }
 
 void PortableTester::showButtons() {
-	//	for(int i=0;i<6;i++)
-	//		AppButtons[i]->show();
+    //	for(int i=0;i<6;i++)
+    //		AppButtons[i]->show();
 
-	//	for(int i=0;i<6;i++)
-	//		FunctionalButtons[i]->show();
+    //	for(int i=0;i<6;i++)
+    //		FunctionalButtons[i]->show();
 
-	for (int i = 0; i < APPLICATIONS; i++)
-		AppButton[i]->setVisible(true);
+    for (int i = 0; i < APPLICATIONS; i++)
+        AppButton[i]->setVisible(true);
 
-	//	for (int i = 0; i < FUNCTIONS; i++){
-	//		if(FunctionalButton[i]->geometry().y()>=70&&FunctionalButton[i]->geometry().y()<=470)
-	//			FunctionalButton[i]->setVisible(true);
-	//	}
+    //	for (int i = 0; i < FUNCTIONS; i++){
+    //		if(FunctionalButton[i]->geometry().y()>=70&&FunctionalButton[i]->geometry().y()<=470)
+    //			FunctionalButton[i]->setVisible(true);
+    //	}
 
-	//    	for(int i=0;i<6;i++)//~~~~~~~~~~~~~~~
-	//    		glowButton[i]->setVisible(true);//~~~~~~~~~~~~~
+    //    	for(int i=0;i<6;i++)//~~~~~~~~~~~~~~~
+    //    		glowButton[i]->setVisible(true);//~~~~~~~~~~~~~
 
-	//	if(FunctionalButton[0]->geometry().y()==70){
-	//		nextButton->setVisible(true);
-	//		prevButton->setVisible(false);
-	//	}
-	//	else{
-	//		nextButton->setVisible(false);
-	//		prevButton->setVisible(true);
-	//	}
+    //	if(FunctionalButton[0]->geometry().y()==70){
+    //		nextButton->setVisible(true);
+    //		prevButton->setVisible(false);
+    //	}
+    //	else{
+    //		nextButton->setVisible(false);
+    //		prevButton->setVisible(true);
+    //	}
 
 
-	shutDownButton->setVisible(true);
-	shlocButton->setVisible(false);
-	//	testjigButton->setVisible(true);
+    shutDownButton->setVisible(true);
+    shlocButton->setVisible(false);
+    //	testjigButton->setVisible(true);
 }
 
 void PortableTester::customEvent(QEvent* e) {
-	//qDebug() << "Portable Tester-Custom Event";
-	if(myID==0){
-		if (e->type() == ShutDownEvent) {
-			//qDebug() << "GPIO Shutdown Application Layer";
-			/*            houseKeeping();
+    //qDebug() << "Portable Tester-Custom Event";
+    if(myID==0){
+        if (e->type() == ShutDownEvent) {
+            //qDebug() << "GPIO Shutdown Application Layer";
+            /*            houseKeeping();
             QSplashScreen *splash = new QSplashScreen;
             splash->setPixmap(QPixmap(":/images/image93.png").scaled(790, 590));
             splash->show();
             poweroff();*/
-			on_shutDownButton_clicked();
-		}
-		if (e->type() == ((QEvent::Type) 5678)) {
-			//qDebug() << "Portable Tester-PT-Key Event";
-			if (isWindowOpen == true)
-				return;
-			if (m_nPTKeyCode == 1) {
-				//qDebug() << ("\nMENU");
-				idleScreen();
+            on_shutDownButton_clicked();
+        }
+        if (e->type() == ((QEvent::Type) 5678)) {
+            //qDebug() << "Portable Tester-PT-Key Event";
+            if (isWindowOpen == true)
+                return;
+            if (m_nPTKeyCode == 1) {
+                //qDebug() << ("\nMENU");
+                idleScreen();
 
-			}
-			if (m_nPTKeyCode == 4) {
-				//qDebug() << ("\nF1");
-				buttonPressed(0);
-				//			for(int i=0;i<6;i++){
-				//				if(FunctionalButton[i]->geometry().y()==70)
-				//					Functions(i);
-				//			}
-			} else if (m_nPTKeyCode == 5) {
-				//qDebug() << ("\nF2");
-				buttonPressed(1);
-				//			for(int i=0;i<6;i++){
-				//				if(FunctionalButton[i]->geometry().y()==170)
-				//					Functions(i);
-				//			}
+            }
+            if (m_nPTKeyCode == 4) {
+                //qDebug() << ("\nF1");
+                buttonPressed(0);
+                //			for(int i=0;i<6;i++){
+                //				if(FunctionalButton[i]->geometry().y()==70)
+                //					Functions(i);
+                //			}
+            } else if (m_nPTKeyCode == 5) {
+                //qDebug() << ("\nF2");
+                buttonPressed(1);
+                //			for(int i=0;i<6;i++){
+                //				if(FunctionalButton[i]->geometry().y()==170)
+                //					Functions(i);
+                //			}
 
-			} else if (m_nPTKeyCode == 6) {
-				//qDebug() << ("\nF3");
-				buttonPressed(2);
-				//			for(int i=0;i<6;i++){
-				//				if(FunctionalButton[i]->geometry().y()==270)
-				//					Functions(i);
-				//			}
+            } else if (m_nPTKeyCode == 6) {
+                //qDebug() << ("\nF3");
+                buttonPressed(2);
+                //			for(int i=0;i<6;i++){
+                //				if(FunctionalButton[i]->geometry().y()==270)
+                //					Functions(i);
+                //			}
 
-			} else if (m_nPTKeyCode == 7) {
-				//qDebug() << ("\nF4");
-				buttonPressed(3);
-				//			for(int i=0;i<6;i++){
-				//				if(FunctionalButton[i]->geometry().y()==370)
-				//					Functions(i);
-				//			}
+            } else if (m_nPTKeyCode == 7) {
+                //qDebug() << ("\nF4");
+                buttonPressed(3);
+                //			for(int i=0;i<6;i++){
+                //				if(FunctionalButton[i]->geometry().y()==370)
+                //					Functions(i);
+                //			}
 
-			} else if (m_nPTKeyCode == 8) {
-				//qDebug() << ("\nF5");
-				buttonPressed(4);
-				//			for(int i=0;i<6;i++){
-				//				if(FunctionalButton[i]->geometry().y()==470)
-				//					Functions(i);
-				//			}
+            } else if (m_nPTKeyCode == 8) {
+                //qDebug() << ("\nF5");
+                buttonPressed(4);
+                //			for(int i=0;i<6;i++){
+                //				if(FunctionalButton[i]->geometry().y()==470)
+                //					Functions(i);
+                //			}
 
-			} else if (m_nPTKeyCode == 2) {
-				//qDebug() << ("\nESC");
-				if (msgBoxLive == true) {
-					cancelButton->animateClick(1);
-				} else
-					buttonPressed(15);
-			}
-			else if(m_nPTKeyCode == 9){
-				//qDebug() << ("\nUP");
-				//			UpDownButton(_UP_);
-			}
-			else if(m_nPTKeyCode == 10){
-				//qDebug() << ("\nDOWN");
-				//			UpDownButton(_DOWN_);
-			}
-			else if (m_nPTKeyCode == 11) {
-				//qDebug() << ("\nRIGHT");
-				if (msgBoxLive != true) {
+            } else if (m_nPTKeyCode == 2) {
+                //qDebug() << ("\nESC");
+                if (msgBoxLive == true) {
+                    cancelButton->animateClick(1);
+                } else
+                    buttonPressed(15);
+            }
+            else if(m_nPTKeyCode == 9){
+                //qDebug() << ("\nUP");
+                //			UpDownButton(_UP_);
+            }
+            else if(m_nPTKeyCode == 10){
+                //qDebug() << ("\nDOWN");
+                //			UpDownButton(_DOWN_);
+            }
+            else if (m_nPTKeyCode == 11) {
+                //qDebug() << ("\nRIGHT");
+                if (msgBoxLive != true) {
 
-				}
-				else if (msgBoxLive == true) {
-					if (connectButton->hasFocus())
-						abortButton->setFocus();
-					else if(abortButton->hasFocus())
-						cancelButton->setFocus();
-					else if(cancelButton->hasFocus())
-						connectButton->setFocus();
+                }
+                else if (msgBoxLive == true) {
+                    if (connectButton->hasFocus())
+                        abortButton->setFocus();
+                    else if(abortButton->hasFocus())
+                        cancelButton->setFocus();
+                    else if(cancelButton->hasFocus())
+                        connectButton->setFocus();
 
-				}
-			} else if (m_nPTKeyCode == 12) {
-				//qDebug() << ("\nLEFT");
-				if (msgBoxLive != true) {
+                }
+            } else if (m_nPTKeyCode == 12) {
+                //qDebug() << ("\nLEFT");
+                if (msgBoxLive != true) {
 
-				}
-				else if (msgBoxLive == true) {
-					if (connectButton->hasFocus())
-						cancelButton->setFocus();
-					else if(abortButton->hasFocus())
-						connectButton->setFocus();
-					else if(cancelButton->hasFocus())
-						abortButton->setFocus();
-				}
-			}
+                }
+                else if (msgBoxLive == true) {
+                    if (connectButton->hasFocus())
+                        cancelButton->setFocus();
+                    else if(abortButton->hasFocus())
+                        connectButton->setFocus();
+                    else if(cancelButton->hasFocus())
+                        abortButton->setFocus();
+                }
+            }
 
-			else if (m_nPTKeyCode == 13) {
-				//qDebug() << ("\nENTER");
-				if (msgBoxLive == true) {
-					if (connectButton->hasFocus())
-						connectButton->animateClick(1);
-					else if(abortButton->hasFocus())
-						abortButton->animateClick(1);
-					else if(cancelButton->hasFocus())
-						cancelButton->animateClick(1);
-					msgBoxLive = false;
-				}
-			} else if (m_nPTKeyCode == 16) {
-				IGPIOPin->toggleTouchButton();
+            else if (m_nPTKeyCode == 13) {
+                //qDebug() << ("\nENTER");
+                if (msgBoxLive == true) {
+                    if (connectButton->hasFocus())
+                        connectButton->animateClick(1);
+                    else if(abortButton->hasFocus())
+                        abortButton->animateClick(1);
+                    else if(cancelButton->hasFocus())
+                        cancelButton->animateClick(1);
+                    msgBoxLive = false;
+                }
+            } else if (m_nPTKeyCode == 16) {
+                IGPIOPin->toggleTouchButton();
 
-				if (m_bTouchFlag == false) {
-					QProcessEnvironment env =
-							QProcessEnvironment::systemEnvironment();
+                if (m_bTouchFlag == false) {
+                    QProcessEnvironment env =
+                            QProcessEnvironment::systemEnvironment();
 
-					if (env.contains("TSLIB_TSDEVICE"))
-						env.remove("TSLIB_TSDEVICE");
-					if (env.contains("QWS_MOUSE_PROTO"))
-						env.remove("QWS_MOUSE_PROTO");
+                    if (env.contains("TSLIB_TSDEVICE"))
+                        env.remove("TSLIB_TSDEVICE");
+                    if (env.contains("QWS_MOUSE_PROTO"))
+                        env.remove("QWS_MOUSE_PROTO");
 
-					process.setProcessEnvironment(env);
+                    process.setProcessEnvironment(env);
 
-					env.insert("TSLIB_TSDEVICE", "/dev/input/ts0");
-					env.insert("QWS_MOUSE_PROTO", "tslib:/dev/input/ts0");
+                    env.insert("TSLIB_TSDEVICE", "/dev/input/ts0");
+                    env.insert("QWS_MOUSE_PROTO", "tslib:/dev/input/ts0");
 
-					process.setProcessEnvironment(env);
+                    process.setProcessEnvironment(env);
 
-					//qDebug() << "Touch Command exported";
+                    //qDebug() << "Touch Command exported";
 
-					m_bTouchFlag == true;
-				} else if (m_bTouchFlag == true) {
-					QProcessEnvironment env =
-							QProcessEnvironment::systemEnvironment();
+                    m_bTouchFlag == true;
+                } else if (m_bTouchFlag == true) {
+                    QProcessEnvironment env =
+                            QProcessEnvironment::systemEnvironment();
 
-					if (env.contains("TSLIB_TSDEVICE"))
-						env.remove("TSLIB_TSDEVICE");
-					if (env.contains("QWS_MOUSE_PROTO"))
-						env.remove("QWS_MOUSE_PROTO");
+                    if (env.contains("TSLIB_TSDEVICE"))
+                        env.remove("TSLIB_TSDEVICE");
+                    if (env.contains("QWS_MOUSE_PROTO"))
+                        env.remove("QWS_MOUSE_PROTO");
 
-					process.setProcessEnvironment(env);
+                    process.setProcessEnvironment(env);
 
-					env.insert("TSLIB_TSDEVICE", "/dev/event1");
-					env.insert("QWS_MOUSE_PROTO", "IntelliMouse:/dev/input/mouse1");
+                    env.insert("TSLIB_TSDEVICE", "/dev/event1");
+                    env.insert("QWS_MOUSE_PROTO", "IntelliMouse:/dev/input/mouse1");
 
-					process.setProcessEnvironment(env);
+                    process.setProcessEnvironment(env);
 
-					//qDebug() << "Mouse Command exported";
+                    //qDebug() << "Mouse Command exported";
 
-					m_bTouchFlag == false;
-				}
-			} else if (m_nPTKeyCode == 17) {
-				clickedPRSCR();
-				this->close();
-			} else if (m_nPTKeyCode == 18){this->close();}
+                    m_bTouchFlag == false;
+                }
+            } else if (m_nPTKeyCode == 17) {
+                clickedPRSCR();
+                this->close();
+            } else if (m_nPTKeyCode == 18){this->close();}
 
-		}
-		QEvent(e->type());
-	}
+        }
+        QEvent(e->type());
+    }
 }
 void PortableTester::UpDownButton(int pValue){
-	if(pValue==_UP_){
-		if(FunctionalButton[0]->geometry().y()!=70){
-			for(int i=0;i<6;i++){
-				int yAxis=FunctionalButton[i]->geometry().y();
+    if(pValue==_UP_){
+        if(FunctionalButton[0]->geometry().y()!=70){
+            for(int i=0;i<6;i++){
+                int yAxis=FunctionalButton[i]->geometry().y();
 
-				QPropertyAnimation *animation = new QPropertyAnimation(FunctionalButton[i], "geometry");
-				animation->setStartValue(QRect(720,yAxis, 70,70));
-				animation->setEndValue(QRect(720,yAxis+100, 70,70));
-				animation->setEasingCurve(QEasingCurve::Linear);
-				animation->setDuration(500);
-				animation->start();
+                QPropertyAnimation *animation = new QPropertyAnimation(FunctionalButton[i], "geometry");
+                animation->setStartValue(QRect(720,yAxis, 70,70));
+                animation->setEndValue(QRect(720,yAxis+100, 70,70));
+                animation->setEasingCurve(QEasingCurve::Linear);
+                animation->setDuration(500);
+                animation->start();
 
-				FunctionalButton[i]->setGeometry(720, yAxis+100, 70, 70);
-				if(FunctionalButton[i]->geometry().y()<70 || FunctionalButton[i]->geometry().y()>470)
-					FunctionalButton[i]->setVisible(false);
-				else
-					FunctionalButton[i]->setVisible(true);
-			}
-			if(FunctionalButton[0]->geometry().y()==70){
-				prevButton->setVisible(false);
-				nextButton->setVisible(true);
-			}
-		}
-	}
-	else if(pValue==_DOWN_){
-		if(FunctionalButton[5]->geometry().y()!=470){
-			for(int i=0;i<6;i++){
-				int yAxis=FunctionalButton[i]->geometry().y();
+                FunctionalButton[i]->setGeometry(720, yAxis+100, 70, 70);
+                if(FunctionalButton[i]->geometry().y()<70 || FunctionalButton[i]->geometry().y()>470)
+                    FunctionalButton[i]->setVisible(false);
+                else
+                    FunctionalButton[i]->setVisible(true);
+            }
+            if(FunctionalButton[0]->geometry().y()==70){
+                prevButton->setVisible(false);
+                nextButton->setVisible(true);
+            }
+        }
+    }
+    else if(pValue==_DOWN_){
+        if(FunctionalButton[5]->geometry().y()!=470){
+            for(int i=0;i<6;i++){
+                int yAxis=FunctionalButton[i]->geometry().y();
 
-				QPropertyAnimation *animation = new QPropertyAnimation(FunctionalButton[i], "geometry");
-				animation->setStartValue(QRect(720,yAxis, 70,70));
-				animation->setEndValue(QRect(720,yAxis-100, 70,70));
-				animation->setEasingCurve(QEasingCurve::Linear);
-				animation->setDuration(500);
-				animation->start();
-				FunctionalButton[i]->setGeometry(720, yAxis-100, 70, 70);
-				if(FunctionalButton[i]->geometry().y()<70 || FunctionalButton[i]->geometry().y()>470)
-					FunctionalButton[i]->setVisible(false);
-				else
-					FunctionalButton[i]->setVisible(true);
-			}
-			if(FunctionalButton[5]->geometry().y()==470){
-				prevButton->setVisible(true);
-				nextButton->setVisible(false);
-			}
-		}
-	}
+                QPropertyAnimation *animation = new QPropertyAnimation(FunctionalButton[i], "geometry");
+                animation->setStartValue(QRect(720,yAxis, 70,70));
+                animation->setEndValue(QRect(720,yAxis-100, 70,70));
+                animation->setEasingCurve(QEasingCurve::Linear);
+                animation->setDuration(500);
+                animation->start();
+                FunctionalButton[i]->setGeometry(720, yAxis-100, 70, 70);
+                if(FunctionalButton[i]->geometry().y()<70 || FunctionalButton[i]->geometry().y()>470)
+                    FunctionalButton[i]->setVisible(false);
+                else
+                    FunctionalButton[i]->setVisible(true);
+            }
+            if(FunctionalButton[5]->geometry().y()==470){
+                prevButton->setVisible(true);
+                nextButton->setVisible(false);
+            }
+        }
+    }
 }
 void PortableTester::Functions(int pValue){
-	// 0-DMM,1-VI,2-FG,3-SL,4-ICM,5-SCOPE
+    // 0-DMM,1-VI,2-FG,3-SL,4-ICM,5-SCOPE
 
-	QString l_strValue = "";
-	l_strValue.setNum(pValue);
-	l_objMainView->hideWindows();
-	baseFrame->setVisible(false);
-	closeButtons();
-	isWindowOpen = true;
+    QString l_strValue = "";
+    l_strValue.setNum(pValue);
+    l_objMainView->hideWindows();
+    baseFrame->setVisible(false);
+    closeButtons();
+    isWindowOpen = true;
 
-	if (pValue == _DMM_) {
-		//		char connectStatus=showMessageBox(true,true,false,"Ensure proper DMM cables connected.");
-		//		if(connectStatus=='Y'){
-		IPT->LoadDMMPlugins();
-		myID = 0x444D4D;
-		QWidget *DMM = IPT->InvokeApplication(myID);
-		l_objMainView->InitHeaderView(0, "DIGITAL MULTIMETER");
-		connect(DMM, SIGNAL(destroyed()), this, SLOT(UnHide()));
-		ui->mdiArea->addSubWindow(DMM, Qt::FramelessWindowHint);
-		DMM->show();
-		//		}
+    if (pValue == _DMM_) {
+        //		char connectStatus=showMessageBox(true,true,false,"Ensure proper DMM cables connected.");
+        //		if(connectStatus=='Y'){
+        IPT->LoadDMMPlugins();
+        myID = 0x444D4D;
+        QWidget *DMM = IPT->InvokeApplication(myID);
+        l_objMainView->InitHeaderView(0, "DIGITAL MULTIMETER");
+        connect(DMM, SIGNAL(destroyed()), this, SLOT(UnHide()));
+        ui->mdiArea->addSubWindow(DMM, Qt::FramelessWindowHint);
+        DMM->show();
+        //		}
 	//		else if(connectStatus=='N'){
-		//			msgBox->close();
-		//		}
-	}
-	else if (pValue == _VI_) {
-		//		char connectStatus=showMessageBox(true,true,false,"Ensure proper VI cables connected.");
-		//		if(connectStatus=='Y'){
-		//qDebug()<<"VI Application";
-		IPT->LoadVIPlugins();
-		myID = 0x56494D;
-		QWidget *VI = IPT->InvokeApplication(myID);
-		l_objMainView->InitHeaderView(0, "QSM-VI");
-		connect(VI, SIGNAL(destroyed()), this, SLOT(UnHide()));
-		ui->mdiArea->addSubWindow(VI, Qt::FramelessWindowHint);
-		VI->show();
-		//		}
+        //			msgBox->close();
+        //		}
+    }
+    else if (pValue == _VI_) {
+        //		char connectStatus=showMessageBox(true,true,false,"Ensure proper VI cables connected.");
+        //		if(connectStatus=='Y'){
+        //qDebug()<<"VI Application";
+        IPT->LoadVIPlugins();
+        myID = 0x56494D;
+        QWidget *VI = IPT->InvokeApplication(myID);
+        l_objMainView->InitHeaderView(0, "QSM-VI");
+        connect(VI, SIGNAL(destroyed()), this, SLOT(UnHide()));
+        ui->mdiArea->addSubWindow(VI, Qt::FramelessWindowHint);
+        VI->show();
+        //		}
 	//		else if(connectStatus=='N'){
-		//			msgBox->close();
-		//		}
-	}
-	else if (pValue == _FG_) {
-		//		char connectStatus=showMessageBox(true,true,false,"Ensure proper FG cables connected.");
-		//		if(connectStatus=='Y'){
-/*~~~~~	IPT->LoadFGPlugins();
+        //			msgBox->close();
+        //		}
+    }
+    else if (pValue == _FG_) {
+        //		char connectStatus=showMessageBox(true,true,false,"Ensure proper FG cables connected.");
+        //		if(connectStatus=='Y'){
+        /*~~~~~	IPT->LoadFGPlugins();
 		myID = 0x46474D;
 		QWidget *FG = IPT->InvokeApplication(myID);
 		l_objMainView->InitHeaderView(0, "ARBITARY WAVEFORM GENERATOR");
@@ -777,83 +869,83 @@ void PortableTester::Functions(int pValue){
 		ui->mdiArea->addSubWindow(FG, Qt::FramelessWindowHint);
 		FG->show();~~~~~~~~~~~*/
 
-		QPluginLoader pluginFG("libFGInterface.so",this);
-		ptFG = qobject_cast<IPTFGAppInterface*> (pluginFG.instance());
-		QWidget *FG=ptFG->getFGApp();
+        QPluginLoader pluginFG("libFGInterface.so",this);
+        ptFG = qobject_cast<IPTFGAppInterface*> (pluginFG.instance());
+        QWidget *FG=ptFG->getFGApp();
 
-		l_objMainView->InitHeaderView(0, "ARBITARY WAVEFORM GENERATOR");
-		connect(FG, SIGNAL(destroyed()), this, SLOT(UnHide()));
-		ui->mdiArea->addSubWindow(FG, Qt::FramelessWindowHint);
-		FG->show();
+        l_objMainView->InitHeaderView(0, "ARBITARY WAVEFORM GENERATOR");
+        connect(FG, SIGNAL(destroyed()), this, SLOT(UnHide()));
+        ui->mdiArea->addSubWindow(FG, Qt::FramelessWindowHint);
+        FG->show();
 
-		//		}
+        //		}
 	//		else if(connectStatus=='N'){
-		//			msgBox->close();
-		//		}
-	}
-	else if (pValue == _SL_) {
-		//		char connectStatus=showMessageBox(true,true,false,"Ensure proper Short Locator cables connected.");
-		//		if(connectStatus=='Y'){
-		IPT->LoadSLPlugins();
-		myID = 0x534C4D;
-		QWidget *SL = IPT->InvokeApplication(myID);
-		l_objMainView->InitHeaderView(0, "SHORT LOCATOR");
-		connect(SL, SIGNAL(destroyed()), this, SLOT(UnHide()));
-		ui->mdiArea->addSubWindow(SL, Qt::FramelessWindowHint);
-		SL->show();
-		//		}
+        //			msgBox->close();
+        //		}
+    }
+    else if (pValue == _SL_) {
+        //		char connectStatus=showMessageBox(true,true,false,"Ensure proper Short Locator cables connected.");
+        //		if(connectStatus=='Y'){
+        IPT->LoadSLPlugins();
+        myID = 0x534C4D;
+        QWidget *SL = IPT->InvokeApplication(myID);
+        l_objMainView->InitHeaderView(0, "SHORT LOCATOR");
+        connect(SL, SIGNAL(destroyed()), this, SLOT(UnHide()));
+        ui->mdiArea->addSubWindow(SL, Qt::FramelessWindowHint);
+        SL->show();
+        //		}
 	//		else if(connectStatus=='N'){
-		//			msgBox->close();
-		//		}
-	}
+        //			msgBox->close();
+        //		}
+    }
 
-	else if (pValue == _ICM_) {
-		//		char connectStatus=showMessageBox(true,true,false,"Ensure proper ICM cables connected.");
-		//		if(connectStatus=='Y'){
-		IPT->LoadICMPlugins();
-		myID = 0x49434D;
-		QWidget *ICM = IPT->InvokeApplication(myID);
-		l_objMainView->InitHeaderView(0, "ICM");
-		connect(ICM, SIGNAL(destroyed()), this, SLOT(UnHide()));
-		ui->mdiArea->addSubWindow(ICM, Qt::FramelessWindowHint);
-		ICM->show();
-		//		}
+    else if (pValue == _ICM_) {
+        //		char connectStatus=showMessageBox(true,true,false,"Ensure proper ICM cables connected.");
+        //		if(connectStatus=='Y'){
+        IPT->LoadICMPlugins();
+        myID = 0x49434D;
+        QWidget *ICM = IPT->InvokeApplication(myID);
+        l_objMainView->InitHeaderView(0, "ICM");
+        connect(ICM, SIGNAL(destroyed()), this, SLOT(UnHide()));
+        ui->mdiArea->addSubWindow(ICM, Qt::FramelessWindowHint);
+        ICM->show();
+        //		}
 	//		else if(connectStatus=='N'){
-		//			msgBox->close();
-		//		}
+        //			msgBox->close();
+        //		}
 
-	}
-	else if (pValue == _DSO_) {
-		//		char connectStatus=showMessageBox(true,true,false,"Ensure proper Scope cables connected.");
-		//		if(connectStatus=='Y'){
-		IPT->LoadDSOPlugins();
-		myID=0x44534F;
-		QWidget *DSO = IPT->InvokeApplication(myID);
-		l_objMainView->InitHeaderView(0, "DIGITAL STORAGE OSCILLOSCOPE");
-		connect(DSO, SIGNAL(destroyed()), this, SLOT(UnHide()));
-		ui->mdiArea->addSubWindow(DSO, Qt::FramelessWindowHint);
-		DSO->show();
-		//			QDir::setCurrent("/home");
-		//
-		//			QProcess::execute("./DSOUIx -qws");
-		//			QApplication::exit();
-		//			QDir::setCurrent("/home");
-		//			QProcess::execute("./PortableTester -qws");
-		//		}
-		//		else if(connectStatus=='N'){
-		//			msgBox->close();
-		//		}
-	}
-	else if(pValue == 16){
-		//qDebug()<<"SHORT LOCATOR TESTJIG";
-		IPT->LoadSHLPlugins();
-		myID = 0x999999;
-		QWidget *SHL = IPT->InvokeApplication(myID);
-		l_objMainView->InitHeaderView(0, "SHORT LOCATOR TEST UI");
-		connect(SHL, SIGNAL(destroyed()), this, SLOT(UnHide()));
-		ui->mdiArea->addSubWindow(SHL, Qt::FramelessWindowHint);
-		SHL->show();
-	}
+    }
+    else if (pValue == _DSO_) {
+        //		char connectStatus=showMessageBox(true,true,false,"Ensure proper Scope cables connected.");
+        //		if(connectStatus=='Y'){
+        IPT->LoadDSOPlugins();
+        myID=0x44534F;
+        QWidget *DSO = IPT->InvokeApplication(myID);
+        l_objMainView->InitHeaderView(0, "DIGITAL STORAGE OSCILLOSCOPE");
+        connect(DSO, SIGNAL(destroyed()), this, SLOT(UnHide()));
+        ui->mdiArea->addSubWindow(DSO, Qt::FramelessWindowHint);
+        DSO->show();
+        //			QDir::setCurrent("/home");
+        //
+        //			QProcess::execute("./DSOUIx -qws");
+        //			QApplication::exit();
+        //			QDir::setCurrent("/home");
+        //			QProcess::execute("./PortableTester -qws");
+        //		}
+        //		else if(connectStatus=='N'){
+        //			msgBox->close();
+        //		}
+    }
+    else if(pValue == 16){
+        //qDebug()<<"SHORT LOCATOR TESTJIG";
+        IPT->LoadSHLPlugins();
+        myID = 0x999999;
+        QWidget *SHL = IPT->InvokeApplication(myID);
+        l_objMainView->InitHeaderView(0, "SHORT LOCATOR TEST UI");
+        connect(SHL, SIGNAL(destroyed()), this, SLOT(UnHide()));
+        ui->mdiArea->addSubWindow(SHL, Qt::FramelessWindowHint);
+        SHL->show();
+    }
 
 }
 void PortableTester::startFG(){
@@ -861,83 +953,83 @@ void PortableTester::startFG(){
 }
 
 void PortableTester::buttonPressed(int pValue) {
-	//~~~~~~~~~~~~~MAIN 6 FUNCTIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	if (pValue == 0) {
-		Functions(_DMM_);
-	}
-	else if (pValue == 1) {
-		Functions(_VI_);
-	}
-	else if (pValue == 2) {
-		Functions(_FG_);
-	}
-	else if (pValue == 3) {
-		Functions(_SL_);
-	}
-	else if (pValue == 4) {
-		Functions(_ICM_);
-	}
-	else if (pValue == 5) {
-		Functions(_DSO_);
-	}
-	else if (pValue == 6) {
-//		on_testjigButton_clicked();
-		QWidget *newWidget = toolBox->getPTToolBox();
-		newWidget->show();
-	}
-	else if (pValue == 7) {
-            QProcess::execute("/usr/bin/qt-embedded/ts_calibrate");
-            QApplication::exit();
-            QDir::setCurrent("/home");
-            QProcess::execute("./PortableTester -qws");
-	}
-	else if(pValue == 8){
-		QDir::setCurrent("/home");
-		QProcess::execute("./fm -qws");
-		QApplication::exit();
-		QDir::setCurrent("/home");
-		QProcess::execute("./PortableTester -qws");
-	}
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	else if (pValue == 15) {
-		on_shutDownButton_clicked();
-	}
-	else if(pValue == 16){
-		Functions(16);
-	}
-	else if(pValue == 18){
-		//		UpDownButton(_DOWN_);
-	}
-	else if(pValue == 17){
-		//		UpDownButton(_UP_);
-	}
+    //~~~~~~~~~~~~~MAIN 6 FUNCTIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    if (pValue == 0) {
+        Functions(_DMM_);
+    }
+    else if (pValue == 1) {
+        Functions(_VI_);
+    }
+    else if (pValue == 2) {
+        Functions(_FG_);
+    }
+    else if (pValue == 3) {
+        Functions(_SL_);
+    }
+    else if (pValue == 4) {
+        Functions(_ICM_);
+    }
+    else if (pValue == 5) {
+        Functions(_DSO_);
+    }
+    else if (pValue == 6) {
+        //		on_testjigButton_clicked();
+        QWidget *newWidget = toolBox->getPTToolBox();
+        newWidget->show();
+    }
+    else if (pValue == 7) {
+        QProcess::execute("/usr/bin/qt-embedded/ts_calibrate");
+        QApplication::exit();
+        QDir::setCurrent("/home");
+        QProcess::execute("./PortableTester -qws");
+    }
+    else if(pValue == 8){
+        QDir::setCurrent("/home");
+        QProcess::execute("./fm -qws");
+        QApplication::exit();
+        QDir::setCurrent("/home");
+        QProcess::execute("./PortableTester -qws");
+    }
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    else if (pValue == 15) {
+        on_shutDownButton_clicked();
+    }
+    else if(pValue == 16){
+        Functions(16);
+    }
+    else if(pValue == 18){
+        //		UpDownButton(_DOWN_);
+    }
+    else if(pValue == 17){
+        //		UpDownButton(_UP_);
+    }
 
 }
 
 void PortableTester::paintEvent(QPaintEvent *pEvent) {
-	QPainter* pPainter = new QPainter(this);
-	pPainter->drawPixmap(rect(), QPixmap(":/images/PTFront.png"));
-	delete pPainter;
+    QPainter* pPainter = new QPainter(this);
+    pPainter->drawPixmap(rect(), QPixmap(":/images/PTFront.png"));
+    delete pPainter;
 
-	QStylePainter painter(this);
-	QColor l_objColor;
-	painter.drawPixmap(0, 0, QPixmap(":/images/PTFront.png"));
-	if (hasFocus()) {
-		QStyleOptionFocusRect option;
-		option.initFrom(this);
-		option.backgroundColor = palette().dark().color();
-		painter.drawPrimitive(QStyle::PE_FrameFocusRect, option);
-	}
-	QWidget::paintEvent(pEvent);
+    QStylePainter painter(this);
+    QColor l_objColor;
+    painter.drawPixmap(0, 0, QPixmap(":/images/PTFront.png"));
+    if (hasFocus()) {
+        QStyleOptionFocusRect option;
+        option.initFrom(this);
+        option.backgroundColor = palette().dark().color();
+        painter.drawPrimitive(QStyle::PE_FrameFocusRect, option);
+    }
+    QWidget::paintEvent(pEvent);
 }
 void PortableTester::UnHide() {
-	//    qDebug() << "UnHide";
-	l_objMainView->InitHeaderView(0, "PT6-QUTE");
-	l_objMainView->showWindows();
-	baseFrame->setVisible(true);
-	showButtons();
-	isWindowOpen = false;
-	IPT->removePlugin(myID);
-	myID=0;
+    //    qDebug() << "UnHide";
+    l_objMainView->InitHeaderView(0, "PT6-QUTE");
+    l_objMainView->showWindows();
+    baseFrame->setVisible(true);
+    showButtons();
+    isWindowOpen = false;
+    IPT->removePlugin(myID);
+    myID=0;
 }
 

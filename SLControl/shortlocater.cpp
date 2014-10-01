@@ -44,8 +44,8 @@ QWidget(parent) {
 	QPluginLoader loader3("libPTPsocInterface2.so", this);
 	IPsoc = qobject_cast<IPSOCCOMMUNICATION*> (loader3.instance());
 	IPsoc->openSerial();
-	//	QPluginLoader loader4("libPTDMMLibInterface2.so", this);
-	//	IDMMLib = qobject_cast<IDMMLibInterface*> (loader4.instance());
+		QPluginLoader loader40("libPTDMMLibInterface2.so", this);
+		IDMMLib = qobject_cast<IDMMLibInterface*> (loader40.instance());
 	QPluginLoader loader4("libPTDMMLibInterfaceNew.so", this);
 	IDMMLib = qobject_cast<IDMMLibInterface*> (loader4.instance());
 	QPluginLoader loader5("libGPIOEventInterface.so", this);

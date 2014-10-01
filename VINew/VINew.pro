@@ -26,7 +26,8 @@ SOURCES += mutlipewavedialog.cpp \
     vihwclass.cpp \
     ad5318components.cpp \
     ad5293.cpp
-HEADERS += AD5318TestJigInterface.h \
+HEADERS += PTDACFInterface.h \
+    AD5318TestJigInterface.h \
     serialdevice.h \
     serialdevice.h \
     mutlipewavedialog.h \

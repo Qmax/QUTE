@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Fri Sep 19 18:13:27 2014
+** Created: Tue Sep 30 16:03:39 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -132,6 +132,7 @@ public:
     QLabel *YAxis;
     QDoubleSpinBox *xAxisBox;
     QPushButton *AD5318Panel;
+    QPushButton *DACFValues;
     QFrame *frontPanel_VI;
     QFrame *framePowerUSB;
     QFrame *fp_usbSocket;
@@ -2275,6 +2276,18 @@ public:
         icon12.addFile(QString::fromUtf8(":/res/chip-icon2.png"), QSize(), QIcon::Normal, QIcon::Off);
         AD5318Panel->setIcon(icon12);
         AD5318Panel->setIconSize(QSize(48, 70));
+        DACFValues = new QPushButton(debugPanel);
+        DACFValues->setObjectName(QString::fromUtf8("DACFValues"));
+        DACFValues->setGeometry(QRect(567, 94, 60, 50));
+        DACFValues->setFont(font);
+        DACFValues->setFocusPolicy(Qt::NoFocus);
+        DACFValues->setStyleSheet(QString::fromUtf8("QPushButton {border: 1px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0);color:blue;\n"
+"}\n"
+""));
+        QIcon icon13;
+        icon13.addFile(QString::fromUtf8(":/res/chip-icon3.png"), QSize(), QIcon::Normal, QIcon::Off);
+        DACFValues->setIcon(icon13);
+        DACFValues->setIconSize(QSize(48, 70));
         frontPanel_VI = new QFrame(centralWidget);
         frontPanel_VI->setObjectName(QString::fromUtf8("frontPanel_VI"));
         frontPanel_VI->setGeometry(QRect(10, 430, 693, 160));
@@ -3032,6 +3045,7 @@ public:
         xAxis->setText(QApplication::translate("MainWindow", "X-AXIS :", 0, QApplication::UnicodeUTF8));
         YAxis->setText(QApplication::translate("MainWindow", "Y-AXIS :", 0, QApplication::UnicodeUTF8));
         AD5318Panel->setText(QString());
+        DACFValues->setText(QString());
         fp_powerLabel->setText(QApplication::translate("MainWindow", "POWER", 0, QApplication::UnicodeUTF8));
         ah3_label->setText(QApplication::translate("MainWindow", "AH3", 0, QApplication::UnicodeUTF8));
         ah1_label->setText(QApplication::translate("MainWindow", "AH1", 0, QApplication::UnicodeUTF8));

@@ -337,8 +337,8 @@ void VIHWClass::switchVoltageRegister(unsigned int pIndex)
 //    unsigned int l_nAmpValue = pow(2, pIndex);
    // qDebug()<<"Vindex"<<pIndex;
 //    unsigned int l_nRegisterData = l_nAmpValue;
-    double m_nVoltRangeArray[5]={0.6,2.0,4.0,8.0,14.0};
-    double m_nVoltRangeArray1[4]={0.2,2.5,7.75,12.75};
+    double m_nVoltRangeArray[5]={	0.6,	2.0,	4.0,	8.0,	14.0	};
+    double m_nVoltRangeArray1[4]={	0.2,	2.5,	7.75,	12.75	};
    // qDebug()<< "Voltage Index:" << pIndex<<" "<<m_nVoltRangeArray1[pIndex];
    // double m_nVoltRangeArray[6]={0.6,0.6,1.5,3.5,7.0,13.0}; // for testing
     int index=0;
@@ -384,6 +384,28 @@ void VIHWClass::switchVoltageRegister(unsigned int pIndex)
 	 }
 
 //    qDebug()<<"switchVoltageRegister Done";
+
+	    //~~~~~~~~~~~~~Reading Short Values from File~~~~~~~~~~~~~~~~~~~~~~
+	    QStringList stringList;    bool ok = true;    QFile textFile;	double offsetValue[5];
+	    textFile.setFileName("OffsetValues.txt");
+
+	    if (textFile.open(QIODevice::ReadOnly)) {
+	            QTextStream textStream(&textFile);
+	            while (!textStream.atEnd()) {
+	                    stringList.append(textStream.readLine());
+	            }
+	            for(int i=0;i<5;i++){
+	                offsetValue[i]=stringList.value(i).toDouble(&ok);
+	                qDebug()<<"Range:"<<m_nVoltRangeArray[index]<<offsetValue[i];
+	            }
+	    }
+	    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+		IAppCard->setSPIAppendBit(0xC000);
+		m_objAD5318Component->resetDAC5318(true);
+		m_eSelect = DACF;
+		m_objAD5318Component->configureADC5318CW();
+	    updateDAC(offsetValue[index]);
 }
 
 void VIHWClass::switchFrequencyRegister(unsigned int pValue)

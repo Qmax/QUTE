@@ -2,13 +2,14 @@
 #define PORTABLETESTER_H
 
 #include "mainwindowview.h"
-
+#include <unistd.h>
 #include <QMainWindow>
 #include <QtGui/QMainWindow>
 #include <QtGui>
 #include <StdAPI.h>
 #include <QPainter>
 #include <QGraphicsScene>
+#include <QTableWidget>
 #include <QGraphicsView>
 #include <QStylePainter>
 #include <QPushButton>
@@ -35,10 +36,20 @@
 #include "operatorInterface.h"
 #include "QDigitalClock.h"
 #include "logindialog.h"
-
 #include "FGAppInterface.h"
-
 #include "PTToolBoxInterface.h"
+#include "DSOCardInterface.h"
+
+//~~~~~~~~~~~DMM SPI Back Panel Registers~~~~~~~~~~~~~
+#define DMM_CMD_BP             0x0036
+#define DMM_ADDR_BP            0x0038
+#define DMM_DATA_TX_MSW_BP     0x003C
+#define DMM_DATA_TX_LSW_BP     0x003A
+#define DMM_DATA_RX_MSW_BP     0x0040
+#define DMM_DATA_RX_LSW_BP     0x003E
+#define DMM_CLK_DIV_BP         0x0042
+#define DMM_RLY_SEL_BP         0x0044
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #define _DMM_ 0
 #define _VI_  1
@@ -147,6 +158,7 @@ protected:
     IQmaxLineEdit *ILineEdit;
 
     IPTToolBoxInterface *toolBox;
+    IDSOCardInterface *IDSOCard;
 
 	QMessageBox *msgBox;
 	QPushButton *connectButton,*abortButton,*cancelButton;
@@ -154,7 +166,8 @@ protected:
 	char showMessageBox(bool,bool,bool,QString,QString,QString,QString);
 	void Functions(int);
 	void UpDownButton(int);
-
+        u_int32_t readDMMSPI(u_int16_t _Address);
+        void writeDMMSPI(u_int16_t _Address, u_int16_t _Data);
 	void changeEvent(QEvent *e);
 
 	void customEvent(QEvent *eve);

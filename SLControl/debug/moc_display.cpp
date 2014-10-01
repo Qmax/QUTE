@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'display.h'
 **
-** Created: Thu Sep 25 11:27:47 2014
+** Created: Tue Sep 30 19:46:28 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
