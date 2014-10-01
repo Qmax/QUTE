@@ -137,7 +137,7 @@ protected:
         QAbstractButton *connectButton,*abortButton;
         bool msgBoxLive;
         bool showMessageBox(bool,bool,QString,QString,QString);
-        bool toolboxFlag;
+        bool toolboxFlag,checkPrbStatus;
         bool psudoMode;
         offset *m_objoffset;
 

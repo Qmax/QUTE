@@ -1,0 +1,307 @@
+C51 COMPILER V9.51   SPIS_PM                                                               05/08/2014 15:43:48 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE SPIS_PM
+OBJECT MODULE PLACED IN .\DP8051\DP8051_Keil_951\Debug\SPIS_PM.obj
+COMPILER INVOKED BY: C:\Program Files\Cypress\PSoC Creator\3.0\PSoC Creator\import\keil\pk51\9.51\C51\BIN\c51.exe .\Gene
+                    -rated_Source\PSoC3\SPIS_PM.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051\DP8051_Keil_951\Debug\SPIS_PM.lst) CD DB NOIP OT(2
+                    -,SIZE) DF(DEBUG) INCDIR(.,.\Generated_Source\PSoC3) OJ(.\DP8051\DP8051_Keil_951\Debug\SPIS_PM.obj)
+
+line level    source
+
+   1          /*******************************************************************************
+   2          * File Name: SPIS_PM.c
+   3          * Version 2.60
+   4          *
+   5          * Description:
+   6          *  This file contains the setup, control and status commands to support
+   7          *  component operations in low power mode.
+   8          *
+   9          * Note:
+  10          *
+  11          ********************************************************************************
+  12          * Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+  13          * You may use this file only in accordance with the license, terms, conditions,
+  14          * disclaimers, and limitations in the end user license agreement accompanying
+  15          * the software package with which this file was provided.
+  16          *******************************************************************************/
+  17          
+  18          #include "SPIS_PVT.h"
+  19          
+  20          static SPIS_BACKUP_STRUCT SPIS_backup = 
+  21          {
+  22              SPIS_DISABLED,
+  23              SPIS_BITCTR_INIT,
+  24              #if(CY_UDB_V0)
+                      SPIS_TX_INIT_INTERRUPTS_MASK,
+                      SPIS_RX_INIT_INTERRUPTS_MASK
+                  #endif /* CY_UDB_V0 */
+  28          };
+  29          
+  30          
+  31          /*******************************************************************************
+  32          * Function Name: SPIS_SaveConfig
+  33          ********************************************************************************
+  34          *
+  35          * Summary:
+  36          *  Saves SPIM configuration.
+  37          *
+  38          * Parameters:
+  39          *  None.
+  40          *
+  41          * Return:
+  42          *  None.
+  43          *
+  44          * Global Variables:
+  45          *  SPIS_backup - modified when non-retention registers are saved.
+  46          *
+  47          * Reentrant:
+  48          *  No.
+  49          *
+  50          *******************************************************************************/
+  51          void SPIS_SaveConfig(void) 
+  52          {
+  53   1          /* Store Status Mask registers */
+C51 COMPILER V9.51   SPIS_PM                                                               05/08/2014 15:43:48 PAGE 2   
+
+  54   1          #if (CY_UDB_V0)
+              
+                     SPIS_backup.saveSrTxIntMask = SPIS_TX_STATUS_MASK_REG;
+                     SPIS_backup.saveSrRxIntMask = SPIS_RX_STATUS_MASK_REG;
+                     SPIS_backup.cntrPeriod      = SPIS_COUNTER_PERIOD_REG;
+              
+                  #endif /* CY_UDB_V0 */
+  61   1      }
+  62          
+  63          
+  64          /*******************************************************************************
+  65          * Function Name: SPIS_RestoreConfig
+  66          ********************************************************************************
+  67          *
+  68          * Summary:
+  69          *  Restores SPIS configuration.
+  70          *
+  71          * Parameters:
+  72          *  None.
+  73          *
+  74          * Return:
+  75          *  None.
+  76          *
+  77          * Global Variables:
+  78          *  SPIS_backup - used when non-retention registers are restored.
+  79          *
+  80          * Side Effects:
+  81          *  If this API is called without first calling SaveConfig then in the following
+  82          *  registers will be default values from Customizer:
+  83          *  SPIS_STATUS_MASK_REG and SPIS_COUNTER_PERIOD_REG.
+  84          *
+  85          *******************************************************************************/
+  86          void SPIS_RestoreConfig(void) 
+  87          {
+  88   1          /* Restore the data, saved by SaveConfig() function */
+  89   1          #if (CY_UDB_V0)
+              
+                      SPIS_TX_STATUS_MASK_REG = SPIS_backup.saveSrTxIntMask;
+                      SPIS_RX_STATUS_MASK_REG = SPIS_backup.saveSrRxIntMask;
+                      SPIS_COUNTER_PERIOD_REG = SPIS_backup.cntrPeriod;
+              
+                  #endif /* CY_UDB_V0 */
+  96   1      }
+  97          
+  98          
+  99          /*******************************************************************************
+ 100          * Function Name: SPIS_Sleep
+ 101          ********************************************************************************
+ 102          *
+ 103          * Summary:
+ 104          *  Prepare SPIM Component goes to sleep.
+ 105          *
+ 106          * Parameters:
+ 107          *  None.
+ 108          *
+ 109          * Return:
+ 110          *  None.
+ 111          *
+ 112          * Global Variables:
+ 113          *  SPIS_backup - modified when non-retention registers are saved.
+ 114          *
+ 115          * Reentrant:
+C51 COMPILER V9.51   SPIS_PM                                                               05/08/2014 15:43:48 PAGE 3   
+
+ 116          *  No.
+ 117          *
+ 118          *******************************************************************************/
+ 119          void SPIS_Sleep(void) 
+ 120          {
+ 121   1          /* Save components enable state */
+ 122   1          if ((SPIS_TX_STATUS_ACTL_REG & SPIS_INT_ENABLE) != 0u)
+ 123   1          {
+ 124   2              SPIS_backup.enableState = 1u;
+ 125   2          }
+ 126   1          else /* Components block is disabled */
+ 127   1          {
+ 128   2              SPIS_backup.enableState = 0u;
+ 129   2          }
+ 130   1      
+ 131   1          SPIS_Stop();
+ 132   1      
+ 133   1          SPIS_SaveConfig();
+ 134   1      }
+ 135          
+ 136          
+ 137          /*******************************************************************************
+ 138          * Function Name: SPIS_Wakeup
+ 139          ********************************************************************************
+ 140          *
+ 141          * Summary:
+ 142          *  Prepare SPIM Component to wake up.
+ 143          *
+ 144          * Parameters:
+ 145          *  None.
+ 146          *
+ 147          * Return:
+ 148          *  None.
+ 149          *
+ 150          * Global Variables:
+ 151          *  SPIS_backup - used when non-retention registers are restored.
+ 152          *  SPIS_txBufferWrite - modified every function call - resets to
+ 153          *  zero.
+ 154          *  SPIS_txBufferRead - modified every function call - resets to
+ 155          *  zero.
+ 156          *  SPIS_rxBufferWrite - modified every function call - resets to
+ 157          *  zero.
+ 158          *  SPIS_rxBufferRead - modified every function call - resets to
+ 159          *  zero.
+ 160          *
+ 161          * Reentrant:
+ 162          *  No.
+ 163          *
+ 164          *******************************************************************************/
+ 165          void SPIS_Wakeup(void) 
+ 166          {
+ 167   1          SPIS_RestoreConfig();
+ 168   1      
+ 169   1          #if (SPIS_TX_SOFTWARE_BUF_ENABLED)
+                      SPIS_txBufferFull = 0u;
+                      SPIS_txBufferRead = 0u;
+                      SPIS_txBufferWrite = 0u;
+                  #endif /* SPIS_TX_SOFTWARE_BUF_ENABLED */
+ 174   1      
+ 175   1          #if (SPIS_RX_SOFTWARE_BUF_ENABLED)
+                      SPIS_rxBufferFull = 0u;
+                      SPIS_rxBufferRead = 0u;
+C51 COMPILER V9.51   SPIS_PM                                                               05/08/2014 15:43:48 PAGE 4   
+
+                      SPIS_rxBufferWrite = 0u;
+                  #endif /* SPIS_RX_SOFTWARE_BUF_ENABLED */
+ 180   1      
+ 181   1          SPIS_ClearFIFO();
+ 182   1      
+ 183   1          /* Restore components block enable state */
+ 184   1          if (SPIS_backup.enableState != 0u)
+ 185   1          {
+ 186   2               /* Components block was enabled */
+ 187   2               SPIS_Enable();
+ 188   2          } /* Do nothing if components block was disabled */
+ 189   1      }
+ 190          
+ 191          
+ 192          /* [] END OF FILE */
+C51 COMPILER V9.51   SPIS_PM                                                               05/08/2014 15:43:48 PAGE 5   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION SPIS_SaveConfig (BEGIN)
+                                           ; SOURCE LINE # 51
+                                           ; SOURCE LINE # 52
+                                           ; SOURCE LINE # 61
+0000 22                RET     
+             ; FUNCTION SPIS_SaveConfig (END)
+
+             ; FUNCTION SPIS_RestoreConfig (BEGIN)
+                                           ; SOURCE LINE # 86
+                                           ; SOURCE LINE # 87
+                                           ; SOURCE LINE # 96
+0000 22                RET     
+             ; FUNCTION SPIS_RestoreConfig (END)
+
+             ; FUNCTION SPIS_Sleep (BEGIN)
+                                           ; SOURCE LINE # 119
+                                           ; SOURCE LINE # 120
+                                           ; SOURCE LINE # 122
+0000 90649A            MOV     DPTR,#0649AH
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 EF                MOV     A,R7
+0006 5410              ANL     A,#010H
+0008 FF                MOV     R7,A
+0009 7E00              MOV     R6,#00H
+000B EF                MOV     A,R7
+000C 4E                ORL     A,R6
+000D 6008              JZ      ?C0003
+                                           ; SOURCE LINE # 123
+                                           ; SOURCE LINE # 124
+000F 900000      R     MOV     DPTR,#SPIS_backup
+0012 7401              MOV     A,#01H
+0014 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 125
+0015 8005              SJMP    ?C0004
+0017         ?C0003:
+                                           ; SOURCE LINE # 127
+                                           ; SOURCE LINE # 128
+0017 900000      R     MOV     DPTR,#SPIS_backup
+001A E4                CLR     A
+001B F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 129
+001C         ?C0004:
+                                           ; SOURCE LINE # 131
+001C 120000      E     LCALL   SPIS_Stop
+                                           ; SOURCE LINE # 133
+001F 120000      R     LCALL   SPIS_SaveConfig
+                                           ; SOURCE LINE # 134
+0022 22                RET     
+             ; FUNCTION SPIS_Sleep (END)
+
+             ; FUNCTION SPIS_Wakeup (BEGIN)
+                                           ; SOURCE LINE # 165
+                                           ; SOURCE LINE # 166
+                                           ; SOURCE LINE # 167
+0000 120000      R     LCALL   SPIS_RestoreConfig
+                                           ; SOURCE LINE # 181
+0003 120000      E     LCALL   SPIS_ClearFIFO
+                                           ; SOURCE LINE # 184
+C51 COMPILER V9.51   SPIS_PM                                                               05/08/2014 15:43:48 PAGE 6   
+
+0006 900000      R     MOV     DPTR,#SPIS_backup
+0009 E0                MOVX    A,@DPTR
+000A FF                MOV     R7,A
+000B EF                MOV     A,R7
+000C 6003              JZ      ?C0007
+                                           ; SOURCE LINE # 185
+                                           ; SOURCE LINE # 187
+000E 120000      E     LCALL   SPIS_Enable
+                                           ; SOURCE LINE # 188
+                                           ; SOURCE LINE # 189
+0011         ?C0007:
+0011 22                RET     
+             ; FUNCTION SPIS_Wakeup (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     55    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      2    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

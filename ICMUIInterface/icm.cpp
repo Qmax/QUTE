@@ -39,6 +39,20 @@ QMainWindow(parent), ui(new Ui::ICM) {
 //    graphSetup(ui->graphPlot);
 //
 }
+void ICM::checkProbeConnect() {
+    //Check Probe~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            IPsoc->writeSerial(0x01);
+            usleep(1000);
+        	if(m_bExternal==false){
+        		if((IPsoc->readSerial()&0x08)!=0x08)
+            		checkPrbStatus=showMessageBox(true,false,"Connect Internal Probe","OK","Cancel");
+            }
+        	else if(m_bExternal==true)
+        		checkPrbStatus=showMessageBox(true,false,"Please Ensure External Probes are Connected","OK","Cancel");
+
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
 void ICM::ToolBox(bool hide) {
 	ui->calibrateDisplay->setVisible(hide);
 	ui->lblfrequency->setVisible(hide);
@@ -892,6 +906,9 @@ void ICM::callFeedBackChange(int index) {
 
 }
 void ICM::readADC(){
+	if(checkPrbStatus==false)
+		checkProbeConnect();
+
 //    showMessageBox(true,false,QDateTime::currentDateTime().toString());
 	if(ui->ResistanceRanges->isVisible()){
                 if( autoFlag == true && scanFlag == true )
@@ -1662,7 +1679,7 @@ void ICM::Intialize() {
 
 	on_OnOffSlider_valueChanged(0);
 	autoFlag=true;
-
+	checkPrbStatus=false;
 
 	m_nICMMGR = 0;
 	m_nFrequency = 1000;
@@ -3092,6 +3109,7 @@ void ICM::on_calibrate_clicked() {
 }
 
 void ICM::on_pushButton_clicked() {
+	checkPrbStatus=false;
 	/*	    QWidget *newWidget=test->getPTAppBckPsoc();
                             newWidget->setWindowTitle("AppCard BackPanel PSoC Panel");
                             newWidget->show();*/

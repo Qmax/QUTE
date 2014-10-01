@@ -372,28 +372,31 @@ void FG::callLineEditInput(int leFocussed){
 }
 void FG::SetFrequency(double l_nFrequency){
     if(m_bBurst==true){
-    	if(m_strWaveType=="TRIANGLE"){
-            if(l_nFrequency<((1/m_nBurstRate)*4))
-                showMessageBox(true,false,"Value is lesser than minimum value","Ok","");
-            else{
-                    hwInterface->setFrequency(l_nFrequency);
-                    m_nFrequency=l_nFrequency;
-                    m_nPeriod=1/m_nFrequency;
-            }
-    	}else{
-            if(l_nFrequency<((1/m_nBurstRate)*2))
-                showMessageBox(true,false,"Value is lesser than minimum value","Ok","");
-            else{
-                    hwInterface->setFrequency(l_nFrequency);
-                    m_nFrequency=l_nFrequency;
-                    m_nPeriod=1/m_nFrequency;
-            }
-    	}
-
+        if(l_nFrequency<((1/m_nBurstRate)*2))
+            showMessageBox(true,false,"Value is lesser than minimum value","Ok","");
+        else{
+//            if(m_strWaveType=="TRIANGLE"){
+//                hwInterface->setFrequency(l_nFrequency*2);
+//                m_nFrequency=l_nFrequency*2;
+//                m_nPeriod=1/m_nFrequency;
+//            }
+//            else{
+                hwInterface->setFrequency(l_nFrequency);
+                m_nFrequency=l_nFrequency;
+                m_nPeriod=1/m_nFrequency;
+//            }
+        }
     }else{
+//        if(m_strWaveType=="TRIANGLE"){
+//            hwInterface->setFrequency(l_nFrequency*2);
+//            m_nFrequency=l_nFrequency*2;
+//            m_nPeriod=1/m_nFrequency;
+//        }
+//        else{
             hwInterface->setFrequency(l_nFrequency);
             m_nFrequency=l_nFrequency;
             m_nPeriod=1/m_nFrequency;
+//        }
     }
 }
 void FG::clickedPRSCR() {
@@ -452,7 +455,7 @@ void FG::receiveValue(double pValue){
         break;
     case BURST_COUNT:
         m_nBurstCount=pValue;
-        SetBurstCount(m_nBurstCount);
+        SetBurstCount(/*m_nBurstCount*/);
         break;
     case BURST_RATE:
         m_nBurstRate=pValue;
@@ -722,14 +725,19 @@ void FG::changeEvent(QEvent *e) {
 //        IGPIOPin->illuminateRunStopButton(0);
 //    }	IGPIOPin->illuminateRunStopButton(1);
 //}
-void FG::SetBurstCount(int count){
-	if(m_bBurst==true){
+void FG::SetBurstCount(/*int count*/){
+//	if(m_bBurst==true){
+	unsigned short b1,b2;
+	b1=(unsigned int)m_nBurstCount;
+	b2=b1*2;
+
 		if(m_strWaveType=="TRIANGLE"){
-			hwInterface->setBurstCount(count*2);
+			qDebug()<<"Triangle Burst Count:"<<b2;
+			hwInterface->setBurstCount(b2);
 		}else{
-			hwInterface->setBurstCount(count);
+			hwInterface->setBurstCount(b1);
 		}
-	}
+//	}
 }
 void FG::on_MANBut_clicked()
 {
@@ -745,13 +753,30 @@ void FG::on_MANBut_clicked()
             IGPIOPin->illuminateRunStopButton(0);
         }	IGPIOPin->illuminateRunStopButton(1);
 
-        if(m_strWaveType=="TRIANGLE"){
-            SetFrequency(m_nFrequency);
-            if(m_bBurst==true)
-            	SetBurstCount(2);
-            else
-            	SetBurstCount(1);
-        }
+//        if(m_strWaveType=="TRIANGLE"){
+            hwInterface->setFrequency(m_nFrequency);
+//            if(m_bBurst==true)
+            	SetBurstCount(/*m_nBurstCount*/);
+//            else
+//            	SetBurstCount(/*m_nBurstCount*/);
+//        }
+    }
+
+    if(m_bContinuous!=true){
+        HighlightButtons(MANUAL);
+        hwInterface->setAmplitude(m_nAmplitude);
+        hwInterface->Drive(STARTDRIVE);
+        for (int i = 0; i < 500; i++){
+            IGPIOPin->illuminateRunStopButton(0);
+        }	IGPIOPin->illuminateRunStopButton(1);
+
+//        if(m_strWaveType=="TRIANGLE"){
+            hwInterface->setFrequency(m_nFrequency);
+//            if(m_bBurst==true)
+            	SetBurstCount(/*m_nBurstCount*/);
+//            else
+//            	SetBurstCount(/*m_nBurstCount*/);
+//        }
     }
 
 }
@@ -833,6 +858,8 @@ void FG::on_sineBut_clicked() {
     HighlightButtons(SINE_WAVE);
     GenerateWave();
     hwInterface->SelectWaveForm(SINE_W);
+    if(m_bBurst==true)
+    	SetBurstCount(/*m_nBurstCount*/);
 }
 
 void FG::on_squareBut_clicked() {
@@ -840,6 +867,7 @@ void FG::on_squareBut_clicked() {
     HighlightButtons(SQUARE_WAVE);
     GenerateWave();
     hwInterface->SelectWaveForm(SQUARE_W);
+    SetBurstCount(/*m_nBurstCount*/);
 }
 void FG::on_AWGBox_clicked()
 {
@@ -855,6 +883,7 @@ void FG::on_rampBut_clicked() {
     HighlightButtons(RAMP_WAVE);
     GenerateWave();
     hwInterface->SelectWaveForm(RAMPUP_W);
+    SetBurstCount(/*m_nBurstCount*/);
 }
 
 void FG::on_triangleBut_clicked() {
@@ -862,6 +891,7 @@ void FG::on_triangleBut_clicked() {
     HighlightButtons(TRIANGLE_WAVE);
     GenerateWave();
     hwInterface->SelectWaveForm(TRIANGLE_W);
+    SetBurstCount(/*m_nBurstCount*/);
 }
 
 void FG::InitialiseWaveData() {
@@ -986,6 +1016,13 @@ void FG::HighlightButtons(int but){
         burstRateEdit->stylesheetSet("color: rgb(255, 255, 255);""background-color: gray;border:1px solid rgba(100,100,100,255);border-radius:5px;");
         burstRateLabel->setEnabled(false);
         burstCountEdit->setText("1");
+/*
+        if(m_strWaveType=="TRIANGLE")
+             	m_nBurstCount=2;
+             else
+*/
+             	m_nBurstCount=1;
+             SetBurstCount(/*m_nBurstCount*/);
 
         m_bContinuous=false;m_bBurst=false;	m_bSingle=true;m_bGate=false;
         m_bManual=true;m_bInternal=false;m_bExternal=false;
@@ -1024,7 +1061,12 @@ void FG::HighlightButtons(int but){
         burstRateEdit->setEnabled(false);
         burstRateEdit->stylesheetSet("color: rgb(255, 255, 255);""background-color: gray;border:1px solid rgba(100,100,100,255);border-radius:5px;");
         burstRateLabel->setEnabled(false);
-        burstCountEdit->setText("2");     SetBurstCount(2);
+        burstCountEdit->setText("2");
+/*        if(m_strWaveType=="TRIANGLE")
+        	m_nBurstCount=4;
+        else*/
+        	m_nBurstCount=2;
+        SetBurstCount(/*m_nBurstCount*/);
 
         m_bContinuous=false;m_bBurst=true;m_bSingle=false;m_bGate=false;
         m_bManual=true;m_bInternal=false;m_bExternal=false;
@@ -2184,11 +2226,11 @@ void FG::on_modeBox_currentIndexChanged(int index)
         if(m_strWaveType=="TRIANGLE"){
             burstRateEdit->setText((convertToUnits(convertToValues(lineEdit[PERIOD]->text())*8))+"sec");
             hwInterface->setBurstRate(m_nPeriod*8);
-            SetBurstCount(4);
+            SetBurstCount(/*m_nBurstCount*2*/);
         }else{
 			burstRateEdit->setText((convertToUnits(convertToValues(lineEdit[PERIOD]->text())*4))+"sec");
 			hwInterface->setBurstRate(m_nPeriod*4);
-			SetBurstCount(2);
+			SetBurstCount(/*m_nBurstCount*/);
         }
         break;
     }

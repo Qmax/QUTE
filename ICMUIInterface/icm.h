@@ -71,7 +71,7 @@ public:
     double avgRValueOpen[6],avgLValueOpen[7],avgCValueOpen[9];
     double Zdut;
     QLineEdit *leActual,*leMeasured;
-
+    void checkProbeConnect();
     void openNumKBPanel(short int);
     void openNumKBPanel(short int,double,char,double,double,QWidget*);
     short int m_nLineEditIndex;
@@ -143,6 +143,7 @@ protected:
     QAbstractButton *connectButton,*abortButton;
     bool msgBoxLive;
     bool showMessageBox(bool,bool,QString,QString,QString);
+    bool checkPrbStatus;
 
     void customEvent(QEvent *eve);
     void KeyFunction();

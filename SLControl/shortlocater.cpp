@@ -80,12 +80,6 @@ ShortLocater::ShortLocater(QWidget *parent) :
 
     psudoMode = true;
 
-    //Check Probe~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            IPsoc->writeSerial(0x01);
-            usleep(1000);
-            if((IPsoc->readSerial()&0x08)!=0x08)
-                    showMessageBox(true,false,"Connect Internal Probe","OK","Cancel");
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 void ShortLocater::ToolBox(bool flag) {
     ui.debugPanel->setVisible(flag);
@@ -110,6 +104,10 @@ void ShortLocater::Initializations() {
     objDACFValue->setStyleSheet(
             "border-width: 2px;border-style: outset;border-color: gray; 						padding: 0 8px;     background: black;     selection-background-color: yellow;   color:white;     font: bold 14px;");
     m_bDACSelect = false;
+
+    ui.fp_VI1_ICM_SL->setGeometry(24, 20, 53, 49);
+    ui.fp_VI1_ICM_SL->setStyleSheet(
+            "border:1px rgba(0,0,0,0);border-radius:20px;image: url(:/fp_images/VI_SL_ICM.png);");
 
     IPsoc->resetRelays();
     IPsoc->srcImpedanceSelection(SRC_IMP_0E);
@@ -182,7 +180,7 @@ void ShortLocater::Initializations() {
     OffsetFlag = false;
     BuzzerFlag = false;
     msgBoxLive = false;
-
+    checkPrbStatus=false;
     ui.progressBar_2->setValue(0);
     for (int i = 0; i < 100; i++)
         avgRetval[i] = 0.0;
@@ -505,13 +503,23 @@ void ShortLocater::Configure(int x) {
     }
 }
 void ShortLocater::checkProbeConnect() {
-    if ((IPsoc->embeddedProbeStatus() & 0x08) != 0x08) {
-        showMessageBox(true, false, "Probe Disconnected!", "OK", "");
-    }
+    //Check Probe~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            IPsoc->writeSerial(0x01);
+            usleep(1000);
+        	if(ui.Internal->isVisible()==true){
+        		if((IPsoc->readSerial()&0x08)!=0x08)
+            		checkPrbStatus=showMessageBox(true,false,"Connect Internal Probe","OK","Cancel");
+            }
+        	else if(ui.External->isVisible()==true)
+        		checkPrbStatus=showMessageBox(true,false,"Please Ensure External Probes are Connected","OK","Cancel");
 
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 void ShortLocater::Measure() {
-    //	checkProbeConnect();
+	if(checkPrbStatus==false)
+    	checkProbeConnect();
+
     /*
 	 if(OffsetFlag==true)
 	 ui.openShortEnable->setChecked(false);
@@ -1441,7 +1449,7 @@ void ShortLocater::on_Internal_clicked() {
            } else {
                r200EShortValue = r200mEShortValue = r2EShortValue = 0.0;
            }
-
+           checkPrbStatus=false;
        }
 
 void ShortLocater::on_External_clicked() {
@@ -1499,6 +1507,7 @@ void ShortLocater::on_External_clicked() {
     } else {
         r200EShortValue = r200mEShortValue = r2EShortValue = 0.0;
     }
+    checkPrbStatus=false;
 }
 
 void ShortLocater::on_openShortEnable_clicked(bool checked) {

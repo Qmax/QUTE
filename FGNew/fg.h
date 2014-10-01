@@ -127,7 +127,7 @@ protected:
     void VppOffset2HighLow(QString,QString);
     void HighLow2VppOffset(QString,QString);
     void SetFrequency(double);
-    void SetBurstCount(int);
+    void SetBurstCount(/*int*/);
     double convertToValues(QString input);
     QString convertToUnits(double l_nvalue);
 
