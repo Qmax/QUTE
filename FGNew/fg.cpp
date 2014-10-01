@@ -727,15 +727,10 @@ void FG::changeEvent(QEvent *e) {
 //}
 void FG::SetBurstCount(/*int count*/){
 //	if(m_bBurst==true){
-	unsigned short b1,b2;
-	b1=(unsigned int)m_nBurstCount;
-	b2=b1*2;
-
 		if(m_strWaveType=="TRIANGLE"){
-			qDebug()<<"Triangle Burst Count:"<<b2;
-			hwInterface->setBurstCount(b2);
+			hwInterface->setBurstCount(m_nBurstCount*2);
 		}else{
-			hwInterface->setBurstCount(b1);
+			hwInterface->setBurstCount(m_nBurstCount);
 		}
 //	}
 }
@@ -745,23 +740,6 @@ void FG::on_MANBut_clicked()
 //        hwInterface->setPatternLoop(true);
 //    else
 //        hwInterface->setPatternLoop(false);
-    if(m_bContinuous!=true){
-        HighlightButtons(MANUAL);
-        hwInterface->setAmplitude(m_nAmplitude);
-        hwInterface->Drive(STARTDRIVE);
-        for (int i = 0; i < 500; i++){
-            IGPIOPin->illuminateRunStopButton(0);
-        }	IGPIOPin->illuminateRunStopButton(1);
-
-//        if(m_strWaveType=="TRIANGLE"){
-            hwInterface->setFrequency(m_nFrequency);
-//            if(m_bBurst==true)
-            	SetBurstCount(/*m_nBurstCount*/);
-//            else
-//            	SetBurstCount(/*m_nBurstCount*/);
-//        }
-    }
-
     if(m_bContinuous!=true){
         HighlightButtons(MANUAL);
         hwInterface->setAmplitude(m_nAmplitude);
@@ -855,19 +833,20 @@ void FG::on_hiZBut_clicked() {
 }
 void FG::on_sineBut_clicked() {
     m_strWaveType = "SINE";
+	if(m_bBurst==true||m_bSingle==true)
+		SetBurstCount();
     HighlightButtons(SINE_WAVE);
     GenerateWave();
     hwInterface->SelectWaveForm(SINE_W);
-    if(m_bBurst==true)
-    	SetBurstCount(/*m_nBurstCount*/);
 }
 
 void FG::on_squareBut_clicked() {
     m_strWaveType = "SQUARE";
+	if(m_bBurst==true||m_bSingle==true)
+		SetBurstCount();
     HighlightButtons(SQUARE_WAVE);
     GenerateWave();
     hwInterface->SelectWaveForm(SQUARE_W);
-    SetBurstCount(/*m_nBurstCount*/);
 }
 void FG::on_AWGBox_clicked()
 {
@@ -879,19 +858,21 @@ void FG::on_AWGBox_clicked()
     HighlightButtons(AWG_WAVE);
 }
 void FG::on_rampBut_clicked() {
-    m_strWaveType = "RAMP";
+	m_strWaveType = "RAMP";
+	if(m_bBurst==true||m_bSingle==true)
+		SetBurstCount();
     HighlightButtons(RAMP_WAVE);
     GenerateWave();
     hwInterface->SelectWaveForm(RAMPUP_W);
-    SetBurstCount(/*m_nBurstCount*/);
 }
 
 void FG::on_triangleBut_clicked() {
-    m_strWaveType = "TRIANGLE";
+	m_strWaveType = "TRIANGLE";
+	if(m_bBurst==true||m_bSingle==true)
+		SetBurstCount();
     HighlightButtons(TRIANGLE_WAVE);
     GenerateWave();
     hwInterface->SelectWaveForm(TRIANGLE_W);
-    SetBurstCount(/*m_nBurstCount*/);
 }
 
 void FG::InitialiseWaveData() {

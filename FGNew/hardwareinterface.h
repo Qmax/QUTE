@@ -115,10 +115,12 @@ public:
     		 break;
     	 case STOPDRIVE:
 
-    		 updateParallelDAC(0.0);
+
+/*    		 updateParallelDAC(0.0);
     		 setDAC(DACG,0);
     		 setDAC(DACF,0);
-    		 usleep(2000);
+    		 usleep(2000);*/
+
     		 IAppCard->stopDrive();
     		 usleep(2000);
 
