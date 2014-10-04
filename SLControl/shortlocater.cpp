@@ -1273,7 +1273,8 @@ void ShortLocater::on_offset_clicked() {
                             status4=false;
                             ui.offset->setStyleSheet(
                                     "QPushButton{color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);font:bold; }");
-                            ui.pushButton_3->animateClick(1);//NULL OFF
+                           // ui.pushButton_3->animateClick(1);//NULL OFF
+				on_pushButton_3_clicked();
                             break;
                         }
 
@@ -1286,8 +1287,8 @@ void ShortLocater::on_offset_clicked() {
                             ui.offset->setStyleSheet(
                                     "QPushButton{color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);font:bold; }");
                             IDMMLib->ApplyDACOffset(0.0);
-                            ui.pushButton_3->animateClick(1);//NULL OFF
-
+                            //ui.pushButton_3->animateClick(1);//NULL OFF
+				on_pushButton_3_clicked();
                             break;
                         }
                         IDMMLib->ApplyDACOffset(readData2);
@@ -1311,10 +1312,13 @@ void ShortLocater::on_offset_clicked() {
             if(status5==true){
                 usleep(200000);
                 for (int h = 0; h < 10; h++) {
-                    ui.pushButton_2->animateClick(1);
-                    ui.pushButton_3->animateClick(1);
+                   // ui.pushButton_2->animateClick(1);
+			on_pushButton_2_clicked();
+                    //ui.pushButton_3->animateClick(1);
+			on_pushButton_3_clicked();
                 }
-                ui.pushButton_2->animateClick(1);
+                //ui.pushButton_2->animateClick(1);
+ 			on_pushButton_2_clicked();
             }
 
         } else {
@@ -1322,7 +1326,8 @@ void ShortLocater::on_offset_clicked() {
             ui.offset->setStyleSheet(
                     "QPushButton{color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);font:bold; }");
             IDMMLib->ApplyDACOffset(0.0);
-            ui.pushButton_3->animateClick(1);
+            //ui.pushButton_3->animateClick(1);
+		on_pushButton_3_clicked();
         }
     }
     //    }else{
