@@ -1187,6 +1187,7 @@ void ShortLocater::on_offset_clicked() {
             }
         }
     } else {
+    	bool tempBuzStatus=BuzzerFlag;
         m_nADCtimer->stop();BuzzerFlag=false;
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         IDMMLib->ForceCurrent(5, 0.0);//reset ADC
@@ -1306,7 +1307,7 @@ void ShortLocater::on_offset_clicked() {
                 status5 = true;
             }
 
-            m_nADCtimer->start(300);BuzzerFlag=true;
+            m_nADCtimer->start(300);BuzzerFlag=tempBuzStatus;
             if(status5==true){
                 usleep(200000);
                 for (int h = 0; h < 10; h++) {
