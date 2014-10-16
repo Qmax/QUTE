@@ -33,7 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	InitializeVIFunctions();
 	InitializeLegendLabels();
 	on_butProClip_clicked();
-
+//      on_startButton_clicked();
+        ui->startButton->animateClick(1);
 }
 
 void MainWindow::InitializeVIFunctions()
@@ -104,12 +105,18 @@ void MainWindow::InitializeVIFunctions()
 	//ui->butViewTrace->setVisible(false);
 	//on_butAM_clicked();
 
+	m_objVISubject->setIndexTemplate(0,"INCREASE");
+	m_objVISubject->setIndexTemplate(1,"DECREASE");
+	m_objVISubject->setIndexTemplate(2,"VOL/FQ/IMP");
+
 }
 
 void MainWindow::InitializeLegendLabels(){
 
     QString legendlabelStyle="color:#d9d9d9";
     QFont legendFont(QFont("DejaVu Sans", 10, 75, false));
+    QFont legendFont2(QFont("DejaVu Sans", 12, 50, false));
+
     int rightSP=600,leftSP=5,legendLabelWidth=150,legendLabelHeight=17,traceLabelWidth=60;
 
     l_objProbeStatus    =   new QLabel(VIProduct);
@@ -119,15 +126,15 @@ void MainWindow::InitializeLegendLabels(){
     l_objProbeStatus->setText("SINGLE : PROBE-1");
 
     l_objPassFail       =   new QLabel(VIProduct);
-    l_objPassFail->setFont(legendFont);
+    l_objPassFail->setFont(legendFont2);
     l_objPassFail->setStyleSheet(legendlabelStyle);
-    l_objPassFail->setGeometry(rightSP,45,legendLabelWidth,legendLabelHeight);
+    l_objPassFail->setGeometry(rightSP,45,legendLabelWidth+5,legendLabelHeight+5);
     l_objPassFail->setText("RESULT : PASS");
 
     l_objErrorPercentage=   new QLabel(VIProduct);
-    l_objErrorPercentage->setFont(legendFont);
+    l_objErrorPercentage->setFont(legendFont2);
     l_objErrorPercentage->setStyleSheet(legendlabelStyle);
-    l_objErrorPercentage->setGeometry(rightSP,25,legendLabelWidth,legendLabelHeight);
+    l_objErrorPercentage->setGeometry(rightSP,25,legendLabelWidth+5,legendLabelHeight+5);
     l_objErrorPercentage->setText("ERROR  : 5%");
 
     l_objLearnVerify    =   new QLabel(VIProduct);
@@ -181,7 +188,7 @@ void MainWindow::InitializeLegendLabels(){
     l_objDriveSettings  =   new QLabel(VIProduct);
     l_objDriveSettings->setFont(legendFont);
     l_objDriveSettings->setStyleSheet(legendlabelStyle);
-    l_objDriveSettings->setGeometry(leftSP,506,150,legendLabelHeight);
+    l_objDriveSettings->setGeometry(leftSP,506,legendLabelWidth+5,legendLabelHeight);
     l_objDriveSettings->setText("DRIVE   : 2.5V_2KE_2KHz");
 
     l_objComparison     =   new QLabel(VIProduct);
@@ -194,7 +201,7 @@ void MainWindow::InitializeLegendLabels(){
     l_objKeyLeft->setFont(legendFont);
     l_objKeyLeft->setStyleSheet(legendlabelStyle);
     l_objKeyLeft->setGeometry(rightSP,487,legendLabelWidth,legendLabelHeight);
-    l_objKeyLeft->setText("L  : RUN/STOP");
+    l_objKeyLeft->setText("L  : STORE");
 
     l_objKeyRight       =   new QLabel(VIProduct);
     l_objKeyRight->setFont(legendFont);
@@ -206,7 +213,7 @@ void MainWindow::InitializeLegendLabels(){
     l_objKeyMiddle->setFont(legendFont);
     l_objKeyMiddle->setStyleSheet(legendlabelStyle);
     l_objKeyMiddle->setGeometry(rightSP,506,legendLabelWidth,legendLabelHeight);
-    l_objKeyMiddle->setText("M : STORE");
+    l_objKeyMiddle->setText("M : RUN/STOP");
 
 	l_objTraceNumber1->setVisible(false);
 	l_objTraceNumber2->setVisible(false);
@@ -226,15 +233,15 @@ void MainWindow::InitializeLegendLabels(){
 void MainWindow::UpdateLegendLabels(){
     l_objDriveSettings->setText("DRIVE   : "+ui->lblVoltage->text()+"_"+ui->lblImpedance->text()+"_"+ui->lblFrequency->text());
 
-    if(ui->lblLeft->text()=="RUN/STOP")
-        l_objKeyLeft->setText("L  : RUN/STOP");
-    else if(ui->lblLeft->text()=="VOL/FQ/IMP")
-        l_objKeyLeft->setText("L  : VOLTAGE");
+    if(ui->lblMiddle->text()=="RUN/STOP")
+        l_objKeyMiddle->setText("M  : RUN/STOP");
+    else if(ui->lblMiddle->text()=="VOL/FQ/IMP")
+        l_objKeyMiddle->setText("M  : VOLTAGE");
     else
-        l_objKeyLeft->setText("L  : "+ui->lblLeft->text());
+        l_objKeyMiddle->setText("M  : "+ui->lblMiddle->text());
 
     l_objKeyRight->setText("R : "+ui->lblRight->text());
-    l_objKeyMiddle->setText("M : "+ui->lblMiddle->text());
+    l_objKeyLeft->setText("L : "+ui->lblLeft->text());
 }
 
 void MainWindow::setGraphValues()
@@ -364,7 +371,7 @@ void MainWindow::InitializeUILibraries()
 	ui->grpClip->setVisible(false);
 	ui->singleCap_2->setVisible(false);
 	ui->butAM->setVisible(false);
-	ui->lblProbeComparison_2->setText("Average : 5%");//added by rravivarman huly 24th 2014
+        ui->lblProbeComparison_2->setText("Average : 5%");//added by rravivarman july 24th 2014
 	//~~~~~~~~Check for debug panel~~~~~~~~~~~~~~~~~~~~~~~~
 	QStringList l_strdebugPanel;
 	QFile textFile2("debugPanel.txt");
@@ -405,6 +412,8 @@ void MainWindow::InitializeUILibraries()
 		ui->yAxisBox->setValue(0.0);
 	}
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	ui->butExternal_2->setVisible(false);
+	ui->lblExternal_2->setVisible(false);
 }
 
 void MainWindow::notifyClipObserver()
@@ -540,12 +549,12 @@ void MainWindow::notifyProbeObserver()
 
 		if(m_objVISubject->getProbeDialog(4)==0)
 		{
-			ui->lblProbe1->setText("Probe1-Ref");
+                        ui->lblProbe1->setText("Probe1\nRef");
 			m_nSelectedProbe=0;
 		}
 		else
 		{
-			ui->lblProbe2->setText("Probe2-Ref");
+                        ui->lblProbe2->setText("Probe2\nRef");
 			m_nSelectedProbe=1;
 		}
 		m_objVISubject->clearWaveTraces();
@@ -761,9 +770,9 @@ void MainWindow::doKeyFunction(int pKeyCode)
 		return;
 	qDebug() << "KeyCode-line564:"<<hex<<pKeyCode;
 
-	if ((m_objVISubject->getIndexTemplate(0,true) == "VOL/FQ/IMP" && (pKeyCode == 0x0c || pKeyCode == 0x90))
+	if ((m_objVISubject->getIndexTemplate(0,true) == "VOL/FQ/IMP" && (pKeyCode == 0x0b || pKeyCode == 0xb0))
 			|| (m_objVISubject->getIndexTemplate(1,true) == "VOL/FQ/IMP" && (pKeyCode == 0x0a || pKeyCode == 0xa0))
-			|| (m_objVISubject->getIndexTemplate(2,true) == "VOL/FQ/IMP" && (pKeyCode == 0x09 || pKeyCode == 0xc0))) {
+			|| (m_objVISubject->getIndexTemplate(2,true) == "VOL/FQ/IMP" && (pKeyCode == 0x09 || pKeyCode == 0x90))) {
 		if (m_nToggleIndex == 0) {
 			m_strFunctionKey = "VOLTAGE";
                         UpdateLegendLabels();//Zoom Legend Update
@@ -776,7 +785,7 @@ void MainWindow::doKeyFunction(int pKeyCode)
 			m_strFunctionKey = "IMPEDANCE";
                         UpdateLegendLabels();//Zoom Legend Update
 		}
-		//                    qDebug()<<"Toggle Index:"<<m_nToggleIndex;
+		                    qDebug()<<"Toggle Index:"<<m_nToggleIndex;
 		//switchString(m_nToggleIndex);
                 l_objKeyLeft->setText("L :  "+m_strFunctionKey);//Zoom Left Key Update
 	}
@@ -808,29 +817,37 @@ void MainWindow::doKeyFunction(int pKeyCode)
 		switchString(1);
 	}
 	//IGPIOEvent->BlockSig(true);
-	if (pKeyCode == 0x0c || pKeyCode == 0xc0) {
-		//qDebug() << "Key Function" << m_objVIModel->getLeftKey();
-		switchFunctions(0,l_nIncrementIndex,l_nDecrementIndex);
-	}
-	else if (pKeyCode == 0x0a || pKeyCode == 0xa0)
-	{
-		switchFunctions(1,l_nIncrementIndex,l_nDecrementIndex);
-		//qDebug() << "Key Function" << m_objVIModel->getMiddleKey();
+        if(m_nStoreWaveIndex<2){
+            if (pKeyCode == 0x0b || pKeyCode == 0xb0) {
+                    switchFunctions(0,l_nIncrementIndex,l_nDecrementIndex);
+            }
+            else if (pKeyCode == 0x0a || pKeyCode == 0xa0)
+            {
+                    switchFunctions(1,l_nIncrementIndex,l_nDecrementIndex);
 
-	} else if (pKeyCode == 0x09 || pKeyCode == 0x90) {
-		//for (int l_nIndex = 0; l_nIndex < 10; l_nIndex++)
-		//qDebug() << l_nIndex;
-		switchFunctions(2,l_nIncrementIndex,l_nDecrementIndex);
-		//qDebug() << "Key Function" << m_objVIModel->getRightKey();
-	}
-	//IGPIOEvent->BlockSig(false);
+            } else if (pKeyCode == 0x09 || pKeyCode == 0x90) {
+                    switchFunctions(2,l_nIncrementIndex,l_nDecrementIndex);
+            }
+        }
 
-}
+
+            if (pKeyCode == 0x0D || pKeyCode == 0xD0) {
+//		 on_startButton_clicked();
+               on_bestFitButton_clicked();
+             }
+             else if (pKeyCode == 0x0E || pKeyCode == 0xE0) {
+		 on_deleteButton_clicked();
+             }
+             else if (pKeyCode == 0x0F || pKeyCode == 0xF0) {
+		 on_storeButton_clicked();
+	 }
+
+    }
 
 void MainWindow::switchFunctions(short int pKey,short int pIncrement,short int pDecrement)
 {
 
-	//        qDebug()<<"Key String:"<<m_objVISubject->getIndexTemplate(pKey,true);
+	        qDebug()<<"Key String:"<<m_objVISubject->getIndexTemplate(pKey,true);
 	if (m_objVISubject->getIndexTemplate(pKey,true) == "STORE") {
 		on_storeButton_clicked();
 	} else if (m_objVISubject->getIndexTemplate(pKey,true) == "DELETE") {
@@ -903,7 +920,8 @@ void MainWindow::doPTKeyFunction()
 		//qDebug() << ("\nF1");
 		if(/*IPTMessageBox->GetmsgBoxLiveStatus()*/msgBoxLive!=true)
 		{
-			on_startButton_clicked();
+//			on_startButton_clicked();
+                    on_bestFitButton_clicked();
 
 		}
 
@@ -987,7 +1005,7 @@ void MainWindow::doPTKeyFunction()
 		}
 	}
 	else if(m_nPTKeyCode==17){
-		clickedPRSCR();
+//		clickedPRSCR();
 	}
 
 
@@ -1251,9 +1269,9 @@ void MainWindow::initialiseInteractive()
 void MainWindow::disableInteractiveGrp(bool pFlag)
 {
 	ui->grpClip->setDisabled(pFlag);
-	ui->grpEmbedded->setDisabled(pFlag);
+//	ui->grpEmbedded->setDisabled(pFlag);
 	ui->grpProbes->setDisabled(pFlag);
-	ui->PCBox->setDisabled(pFlag);
+//	ui->PCBox->setDisabled(pFlag);
 	ui->CalibBox->setDisabled(pFlag);
 	if(m_objVISubject->getProbeDialog(0) == 1 || m_nSelectedProbe == 2)
 	{
@@ -1269,6 +1287,7 @@ void MainWindow::disableInteractiveGrp(bool pFlag)
 
 void MainWindow::on_butProClip_clicked()
 {
+
 	ui->storeBox->setStyleSheet(highlightOFF);
 	ui->startBox->setStyleSheet(highlightOFF);
 	ui->deleteBox->setStyleSheet(highlightOFF);
@@ -1288,7 +1307,7 @@ void MainWindow::on_butProClip_clicked()
 		ui->CalibBox->setDisabled(true);
 		ui->storeBox->setDisabled(true);
 		ui->deleteBox->setDisabled(true);
-		ui->grpEmbedded->setDisabled(true);
+//		ui->grpEmbedded->setDisabled(true);
 		if(m_bClipLearn== true)
 			notifyClipObserver();
 		/*	    ui->frame_20->setStyleSheet("border:0px solid gray; border-top-right-radius: 5px; border-top-left-radius: 5px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;image: url(:/res/25PinDIN.png)");
@@ -1312,7 +1331,7 @@ void MainWindow::on_butProClip_clicked()
 		ui->CalibBox->setDisabled(false);
 		ui->storeBox->setDisabled(false);
 		ui->deleteBox->setDisabled(false);
-		ui->grpEmbedded->setDisabled(false);
+//		ui->grpEmbedded->setDisabled(false);
 		if(m_bStartApp==false)
 			notifyProbeObserver();
 
@@ -1330,12 +1349,12 @@ void MainWindow::on_startButton_clicked()
 	qDebug() << "Start/Stop VI Interactive";
 
 	ui->storeBox->setStyleSheet(highlightOFF);
-	ui->startBox->setStyleSheet(highlightON);
+        ui->startBox->setStyleSheet(highlightOFF);
 	ui->deleteBox->setStyleSheet(highlightOFF);
 	ui->CalibBox->setStyleSheet(highlightOFF);
-	ui->PCBox->setStyleSheet(highlightOFF2);
-//	ui->selectFrame->setGeometry(ui->selectFrame->x(),138,ui->selectFrame->width(),ui->selectFrame->height());
-	ui->selectFrame->setGeometry(702, 154, 9, 60);
+//	ui->PCBox->setStyleSheet(highlightOFF2);
+
+        //	ui->selectFrame->setGeometry(702, 154, 9, 60);
 
 
 	if(m_bAutoCurveFit==true)
@@ -1606,7 +1625,7 @@ void MainWindow::disableClipLearnGrp(bool pFlag)
 {
 	ui->grpClip->setDisabled(pFlag);
 	ui->grpProbes->setDisabled(pFlag);
-	ui->grpEmbedded->setDisabled(pFlag);
+//	ui->grpEmbedded->setDisabled(pFlag);
 	//ui->grpError->setDisabled(pFlag);
 	//ui->startBox->setDisabled(pFlag);
 	//ui->startBox->setDisabled(true);
@@ -1644,6 +1663,7 @@ void MainWindow::on_butProbe_clicked()
 void MainWindow::on_storeButton_clicked()
 {
 	//	qDebug() << "Store Trace";
+    if(m_objVISubject->getWaveType() == IV){
 	ui->storeBox->setStyleSheet(highlightON);
 	ui->startBox->setStyleSheet(highlightOFF);
 	ui->deleteBox->setStyleSheet(highlightOFF);
@@ -1658,6 +1678,9 @@ void MainWindow::on_storeButton_clicked()
 	if (m_startTimer == false)
 		return;
 	storeTrace();
+    }else{
+        showMessageBox(true,false,"Cannot Store Trace in VT Mode");
+    }
 
 }
 
@@ -1980,17 +2003,17 @@ void MainWindow::on_butDown_clicked()
 
 void MainWindow::on_butL_clicked()
 {
-	m_objEmbedded->show();
+//	m_objEmbedded->show();
 }
 
 void MainWindow::on_butM_clicked()
 {
-	m_objEmbedded->show();
+//	m_objEmbedded->show();
 }
 
 void MainWindow::on_butR_clicked()
 {
-	m_objEmbedded->show();
+//	m_objEmbedded->show();
 }
 
 void MainWindow::shrinkSize(int index)
@@ -2208,9 +2231,12 @@ void MainWindow::on_butAM_clicked()
 
 void MainWindow::LoadEmbeddedKeys()
 {
-	ui->lblLeft->setText(m_objVISubject->getIndexTemplate(0,true));
-	ui->lblMiddle->setText(m_objVISubject->getIndexTemplate(1,true));
-	ui->lblRight->setText(m_objVISubject->getIndexTemplate(2,true));
+//	ui->lblLeft->setText(m_objVISubject->getIndexTemplate(0,true));
+//	ui->lblMiddle->setText(m_objVISubject->getIndexTemplate(1,true));
+//	ui->lblRight->setText(m_objVISubject->getIndexTemplate(2,true));
+		ui->lblLeft->setText("INCREASE");
+		ui->lblMiddle->setText("DECREASE");
+		ui->lblRight->setText("VOL/FQ/IMP");
 }
 void MainWindow::readVISettings()
 {
@@ -2346,15 +2372,17 @@ void MainWindow::on_tblVI_clicked()
 }
 void MainWindow::on_tblVT_clicked()
 {
+    if(m_nStoreWaveIndex>1){
+        showMessageBox(true,false,"Cannot change mode when trace is stored.");
+    }else{
 	m_objVISubject->setWaveType(VT);
 	QString l_strON="QToolButton {color:white;border: 1px solid #2D5059;border-radius: 0px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);border-top-right-radius: 10px;border-bottom-right-radius: 10px;}";
 	QString l_strOFF="QToolButton {color:black;border: 1px solid #2D5059;border-radius: 0px;background-color: gray;border-top-right-radius: 10px;border-bottom-right-radius: 10px;}";
 
-
-
 	ui->tblVI->setStyleSheet(l_strOFF);
 	ui->tblVT->setStyleSheet(l_strON);
 	m_nWaveIndex=1;
+        }
 
 }
 
@@ -3527,8 +3555,9 @@ void MainWindow::on_butZoom_clicked()
         animation1->setEndValue(QRect(0, 0, 707, 560));
         animation2->start();
         animation1->start();
-        ui->butZoom->setStyleSheet("QPushButton {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);border-width:medium; } QPushButton:pressed {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);border-width:medium; } QPushButton:flat {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);border-width:medium; } QPushButton:default {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);border-width:medium; }");
+        ui->butZoom->setStyleSheet("QPushButton {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:pressed {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:flat {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:default {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; }");
         UpdateLegendLabels();
+    	VIProduct->setZoomFlag(true);
     }
     else{
         animation2->setStartValue(QRect(0, 30, 707, 560));
@@ -3538,6 +3567,7 @@ void MainWindow::on_butZoom_clicked()
         animation2->start();
         ui->butZoom->setStyleSheet(" QPushButton {background-color: rgb(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); } QPushButton:pressed {background-color:rg(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); } QPushButton:flat {background-color: rgb(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); } QPushButton:default {background-color: rgb(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); }");
         animation1->start();
+    	VIProduct->setZoomFlag(false);
     }
 
 
@@ -3566,4 +3596,26 @@ void MainWindow::on_DACFValues_clicked()
     DACFValues = qobject_cast<IPTDACFInterface*>(loader.instance());
     newwidget2=DACFValues->getPTDACF();
     newwidget2->show();
+}
+
+void MainWindow::on_butP1Area_clicked()
+{
+    ui->butProbe1->animateClick(1);
+}
+
+void MainWindow::on_butP2Area_clicked()
+{
+    ui->butProbe2->animateClick(1);
+}
+
+void MainWindow::on_bestFitButton_clicked()
+{
+
+    ui->storeBox->setStyleSheet(highlightOFF);
+    ui->startBox->setStyleSheet(highlightON);
+    ui->deleteBox->setStyleSheet(highlightOFF);
+    ui->CalibBox->setStyleSheet(highlightOFF);
+//	ui->PCBox->setStyleSheet(highlightOFF2);
+    ui->startButton->animateClick(1);
+    ui->selectFrame->setGeometry(702, 154, 9, 60);
 }

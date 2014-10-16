@@ -6,6 +6,9 @@ class IWaveProduct:public Plotter
 {
 public:
     IWaveProduct(QWidget *parent=0):Plotter(parent){}
+    void setZoomFlag(bool status){
+    	Plotter::zooomScreenStatus(status);
+    }
     void LoadPlotterData(QString pStrFileName,stWaveData *pObjWaveData)
     {
         QFile *l_objDataFile = new QFile(pStrFileName);

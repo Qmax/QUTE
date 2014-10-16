@@ -76,6 +76,7 @@ public:
     	void customEvent(QEvent *eve);
     	void KeyFunction();
     	void ProbeFunction();
+    	void doKeyFunction(int pKeyCode);
     	void changeByProbe(unsigned int);
     	bool CustomMessageBox();
         void Beep(double value);
@@ -152,6 +153,9 @@ public slots:
 
 private slots:
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    void on_but200mE_clicked();
+    void on_but2E_clicked();
+    void on_but200E_clicked();
     void on_SpinSamples_valueChanged(int );
     void on_selectApp_clicked();
     void on_graph_clicked();

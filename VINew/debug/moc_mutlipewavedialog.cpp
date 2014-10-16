@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mutlipewavedialog.h'
 **
-** Created: Fri Sep 19 18:14:58 2014
+** Created: Thu Oct 16 17:39:17 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!

@@ -17,8 +17,10 @@ ShortLocater::ShortLocater(QWidget *parent) :
         QWidget(parent) {
     ui.setupUi(this);
 
-    //qDebug()<<"----------------------------SHORT LOCATER START----------------------------";
-
+    //Hide Buttons~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ui.Internal->setVisible(false);
+    ui.External->setVisible(false);
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //DISPLAY
     dis = new DISPLAY(ui.displayPanel);
     dis->selectGeometry(150, 30);
@@ -47,6 +49,7 @@ ShortLocater::ShortLocater(QWidget *parent) :
     QPluginLoader loader3("libPTPsocInterface2.so", this);
     IPsoc = qobject_cast<IPSOCCOMMUNICATION*> (loader3.instance());
     IPsoc->openSerial();
+    qDebug()<<"PSoC Code ID:"<<hex<<IPsoc->readPsocCodeID();
 
     QPluginLoader loader40("libPTDMMLibInterface2.so", this);
     IDMMLib = qobject_cast<IDMMLibInterface*> (loader40.instance());
@@ -54,11 +57,12 @@ ShortLocater::ShortLocater(QWidget *parent) :
     QPluginLoader loader4("libPTDMMLibInterfaceNew.so", this);
     IDMMLib = qobject_cast<IDMMLibInterface*> (loader4.instance());
 
-    QPluginLoader loader5("libGPIOEventInterface.so", this);
-    IGPIOEvent = qobject_cast<PTGPIOEventInterface*> (loader5.instance());
+//    QPluginLoader loader5("libGPIOEventInterface.so", this);
+//    IGPIOEvent = qobject_cast<PTGPIOEventInterface*> (loader5.instance());
+//    IGPIOEvent->InvokeGPIOEvent(this, "/dev/input/event7", "gpioevent",&m_nGPIOCode);
 
-    QPluginLoader loader6("libPTKeyEventInterfaces.so", this);
-    IPTKeyEvent = qobject_cast<PTEventInterface*> (loader6.instance());
+//    QPluginLoader loader6("libPTKeyEventInterfaces.so", this);
+//    IPTKeyEvent = qobject_cast<PTEventInterface*> (loader6.instance());
 
     QPluginLoader loader8("libPTGPIOPinInterface.so", this);
     IGPIOPin = qobject_cast<InterfaceGPIOPins*> (loader8.instance());
@@ -82,7 +86,7 @@ ShortLocater::ShortLocater(QWidget *parent) :
 
 }
 void ShortLocater::ToolBox(bool flag) {
-//    ui.debugPanel->setVisible(flag);			//edited on 04-10-2014 Ravivarman,DI
+    //    ui.debugPanel->setVisible(flag);			//edited on 04-10-2014 Ravivarman,DI
     if (flag == false)
         ui.frontPanel_SHLOC->setVisible(true);
     else
@@ -119,11 +123,15 @@ void ShortLocater::Initializations() {
     IBackPlane->writeBackPlaneRegister(0x0000, 0x0024);//disable global interrupt
     IBackPlane->writeBackPlaneRegister(0x0100, 0x0020);//enabling psoc INT0embedded key interrupt)
 
-    IPTKeyEvent->InvokeGPIOEvent(this, "/dev/input/event2", "pt_kpp",
-                                 &m_nPTKeyCode);
-    IGPIOEvent->InvokeGPIOEvent(this, "/dev/input/event7", "gpioevent",
-                                &m_nGPIOCode);
-    IBackPlane->writeBackPlaneRegister(0x0001, 0x0024);
+    QPluginLoader loader6("libPTKeyEventInterfaces.so", this);
+    IPTKeyEvent = qobject_cast<PTEventInterface*> (loader6.instance());
+    IPTKeyEvent->InvokeGPIOEvent(this, "/dev/input/event2", "pt_kpp",&m_nPTKeyCode);
+
+    QPluginLoader loader5("libGPIOEventInterface.so", this);
+    IGPIOEvent = qobject_cast<PTGPIOEventInterface*> (loader5.instance());
+    IGPIOEvent->InvokeGPIOEvent(this, "/dev/input/event7", "gpioevent",&m_nGPIOCode);
+
+    IBackPlane->writeBackPlaneRegister(0x0001, 0x0024);//enable global interrupt
 
     //        IBackPlane->writeBackPlaneRegister();
     ohms = QChar(0x2126);
@@ -174,7 +182,7 @@ void ShortLocater::Initializations() {
     IBackPlane->writeBackPlaneRegister(0x0, 0x16);
     //	Beep(false);
 
-    AutoFlag = false;
+    AutoFlag = true;
     on_Auto_clicked();
 
     OffsetFlag = false;
@@ -252,8 +260,11 @@ void ShortLocater::openNumKBPanel(short int pValue, double incRatio, char type,
 void ShortLocater::customEvent(QEvent *e) {
     //qDebug()<<"SL Custom Event";
     if (e->type() == ((QEvent::Type) 1234)) {
-        //qDebug()<<"Embedded Probe";
-        ProbeFunction();
+        IGPIOEvent->BlockSig(true);
+        m_nGPIOCode=IPsoc->embeddedProbeStatus();
+        doKeyFunction(m_nGPIOCode);
+        IGPIOEvent->BlockSig(false);
+        //        ProbeFunction();
     }
     if (e->type() == ((QEvent::Type) 5678)) {
         //qDebug()<<"PT Keypad:-"<<m_nPTKeyCode;
@@ -299,6 +310,46 @@ void ShortLocater::setupSimpleDemo(QCustomPlot *customPlot) {
 void ShortLocater::plotSimpleDemo(QCustomPlot *customPlot) {
     Q_UNUSED(customPlot)
     }
+void ShortLocater::doKeyFunction(int pKeyCode)
+{
+    IBackPlane->readBackPlaneRegister(0x001E);
+    IBackPlane->writeBackPlaneRegister(0x0100, 0x001E);
+
+    int l_nTopKeyCode = pKeyCode & 0xF0;
+    int l_nBottomKeyCode = pKeyCode & 0x0F;
+
+    if (l_nTopKeyCode == 0x80)
+    {
+        qDebug() << "Probe-1 is Pressed";
+        pKeyCode = pKeyCode & 0x0F;
+    }
+    if (l_nBottomKeyCode == 0x08)
+    {
+        qDebug() << "Probe-2 is Pressed";
+        pKeyCode = pKeyCode & 0xF0;
+    }
+
+    if (pKeyCode == 0x0c || pKeyCode == 0xc0)
+    {
+        ui.offset->animateClick(1);
+    }
+    else if (pKeyCode == 0x0a || pKeyCode == 0xa0)
+    {
+        if (AutoFlag == false) {
+            if (rangeFlag == "200E")
+                ui.r2EBut->animateClick(1);
+            else if (rangeFlag == "2E")
+                ui.r200mEBut->animateClick(1);
+            else if (rangeFlag == "200mE")
+                ui.r200But->animateClick(1);
+        }
+    }
+    else if (pKeyCode == 0x09 || pKeyCode == 0x90)
+    {
+        ui.buzzer->animateClick(1);
+    }
+    IBackPlane->writeBackPlaneRegister(0x0001, 0x0024);
+}
 void ShortLocater::ProbeFunction() {
     unsigned int /*l_nRegisterValue = 0,*/reads;
 
@@ -311,18 +362,51 @@ void ShortLocater::ProbeFunction() {
     //    reads=IPsoc->readSerial();
     reads = IPsoc->embeddedProbeStatus();
 
-    //qDebug()<<"Embedded Probe reads:"<<hex<<reads;
     changeByProbe(reads);
 
     IBackPlane->writeBackPlaneRegister(0x0001, 0x0024);
 
 }
-void ShortLocater::changeByProbe(unsigned int key) {
-    if (key == 0xc) {//0x90||key==0x98){
+void ShortLocater::changeByProbe(unsigned int pKeyCode) {
+    qDebug()<<"Embedded Probe reads:"<<hex<<pKeyCode;
+
+    //    if (key == 0xc) {
+    //        ui.offset->animateClick(1);
+    //    } else if (key == 0xa) {
+    //        ui.Auto->animateClick(1);
+    //    } else if (key == 0x9) {
+    //        if (AutoFlag == false) {
+    //            if (rangeFlag == "200E")
+    //                ui.r2EBut->animateClick(1);
+    //            else if (rangeFlag == "2E")
+    //                ui.r200mEBut->animateClick(1);
+    //            else if (rangeFlag == "200mE")
+    //                ui.r200But->animateClick(1);
+    //        } else {
+    //            ui.buzzer->animateClick(1);
+    //        }
+    //
+    //    }
+    int l_nTopKeyCode = pKeyCode & 0xF0;
+    int l_nBottomKeyCode = pKeyCode & 0x0F;
+
+    if (l_nTopKeyCode == 0x80)
+    {
+        qDebug() << "Probe-1 is Pressed";
+        pKeyCode = pKeyCode & 0x0F;
+    }
+    if (l_nBottomKeyCode == 0x08)
+    {
+        qDebug() << "Probe-2 is Pressed";
+        pKeyCode = pKeyCode & 0xF0;
+    }
+
+    if (pKeyCode == 0x0c || pKeyCode == 0xc0)
+    {
         ui.offset->animateClick(1);
-    } else if (key == 0xa) {//0xA0||key==0xA8){
-        ui.Auto->animateClick(1);
-    } else if (key == 0x9) {//0xC0||key==0xC8){
+    }
+    else if (pKeyCode == 0x0a || pKeyCode == 0xa0)
+    {
         if (AutoFlag == false) {
             if (rangeFlag == "200E")
                 ui.r2EBut->animateClick(1);
@@ -330,10 +414,11 @@ void ShortLocater::changeByProbe(unsigned int key) {
                 ui.r200mEBut->animateClick(1);
             else if (rangeFlag == "200mE")
                 ui.r200But->animateClick(1);
-        } else {
-            ui.buzzer->animateClick(1);
         }
-
+    }
+    else if (pKeyCode == 0x09 || pKeyCode == 0x90)
+    {
+        ui.buzzer->animateClick(1);
     }
 }
 
@@ -431,13 +516,13 @@ bool ShortLocater::showMessageBox(bool ok, bool cancel, QString text,
     }
     msgBox->exec();
     if (msgBox->clickedButton() == connectButton) {
-        qDebug() << "OK button clicked";
+        //        qDebug() << "OK button clicked";
         msgBoxLive = false;
         return true;
     }
     if (cancel == true)
         if (msgBox->clickedButton() == abortButton) {
-        qDebug() << "CANCEL button clicked";
+        //        qDebug() << "CANCEL button clicked";
         msgBoxLive = false;
         return false;
     }
@@ -504,20 +589,20 @@ void ShortLocater::Configure(int x) {
 }
 void ShortLocater::checkProbeConnect() {
     //Check Probe~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            IPsoc->writeSerial(0x01);
-            usleep(1000);
-        	if(ui.Internal->isVisible()==true){
-        		if((IPsoc->readSerial()&0x08)!=0x08)
-            		checkPrbStatus=showMessageBox(true,false,"Connect Internal Probe","OK","Cancel");
-            }
-        	else if(ui.External->isVisible()==true)
-        		checkPrbStatus=showMessageBox(true,false,"Please Ensure External Probes are Connected","OK","Cancel");
+    IPsoc->writeSerial(0x01);
+    usleep(1000);
+    if(ui.Internal->isVisible()==true){
+        if((IPsoc->readSerial()&0x08)!=0x08)
+            checkPrbStatus=showMessageBox(true,false,"Connect Internal Probe","OK","Cancel");
+    }
+    else if(ui.External->isVisible()==true)
+        checkPrbStatus=showMessageBox(true,false,"Please Ensure External Probes are Connected","OK","Cancel");
 
 
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 void ShortLocater::Measure() {
-	if(checkPrbStatus==false)
+    if(checkPrbStatus==false)
     	checkProbeConnect();
 
     /*
@@ -622,12 +707,12 @@ void ShortLocater::Measure() {
 				if (m_nAvgCount == movingAverage) {
 					for (int i = 0; i < movingAverage; i++)
 						retval3 = retval3 + m_dOutput[i];
-					for (int k = 0; k < movingAverage; k++)
-						qDebug() << "value" << k << ":" << m_dOutput[k];
+//					for (int k = 0; k < movingAverage; k++)
+//						qDebug() << "value" << k << ":" << m_dOutput[k];
 					retval3 = retval3 / movingAverage;
-					qDebug() << "sum :" << retval3;
+//					qDebug() << "sum :" << retval3;
 					QString tempRetval = convertToUnits(retval3);
-					qDebug() << "output from convertToUnits:" << tempRetval;
+//					qDebug() << "output from convertToUnits:" << tempRetval;
 					dis->setRange(200);
 					if (ui.splashWidget->isVisible() != true)
 						dis->setValue(retval3);
@@ -672,11 +757,11 @@ void ShortLocater::Measure() {
 					for (int i = 0; i < movingAverage; i++)
 						retval3 += m_dOutput[i];
 					for (int k = 0; k < movingAverage; k++)
-						qDebug() << "value" << k << ":" << m_dOutput[k];
+//						qDebug() << "value" << k << ":" << m_dOutput[k];
 					retval3 /= movingAverage;
-					qDebug() << "sum:" << retval3;
+//					qDebug() << "sum:" << retval3;
 					QString tempRetval = convertToUnits(retval3);
-					qDebug() << "output from convertToUnits:" << tempRetval;
+//					qDebug() << "output from convertToUnits:" << tempRetval;
 					dis->setRange(2);
 					if (ui.splashWidget->isVisible() != true)
 						dis->setValue(retval3);
@@ -724,11 +809,11 @@ void ShortLocater::Measure() {
 					for (int i = 0; i < movingAverage; i++)
 						retval3 += m_dOutput[i];
 					for (int k = 0; k < movingAverage; k++)
-						qDebug() << "value" << k << ":" << m_dOutput[k];
+//						qDebug() << "value" << k << ":" << m_dOutput[k];
 					retval3 /= movingAverage;
-					qDebug() << "sum:" << retval3;
+//					qDebug() << "sum:" << retval3;
 					QString tempRetval = convertToUnits(retval3);
-					qDebug() << "output from convertToUnits:" << tempRetval;
+//					qDebug() << "output from convertToUnits:" << tempRetval;
 					dis->setRange(200);
 					if (ui.splashWidget->isVisible() != true)
 						dis->setValue(retval3 * 1000);
@@ -1248,33 +1333,29 @@ void ShortLocater::on_offset_clicked() {
                 double readData2 = readData;
                 if (rangeFlag != "200mE")
                     do {
-                     QApplication::processEvents();
+                    QApplication::processEvents();
 
                     if (readData > 0.001 || readData < -0.001) {
 
-                         if ( (readData >= 0.01)){
+                        if ( (readData >= 0.01)){
                             readData2 = readData2 + 0.01;
-                            qDebug()<<"Condition:2";
                         }
 
                         else if((readData >= 0.001) && (readData < 0.01)){
-                           readData2 = readData2 + 0.001;
-                           qDebug()<<"Condition:4";
-                       }
+                            readData2 = readData2 + 0.001;
+                        }
                         else if( (readData >=-0.001) &&(readData <-0.01)){
                             readData2 = readData2 - 0.01;
-                            qDebug()<<"Condition:5";
                         }
                         else{
                             readData2 = readData2 - 0.001;
-                            qDebug()<<"Condition:6";
                         }
 
                         if(OffsetFlag==false){
                             status4=false;
                             ui.offset->setStyleSheet(
                                     "QPushButton{color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);font:bold; }");
-                           ui.pushButton_3->animateClick(1);//NULL OFF
+                            ui.pushButton_3->animateClick(1);//NULL OFF
                             break;
                         }
 
@@ -1755,16 +1836,26 @@ void ShortLocater::on_graph_clicked()
 
 void ShortLocater::on_selectApp_clicked()
 {
-    QDir::setCurrent("/home");
-    QProcess::execute("./DMMUtility -qws");
-    //    IPT->LoadDMMPlugins();
-    //    myID = 0x444D4D;
-    //    QWidget *DMM = IPT->InvokeApplication(myID);
-    ////    ui->mdiArea->addSubWindow(DMM, Qt::FramelessWindowHint);
-    //    DMM->show();
+    //    QDir::setCurrent("/home");
+    //    QProcess::execute("./DMMUtility -qws");
 }
 
 void ShortLocater::on_SpinSamples_valueChanged(int data)
 {
     movingAverage = data;
+}
+
+void ShortLocater::on_but200E_clicked()
+{
+    ui.r200But->animateClick(1);
+}
+
+void ShortLocater::on_but2E_clicked()
+{
+    ui.r2EBut->animateClick(1);
+}
+
+void ShortLocater::on_but200mE_clicked()
+{
+    ui.r200mEBut->animateClick(1);
 }

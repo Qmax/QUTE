@@ -19,7 +19,7 @@ void IBackPlane::InitializeBpObject() {
 
 void IBackPlane::closeObject() {
 	close(g_nBackplaneFD);
-	qDebug() << "~~~~~~~~~~Back Panel Interface Closed~~~~~~~~~~~";
+//	qDebug() << "~~~~~~~~~~Back Panel Interface Closed~~~~~~~~~~~";
 }
 void IBackPlane::writeBackPlaneRegister(unsigned int pData,
 		unsigned int pAddress) {
@@ -62,10 +62,10 @@ unsigned short IBackPlane::setBuzzerVolume(unsigned int pFrequency,	unsigned sho
 			l_nDutycyclecount = 0, l_nPWMValue = BP_BVCER_ENABLE_PERIOD;
 
 	l_nTime = (double) (1.0 / pFrequency);
-	printf("Time %f\n", l_nTime);
+//	printf("Time %f\n", l_nTime);
 	l_nPeriodCounts = l_nTime * 50000; /* Period Count Value 50ms*/
 	l_nDutycyclecount = (l_nPeriodCounts / 100) * l_nPercentage; /*Duty Cycle Count */
-	printf("setBuzzerVolume DutyCycle Count... %x\n", l_nDutycyclecount);
+//	printf("setBuzzerVolume DutyCycle Count... %x\n", l_nDutycyclecount);
 	writeBackPlaneRegister(l_nPeriodCounts, BP_BVCPR); /* Buzzer volume control period register*/
 	writeBackPlaneRegister(l_nDutycyclecount, BP_BVCDCR); /* Buzzer volume control duty cycle register*/
 
@@ -84,17 +84,17 @@ unsigned short IBackPlane::setBuzzerTone(unsigned int pFrequency,unsigned short 
 	unsigned int l_nPeriodCounts = 0, l_nPercentage = pPercentage,
 			l_nDutycyclecount = 0, l_nPWMValue = BP_BTCER_ENABLE_PERIOD;
 	l_nTime = (double) (1.0 / pFrequency);
-	printf("Time %f\n", l_nTime);
+//	printf("Time %f\n", l_nTime);
 	l_nPeriodCounts = l_nTime * 50000; /* Period Count Value 50ms*/
 	l_nDutycyclecount = ((double) l_nPeriodCounts / 100) * l_nPercentage; /*Duty Cycle Count */
-	printf("setBuzzerTone DutyCycle Count... %x\n", l_nDutycyclecount);
+//	printf("setBuzzerTone DutyCycle Count... %x\n", l_nDutycyclecount);
 	writeBackPlaneRegister(l_nPeriodCounts, BP_BTCPR); /* Buzzer tone control period register*/
 	writeBackPlaneRegister(l_nDutycyclecount, BP_BTCDCR); /* Buzzer tone control duty cycle register*/
 
 	if (pPWMFlag == 1) {
 		l_nPWMValue |= BP_BTCER_ENABLE_PWM;
 	}
-	printf("PWM value %d\n", l_nPWMValue);
+//	printf("PWM value %d\n", l_nPWMValue);
 	writeBackPlaneRegister(l_nPWMValue, BP_BTCER); /* Buzzer tone control Enable Register */
 
 	return 1;
@@ -111,16 +111,16 @@ unsigned short IBackPlane::setLCDControl(unsigned int pFrequency,
 	l_nTime = (double) (1.0 / pFrequency);
 
 	l_nPeriodCounts = (l_nTime * 50000) - 1; /* Period Count Value */
-	printf("l_nPeriodCounts value %d\n", l_nPeriodCounts);
+//	printf("l_nPeriodCounts value %d\n", l_nPeriodCounts);
 	l_nDutycyclecount = (((double) l_nPeriodCounts / 100) * l_nPercentage) - 1; /*Duty Cycle Count */
-	printf("l_nDutycyclecount value %d\n", l_nDutycyclecount);
+//	printf("l_nDutycyclecount value %d\n", l_nDutycyclecount);
 
 	writeBackPlaneRegister(l_nPeriodCounts, BP_LBCPR); /* LCD Backlight control period register*/
 	writeBackPlaneRegister(l_nDutycyclecount, BP_LBCDCR); /* LCD Backlight control duty cycle register*/
 
 	if (pPWMFlag == 1) {
 		l_nPWMValue |= BP_LBER_ENABLE_PWM;
-		printf("PWM value %d\n", l_nPWMValue);
+//		printf("PWM value %d\n", l_nPWMValue);
 	}
 	writeBackPlaneRegister(l_nPWMValue, BP_LBER); /* LCD Backlight control Enable Register */
 

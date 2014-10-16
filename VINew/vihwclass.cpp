@@ -42,6 +42,14 @@ void VIHWClass::initializeHWLibraries()
 	//IPsoc->writeSerial(0x50);
 	//IPsoc->writeSerial(0x01);
 	peformDriveConfiguration();
+
+        //Added by RRV,DI 16/10/2014~~~~Making the phaseshift zero by init~~
+        double m_nPTWPhase=(((pow(2,32))-1)*0)/360;
+        unsigned short m_nPTW_LSW=((unsigned int)m_nPTWPhase<<16)>>16;
+        unsigned short m_nPTW_MSW=(unsigned int)m_nPTWPhase>>16;
+        IAppCard->setDDSPTW_LSW(m_nPTW_LSW);
+        IAppCard->setDDSPTW_MSW(m_nPTW_MSW);
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 
 void VIHWClass::resetDAC()

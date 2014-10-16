@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'selectprobe.ui'
 **
-** Created: Fri Sep 19 18:13:26 2014
+** Created: Thu Oct 16 13:31:22 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -33,7 +33,7 @@ public:
     QGroupBox *groupBox;
     QListWidget *lstProbes;
     QGroupBox *grpComparison;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QGridLayout *gridLayout;
     QRadioButton *optAverage;
     QRadioButton *optLinear;
@@ -48,7 +48,7 @@ public:
     QCheckBox *chkCommonGnd;
     QLabel *label;
     QGroupBox *grpReferenceProbes;
-    QWidget *widget1;
+    QWidget *layoutWidget1;
     QGridLayout *gridLayout_2;
     QRadioButton *optRefProbe1;
     QRadioButton *opRefProbe2;
@@ -379,13 +379,13 @@ public:
 "	 color:white;\n"
 "     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);\n"
 " }"));
-        widget = new QWidget(grpComparison);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(4, 14, 247, 56));
-        gridLayout = new QGridLayout(widget);
+        layoutWidget = new QWidget(grpComparison);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 14, 247, 56));
+        gridLayout = new QGridLayout(layoutWidget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        optAverage = new QRadioButton(widget);
+        optAverage = new QRadioButton(layoutWidget);
         optAverage->setObjectName(QString::fromUtf8("optAverage"));
         QFont font4;
         font4.setBold(true);
@@ -430,7 +430,7 @@ public:
 
         gridLayout->addWidget(optAverage, 0, 1, 1, 1);
 
-        optLinear = new QRadioButton(widget);
+        optLinear = new QRadioButton(layoutWidget);
         optLinear->setObjectName(QString::fromUtf8("optLinear"));
         optLinear->setFont(font4);
         optLinear->setFocusPolicy(Qt::NoFocus);
@@ -780,7 +780,7 @@ public:
 "     }"));
         label = new QLabel(SelectProbe);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(163, 99, 101, 20));
+        label->setGeometry(QRect(170, 99, 101, 20));
         label->setFont(font5);
         grpReferenceProbes = new QGroupBox(SelectProbe);
         grpReferenceProbes->setObjectName(QString::fromUtf8("grpReferenceProbes"));
@@ -800,13 +800,13 @@ public:
 "	 color:white;\n"
 "     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);\n"
 " }"));
-        widget1 = new QWidget(grpReferenceProbes);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        widget1->setGeometry(QRect(0, 30, 216, 26));
-        gridLayout_2 = new QGridLayout(widget1);
+        layoutWidget1 = new QWidget(grpReferenceProbes);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 30, 216, 26));
+        gridLayout_2 = new QGridLayout(layoutWidget1);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
-        optRefProbe1 = new QRadioButton(widget1);
+        optRefProbe1 = new QRadioButton(layoutWidget1);
         optRefProbe1->setObjectName(QString::fromUtf8("optRefProbe1"));
         optRefProbe1->setFont(font4);
         optRefProbe1->setFocusPolicy(Qt::NoFocus);
@@ -847,7 +847,7 @@ public:
 
         gridLayout_2->addWidget(optRefProbe1, 0, 0, 1, 1);
 
-        opRefProbe2 = new QRadioButton(widget1);
+        opRefProbe2 = new QRadioButton(layoutWidget1);
         opRefProbe2->setObjectName(QString::fromUtf8("opRefProbe2"));
         opRefProbe2->setFont(font4);
         opRefProbe2->setFocusPolicy(Qt::NoFocus);

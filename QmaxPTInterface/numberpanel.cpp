@@ -68,6 +68,9 @@ NumberPanel::NumberPanel(short int pDeciValue,double incRatio,char type,double m
     	QString deg=QChar(0x00B0);
     	ui->label->setText(deg);
     }
+    if(panelType=='N'){
+    	this->setWindowTitle("Number Panel");
+    }
     if(panelType=='H'){
         this->setWindowTitle("Hex");
         ui->label->setText("Hex");
@@ -217,7 +220,7 @@ void NumberPanel::constructVirtualNumPad()
     int l_nXMove=90,l_nYMove=95;
     int l_nHeight=50,l_nWidth=60;
 
-    if(panelType!='V'&&panelType!='F'&&panelType!='D'&&panelType!='H'&&panelType!='T'&&panelType!='K'&&panelType!='v'&&panelType!='R'&&panelType!='L'&&panelType!='C')
+    if(panelType!='V'&&panelType!='F'&&panelType!='D'&&panelType!='N'&&panelType!='H'&&panelType!='T'&&panelType!='K'&&panelType!='v'&&panelType!='R'&&panelType!='L'&&panelType!='C')
     	for(int l_nButtonIndex=0;l_nButtonIndex < m_mapPTNumKeys.count();l_nButtonIndex++){
  	    	m_objVKeyButtons[l_nButtonIndex] = new QmaxButton(m_mapPTNumKeys.value(l_nButtonIndex),l_tempSize,"",0,l_nButtonIndex,this);
     	    connect(m_objVKeyButtons[l_nButtonIndex],SIGNAL(clicked(int)),this,SLOT(buttonPressed(int)));
@@ -253,7 +256,7 @@ void NumberPanel::constructVirtualNumPad()
                     }
 
         	}
-    	else if(panelType=='D'||panelType=='K')
+    	else if(panelType=='D'||panelType=='K'||panelType=='N')
         	for(int l_nButtonIndex=0;l_nButtonIndex < m_mapPTNumKeys.count();l_nButtonIndex++)
         	{
         		if(l_nButtonIndex!=3&&l_nButtonIndex!=4&&l_nButtonIndex!=8&&l_nButtonIndex!=9&&l_nButtonIndex!=13&&l_nButtonIndex!=14&&
@@ -342,7 +345,7 @@ void NumberPanel::constructVirtualNumPad()
     connect(m_objVOKCancelButtons[1],SIGNAL(clicked(int)),this,SLOT(buttonPressed(int)));
     m_objVOKCancelButtons[1]->setGeometry(80,390,100,40);
 
-    if(panelType!='V'&&panelType!='F'&&panelType!='D'){
+    if(panelType!='V'&&panelType!='F'&&panelType!='D'&&panelType!='N'){
     m_objVMiscButtons[0] = new QmaxButton(m_mapPTMiscKeys.value(0),QSize(70,50),"",0,27,this);
     connect(m_objVMiscButtons[0],SIGNAL(clicked(int)),this,SLOT(buttonPressed(int)));
     m_objVMiscButtons[0]->setGeometry(5,95,70,50);
@@ -412,7 +415,7 @@ void NumberPanel::buttonPressed(int pKeyCode)
     else if(pKeyCode==31){
     	ratio=1.0/pow(10.0,deci_length);
         //qDebug()<<"ratio :"<<ratio;
-    	if(panelType=='F'||panelType=='R'||panelType=='D'||panelType=='L'||panelType=='C'){
+    	if(panelType=='F'||panelType=='R'||panelType=='D'||panelType=='N'||panelType=='L'||panelType=='C'){
     		if(l_nDeciNumber>0)
     			l_nDeciNumber=l_nDeciNumber-ratio;
     		else
@@ -498,6 +501,9 @@ void NumberPanel::buttonPressed(int pKeyCode)
                 	QString deg=QChar(0x00B0);
                 	emit passText2(m_strNumber+deg);
                 }
+                else if(panelType=='N'){
+                	emit passText2(m_strNumber);
+                }
                 else if(panelType=='H'){
                     emit passText2("0x"+m_strNumber);
                 }
@@ -545,6 +551,9 @@ void NumberPanel::buttonPressed(int pKeyCode)
                 else if(panelType=='D'){
                 	QString deg=QChar(0x00B0);
                 	emit passText2(m_strNumber+deg);
+                }
+                else if(panelType=='N'){
+                	emit passText2(m_strNumber);
                 }
                 else if(panelType=='H'){
                     emit passText2("0x"+m_strNumber);

@@ -33,5 +33,6 @@
         <file>res/Stop.png</file>
         <file>res/chip-icon2.png</file>
         <file>res/chip-icon3.png</file>
+        <file>res/auto.png</file>
     </qresource>
 </RCC>

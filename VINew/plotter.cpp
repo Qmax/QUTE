@@ -25,9 +25,12 @@ Plotter::Plotter(QWidget *parent) :
     m_bClearTrace = false;
     m_nClearID=-1;
     m_nOffset=0.0;
+    zoomScreenFlag=false;
 }
 
-
+void Plotter::zooomScreenStatus(bool status){
+	zoomScreenFlag=status;
+}
 void Plotter::clearCurveData()
 {
 	//curveMap.clear();
@@ -441,21 +444,29 @@ void Plotter::drawGrid(QPainter *painter)
         pen.setColor(objColor);
         pen.setWidth(1);
         painter->setPen(pen);
+        if(zoomScreenFlag==true){
 /*vertical line*/        painter->drawLine(Margin+rect.width()/2-1,Margin,Margin+rect.width()/2-1,Margin+rect.height());
 /*horizontal line*/      painter->drawLine(Margin,Margin+rect.height()/2-1,Margin+rect.width(),Margin+rect.height()/2-1);
+        }
+        else if(zoomScreenFlag==false){
+/*vertical line*/        painter->drawLine(Margin+rect.width()/2-1,Margin,Margin+rect.width()/2-1,Margin+rect.height());
+/*horizontal line*/      painter->drawLine(Margin,Margin+rect.height()/2-1,Margin+rect.width(),Margin+rect.height()/2-1);
+        }
 
         for(int i=0;i<rect.height();i+=((rect.height()/settings.numYTicks)/2))
         {
             if(i!=0 && i%2!=0)
             {
-/*vertical grid*/   painter->drawLine((Margin+rect.width()/2-3)-1,Margin+i,(Margin+rect.width()/2+3)-1,Margin+i);
+            if(zoomScreenFlag==true){
+///*vertical grid*/   painter->drawLine((Margin+rect.width()/2-3)-1,Margin+i,(Margin+rect.width()/2+3)-1,Margin+i);
             }
+           }
         }
         for(int j=0;j<rect.width();j=j+(rect.width()/settings.numXTicks)+5 )
         {
             if(j!=0)
             {
-/*horizontal grid*/  painter->drawLine(Margin+j-5,Margin+rect.height()/2-3,Margin+j-5,Margin+rect.height()/2+3);
+///*horizontal grid*/  painter->drawLine(Margin+j-5,Margin+rect.height()/2-3,Margin+j-5,Margin+rect.height()/2+3);
             }
         }
 
@@ -467,10 +478,14 @@ void Plotter::drawGrid(QPainter *painter)
         pen.setBrush(Qt::gray);
         painter->setPen(pen);
     	//qDebug() << "XLabel" << m_strXLabel << "YLabel" << m_strYLabel;
-        painter->drawText(Margin+rect.width()/2+8,3,65,45,Qt::AlignLeft|Qt::AlignTop,m_strY1Label);
-        painter->drawText(4,Margin+rect.height()/2+2,35,45,Qt::AlignLeft|Qt::AlignTop,m_strX1Label);
-        painter->drawText(Margin+rect.width()-35,Margin+rect.height()/2,35,45,Qt::AlignHCenter|Qt::AlignTop,m_strX2Label);
-        painter->drawText(Margin+rect.width()/2+8,Margin+rect.height()-20,65,45,Qt::AlignLeft|Qt::AlignTop,m_strY2Label);
+//        painter->drawText(Margin+rect.width()/2+8,3,65,45,Qt::AlignLeft|Qt::AlignTop,m_strY1Label);
+//        painter->drawText(4,Margin+rect.height()/2+2,35,45,Qt::AlignLeft|Qt::AlignTop,m_strX1Label);
+//        painter->drawText(Margin+rect.width()-35,Margin+rect.height()/2,35,45,Qt::AlignHCenter|Qt::AlignTop,m_strX2Label);
+//        painter->drawText(Margin+rect.width()/2+8,Margin+rect.height()-20,65,45,Qt::AlignLeft|Qt::AlignTop,m_strY2Label);
+        painter->drawText(Margin+rect.width()/2+8,8,65,45,Qt::AlignLeft|Qt::AlignTop,"+"+m_strY1Label);
+        painter->drawText(15,Margin+rect.height()/2+2,35,45,Qt::AlignLeft|Qt::AlignTop,"+"+m_strX1Label);
+        painter->drawText(Margin+rect.width()-45,Margin+rect.height()/2,35,45,Qt::AlignHCenter|Qt::AlignTop,m_strX2Label);
+        painter->drawText(Margin+rect.width()/2+8,Margin+rect.height()-25,65,45,Qt::AlignLeft|Qt::AlignTop,m_strY2Label);
     }
     //painter->drawRect(rect.adjusted(+0,+0,-1,-1));
    // qDebug() << "outSide DrawGrid";

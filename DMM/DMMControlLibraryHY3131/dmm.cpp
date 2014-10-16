@@ -696,22 +696,22 @@ void DMM::onMeasure() {
             if(Flag.diodeFlag==true){
             	dis->setValue(digitsLimiter(display.retvalHY3131));
             }
-            else if((ui->label_5->text()==mapResistance.value(2)||ui->label_5->text()==mapResistance.value(5)||ui->label_5->text()==mapCurrent.value(1)||ui->label_5->text()==mapDCVoltage.value(2)||ui->label_5->text()==mapACVoltage.value(2))&&(digitsLimiter(display.retvalHY3131)>5.1)){
+            else if((ui->label_5->text()==mapResistance.value(2)||ui->label_5->text()==mapResistance.value(5)||ui->label_5->text()==mapCurrent.value(1)||ui->label_5->text()==mapDCVoltage.value(2)||ui->label_5->text()==mapACVoltage.value(2))&&(digitsLimiter(display.retvalHY3131)>5.1)&&(Flag.autoFlag==0)){
                 dis->setValue("OL");
             }
-            else if((ui->label_5->text()==mapResistance.value(0)||ui->label_5->text()==mapResistance.value(3)||ui->label_5->text()==mapResistance.value(6)||ui->label_5->text()==mapCurrent.value(2)||ui->label_5->text()==mapDCVoltage.value(0)||ui->label_5->text()==mapDCVoltage.value(3)||ui->label_5->text()==mapACVoltage.value(0)||ui->label_5->text()==mapACVoltage.value(3))&&(digitsLimiter(display.retvalHY3131)>51)){
+            else if((ui->label_5->text()==mapResistance.value(0)||ui->label_5->text()==mapResistance.value(3)||ui->label_5->text()==mapResistance.value(6)||ui->label_5->text()==mapCurrent.value(2)||ui->label_5->text()==mapDCVoltage.value(0)||ui->label_5->text()==mapDCVoltage.value(3)||ui->label_5->text()==mapACVoltage.value(0)||ui->label_5->text()==mapACVoltage.value(3))&&(digitsLimiter(display.retvalHY3131)>51)&&(Flag.autoFlag==0)){
                 dis->setValue("OL");
             }
-            else if((ui->label_5->text()==mapResistance.value(1)||ui->label_5->text()==mapResistance.value(4)||ui->label_5->text()==mapCurrent.value(0)||ui->label_5->text()==mapCurrent.value(3)||ui->label_5->text()==mapDCVoltage.value(1)||ui->label_5->text()==mapDCVoltage.value(4)||ui->label_5->text()==mapACVoltage.value(1)||ui->label_5->text()==mapACVoltage.value(4))&&(digitsLimiter(display.retvalHY3131)>510)){
+            else if((ui->label_5->text()==mapResistance.value(1)||ui->label_5->text()==mapResistance.value(4)||ui->label_5->text()==mapCurrent.value(0)||ui->label_5->text()==mapCurrent.value(3)||ui->label_5->text()==mapDCVoltage.value(1)||ui->label_5->text()==mapDCVoltage.value(4)||ui->label_5->text()==mapACVoltage.value(1)||ui->label_5->text()==mapACVoltage.value(4))&&(digitsLimiter(display.retvalHY3131)>510)&&(Flag.autoFlag==0)){
                 dis->setValue("OL");
             }
-            else if((ui->label_5->text()==mapCurrent.value(4))&&(digitsLimiter(display.retvalHY3131)>3.1)){
+            else if((ui->label_5->text()==mapCurrent.value(4))&&(digitsLimiter(display.retvalHY3131)>3.1)&&(Flag.autoFlag==0)){
                 dis->setValue("OL");
             }
-            else if((ui->label_5->text()==mapACVoltage.value(5))&&(digitsLimiter(display.retvalHY3131)>760)){
+            else if((ui->label_5->text()==mapACVoltage.value(5))&&(digitsLimiter(display.retvalHY3131)>760)&&(Flag.autoFlag==0)){
                 dis->setValue("OL");
             }
-            else if((ui->label_5->text()==mapDCVoltage.value(4))&&(digitsLimiter(display.retvalHY3131)>1100)){
+            else if((ui->label_5->text()==mapDCVoltage.value(4))&&(digitsLimiter(display.retvalHY3131)>1100)&&(Flag.autoFlag==0)){
                 dis->setValue("OL");
             }
             else{

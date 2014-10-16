@@ -174,7 +174,8 @@ void SelectProbe::openNumKBPanel(short int pValue)
 {
 //    typedef QWidget* (*pf2)(short int,QWidget*);
 //    pf2 getNumKBPanel = (pf2)m_objPTLibrary->resolve("getNumKBPanel");
-    QWidget *w = INumberPanel->getNumKBPanel(pValue,this);
+//    QWidget *w = INumberPanel->getNumKBPanel(pValue,this);
+    QWidget *w = INumberPanel->getNumKBPanelIncDec(pValue,1,'N',99,1,this);
     w->setWindowFlags(Qt::WindowCloseButtonHint|Qt::Dialog);
     w->show();
 }

@@ -1131,10 +1131,10 @@ border:1px solid white;
    <property name="title">
     <string>Comparison</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>4</x>
+      <x>10</x>
       <y>14</y>
       <width>247</width>
       <height>56</height>
@@ -1843,7 +1843,7 @@ color:white;
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>163</x>
+     <x>170</x>
      <y>99</y>
      <width>101</width>
      <height>20</height>
@@ -1897,10 +1897,10 @@ border:1px solid white;
    <property name="title">
     <string>Reference Probe</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>30</y>
       <width>216</width>
       <height>26</height>

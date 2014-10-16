@@ -107,6 +107,8 @@ public:
     PlotSettings *m_ZoomSettings;
     bool m_moveFlag;
     double m_nOffset;
+    bool zoomScreenFlag;
+    void zooomScreenStatus(bool);
 public slots:
     void zoomIn();
     void zommOut();

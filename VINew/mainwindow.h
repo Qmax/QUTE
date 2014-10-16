@@ -188,6 +188,9 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
+        void on_bestFitButton_clicked();
+        void on_butP2Area_clicked();
+        void on_butP1Area_clicked();
         void on_DACFValues_clicked();
  void on_AD5318Panel_clicked();
     void on_butZoom_clicked();
