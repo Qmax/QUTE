@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dmm.ui'
 **
-** Created: Fri Sep 26 16:02:06 2014
+** Created: Mon Nov 3 23:16:18 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -72,6 +72,8 @@ public:
     QLineEdit *lineEdit_3;
     QLineEdit *lineEdit_4;
     QLabel *holdLabel;
+    QLabel *label_10;
+    QLabel *label_14;
     QTextEdit *textEdit;
     QLineEdit *lineEdit;
     QGroupBox *voltBox;
@@ -164,6 +166,11 @@ public:
     QLabel *fp_REF_label;
     QLabel *fp_GND_label;
     QFrame *fp_GND;
+    QWidget *graphLegend;
+    QLabel *label_13;
+    QLabel *minLabel;
+    QLabel *label_9;
+    QLabel *maxLabel;
 
     void setupUi(QWidget *DMM)
     {
@@ -842,7 +849,7 @@ public:
         textEdit_4->setCursorWidth(0);
         label_7 = new QLabel(displayPanel);
         label_7->setObjectName(QString::fromUtf8("label_7"));
-        label_7->setGeometry(QRect(67, 20, 57, 15));
+        label_7->setGeometry(QRect(66, 20, 57, 15));
         QPalette palette2;
         QBrush brush9(QColor(251, 236, 93, 255));
         brush9.setStyle(Qt::SolidPattern);
@@ -877,7 +884,7 @@ public:
         label_7->setStyleSheet(QString::fromUtf8("color:#fbec5d;"));
         label = new QLabel(displayPanel);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(138, 113, 61, 16));
+        label->setGeometry(QRect(138, 120, 61, 16));
         QPalette palette3;
         palette3.setBrush(QPalette::Active, QPalette::WindowText, brush9);
         palette3.setBrush(QPalette::Active, QPalette::Button, brush6);
@@ -913,7 +920,7 @@ public:
         label->setStyleSheet(QString::fromUtf8("color:#fbec5d;"));
         label_2 = new QLabel(displayPanel);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(66, 113, 81, 16));
+        label_2->setGeometry(QRect(66, 120, 81, 16));
         QPalette palette4;
         palette4.setBrush(QPalette::Active, QPalette::WindowText, brush9);
         palette4.setBrush(QPalette::Active, QPalette::Button, brush6);
@@ -1067,7 +1074,7 @@ public:
         textEdit_6->setTextInteractionFlags(Qt::NoTextInteraction);
         label_11 = new QLabel(displayPanel);
         label_11->setObjectName(QString::fromUtf8("label_11"));
-        label_11->setGeometry(QRect(71, 80, 57, 15));
+        label_11->setGeometry(QRect(66, 85, 57, 15));
         QPalette palette9;
         palette9.setBrush(QPalette::Active, QPalette::WindowText, brush8);
         palette9.setBrush(QPalette::Active, QPalette::Button, brush6);
@@ -1178,19 +1185,83 @@ public:
         holdLabel->setAutoFillBackground(false);
         holdLabel->setStyleSheet(QString::fromUtf8("color:#fbec5d;"));
         holdLabel->setAlignment(Qt::AlignCenter);
+        label_10 = new QLabel(displayPanel);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setGeometry(QRect(540, 120, 100, 16));
+        QPalette palette12;
+        palette12.setBrush(QPalette::Active, QPalette::WindowText, brush9);
+        palette12.setBrush(QPalette::Active, QPalette::Button, brush6);
+        palette12.setBrush(QPalette::Active, QPalette::Midlight, brush);
+        palette12.setBrush(QPalette::Active, QPalette::Text, brush9);
+        palette12.setBrush(QPalette::Active, QPalette::BrightText, brush10);
+        palette12.setBrush(QPalette::Active, QPalette::ButtonText, brush9);
+        palette12.setBrush(QPalette::Active, QPalette::Base, brush6);
+        palette12.setBrush(QPalette::Active, QPalette::Window, brush6);
+        palette12.setBrush(QPalette::Active, QPalette::HighlightedText, brush10);
+        palette12.setBrush(QPalette::Inactive, QPalette::WindowText, brush9);
+        palette12.setBrush(QPalette::Inactive, QPalette::Button, brush6);
+        palette12.setBrush(QPalette::Inactive, QPalette::Midlight, brush);
+        palette12.setBrush(QPalette::Inactive, QPalette::Text, brush9);
+        palette12.setBrush(QPalette::Inactive, QPalette::BrightText, brush10);
+        palette12.setBrush(QPalette::Inactive, QPalette::ButtonText, brush9);
+        palette12.setBrush(QPalette::Inactive, QPalette::Base, brush6);
+        palette12.setBrush(QPalette::Inactive, QPalette::Window, brush6);
+        palette12.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush10);
+        palette12.setBrush(QPalette::Disabled, QPalette::WindowText, brush9);
+        palette12.setBrush(QPalette::Disabled, QPalette::Button, brush6);
+        palette12.setBrush(QPalette::Disabled, QPalette::Midlight, brush);
+        palette12.setBrush(QPalette::Disabled, QPalette::Text, brush9);
+        palette12.setBrush(QPalette::Disabled, QPalette::BrightText, brush10);
+        palette12.setBrush(QPalette::Disabled, QPalette::ButtonText, brush9);
+        palette12.setBrush(QPalette::Disabled, QPalette::Base, brush6);
+        palette12.setBrush(QPalette::Disabled, QPalette::Window, brush6);
+        palette12.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush10);
+        label_10->setPalette(palette12);
+        label_10->setFont(font7);
+        label_10->setStyleSheet(QString::fromUtf8("color:#fbec5d;"));
+        label_14 = new QLabel(displayPanel);
+        label_14->setObjectName(QString::fromUtf8("label_14"));
+        label_14->setGeometry(QRect(492, 120, 45, 16));
+        QPalette palette13;
+        palette13.setBrush(QPalette::Active, QPalette::WindowText, brush9);
+        palette13.setBrush(QPalette::Active, QPalette::Button, brush6);
+        palette13.setBrush(QPalette::Active, QPalette::Midlight, brush);
+        palette13.setBrush(QPalette::Active, QPalette::Text, brush9);
+        palette13.setBrush(QPalette::Active, QPalette::ButtonText, brush9);
+        palette13.setBrush(QPalette::Active, QPalette::Base, brush6);
+        palette13.setBrush(QPalette::Active, QPalette::Window, brush6);
+        palette13.setBrush(QPalette::Inactive, QPalette::WindowText, brush9);
+        palette13.setBrush(QPalette::Inactive, QPalette::Button, brush6);
+        palette13.setBrush(QPalette::Inactive, QPalette::Midlight, brush);
+        palette13.setBrush(QPalette::Inactive, QPalette::Text, brush9);
+        palette13.setBrush(QPalette::Inactive, QPalette::ButtonText, brush9);
+        palette13.setBrush(QPalette::Inactive, QPalette::Base, brush6);
+        palette13.setBrush(QPalette::Inactive, QPalette::Window, brush6);
+        palette13.setBrush(QPalette::Disabled, QPalette::WindowText, brush9);
+        palette13.setBrush(QPalette::Disabled, QPalette::Button, brush6);
+        palette13.setBrush(QPalette::Disabled, QPalette::Midlight, brush);
+        palette13.setBrush(QPalette::Disabled, QPalette::Text, brush9);
+        palette13.setBrush(QPalette::Disabled, QPalette::ButtonText, brush9);
+        palette13.setBrush(QPalette::Disabled, QPalette::Base, brush6);
+        palette13.setBrush(QPalette::Disabled, QPalette::Window, brush6);
+        label_14->setPalette(palette13);
+        label_14->setFont(font7);
+        label_14->setStyleSheet(QString::fromUtf8("color:#fbec5d;"));
         textEdit_4->raise();
         label_7->raise();
         label_2->raise();
+        textEdit_5->raise();
+        label_3->raise();
         textEdit_3->raise();
         textEdit_6->raise();
         label_11->raise();
-        label->raise();
+        label_12->raise();
+        lineEdit_3->raise();
         lineEdit_4->raise();
         holdLabel->raise();
-        lineEdit_3->raise();
-        textEdit_5->raise();
-        label_12->raise();
-        label_3->raise();
+        label_10->raise();
+        label_14->raise();
+        label->raise();
         textEdit = new QTextEdit(DMM);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
         textEdit->setEnabled(false);
@@ -2001,19 +2072,38 @@ public:
 "}"));
         fp_GND->setFrameShape(QFrame::StyledPanel);
         fp_GND->setFrameShadow(QFrame::Raised);
-        inputPanel->raise();
-        displayPanel->raise();
-        textEdit->raise();
-        lineEdit->raise();
-        voltBox->raise();
-        AmpBox->raise();
-        OhmBox->raise();
-        ExitBox->raise();
-        OhmBox_2->raise();
-        OhmBox_3->raise();
-        debugPanel->raise();
-        frontPanel_DMM->raise();
-        selectFrame->raise();
+        graphLegend = new QWidget(DMM);
+        graphLegend->setObjectName(QString::fromUtf8("graphLegend"));
+        graphLegend->setGeometry(QRect(403, 435, 300, 158));
+        graphLegend->setStyleSheet(QString::fromUtf8("background-color: rgb(212, 208, 197);"));
+        label_13 = new QLabel(graphLegend);
+        label_13->setObjectName(QString::fromUtf8("label_13"));
+        label_13->setGeometry(QRect(240, 92, 60, 60));
+        QFont font17;
+        font17.setFamily(QString::fromUtf8("DejaVu Sans"));
+        font17.setPointSize(20);
+        label_13->setFont(font17);
+        minLabel = new QLabel(graphLegend);
+        minLabel->setObjectName(QString::fromUtf8("minLabel"));
+        minLabel->setGeometry(QRect(3, 87, 250, 60));
+        QFont font18;
+        font18.setFamily(QString::fromUtf8("DejaVu Sans"));
+        font18.setPointSize(40);
+        font18.setBold(true);
+        font18.setWeight(75);
+        minLabel->setFont(font18);
+        label_9 = new QLabel(graphLegend);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+        label_9->setGeometry(QRect(240, 15, 60, 60));
+        label_9->setFont(font17);
+        maxLabel = new QLabel(graphLegend);
+        maxLabel->setObjectName(QString::fromUtf8("maxLabel"));
+        maxLabel->setGeometry(QRect(3, 10, 250, 60));
+        maxLabel->setFont(font18);
+        minLabel->raise();
+        maxLabel->raise();
+        label_13->raise();
+        label_9->raise();
 
         retranslateUi(DMM);
 
@@ -2041,7 +2131,7 @@ public:
         label_8->setText(QApplication::translate("DMM", "FUNCTIONS", 0, QApplication::UnicodeUTF8));
         label_18->setText(QApplication::translate("DMM", "RANGES", 0, QApplication::UnicodeUTF8));
         Diode->setText(QApplication::translate("DMM", "DIODE", 0, QApplication::UnicodeUTF8));
-        Continuity->setText(QApplication::translate("DMM", "CONT", 0, QApplication::UnicodeUTF8));
+        Continuity->setText(QApplication::translate("DMM", "CNTY", 0, QApplication::UnicodeUTF8));
         label_7->setText(QApplication::translate("DMM", "AUTO", 0, QApplication::UnicodeUTF8));
         label->setText(QString());
         label_2->setText(QApplication::translate("DMM", "Range :", 0, QApplication::UnicodeUTF8));
@@ -2067,6 +2157,8 @@ public:
         label_12->setText(QString());
         lineEdit_4->setText(QString());
         holdLabel->setText(QApplication::translate("DMM", "HOLD", 0, QApplication::UnicodeUTF8));
+        label_10->setText(QApplication::translate("DMM", "0.0", 0, QApplication::UnicodeUTF8));
+        label_14->setText(QApplication::translate("DMM", "REL :", 0, QApplication::UnicodeUTF8));
         textEdit->setHtml(QApplication::translate("DMM", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -2123,6 +2215,10 @@ public:
         fp_mA_label->setText(QApplication::translate("DMM", "mA", 0, QApplication::UnicodeUTF8));
         fp_REF_label->setText(QApplication::translate("DMM", "REF", 0, QApplication::UnicodeUTF8));
         fp_GND_label->setText(QApplication::translate("DMM", "GND", 0, QApplication::UnicodeUTF8));
+        label_13->setText(QApplication::translate("DMM", "Min", 0, QApplication::UnicodeUTF8));
+        minLabel->setText(QString());
+        label_9->setText(QApplication::translate("DMM", "Max", 0, QApplication::UnicodeUTF8));
+        maxLabel->setText(QString());
     } // retranslateUi
 
 };

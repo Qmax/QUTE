@@ -809,3 +809,57 @@ void PTPSoCTestJigInterface::on_pbGenWrite_clicked()
             com2 = GenData->text().toUInt(&ok, 16);
             IDSOCard->writeRegister(com2,com1);
 }
+
+// Added for Sequence Write Operations Elangovan.D 1-11-2014
+
+void PTPSoCTestJigInterface::on_butSeqWrite_clicked()
+{
+	// Sequence Operations Arg1 - Data, Arg2 - Address
+
+	IDSOCard->writeRegister(0xC005,0x32);
+
+	IDSOCard->writeRegister(0xB010,0x2A);
+	IDSOCard->writeRegister(0x4810,0x2C);
+	IDSOCard->writeRegister(0x0107,0x28);
+	while(IDSOCard->readRegister(0x28) & 0x0001);
+
+	IDSOCard->writeRegister(0xB000,0x2A);
+	IDSOCard->writeRegister(0x4808,0x2C);
+	IDSOCard->writeRegister(0x0107,0x28);
+	while(IDSOCard->readRegister(0x28) & 0x0001);
+
+	IDSOCard->writeRegister(0x0011,0x2A);
+	IDSOCard->writeRegister(0x0100,0x2C);
+	IDSOCard->writeRegister(0x0107,0x28);
+	while(IDSOCard->readRegister(0x28) & 0x0001);
+
+
+	IDSOCard->writeRegister(0x0002,0x2A);
+	IDSOCard->writeRegister(0x0011,0x2C);
+	IDSOCard->writeRegister(0x0107,0x28);
+	while(IDSOCard->readRegister(0x28) & 0x0001);
+
+	IDSOCard->writeRegister(0xC003,0x2A);
+	IDSOCard->writeRegister(0x0030,0x2C);
+	IDSOCard->writeRegister(0x0107,0x28);
+	while(IDSOCard->readRegister(0x28) & 0x0001);
+
+	IDSOCard->writeRegister(0x0004,0x2A);
+	IDSOCard->writeRegister(0x0454,0x2C);
+	IDSOCard->writeRegister(0x0107,0x28);
+	while(IDSOCard->readRegister(0x28) & 0x0001);
+
+	IDSOCard->writeRegister(0x0AA5,0x2A);
+	IDSOCard->writeRegister(0x0004,0x2C);
+	IDSOCard->writeRegister(0x0107,0x28);
+	while(IDSOCard->readRegister(0x28) & 0x0001);
+
+	IDSOCard->writeRegister(0x05EF,0x2A);
+	IDSOCard->writeRegister(0x0000,0x2C);
+	IDSOCard->writeRegister(0x0107,0x28);
+	while(IDSOCard->readRegister(0x28) & 0x0001);
+
+	qDebug()<< "Sequence Write Finished";
+
+}
+

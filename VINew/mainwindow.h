@@ -31,7 +31,7 @@
 #include "AD5318TestJigInterface.h"
 
 #define MAXCOUNT 5
-#define REFERENCE_THRESHOLD	 0.4
+#define REFERENCE_THRESHOLD	 0.5
 
 const unsigned int guid = 0x56494D;
 
@@ -157,6 +157,11 @@ protected:
         bool checkforResistanceSteps(short int pVoltIndex,short int pImpedanceIndex);
         short int checkGreaterVoltages();
 
+        bool diodeDetection();
+        bool resistanceDetection();
+        short int selectImpedanceIndex(double);
+        void driveACPattern(short int,short int,short int);
+
 
     // Variables
     int m_nPTKeyCode,m_nKeyCode,m_nWaveIndex,m_nStoreWaveIndex;
@@ -176,6 +181,7 @@ protected:
     short int m_nCheckDegree;
     QString m_strFunctionKey;
     CALIB *m_objCalibData;
+    short int m_bDummyDrive;
 
     //Legend Labels Declaration
     QLabel  *l_objProbeStatus,*l_objPassFail,*l_objErrorPercentage,*l_objLearnVerify;

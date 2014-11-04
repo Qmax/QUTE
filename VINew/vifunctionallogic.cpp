@@ -84,9 +84,9 @@ double VIFunctionalLogic::getReceiveCalibrationConstant(short int pVoltIndex)
 		index=1;
 	}else if(l_nVoltValue>1.5&&l_nVoltValue<=3.5){
 		index=2;
-	}else if(l_nVoltValue>3.5&&l_nVoltValue<=7){
+	}else if(l_nVoltValue>3.5&&l_nVoltValue<=8){ // Elangovan.D
 		index=3;
-	}else if(l_nVoltValue>7&&l_nVoltValue<=13){
+	}else if(l_nVoltValue>8.1&&l_nVoltValue<=13){ // Elangovan.D
 		index=4;
 	}else if(l_nVoltValue<=0.6){
 		index=0;
@@ -103,9 +103,9 @@ double VIFunctionalLogic::getReceiveCalibrationGain(short int pVoltIndex)
 		index=1;
 	}else if(l_nVoltValue>1.5&&l_nVoltValue<=3.5){
 		index=2;
-	}else if(l_nVoltValue>3.5&&l_nVoltValue<=7){
+	}else if(l_nVoltValue>3.5&&l_nVoltValue<=8){  // Elangovan.D
 		index=3;
-	}else if(l_nVoltValue>7&&l_nVoltValue<=13){
+	}else if(l_nVoltValue>8.1&&l_nVoltValue<=13){ // Elangovan.D
 		index=4;
 	}else if(l_nVoltValue<=0.6){
 		index=0;
@@ -883,34 +883,48 @@ if(pWaveTrace == 1)
     m_objVIWaveData->m_nEnvelopBand=0.0;
 
     // ---- segemented-----------for voltage
-    if(pVoltIndex==0) // 0.2V
-    {
-    	m_objVIWaveData->m_nAmplitude = 0.18; // Screen Amplitude / 2 // Max Current
-    	m_objVIWaveData->m_nScreenAmplitude = 0.18;
-    	m_objVIWaveData->m_nMinY = -0.18;
-    }
-    else if(pVoltIndex == 1) // 2.5V
-    {
+//    if(pVoltIndex==0) // 0.2V
+//    {
+//    	m_objVIWaveData->m_nAmplitude = 0.18; // Screen Amplitude / 2 // Max Current
+//    	m_objVIWaveData->m_nScreenAmplitude = 0.18;
+//    	m_objVIWaveData->m_nMinY = -0.18;
+//    }
+//    else if(pVoltIndex == 1) // 2.5V
+//    {
 //    	m_objVIWaveData->m_nAmplitude = 0.24; // Screen Amplitude / 2 // Max Current
 //    	m_objVIWaveData->m_nScreenAmplitude = 0.24;
 //    	m_objVIWaveData->m_nMinY = -(0.24);
-		m_objVIWaveData->m_nAmplitude = 0.31; // Screen Amplitude / 2 // Max Current
-		m_objVIWaveData->m_nScreenAmplitude = 0.31;
-		m_objVIWaveData->m_nMinY = -(0.31);
+//		m_objVIWaveData->m_nAmplitude = 0.31; // Screen Amplitude / 2 // Max Current
+//		m_objVIWaveData->m_nScreenAmplitude = 0.31;
+//		m_objVIWaveData->m_nMinY = -(0.31);
+//
+//    }
+
+    if(pVoltIndex==0) // 0.2V
+    {
+    	m_objVIWaveData->m_nAmplitude = 0.2; // Screen Amplitude / 2 // Max Current
+    	m_objVIWaveData->m_nScreenAmplitude = 0.2;
+    	m_objVIWaveData->m_nMinY = -0.2;
+    }
+    else //if(pVoltIndex == 1) // 2.5V
+    {
+		m_objVIWaveData->m_nAmplitude = 0.53; // Screen Amplitude / 2 // Max Current
+		m_objVIWaveData->m_nScreenAmplitude = 0.53;
+		m_objVIWaveData->m_nMinY = -(0.53);
 
     }
-    else if(pVoltIndex ==2 ) // 8.0V
-    {
-    	m_objVIWaveData->m_nAmplitude = 0.26; // Screen Amplitude / 2 // Max Current
-    	m_objVIWaveData->m_nScreenAmplitude = 0.26;
-    	m_objVIWaveData->m_nMinY = -(0.27);
-    }
-    else if(pVoltIndex ==3 ) // 13.0V
-    {
-    	m_objVIWaveData->m_nAmplitude = 0.41; // Screen Amplitude / 2 // Max Current
-    	m_objVIWaveData->m_nScreenAmplitude = 0.41;
-    	m_objVIWaveData->m_nMinY = -(0.41);
-    }
+//    else if(pVoltIndex ==2 ) // 8.0V
+//    {
+//    	m_objVIWaveData->m_nAmplitude = 0.26; // Screen Amplitude / 2 // Max Current
+//    	m_objVIWaveData->m_nScreenAmplitude = 0.26;
+//    	m_objVIWaveData->m_nMinY = -(0.27);
+//    }
+//    else if(pVoltIndex ==3 ) // 13.0V
+//    {
+//    	m_objVIWaveData->m_nAmplitude = 0.41; // Screen Amplitude / 2 // Max Current
+//    	m_objVIWaveData->m_nScreenAmplitude = 0.41;
+//    	m_objVIWaveData->m_nMinY = -(0.41);
+//    }
 }
 else if(pWaveTrace ==0)
 {
@@ -940,39 +954,49 @@ else if(pWaveTrace ==0)
 	m_objVIWaveData->m_nCalibrationGain=0.0;
     m_objVIWaveData->m_nResolution =14;
     m_objVIWaveData->m_nEnvelopBand=0.0;
-	if(pVoltIndex == 0) // 0.2 V
-	{
-		m_objVIWaveData->m_nAmplitude = 0.18;
+
+    /*
+     *
+     *  m_objVIWaveData->m_nAmplitude = 0.18;
 		m_objVIWaveData->m_nScreenAmplitude = 0.18;
 		m_objVIWaveData->m_nScreenTime = 0.22;
 		m_objVIWaveData->m_nMinY = -0.18;
 		m_objVIWaveData->m_nMinX = -0.22;
+     *
+     */
+	if(pVoltIndex == 0) // 0.2 V
+	{
+		m_objVIWaveData->m_nAmplitude = 0.2;
+		m_objVIWaveData->m_nScreenAmplitude = 0.2;
+		m_objVIWaveData->m_nScreenTime = 0.2;
+		m_objVIWaveData->m_nMinY = -0.2;
+		m_objVIWaveData->m_nMinX = -0.2;
 
 	}
-	else if (pVoltIndex ==1 ) // 2.5V
+	else //if (pVoltIndex ==1 ) // 2.5V
 	{
-		m_objVIWaveData->m_nAmplitude = 0.31;
-		m_objVIWaveData->m_nScreenAmplitude =  0.31;
-		m_objVIWaveData->m_nScreenTime =  0.31;
-		m_objVIWaveData->m_nMinY = -0.32;
-		m_objVIWaveData->m_nMinX = -0.32;
+		m_objVIWaveData->m_nAmplitude = 0.51;
+		m_objVIWaveData->m_nScreenAmplitude =  0.51;
+		m_objVIWaveData->m_nScreenTime =  0.51;
+		m_objVIWaveData->m_nMinY = -0.51;
+		m_objVIWaveData->m_nMinX = -0.51;
 	}
-	else if (pVoltIndex ==2 ) // 8.0V
-	{
-		m_objVIWaveData->m_nAmplitude = 0.26;
-		m_objVIWaveData->m_nScreenAmplitude =  0.26;
-		m_objVIWaveData->m_nScreenTime =  0.26;
-		m_objVIWaveData->m_nMinY = -0.27;
-		m_objVIWaveData->m_nMinX = -0.27;
-	}
-	else if (pVoltIndex ==3 ) // 13.0V
-	{
-		m_objVIWaveData->m_nAmplitude = 0.43;
-		m_objVIWaveData->m_nScreenAmplitude =  0.43;
-		m_objVIWaveData->m_nScreenTime =  0.43;
-		m_objVIWaveData->m_nMinY = -0.43;
-		m_objVIWaveData->m_nMinX = -0.43;
-	}
+//	else if (pVoltIndex ==2 ) // 8.0V
+//	{
+//		m_objVIWaveData->m_nAmplitude = 0.26;
+//		m_objVIWaveData->m_nScreenAmplitude =  0.26;
+//		m_objVIWaveData->m_nScreenTime =  0.26;
+//		m_objVIWaveData->m_nMinY = -0.27;
+//		m_objVIWaveData->m_nMinX = -0.27;
+//	}
+//	else if (pVoltIndex ==3 ) // 13.0V
+//	{
+//		m_objVIWaveData->m_nAmplitude = 0.43;
+//		m_objVIWaveData->m_nScreenAmplitude =  0.43;
+//		m_objVIWaveData->m_nScreenTime =  0.43;
+//		m_objVIWaveData->m_nMinY = -0.43;
+//		m_objVIWaveData->m_nMinX = -0.43;
+//	}
 
 }
 else if(pWaveTrace ==2)
@@ -1215,7 +1239,7 @@ void VIFunctionalLogic::converttoVoltage(QStringList pActualData,double l_nGainF
 		}
 		//qDebug() <<"Pos Peak:" << VIData->m_objInteractiveData->m_nADCReceVoltage.value(l_nlstIndex);
 	}
-	//qDebug()<<"Positive Peak Value:" << l_nPeakValue<< pActualData.value(l_nPeakIndex).toShort(&ok,16);
+	qDebug()<<"Positive Peak Value:" << l_nPeakValue<< pActualData.value(l_nPeakIndex).toShort(&ok,16);
 	m_objVISubject->setPosPeakValue(pActualData.value(l_nPeakIndex).toShort(&ok,16));
 	m_objVISubject->setPosPeak(l_nPeakValue);
 	m_objVISubject->setPosPeakIndex(l_nPeakIndex);
@@ -1234,7 +1258,7 @@ void VIFunctionalLogic::converttoVoltage(QStringList pActualData,double l_nGainF
 	m_objVISubject->setNegPeakValue(pActualData.value(l_nNegPeakIndex).toShort(&ok,16));
 	m_objVISubject->setNegPeak(l_nPeakValue);
 	m_objVISubject->setNegPeakIndex(l_nPeakIndex);
-	//qDebug()<<"Negative Peak Value:" << l_nPeakValue<<pActualData.value(l_nNegPeakIndex).toShort(&ok,16);
+	qDebug()<<"Negative Peak Value:" << l_nPeakValue<<pActualData.value(l_nNegPeakIndex).toShort(&ok,16);
 }
 
 

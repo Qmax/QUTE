@@ -90,6 +90,9 @@ void MainWindow::InitializeVIFunctions()
 	m_bPCMode=false;
 	m_bStartApp = true;
 
+	m_bDummyDrive = 1;
+
+
 
 	m_objFunctionalObject->DISABLEINT();
 	m_objFunctionalObject->ENINT();
@@ -789,6 +792,7 @@ void MainWindow::doKeyFunction(int pKeyCode)
 		//switchString(m_nToggleIndex);
                 l_objKeyLeft->setText("L :  "+m_strFunctionKey);//Zoom Left Key Update
 	}
+	qDebug() << "Key code:" << pKeyCode;
 
 	if (m_objVISubject->getIndexTemplate(0,true) == "VOLTAGE" ||m_objVISubject->getIndexTemplate(1,true)
 			== "VOLTAGE" || m_objVISubject->getIndexTemplate(2,true) == "VOLTAGE"
@@ -1014,6 +1018,7 @@ void MainWindow::customEvent(QEvent *e)
 {
 	//qDebug()<<"VI Custom Event";
 	QMessageBox msg;
+
 	if (e->type() == ((QEvent::Type) 5678)) {
 		doPTKeyFunction();
 	}
@@ -1023,16 +1028,17 @@ void MainWindow::customEvent(QEvent *e)
 
 	}
 	if (e->type() == ((QEvent::Type) 1234)) {
+		IGPIOEvent->setStopFlag(true);
 		IGPIOEvent->BlockSig(true);
 		if(1){
 			m_nKeyCode = m_objFunctionalObject->getProbeStatus();
-
 			qDebug()<<"Custom Event-Key Data:"<<hex<<m_nKeyCode;
 		}
 		else{
 			qDebug()<<"Interrupt not raised";
 		}
 		doKeyFunction(m_nKeyCode);
+		IGPIOEvent->setStopFlag(false);
 		IGPIOEvent->BlockSig(false);
 		//m_objFunctionalObject->CLEARINT();
 	}
@@ -1040,7 +1046,6 @@ void MainWindow::customEvent(QEvent *e)
 	{
 		//unsigned int l_nRegisterValue = m_objFunctionalObject->readAppcardIntValue();
 		//if ((l_nRegisterValue & 0x0040) == 0x0040)
-		//qDebug()<<e->type();
 		//qDebug()<<"Timer Flag:"<<m_startTimer;
 		if(1)
 		{
@@ -1122,12 +1127,16 @@ void MainWindow::startVITimer()
 	if(m_objVISubject->getProbeDialog(0) == 0 || m_objVISubject->getProbeDialog(0) == 2) // SINGLE PROBE
 	{
 		m_nDualIndex=0;
+		if(m_bDummyDrive <  5) {  m_bDummyDrive++; return; }
+
 		updateInteractive();
 
 		l_objTraceNumber1->setVisible(true);
 	}
 	else if(m_objVISubject->getProbeDialog(0) == 1 ) // DUAL PROBE
 	{
+		if(m_bDummyDrive <  5) {  m_bDummyDrive ++; return; }
+
 		updateInteractive();
 
 		l_objTraceNumber1->setVisible(true);
@@ -1356,7 +1365,7 @@ void MainWindow::on_startButton_clicked()
 
         //	ui->selectFrame->setGeometry(702, 154, 9, 60);
 
-
+	m_bAutoCurveFit = true; // Added for testing
 	if(m_bAutoCurveFit==true)
 	{
 		callAutoCurveFit();
@@ -1959,6 +1968,8 @@ void MainWindow::on_butUP_clicked()
 	LoadInteractiveValues();
         UpdateLegendLabels();
 	setGraphValues();
+	m_bDummyDrive = 1;
+
 }
 
 void MainWindow::on_butDown_clicked()
@@ -1998,7 +2009,7 @@ void MainWindow::on_butDown_clicked()
 	LoadInteractiveValues();
         UpdateLegendLabels();
 	setGraphValues();
-
+	m_bDummyDrive = 1;
 }
 
 void MainWindow::on_butL_clicked()
@@ -2444,6 +2455,7 @@ void MainWindow::callAutoCurveFit()
 	m_objVISubject->setIndexTemplate(0,2);
 	m_objVISubject->setIndexTemplate(1,5);
 	m_objVISubject->setIndexTemplate(2,2);
+	//UpdateLegendLabels();
 	LoadInteractiveValues();
 }
 
@@ -2465,181 +2477,390 @@ void MainWindow::doAutoCurveFitAlgorithm()
 	m_objVISubject->setInductorFlag(false);
 	m_objVISubject->setResitorFlag(false);
 	m_objVISubject->setDiodeFlag(false);
+
+	/*
+	*  Auto Curvefit Algorithm - Elangovan D Dt: 25-10-2014
+	*  1. Open Circuit Detection
+	*  2. Short Circuit Detection
+	*  3. Diode Detection
+	*/
 	// 1. Detect Open Circuit Trace.
-	//	qDebug()	<< "Checking OC..............................................................";
+	qDebug()	<< "Checking OC..............................................................";
 	if (checkforOC() == true)
 		return;
 	// 2. Detect Short Circuit Trace.
-	//	qDebug()	<< "Checking SC...............................................................";
+	qDebug()	<< "Checking SC...............................................................";
 	if (checkforSC() == true)
 		return;
+	// 3. Diode Detection
+	qDebug()	<< "Checking Diode...............................................................";
+	if(diodeDetection() == true)
+		return;
+	qDebug()	<< "Checking Resistance..........................................................";
+	if(resistanceDetection() == true)
+		return;
 
-	if (confirmDiodes() == true)
-	{
-		//return;
-	}
-	//return;
-	if( binaryCapacitanceSearch(0)== true)
-	{
-		//return;
-	}
-	checkforResistance(0);
+	updateInteractive();
+
+//
+//	if (confirmDiodes() == true)
+//	{
+//		//return;
+//	}
+//	//return;
+//	if( binaryCapacitanceSearch(0)== true)
+//	{
+//		//return;
+//	}
+//	checkforResistance(0);
 	//QPluginLoader RLCloader("libRLC.so",this);
 	//IRLC = qobject_cast<RLCInterface*>(RLCloader.instance());
 
 	//qDebug()<<"Capcitance Value:"<<IRLC->getCapacitance();
 	//binaryLCSearch(0);
-	VIProduct->clearCurves(0);
+	//VIProduct->clearCurves(0);
+}
+
+void MainWindow::driveACPattern(short int pVoltIndex,short int pFrequencyIndex,short int pImpedanceIndex)
+{
+		m_objVISubject->setIndexTemplate(0,pVoltIndex);
+		m_objVISubject->setIndexTemplate(1,pFrequencyIndex);
+		m_objVISubject->setIndexTemplate(2,pImpedanceIndex);
+		m_objFunctionalObject->driveVI();
+		m_objFunctionalObject->peformDrive();
+		m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
+}
+
+bool MainWindow::diodeDetection()
+{
+	/*[[-------------------------------------------------------------
+	1. Select the Voltage:0.2V,  Frequency: 10Hz , Impedance: 50E
+	Diode Tolerance: Lower Threshold : 0.5, Higher Threshold: 1.25
+	-----------------------------------------------------------------]]
+	*/
+
+	m_objVISubject->clearPatterns();
+	QString l_strFileName;
+	double l_nLowerThreshold = 0.5, l_nHigherThreshold = 1.25;
+	unsigned short l_nSelectedImpedance = 50;
+	double l_nDiodeRatio =0.0,l_nZP2Voltage=0.0,l_n2P5Voltage=0.0;
+	for(int l_nDriveIndex=0;l_nDriveIndex < 1;l_nDriveIndex++)
+		driveACPattern(0,0,2);
+	CALIB *l_objCalibData;
+
+	bool l_bDrive2P5 = false,l_bConfirmDiode = false;
+
+	// Doing 3 Iterations
+	int l_nIterations = 1;
+	for(int l_nIndex=0;l_nIndex < l_nIterations; l_nIndex++) {
+		driveACPattern(0,0,2);
+
+		l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
+		l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
+		l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
+
+		qDebug() << "Calibration............";
+		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
+		double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
+		qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
+
+		qDebug() << "Received............";
+		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
+		double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+
+		qDebug() << "Positive Peak" << l_nPosPeakVoltage << m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();
+		qDebug() << "Negative Peak" << l_nNegPeakVoltage;
+
+		double l_nPositivePeakCurrent = (l_nCalibPosVoltage - l_nPosPeakVoltage) / l_nSelectedImpedance;
+		double l_nPositiveReceiveImpedance = (l_nPosPeakVoltage / l_nPositivePeakCurrent);
+		qDebug() << "Positive Receive Impedance:" << l_nPositiveReceiveImpedance;
+
+		double l_nNegativePeakCurrent = (l_nCalibNegVoltage - l_nNegPeakVoltage) / l_nSelectedImpedance;
+		double l_nNegativeeReceiveImpedance = (l_nNegPeakVoltage / l_nNegativePeakCurrent);
+		qDebug() << "NegativeReceive Impedance:" << l_nNegativeeReceiveImpedance;
+
+		double l_nLoadImpedance = ( abs(l_nPositiveReceiveImpedance) + abs(l_nNegativeeReceiveImpedance)) / 2.0;
+		qDebug() << "Load Impedance:" << l_nLoadImpedance;
+
+		if(l_nLoadImpedance >=(l_nSelectedImpedance - 3) && l_nLoadImpedance <= (l_nSelectedImpedance + 3)) {
+			l_bDrive2P5 = true;
+			break;
+		}
+		l_nZP2Voltage = ( l_nPosPeakVoltage - l_nNegPeakVoltage ) / m_objVISubject->getVoltageValue() * 2.0; // Selected voltage doubled for peaks
+		l_bDrive2P5 = true;
+	}
+
+	if(l_bDrive2P5 == true) {
+		/*[[-------------------------------------------------------------
+			2. Select the Voltage:2.5V,  Frequency: 10Hz , Impedance: 50E
+			-----------------------------------------------------------------]]
+		*/
+		driveACPattern(1,0,2);
+		l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
+		l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
+		l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
+
+		qDebug() << "Calibration............";
+		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
+		double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
+		qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
+
+		qDebug() << "Received............";
+		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
+		double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+
+		qDebug() << "Positive Peak" << l_nPosPeakVoltage << m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();
+		qDebug() << "Negative Peak" << l_nNegPeakVoltage;
+		l_n2P5Voltage = ( l_nPosPeakVoltage - l_nNegPeakVoltage ) / m_objVISubject->getVoltageValue() * 2.0; // Selected voltage doubled for peaks
+
+		l_nDiodeRatio = l_nZP2Voltage / l_n2P5Voltage;
+		qDebug() << "Diode Ratio:" << l_nDiodeRatio;
+
+		if(l_nDiodeRatio >= l_nLowerThreshold && l_nDiodeRatio <= l_nHigherThreshold)
+		{
+			l_bConfirmDiode = true;
+		}
+	}
+	if(l_bConfirmDiode == true) {
+		/*[[-------------------------------------------------------------
+			3. Select the Voltage: 13V,  Frequency: 10Hz , Impedance: 50E
+			-----------------------------------------------------------------]]
+		*/
+		driveACPattern(3,0,2);
+		l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
+		l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
+		l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
+
+		qDebug() << "Calibration............";
+		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
+		double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
+		qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
+
+		qDebug() << "Received............";
+		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
+		double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+
+		qDebug() << "Positive Peak" << l_nPosPeakVoltage << m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();
+		qDebug() << "Negative Peak" << l_nNegPeakVoltage;
+		l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
+				objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
+				objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
+		QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
+		m_objFunctionalObject->renameFile(l_strTestFileName);
+		m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
+				m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
+	}
+	return l_bConfirmDiode;
+
+}
+
+bool MainWindow::resistanceDetection()
+{
+	/*[[-------------------------------------------------------------
+		1. Select the Voltage: 2.5V ,  Frequency: 10Hz , Impedance: 1K
+		Resistance Voltage yet to be confirmed with Pazhani sir, 2.5V kept for testing.
+		-----------------------------------------------------------------]]
+	*/
+	CALIB *l_objCalibData;
+	double l_nSelectedImpedance = 1000;
+	short int l_nImpedanceIndex = 6;
+	bool l_bPeakDetected = false;
+
+	while(!l_bPeakDetected) {
+		driveACPattern(1,0,l_nImpedanceIndex);
+		l_nSelectedImpedance =  m_objVISubject->getImpedanceValue();
+		l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
+		l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
+		l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
+
+		qDebug() << "Calibration............";
+		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
+		double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
+		qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
+
+		qDebug() << "Received............";
+		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
+		double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+
+		qDebug() << "Positive Peak" << l_nPosPeakVoltage << m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();
+		qDebug() << "Negative Peak" << l_nNegPeakVoltage;
+
+		double l_nPositivePeakCurrent = (l_nCalibPosVoltage - l_nPosPeakVoltage) / l_nSelectedImpedance;
+		double l_nPositiveReceiveImpedance = (l_nPosPeakVoltage / l_nPositivePeakCurrent);
+		qDebug() << "Positive Receive Impedance:" << l_nPositiveReceiveImpedance;
+
+		double l_nNegativePeakCurrent = (l_nCalibNegVoltage - l_nNegPeakVoltage) / l_nSelectedImpedance;
+		double l_nNegativeeReceiveImpedance = (l_nNegPeakVoltage / l_nNegativePeakCurrent);
+		qDebug() << "NegativeReceive Impedance:" << l_nNegativeeReceiveImpedance;
+
+		double l_nLoadImpedance = ( abs(l_nPositiveReceiveImpedance) + abs(l_nNegativeeReceiveImpedance)) / 2.0;
+		qDebug() << "Load Impedance:" << floor(l_nLoadImpedance);
+		double l_nResistancePeakVoltage = (l_nPosPeakVoltage - l_nNegPeakVoltage) / 2.0 ;
+		double l_nActualVoltage = (l_nCalibPosVoltage - l_nCalibNegVoltage)/2.0;
+		double l_nPeakDifference = (l_nActualVoltage*0.5 - l_nResistancePeakVoltage);
+		qDebug() << "Resistance Voltage:" << l_nPeakDifference<<l_nResistancePeakVoltage << l_nActualVoltage* 0.5 << l_nActualVoltage * 0.55;
+		if( l_nResistancePeakVoltage >= l_nActualVoltage*0.4 && l_nResistancePeakVoltage < l_nActualVoltage*0.52)
+			break;
+		l_nImpedanceIndex = selectImpedanceIndex(floor(l_nLoadImpedance));
+		updateInteractive();
+	}
+
+	// Measure the Phase Shift
+
+
+	return l_bPeakDetected;
+}
+
+short int MainWindow::selectImpedanceIndex(double pValue) {
+	unsigned int l_nImpedanceArray[16] = {10,20,50,100,200,500,1000,2000,5000,10000,20000,50000,100000,200000,500000,1000000};
+    for(int l_nIndex=0;l_nIndex <16; l_nIndex++) {
+    	unsigned int l_nR1 = l_nImpedanceArray[l_nIndex];
+    	double l_nPercentage = pValue - l_nImpedanceArray[l_nIndex];
+    	qDebug()<< "Percentage:" << l_nPercentage;
+//    	if(l_nPercentage < 100) {
+//    		qDebug() << "Selected Impedance:" << l_nImpedanceArray[l_nIndex] << l_nIndex;
+//    		return l_nIndex;
+//    	}
+    	if(l_nR1 >= pValue) {
+//    		if((l_nR1 + l_nImpedanceArray[l_nIndex+1])/2 <= pValue && l_nIndex > 0)
+//    			return l_nIndex-1;
+    		qDebug() << "Selected Impedance:" << l_nImpedanceArray[l_nIndex] << l_nIndex-1;
+    		return l_nIndex;
+    	}
+    }
 }
 
 bool MainWindow::checkforOC()
 {
 	// For Detecting the Open Circuit(OC) The following Parameters are selected
-	//1. Source Impedance - 100K
-	//2. Voltage - 14 / 13 V
-	//3. Frequency - 100 Hz
+	/*[[-------------------------------------------------------------
+		1. Select the Voltage:13V, Frequency: 2KHz ,Impedance: 100KE
+	-----------------------------------------------------------------]]
+	*/
 	m_nAutoCount=0;
 	m_objVISubject->clearPatterns();
-	double l_nConPosPeak =11.5,l_nConNegPeak=-11.5;
+	double l_nPeakDetection= 0.95;
 
 	QString l_strFileName;
-	m_objVISubject->setIndexTemplate(0,3);// 13V
-	m_objVISubject->setIndexTemplate(1,3);// 100 Hz
-	m_objVISubject->setIndexTemplate(2,12);// 100K
-	m_objFunctionalObject->driveVI();
-	m_objFunctionalObject->peformDrive();
-	m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
 
+	driveACPattern(3,7,12);
 
 	CALIB *l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
 
 	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
 	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
-	//qDebug() << "Gain Factor:" << m_objVIModel->getVoltageValue() / 0.6;
+
+	qDebug() << "Calibration............";
 	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
 			m_objVISubject->getVoltageValue(), l_objCalibData);
 	double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 	double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+
+	qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
+	qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
+
+	qDebug() << "Received............";
 	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
 			m_objVISubject->getVoltageValue(), l_objCalibData);
+	//double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* l_nCalibPosVoltage)/REFERENCE_THRESHOLD;
+	//double l_nNetPeakVoltage = (m_objVISubject->getNegPeak()* l_nCalibNegVoltage)/REFERENCE_THRESHOLD;
+	double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+	double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 
-	double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* l_nCalibPosVoltage)/REFERENCE_THRESHOLD;
-	double l_nNetPeakVoltage = (m_objVISubject->getNegPeak()* l_nCalibNegVoltage)/REFERENCE_THRESHOLD;
-
-	//qDebug() << "Gain Factor:" << m_objVIModel->getVoltageValue() / 0.6;
+	qDebug() << "Positive Peak" << l_nPosPeakVoltage<< m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();;
+	qDebug() << "Negative Peak" << l_nNegPeakVoltage;
 
 	l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
 			objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
 			objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
 
-	/*l_strFileName = "SINE_" + QString::number(m_objVISubject->getVoltageValue(),'f', 1) +
-					"V_" + QString::number(m_objVISubject->getFrequencyValue(), 'f',
-						0) + "_HZ_" + QString::number(m_objVISubject->getImpedanceValue())
-		+ ".bin";*/
-	//	   qDebug()<<"Positive Peak:"<<m_objVISubject->getPosPeak()<<
-	//			   "Negative Peak:"<<m_objVISubject->getNegPeak()<<
-	//			   "Range Voltage:"<<m_objVISubject->getVoltageValue();
 	l_nPosPeakVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	l_nNetPeakVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	//		qDebug() << "File Name:"<<l_strFileName<<l_nPosPeakVoltage<<l_nNetPeakVoltage;
-	//qDebug() << "Positive Peak Value:" << m_objVIModel->getPosPeakValue()
-	//						<< "Negative Peak Value:" << m_objVIModel->getNegPeakValue()
-	//						<< (m_objVIModel->getPosPeakValue() > 7.0)
-	//						<< (m_objVIModel->getNegPeakValue() < -7.0);
-	if (l_nPosPeakVoltage > l_nConPosPeak && l_nNetPeakVoltage < l_nConNegPeak) {
+	l_nNegPeakVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+
+	qDebug() << "Actual Comaprison:" << (l_nPosPeakVoltage > l_nCalibPosVoltage * l_nPeakDetection)
+			<< (l_nNegPeakVoltage < l_nCalibNegVoltage * l_nPeakDetection)
+			<< l_nCalibPosVoltage * l_nPeakDetection  << l_nCalibNegVoltage * l_nPeakDetection;
+
+	if (l_nPosPeakVoltage > l_nCalibPosVoltage * l_nPeakDetection && l_nNegPeakVoltage < l_nCalibNegVoltage * l_nPeakDetection ) {
 		QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
 		m_objFunctionalObject->renameFile(l_strTestFileName);
 		m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
 				m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
 		return true;
 	}
-	updateInteractive();
 	return false;
 }
 
 bool MainWindow::checkforSC()
 {
 	// For Detecting the Short Circuit(OC) The following Parameters are selected
+	/*[[-------------------------------------------------------------
+		1. Select the Voltage: 0.2V, Frequency: 10Hz, Impedance: 10E
+	-----------------------------------------------------------------]]
+	*/
+	double l_nPeakDetection= 0.05;
+	QString l_strFileName;
+
 	m_nAutoCount=0;
 	m_objVISubject->clearPatterns();
-	m_objVISubject->setIndexTemplate(0,3);// 13V
-	m_objVISubject->setIndexTemplate(1,3);// 20Hz
-	m_objVISubject->setIndexTemplate(2,2);// 100K
-	m_objFunctionalObject->driveVI();
-	m_objFunctionalObject->peformDrive();
-	m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
+	driveACPattern(0,0,0);
+
 	CALIB *l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
 	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
 	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
 
+	qDebug() << "Calibration............";
 	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
 			m_objVISubject->getVoltageValue(), l_objCalibData);
-	//double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/0.6;
-	//double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/0.6;
+	double l_nCalibPosVoltage = m_objVISubject->getPosPeak();
+	double l_nCalibNegVoltage = m_objVISubject->getNegPeak();
+	qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
+	qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
+
+	qDebug() << "Received............";
 	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
 			m_objVISubject->getVoltageValue(), l_objCalibData);
+	double l_nPosPeakVoltage = m_objVISubject->getPosPeak();
+	double l_nNegPeakVoltage = m_objVISubject->getNegPeak();
+	l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
+			objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
+			objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
+	qDebug() << "Positive Peak" << l_nPosPeakVoltage<< m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();;
+	qDebug() << "Negative Peak" << l_nNegPeakVoltage;
 
-	//	    qDebug()<<"Negative V:"<<m_objVISubject->getNegPeak();
-	//	    qDebug()<<"Positive V:"<<m_objVISubject->getPosPeak();
+	qDebug() << "Actual Comaprison:" << (l_nPosPeakVoltage < l_nCalibPosVoltage * l_nPeakDetection)
+				<< (l_nNegPeakVoltage < l_nCalibNegVoltage * l_nPeakDetection)
+				<< l_nCalibPosVoltage * l_nPeakDetection  << l_nCalibNegVoltage * l_nPeakDetection<<m_nAutoFitPatternCount;
 
-	double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	double l_nNetPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-
-	//	qDebug() << "Positive Peak Value:" << m_objVISubject->getPosPeakValue()
-	//							<< "Negative Peak Value:" << m_objVISubject->getNegPeakValue()
-	//							<< (m_objVISubject->getPosPeak() < 0.1)
-	//							<< (m_objVISubject->getNegPeak() > -0.1);
-	//		qDebug() << "Voltages:"<<l_nPosPeakVoltage<<l_nNetPeakVoltage<<m_objVISubject->getVoltageValue();
-	//qDebug() << "Condtion:"<<(l_nPosPeakVoltage < 0.15)<<(l_nNetPeakVoltage > -0.15);
-	if (l_nPosPeakVoltage < 0.2 && l_nNetPeakVoltage > -0.2)
-	{
-		m_objVISubject->setIndexTemplate(0,0);// 0.5V / 0.2 V
-		m_objVISubject->setIndexTemplate(1,1);// 20 Hz
-		m_objVISubject->setIndexTemplate(2,0);// 10 E
-		m_objFunctionalObject->driveVI();
-		m_objFunctionalObject->peformDrive();
-		m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
-		CALIB *l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
-		l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
-		l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
-
-		//qDebug() << "Gain Factor:" << m_objVIModel->getVoltageValue() / 0.6;
-		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
-				m_objVISubject->getVoltageValue(), l_objCalibData);
-
-		double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-
-		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
-				m_objVISubject->getVoltageValue(), l_objCalibData);
-		//qDebug() << "Positive Peak Value:" << m_objVIModel->getPosPeakValue()
-		//						<< "Negative Peak Value:" << m_objVIModel->getNegPeakValue()
-		//						<< (m_objVIModel->getPosPeakValue() < 0.02)
-		//						<< (m_objVIModel->getNegPeakValue() > -0.02);
-		QString  l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
-				objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
-				objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
-		double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* l_nCalibPosVoltage)/REFERENCE_THRESHOLD;
-		double l_nNetPeakVoltage = (m_objVISubject->getNegPeak()* l_nCalibNegVoltage)/REFERENCE_THRESHOLD;
-		//			qDebug() << "Voltages:"<<l_nPosPeakVoltage<<l_nNetPeakVoltage<<m_objVISubject->getVoltageValue() ;
-
-
-		if (l_nPosPeakVoltage < 0.03
-				&& l_nNetPeakVoltage > -0.03) {
+	if(l_nPosPeakVoltage <= l_nCalibPosVoltage * l_nPeakDetection &&
+			l_nNegPeakVoltage <=  l_nCalibNegVoltage * l_nPeakDetection) {
 			QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
 			m_objFunctionalObject->renameFile(l_strTestFileName);
 			m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
 					m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
-			//	updateInteractive();
 			return true;
-		}
-		else
-		{
-			return false;
-		}
 	}
-	else
-		return false;
+	return false;
 }
 
 bool MainWindow::confirmDiodes()
@@ -3092,7 +3313,7 @@ void MainWindow::calcuateFitnessFunction(short int pIndex)
 			{
 				m_objVISubject->setCapacitorFlag(true);
 				m_objVISubject->setComponent(m_nAutoFitPatternCount-1,3);
-			}
+			}		if(m_bDummyDrive <  5) {  m_bDummyDrive++; return; }
 			if(m_nInductanceCount>0)
 			{
 				m_objVISubject->setComponent(m_nAutoFitPatternCount-1,4);
@@ -3548,26 +3769,29 @@ void MainWindow::on_butZoom_clicked()
     animation1->setEasingCurve(QEasingCurve::Linear);
     animation1->setDuration(100);
 
+    double l_nRectWidth = 324,l_nRectHeight = 272;
+    double l_nZoomRectWidth = 707,l_nZoomRectHeight = 560;
+
     if(VIProduct->geometry().width()==324){
-        animation2->setStartValue(QRect(17, 40, 324, 272));
-        animation1->setStartValue(QRect(0, 0, 324, 272));
-        animation2->setEndValue(QRect(0, 30, 707, 560));
-        animation1->setEndValue(QRect(0, 0, 707, 560));
+        animation2->setStartValue(QRect(17, 40, l_nRectWidth, l_nRectHeight));
+        animation1->setStartValue(QRect(0, 0, l_nRectWidth, l_nRectHeight));
+        animation2->setEndValue(QRect(0, 30, l_nZoomRectWidth, l_nZoomRectHeight));
+        animation1->setEndValue(QRect(0, 0, l_nZoomRectWidth, l_nZoomRectHeight));
         animation2->start();
         animation1->start();
         ui->butZoom->setStyleSheet("QPushButton {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:pressed {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:flat {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:default {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; }");
         UpdateLegendLabels();
-    	VIProduct->setZoomFlag(true);
+    	VIProduct->setZoomFlag(true,(l_nZoomRectWidth/l_nRectWidth),(l_nZoomRectHeight/l_nRectHeight));
     }
     else{
-        animation2->setStartValue(QRect(0, 30, 707, 560));
-        animation1->setStartValue(QRect(0, 0, 707, 560));
-        animation2->setEndValue(QRect(17, 40, 324, 272));
-        animation1->setEndValue(QRect(0, 0, 324, 272));
+        animation2->setStartValue(QRect(0, 30, l_nZoomRectWidth, l_nZoomRectHeight));
+        animation1->setStartValue(QRect(0, 0, l_nZoomRectWidth, l_nZoomRectHeight));
+        animation2->setEndValue(QRect(17, 40, l_nRectWidth, l_nRectHeight));
+        animation1->setEndValue(QRect(0, 0, l_nRectWidth, l_nRectHeight));
         animation2->start();
         ui->butZoom->setStyleSheet(" QPushButton {background-color: rgb(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); } QPushButton:pressed {background-color:rg(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); } QPushButton:flat {background-color: rgb(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); } QPushButton:default {background-color: rgb(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); }");
         animation1->start();
-    	VIProduct->setZoomFlag(false);
+    	VIProduct->setZoomFlag(false,1.0,1.0);
     }
 
 

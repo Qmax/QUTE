@@ -152,7 +152,7 @@ void  VIModel::setVerifyStatus(bool state){
 
 void VIModel::setAutoCurvePattern(short int pIndex,QString pStrName,QStringList pData)
 {
-
+	qDebug()<< "setAutoCurvePattern" << pIndex << pStrName;
 	if(m_lstAutoCurveFitPatterns.contains(pStrName) == false)
 	{
 		m_lstAutoCurveFitPatterns.insert(pIndex,pStrName);

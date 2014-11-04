@@ -1,10 +1,7 @@
-/***********************************************************
-***************Created by Ravivarman.R,Qmax*****************
-***********************************************************/
 /********************************************************************************
 ** Form generated from reading UI file 'daccalibration.ui'
 **
-** Created: Sat Sep 6 10:52:53 2014
+** Created: Fri Oct 24 16:02:38 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -487,9 +484,9 @@ public:
         comboBox_2->clear();
         comboBox_2->insertItems(0, QStringList()
          << QApplication::translate("DACCalibrationClass", "0.5", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("DACCalibrationClass", "1.5", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("DACCalibrationClass", "3.5", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("DACCalibrationClass", "7", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("DACCalibrationClass", "2.0", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("DACCalibrationClass", "2.5", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("DACCalibrationClass", "8", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("DACCalibrationClass", "13", 0, QApplication::UnicodeUTF8)
         );
         label_10->setText(QString());

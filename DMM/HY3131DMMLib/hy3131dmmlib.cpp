@@ -65,6 +65,7 @@ HY3131DMMLib::HY3131DMMLib(QObject *parent):QObject(parent){
 
 
 	//Load No of Samples from File~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	m_nSampleCount=25;
 	QStringList stringList;
 	QFile textFile("/home/HY3131/Samples.dat");
 	if (textFile.open(QIODevice::ReadOnly))
@@ -195,23 +196,26 @@ void HY3131DMMLib::Configure(int8_t index){
 }
 double HY3131DMMLib::Measure(int8_t index){
 	busyState=true;
-	double temp=0.0,rawData=0.0,temp1=0.0;
 	if(index==AC50mV || index==AC500mV ||index==AC5V || index==AC50V ||index==AC500V ||index==AC1000V || index==AC500uA || index==AC5mA ||index==AC50mA || index==AC500mA ||index==AC3A){
 		double rawData =Measure2(index);
 		double temp = rawData-m_nOffset[index];
 		double temp1= sqrt(temp);
-		ReadData = temp1/m_nGain[index];
+		if(rawData==999999999)
+			ReadData= rawData;
+		else
+			ReadData = temp1/m_nGain[index];
 		if(temp<0)
 			ReadData=0;
 	}
 	else{
 		double temp=Measure2(index);
 		if(temp==999999999)
-			return temp;
+			ReadData= temp;
 		else
 			ReadData=(temp-m_nOffset[index])/m_nGain[index];
 	}
 	busyState=false;
+        qDebug()<<"Measured Data:"<<ReadData;
 	return ReadData;
 }
 double HY3131DMMLib::Measure2(int8_t index){
@@ -221,7 +225,10 @@ double HY3131DMMLib::Measure2(int8_t index){
 		if(minus==true)
 			minus=false;
 		RMSData=readRMS();
-		RawData = (double)RMSData;
+		if(reg4>0)
+			return 999999999;
+		else
+			RawData = (double)RMSData;
 	}
 	else{
 		ADCDigital=readADC1();
@@ -241,8 +248,6 @@ double HY3131DMMLib::Measure2(int8_t index){
 	if(minus==true)
 		RawData=RawData*-1;
 
-	//qDebug()<<"ADC Digital:"<<hex<<ADCDigital;
-//	qDebug()<<"rawData:"<<RawData;
 	busyState=false;
 	return RawData;
 }
@@ -399,7 +404,7 @@ u_int32_t HY3131DMMLib::readADC1(u_int8_t r0,u_int8_t r1,u_int8_t r2){
 	}
 	temp=temp/m_nSampleCount;
 	//qDebug()<<"_______________________________________________________________";
-	//qDebug()<<"ADC1 Read Data:"<<hex<<temp;
+        qDebug()<<"ADC Read Data:"<<hex<<temp;
 	busyState=false;
 
 	return temp;
@@ -445,6 +450,8 @@ u_int32_t HY3131DMMLib::readLPF(){
 	//qDebug()<<"hy3131dmmlib.cpp-RMS ADC Read Data:"<<QString::number(_rms,16);
 //	qDebug()<<"PKHMAX:"<<hex<<readPKHMAX();	usleep(100);
 //	qDebug()<<"PKHMIN:"<<hex<<readPKHMIN();	usleep(100);
+		qDebug()<<"RMS<39:32>     :"<<hex<<reg4;
+        qDebug()<<"RMS Data       :"<<hex<<_rms;
 	return _rms;
 }
 u_int32_t HY3131DMMLib::readPKHMIN(){

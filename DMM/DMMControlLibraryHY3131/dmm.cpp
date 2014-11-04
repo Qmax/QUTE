@@ -15,7 +15,7 @@ struct Flags {
 } Flag;
 
 struct Display {
-    double nullify, retval, retval2, retvalHY3131;
+    double nullify, retval, retval2, retvalHY3131,retval5;
 } display;
 
 double nullit;
@@ -97,15 +97,18 @@ DMM::DMM(QWidget *parent) :
     graphWidget = DMMGraph->getDIGraph();
     graphWidget->setParent(this);
     graphWidget->setVisible(false);
-    DMMGraph->setGraphGeometry(0,424,713,180);
-    DMMGraph->setZoomOutGraphGeometry(0,424,713,180);
-    DMMGraph->setZoomInGraphGeometry(0,192,713,412);
+    ui->graphLegend->setVisible(false);
+    DMMGraph->setGraphGeometry(0,424,415,180);
+//    DMMGraph->setZoomOutGraphGeometry(0,424,713,180);
+//    DMMGraph->setZoomInGraphGeometry(0,192,713,412);
     DMMGraph->setGraphCount(3);
     DMMGraph->setLegendVisible(false);
     DMMGraph->setupGraphWindow();
 
     xData.resize(110);yData.resize(110);yMaxData.resize(110);yMinData.resize(110);
     graphLoop=0;
+    minData=55000000;
+    maxData=0;
 
 //_______________________________________________________________________
 
@@ -138,6 +141,9 @@ DMM::DMM(QWidget *parent) :
 
     ohms = QChar(0x2126);
     micro = QChar(0x00B5);
+
+    ui->label_10->setVisible(false);
+    ui->label_14->setVisible(false);
 
     ui->rangeFrame->setVisible(false);
     ui->frame_6->setVisible(false);
@@ -446,55 +452,70 @@ void DMM::onMeasure() {
                 if (ui->label_5->text() == mapDCVoltage.value(0)) {
                     display.retvalHY3131 = hy3131DMM->Measure(DC50mV);
                     display.retval = display.retvalHY3131*1e-3;
+                    display.retval5 = display.retvalHY3131;
                     dis->setRange(50);
                 } else if (ui->label_5->text() == mapDCVoltage.value(1)) {
                     display.retvalHY3131 = hy3131DMM->Measure(DC500mV);
                     display.retval = display.retvalHY3131*1e-3;
+                    display.retval5 = display.retvalHY3131;
                     dis->setRange(500);
                 } else if (ui->label_5->text() == mapDCVoltage.value(2)) {
                     display.retvalHY3131 = hy3131DMM->Measure(DC5V);
                     display.retval = display.retvalHY3131 * 1000;
+                    display.retval5 = display.retval;
                     dis->setRange(5);
                 } else if (ui->label_5->text() == mapDCVoltage.value(3)) {
                     display.retvalHY3131 = hy3131DMM->Measure(DC50V);
                     display.retval = display.retvalHY3131 * 1000;
+                    display.retval5 = display.retval;
                     dis->setRange(50);
                 } else if (ui->label_5->text() == mapDCVoltage.value(4)) {
                     display.retvalHY3131 = hy3131DMM->Measure(DC500V);
                     display.retval = display.retvalHY3131 * 1000;
+                    display.retval5 = display.retval;
                     dis->setRange(500);
                 } else if (ui->label_5->text() == mapDCVoltage.value(5)) {
                     display.retvalHY3131 = hy3131DMM->Measure(DC1000V);
                     display.retval = display.retvalHY3131 * 1000;
+                    display.retval5 = display.retval;
                     dis->setRange(1000);
                 }
             } else if (Flag.acFlag == 1) {
                 if (ui->label_5->text() == mapACVoltage.value(0)) {
                     display.retvalHY3131 = hy3131DMM->Measure(AC50mV);
                     display.retval = display.retvalHY3131*1e-3;
+                    display.retval5 = display.retvalHY3131;
                     dis->setRange(50);
+                	qDebug()<<"OnMeasure:AC50mV"<<"display.retvalHY3131:"<<display.retvalHY3131;
                 } else if (ui->label_5->text() == mapACVoltage.value(1)) {
                     display.retvalHY3131 = hy3131DMM->Measure(AC500mV);
                     display.retval = display.retvalHY3131*1e-3;
+                    display.retval5 = display.retvalHY3131;
                     dis->setRange(500);
+                    qDebug()<<"OnMeasure:AC500mV"<<"display.retvalHY3131:"<<display.retvalHY3131;
                 } else if (ui->label_5->text() == mapACVoltage.value(2)) {
                     display.retvalHY3131 = hy3131DMM->Measure(AC5V);
                     display.retval = display.retvalHY3131 * 1000;
+                    display.retval5 = display.retval;
                     dis->setRange(5);
                 } else if (ui->label_5->text() == mapACVoltage.value(3)) {
                     display.retvalHY3131 = hy3131DMM->Measure(AC50V);
                     display.retval = display.retvalHY3131 * 1000;
+                    display.retval5 = display.retval;
                     dis->setRange(50);
                 } else if (ui->label_5->text() == mapACVoltage.value(4)) {
                     display.retvalHY3131 = hy3131DMM->Measure(AC500V);
                     display.retval = display.retvalHY3131 * 1000;
+                    display.retval5 = display.retval;
                     dis->setRange(500);
                 } else if (ui->label_5->text() == mapACVoltage.value(5)) {
                     display.retvalHY3131 = hy3131DMM->Measure(AC1000V);
                     display.retval = display.retvalHY3131 * 1000;
+                    display.retval5 = display.retval;
                     dis->setRange(1000);
                 }
             }
+            qDebug()<<"display.retval:"<<display.retval;
         }
         //***********************Current*************************************
         if (Flag.iFlag == 1) {
@@ -559,23 +580,12 @@ void DMM::onMeasure() {
             n2WResistanceCur=1;
         }
         if (Flag.buzzerFlag == 1) {
-            if (n2WResistanceCur == 0 && display.retval < 1)
-                Beep(true);
-            else if (n2WResistanceCur == 1 && display.retval < 10)
-                Beep(true);
-            else if (n2WResistanceCur == 2 && display.retval < 100)
-                Beep(true);
-            else if (n2WResistanceCur == 3 && display.retval < 1000)
-                Beep(true);
-            else if (n2WResistanceCur == 4 && display.retval < 10000)
-                Beep(true);
-            else if (n2WResistanceCur == 5 && display.retval < 100000)
-                Beep(true);
-            else if (n2WResistanceCur == 6 && display.retval < 1000000)
+            if (n2WResistanceCur == 1 && display.retval < 50)
                 Beep(true);
             else
                 Beep(false);
         }
+        //*********************************************************************
         ui->displayInput->setText(QString::number(display.retval, 'f', 15));
 
         //		display.retval2 = display.retval;
@@ -598,9 +608,7 @@ void DMM::onMeasure() {
         if (Flag.autoFlag == 1) {
             AutoRange();
         }
-
-
-        if (display.retval >= 999999999) {
+        if (display.retvalHY3131 >= 999999999) {
             dis->setValue("OL");
             if (Flag.continuityFlag == 1 || Flag.r2wFlag == 1)
                 showSymbol(7);
@@ -735,15 +743,68 @@ void DMM::configGraphData(){
 		str.chop(1);
 	bool ok=true;
 	double rang=str.toDouble(&ok);
-	DMMGraph->setGraphRange("Time",0,99,ui->label->text()+" Range",0,rang/*convertToValues(ui->label->text())*/);
+        if(Flag.dcFlag==1)
+            DMMGraph->setGraphRange("Time",0,15,ui->label->text()+" Range",rang*-1,rang/*convertToValues(ui->label->text())*/);
+        else
+            DMMGraph->setGraphRange("Time",0,15,ui->label->text()+" Range",0,rang/*convertToValues(ui->label->text())*/);
 }
 void DMM::InsertGraphData(double gData){
 	qDebug()<<"~~~~ GrapLoop"<<graphLoop<<"~~~~ Range:"<<ui->label->text()<<"~~~~ Value:"<<gData<<"~~~~";
 
-	if(graphLoop>=100){
-		graphLoop=0;yMaxData[0]=0;yMinData[0]=55000000;
-		for(int i=0;i<100;i++){
-			xData[i]=0;
+        for(int i=0;i<15;i++){
+           xData[i]=i;
+        }
+
+        if(graphLoop>=15){
+           graphLoop=14;
+
+           minData=55000000;
+           maxData=0;
+
+           for(int j=0;j<15;j++){
+              yData[j]=yData[j+1];
+           }
+
+        }
+
+        yData[graphLoop]=gData;
+
+        DMMGraph->setGraphData(0,xData,yData);
+        DMMGraph->plotGraphWindow();
+
+        graphLoop=graphLoop+1;
+
+        for(int k=0;k<15;k++){
+            if(minData>yData[k])
+                minData=yData[k];
+            if(maxData<yData[k])
+                maxData=yData[k];
+        }
+
+        if(dis->getRange()==3 || dis->getRange()==5){
+        	ui->minLabel->setText(QString::number(minData,'f',4)+ui->lineEdit_4->text());
+        	ui->maxLabel->setText(QString::number(maxData,'f',4)+ui->lineEdit_4->text());
+        }
+        else if(dis->getRange()==50){
+        	ui->minLabel->setText(QString::number(minData,'f',3)+ui->lineEdit_4->text());
+        	ui->maxLabel->setText(QString::number(maxData,'f',3)+ui->lineEdit_4->text());
+        }
+        else if(dis->getRange()==500|| dis->getRange()==750){
+        	ui->minLabel->setText(QString::number(minData,'f',2)+ui->lineEdit_4->text());
+        	ui->maxLabel->setText(QString::number(maxData,'f',2)+ui->lineEdit_4->text());
+        }
+        else if(dis->getRange()==1000){
+        	ui->minLabel->setText(QString::number(minData,'f',1)+ui->lineEdit_4->text());
+        	ui->maxLabel->setText(QString::number(maxData,'f',1)+ui->lineEdit_4->text());
+        }
+
+
+        /*if(graphLoop>=15){
+		graphLoop=15;
+                yMaxData[0]=0;
+                yMinData[0]=55000000;
+		for(int i=0;i<15;i++){
+			xData[i]=xData[i+1];
 			yData[i]=yData[i+1];
 		}
 	}
@@ -752,12 +813,12 @@ void DMM::InsertGraphData(double gData){
 	yData[graphLoop]=gData;
 
 		if(gData>yMaxData[0]){
-			for(int j=0;j<100;j++){
+			for(int j=0;j<15;j++){
 				yMaxData[j]=gData;
 			}
 		}
 		if(gData<yMinData[0]){
-			for(int k=0;k<100;k++){
+			for(int k=0;k<15;k++){
 				yMinData[k]=gData;
 			}
 		}
@@ -767,7 +828,7 @@ void DMM::InsertGraphData(double gData){
 	DMMGraph->setGraphData(0,xData,yData);
 	DMMGraph->setGraphData(1,xData,yMaxData);
 	DMMGraph->setGraphData(2,xData,yMinData);
-	DMMGraph->plotGraphWindow();
+        DMMGraph->plotGraphWindow();*/
 
 }
 void DMM::CalibrateDisplay(QString value) {
@@ -1073,12 +1134,16 @@ void DMM::buttonPressed(int pPressed) {
         if (Flag.nullFlag == 1) {
             Flag.nullFlag = 0;
             nullit = 0.0;
-            ui->label_11->setText("");
+//            ui->label_11->setText("");
+            ui->label_10->setVisible(false);
+            ui->label_14->setVisible(false);
         } else if (Flag.nullFlag == 0) {
             Flag.nullFlag = 1;
             nullit = display.retval2;
             //			nullit = display.retvalHY3131;
-            ui->label_11->setText("NULL");
+//            ui->label_11->setText("NULL");
+            ui->label_10->setVisible(true);
+            ui->label_14->setVisible(true);
         }
         //qDebug() << "Null Value:" << nullit;
         //		display.retval2 = display.retval - nullit;
@@ -1088,6 +1153,19 @@ void DMM::buttonPressed(int pPressed) {
             ui->textEdit_5->setText("Diode");
         else if (Flag.continuityFlag == 1)
             ui->textEdit_5->setText("CNTY");
+
+        if(dis->getRange()==3 || dis->getRange()==5){
+        	ui->label_10->setText(QString::number(nullit,'f',4)+ui->lineEdit_4->text());
+        }
+        else if(dis->getRange()==50){
+        	ui->label_10->setText(QString::number(nullit,'f',3)+ui->lineEdit_4->text());
+        }
+        else if(dis->getRange()==500|| dis->getRange()==750){
+        	ui->label_10->setText(QString::number(nullit,'f',2)+ui->lineEdit_4->text());
+        }
+        else if(dis->getRange()==1000){
+        	ui->label_10->setText(QString::number(nullit,'f',1)+ui->lineEdit_4->text());
+        }
 
         break;
 
@@ -1214,7 +1292,7 @@ void DMM::buttonPressed(int pPressed) {
                 //		}
             }
         case 12: {
-                ////qDebug()<<"case up";
+                qDebug()<<"case up";
                 if (Flag.vFlag == 1) {
                     if (nVoltagePrev == nVoltageCur)
                         nVoltagePrev--;
@@ -1314,7 +1392,7 @@ void DMM::buttonPressed(int pPressed) {
                 break;
             }
         case 13: {
-                ////qDebug()<<"case down";
+                qDebug()<<"case down";
 
 
                 if (Flag.vFlag == 1) {
@@ -1590,7 +1668,7 @@ void DMM::showSymbol(unsigned char symbol) {
 void DMM::AutoRange() {
     //2 wire resistance auto range
     if (Flag.r2wFlag == 1) {
-        if (display.retval >= 999999999) {
+        if (display.retvalHY3131 >= 999999999) {
             buttonPressed(12);
             //qDebug() << "ADC Full Scale";
         } else {
@@ -1613,43 +1691,49 @@ void DMM::AutoRange() {
 
     //voltage auto range
     else if (Flag.vFlag == 1) {
-        if (display.retval >= 999999999)
+        if (display.retvalHY3131 >= 999999999){
+        	qDebug()<<"buttonPressed(12) in Voltage Autorange"<<"display.retval:"<<display.retvalHY3131<<"nVoltageCur:"<<nVoltageCur;
             buttonPressed(12);
+        }
         else {
-            if (display.retval >= 0) {
+            if (display.retval5 >= 0) {
                 qDebug()<<"Autorange-Voltage";
-                if (((display.retval >=51.0) && nVoltageCur == 0)
-                    || ((display.retval >= 510.0) && nVoltageCur == 1)
-                    || ((display.retval >= 5100.0) && nVoltageCur == 2)
-                    || ((display.retval >= 51000.0) && nVoltageCur == 3)
-                    || ((display.retval >= 510000.0) && nVoltageCur == 4))
+                if (((display.retval5 >=51.0) && nVoltageCur == 0)
+                    || ((display.retval5 >= 510.0) && nVoltageCur == 1)
+                    || ((display.retval5 >= 5100.0) && nVoltageCur == 2)
+                    || ((display.retval5 >= 51000.0) && nVoltageCur == 3)
+                    || ((display.retval5 >= 510000.0) && nVoltageCur == 4)){
+                	qDebug()<<"buttonPressed(12) in Voltage Autorange"<<"display.retval:"<<display.retvalHY3131<<"nVoltageCur:"<<nVoltageCur;
                     buttonPressed(12);
-                else if (((display.retval < 490000.0) && nVoltageCur == 5)
-                    || ((display.retval < 49000.0) && nVoltageCur == 4)
-                    || ((display.retval < 4900.0) && nVoltageCur == 3)
-                    || ((display.retval < 490.0) && nVoltageCur == 2)
-                    || ((display.retval < 49.0) && nVoltageCur == 1))
+                }
+                else if (((display.retval5 < 490000.0) && nVoltageCur == 5)
+                    || ((display.retval5 < 49000.0) && nVoltageCur == 4)
+                    || ((display.retval5 < 4900.0) && nVoltageCur == 3)
+                    || ((display.retval5 < 490.0) && nVoltageCur == 2)
+                    || ((display.retval5 < 49.0) && nVoltageCur == 1)){
+                	qDebug()<<"buttonPressed(13) in Voltage Autorange"<<"display.retval:"<<display.retvalHY3131<<"nVoltageCur:"<<nVoltageCur;
                     buttonPressed(13);
+                }
             }
-            if (display.retval < 0) {
-                if (((display.retval < -51.0) && nVoltageCur == 0)
-                    || ((display.retval < -510.0) && nVoltageCur == 1)
-                    || ((display.retval < -5100.0) && nVoltageCur == 2)
-                    || ((display.retval < -51000.0) && nVoltageCur == 3)
-                    || ((display.retval < -510000.0) && nVoltageCur == 4))
+            if (display.retval5 < 0) {
+                if (((display.retval5 < -51.0) && nVoltageCur == 0)
+                    || ((display.retval5 < -510.0) && nVoltageCur == 1)
+                    || ((display.retval5 < -5100.0) && nVoltageCur == 2)
+                    || ((display.retval5 < -51000.0) && nVoltageCur == 3)
+                    || ((display.retval5 < -510000.0) && nVoltageCur == 4))
                     buttonPressed(12);
-                else if (((display.retval >= -490000.0) && nVoltageCur == 5)
-                    || ((display.retval >= -49000.0) && nVoltageCur == 4)
-                    || ((display.retval >= -4900.0) && nVoltageCur == 3)
-                    || ((display.retval >= -490.0) && nVoltageCur == 2)
-                    || ((display.retval >= -49.0) && nVoltageCur == 1))
+                else if (((display.retval5 >= -490000.0) && nVoltageCur == 5)
+                    || ((display.retval5 >= -49000.0) && nVoltageCur == 4)
+                    || ((display.retval5 >= -4900.0) && nVoltageCur == 3)
+                    || ((display.retval5 >= -490.0) && nVoltageCur == 2)
+                    || ((display.retval5 >= -49.0) && nVoltageCur == 1))
                     buttonPressed(13);
             }
         }
     }
     //current auto range
     else if (Flag.iFlag == 1) {
-        if (display.retval >= 999999999)
+        if (display.retvalHY3131 >= 999999999)
             buttonPressed(12);
         else {
             if (display.retval >= 0) {
@@ -1668,7 +1752,7 @@ void DMM::AutoRange() {
     }
     //continuity auto range
     else if (Flag.continuityFlag == 1) {
-        if (display.retval >= 999999999)
+        if (display.retvalHY3131 >= 999999999)
             buttonPressed(12);
         else {
 /*            if ((display.retval >= 51.0 && n2WResistanceCur == 0)
@@ -1922,9 +2006,11 @@ void DMM::on_pushButton_15_clicked() {
 
 void DMM::on_Continuity_clicked() {
     if (Flag.continuityFlag == 1) {
+    	ui->Auto->setEnabled(true);
         setHighlight(7);			//RESISTANCE
         buttonPressed(7);
     } else {
+    	ui->Auto->setEnabled(false);
         setHighlight(5);			//CONTINUITY
         buttonPressed(5);
 
@@ -1942,9 +2028,11 @@ void DMM::on_Continuity_clicked() {
 
 void DMM::on_Diode_clicked() {
     if (Flag.diodeFlag == 1) {
+    	ui->Auto->setEnabled(true);
         setHighlight(7);			//RESISTANCE
         buttonPressed(7);
     } else {
+    	ui->Auto->setEnabled(false);
         setHighlight(6);			//DIODE
         buttonPressed(6);
 
@@ -1956,6 +2044,7 @@ void DMM::on_Diode_clicked() {
             ui->label_18->setVisible(false);
             ui->manual->setVisible(false);
             ui->Auto->setVisible(true);
+
 
     }
 
@@ -1988,10 +2077,13 @@ void DMM::on_ohmMeter_2_clicked() {
         }
         textFile2.close();
    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        if(graphWidget->isVisible())
+        if(graphWidget->isVisible()){
         	graphWidget->setVisible(false);
+        	ui->graphLegend->setVisible(false);
+        }
         else{
         	graphWidget->setVisible(true);
+        	ui->graphLegend->setVisible(true);
         	graphLoop=0;
         }
 

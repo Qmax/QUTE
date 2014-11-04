@@ -236,11 +236,11 @@ void GPIOEvent::readKbdData()
         pressed = ie->value != 0;
         autorepeat = ie->value == 2;
         *m_nKey = ie->code;
-      //  qDebug()<<"GPIOEventInterfcae - code:"<<ie->code<<"type:"<<ie->type<<"value:"<<ie->value<<*m_nKey;
+       qDebug()<<"GPIOEventInterfcae - code:"<<ie->code<<"type:"<<ie->type<<"value:"<<ie->value<<*m_nKey;
 
 
         l_nRegisterValue=IBackPlane->readBackPlaneRegister(0x001E);
-        //qDebug()<<"GPIO Event Interface (0x1E) Status:"<<hex<<l_nRegisterValue;
+       qDebug()<<"GPIO Event Interface (0x1E) Status:"<<hex<<l_nRegisterValue;
 
 
         if(ie->type==0x9)
@@ -283,6 +283,7 @@ void GPIOEvent::readKbdData()
         	IBackPlane->writeBackPlaneRegister(0x100,0x1E);//clear PSoc
         	IBackPlane->writeBackPlaneRegister(0x0,0x20); // clear PSoc Int source
             QApplication::postEvent(m_TW,new QEvent(GpioEvent),Qt::NormalEventPriority);
+			usleep(10000);
             IBackPlane->writeBackPlaneRegister(l_nIntPadValue,0x20);// Enable Psoc
             //break;
         }

@@ -110,7 +110,7 @@ void DACCalibration::InitializeLineEditControls(){
     connect(ui.comboBox,SIGNAL(currentIndexChanged(int)),ui.comboBox_2,SLOT(setCurrentIndex(int)));
     connect(ui.comboBox_2,SIGNAL(currentIndexChanged(int)),ui.comboBox,SLOT(setCurrentIndex(int)));
 
-    m_nConstant=m_nDriveRange=m_nDriveVoltage=m_nRxedVoltage=m_nSlope=0.0;
+    m_nConstant=m_nDriveRange=m_nDriveVoltage=m_nRxedVoltage=m_nSlope= m_nReceiveRange = 0.0;
 
 
 
@@ -217,7 +217,7 @@ void DACCalibration::LoopDrive()
     qDebug()<<"ADC DATA"<<AIN;
     ui.label_10->setText(QString::number(AIN,'f',8));
     bool ok=true;
-    AIN=(ui.comboBox_2->currentText().toDouble(&ok)/0.4)*AIN;
+    AIN=( ui.comboBox_2->currentText().toDouble(&ok)/0.5)*AIN; //  Elangovan.D
    qDebug()<<"ADC DATA SCALED"<<AIN;
 
      if(ui.Calibrated->isChecked()){
@@ -229,6 +229,7 @@ void DACCalibration::LoopDrive()
     	ui.lineEdit_5->setText(QString::number(AIN,'f',5));
     else if(ui.driveBut->hasFocus())
     	ui.lineEdit_3->setText(QString::number(AIN,'f',5));
+    m_nReceiveRange = ui.comboBox_2->currentText().toDouble(&ok);
     m_nRxedVoltage=AIN;
 
 }
@@ -243,11 +244,12 @@ void DACCalibration::on_nextBut_clicked()
     	qDebug()<<"Drive Range:"<<m_nDriveRange;
     	qDebug()<<"XVoltage:"<<m_nDriveVoltage;
     	qDebug()<<"YVoltage:"<<m_nRxedVoltage;
-		m_nXVoltage[m_nNoOfSamples-(m_nNoOfPoints+1)]=(m_nDriveVoltage/m_nDriveRange)*0.4;
-    	//m_nXVoltage[m_nNoOfSamples-(m_nNoOfPoints+1)]=m_nDriveVoltage;
+    	// Swapped X -> Y Elangovan. D
+    	m_nYVoltage[m_nNoOfSamples-(m_nNoOfPoints+1)]=(m_nDriveVoltage/m_nReceiveRange)*0.5;
+    	//m_nXVoltage[m_nNoOfSamples-(m_nNoOfPoints+1)]=m_nDriveVoltage; // Elangovan.D
         qDebug()<<"m_nXVoltage"<<m_nXVoltage[m_nNoOfSamples-m_nNoOfPoints];
-        m_nYVoltage[m_nNoOfSamples-(m_nNoOfPoints+1)]=(m_nRxedVoltage/m_nDriveRange)*0.4;
-        //m_nYVoltage[m_nNoOfSamples-(m_nNoOfPoints+1)]=m_nRxedVoltage;
+        m_nXVoltage[m_nNoOfSamples-(m_nNoOfPoints+1)]=(m_nRxedVoltage/m_nReceiveRange)*0.5;
+        //m_nYVoltage[m_nNoOfSamples-(m_nNoOfPoints+1)]=m_nRxedVoltage; // Elangovan. D
         qDebug()<<"m_nYVoltage"<<m_nYVoltage[m_nNoOfSamples-m_nNoOfPoints];
         m_objLE_DriveVoltage->clear();
         m_objLE_RxedVoltage->clear();

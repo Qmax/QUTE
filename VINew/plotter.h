@@ -108,7 +108,7 @@ public:
     bool m_moveFlag;
     double m_nOffset;
     bool zoomScreenFlag;
-    void zooomScreenStatus(bool);
+    void zooomScreenStatus(bool,double,double);
 public slots:
     void zoomIn();
     void zommOut();
@@ -155,7 +155,7 @@ private:
     QRect rubberBandRect;
     QPixmap pixmap;
     int m_nClearID;
-
+    double m_nXZoomFactor,m_nYZoomFactor;
 
 };
 

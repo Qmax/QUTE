@@ -59,7 +59,7 @@ protected:
     double m_nRefRangeSlope[5],m_nRefRangeConstant[5],m_nRefYValue;
     double XVoltage[5][5],YVoltage[5][5];
     double m_nGain,m_nDACOutput,m_nDesiredDACOutput;
-    double m_nDriveVoltage,m_nRxedVoltage,m_nDriveRange,m_nSlope,m_nConstant,m_nTestVoltage;
+    double m_nDriveVoltage,m_nRxedVoltage,m_nDriveRange,m_nSlope,m_nConstant,m_nTestVoltage,m_nReceiveRange;
 
     void openNumKBPanel(short int pValue) ;
     void openNumKBPanelminmax(short int pValue,char type,double pMax,double pMin);

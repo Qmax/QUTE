@@ -197,6 +197,7 @@ void AD5293::calculateADC5293DATA(AD5293_Template pObjstAD5293)
     qDebug() <<"AD5293 Data:" << hex << l_nRegisterData;
     objAppcard->setSPITXLSW(l_nRegisterData,SPI1);
 }
+
 //QT_BEGIN_NAMESPACE
 //Q_EXPORT_PLUGIN2(IAD5293,AD5293)
 //QT_END_NAMESPACE

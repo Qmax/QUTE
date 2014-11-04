@@ -164,6 +164,7 @@ protected:
     void InsertGraphData(double gData);
     QVector<double> xData,yData,yMaxData,yMinData;
     int graphLoop;
+    double minData,maxData;
 
     void doKnobFunction();
     void changeByKnob(double Angle,int totalSteps);

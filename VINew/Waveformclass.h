@@ -6,8 +6,8 @@ class IWaveProduct:public Plotter
 {
 public:
     IWaveProduct(QWidget *parent=0):Plotter(parent){}
-    void setZoomFlag(bool status){
-    	Plotter::zooomScreenStatus(status);
+    void setZoomFlag(bool status,double pZoomXValue,double pZoomYValue){
+    	Plotter::zooomScreenStatus(status,pZoomXValue,pZoomYValue);
     }
     void LoadPlotterData(QString pStrFileName,stWaveData *pObjWaveData)
     {
@@ -876,7 +876,7 @@ protected:
     double convertToVIPoint(QString pStrData)
       {
     	  bool ok = true;
-          double l_nVref = 0.5;
+          double l_nVref = 0.5; // TODO: fix this
 		  return ((2*(pStrData.toInt(&ok,16)*l_nVref))/ (pow(2,14)-1)) - l_nVref;
         //  return ((pStrData.toInt(&ok,16) * (m_objWaveData->m_nAmplitude*2.0)) /(pow(2,8)-1)) - m_objWaveData->m_nAmplitude;
       }
@@ -893,7 +893,7 @@ protected:
       double converToVTPoint(QString pStrData)
       {
           bool ok = true;
-		  double l_nVref = 0.5;
+		  double l_nVref = 0.5;  // TODO: fix this
 		  return ((2*(pStrData.toInt(&ok,16)*l_nVref))/ (pow(2,14)-1)) - l_nVref;
           //return ((pStrData.toInt(&ok,16) * (m_objWaveData->m_nAmplitude*2.0)) / (pow(2,14)-1)) - (m_objWaveData->m_nAmplitude);
       }
@@ -908,11 +908,16 @@ protected:
             if(pWaveTrace==0)
             {
                 l_nXPoint = convertToVIPoint(m_strActualData[l_nIndex]) ;
-                l_nYPoint = convertToVIPoint(m_strReferenceData[l_nIndex]) - convertToVIPoint(m_strActualData[l_nIndex]);
+                double l_nY1Point = convertToVIPoint(m_strReferenceData[l_nIndex]);
+               // l_nYPoint = convertToVIPoint(m_strReferenceData[l_nIndex]) - convertToVIPoint(m_strActualData[l_nIndex]);
     			if(m_objWaveData->m_bCalibChecked)
     			{
-    				double l_nTempYPoint = (l_nYPoint - m_objWaveData->m_nCalibrationConstant) / m_objWaveData->m_nCalibrationGain;
-    				l_nYPoint = l_nTempYPoint;
+    				double l_nTempY1Point = (m_objWaveData->m_nCalibrationGain*l_nY1Point) + m_objWaveData->m_nCalibrationConstant; // Elangovan.D
+    				double l_nTempXPoint = (m_objWaveData->m_nCalibrationGain*l_nXPoint) + m_objWaveData->m_nCalibrationConstant; // Elangovan.D
+
+    						//(l_nYPoint - m_objWaveData->m_nCalibrationConstant) / m_objWaveData->m_nCalibrationGain;
+    				l_nYPoint = l_nTempY1Point - l_nTempXPoint;  // Elangovan.D
+    				l_nXPoint = l_nTempXPoint;  // Elangovan.D
     			}
     			l_nData.append(QPointF(l_nXPoint,l_nYPoint));
             }
@@ -921,7 +926,8 @@ protected:
                 l_nYPoint = converToVTPoint(m_strActualData[l_nIndex]);
     			if(m_objWaveData->m_bCalibChecked)
     			{
-    				double l_nTempYPoint = (l_nYPoint - m_objWaveData->m_nCalibrationConstant) / m_objWaveData->m_nCalibrationGain;
+    				double l_nTempYPoint = (m_objWaveData->m_nCalibrationGain*l_nYPoint) + m_objWaveData->m_nCalibrationConstant; // Elangovan.D
+    				//(l_nYPoint - m_objWaveData->m_nCalibrationConstant) / m_objWaveData->m_nCalibrationGain;
     				l_nYPoint = l_nTempYPoint;
     			}
     			l_nData.append(QPointF(l_nXPoint,l_nYPoint));

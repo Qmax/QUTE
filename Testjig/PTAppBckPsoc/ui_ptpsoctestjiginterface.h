@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ptpsoctestjiginterface.ui'
 **
-** Created: Fri Sep 26 10:40:44 2014
+** Created: Sat Nov 1 10:47:37 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -157,12 +157,13 @@ public:
     QLabel *label_49;
     QLineEdit *leGenBaseAddr;
     QLabel *label_50;
+    QPushButton *butSeqWrite;
 
     void setupUi(QWidget *PTPSoCTestJigInterfaceClass)
     {
         if (PTPSoCTestJigInterfaceClass->objectName().isEmpty())
             PTPSoCTestJigInterfaceClass->setObjectName(QString::fromUtf8("PTPSoCTestJigInterfaceClass"));
-        PTPSoCTestJigInterfaceClass->resize(600, 230);
+        PTPSoCTestJigInterfaceClass->resize(600, 238);
         QPalette palette;
         QBrush brush(QColor(108, 108, 107, 255));
         brush.setStyle(Qt::SolidPattern);
@@ -1284,7 +1285,7 @@ public:
         pushButton_5->setFont(font6);
         groupBox_3 = new QGroupBox(PTPSoCTestJigInterfaceClass);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setGeometry(QRect(10, 130, 520, 91));
+        groupBox_3->setGeometry(QRect(10, 120, 520, 111));
         QPalette palette6;
         palette6.setBrush(QPalette::Active, QPalette::WindowText, brush1);
         palette6.setBrush(QPalette::Active, QPalette::Text, brush1);
@@ -1322,6 +1323,10 @@ public:
         label_50 = new QLabel(groupBox_3);
         label_50->setObjectName(QString::fromUtf8("label_50"));
         label_50->setGeometry(QRect(30, 63, 80, 17));
+        butSeqWrite = new QPushButton(groupBox_3);
+        butSeqWrite->setObjectName(QString::fromUtf8("butSeqWrite"));
+        butSeqWrite->setGeometry(QRect(350, 65, 70, 40));
+        butSeqWrite->setFont(font5);
 
         retranslateUi(PTPSoCTestJigInterfaceClass);
 
@@ -1417,6 +1422,7 @@ public:
         pbGenRead->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "Read", 0, QApplication::UnicodeUTF8));
         label_49->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "Data :", 0, QApplication::UnicodeUTF8));
         label_50->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "Base Addr :", 0, QApplication::UnicodeUTF8));
+        butSeqWrite->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "Seq WR", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

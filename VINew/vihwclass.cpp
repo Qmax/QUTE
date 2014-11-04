@@ -346,8 +346,10 @@ void VIHWClass::switchVoltageRegister(unsigned int pIndex)
    // qDebug()<<"Vindex"<<pIndex;
 //    unsigned int l_nRegisterData = l_nAmpValue;
     double m_nVoltRangeArray[5]={	0.6,	2.0,	4.0,	8.0,	14.0	};
-    double m_nVoltRangeArray1[4]={	0.2,	2.5,	7.75,	12.75	};
-   // qDebug()<< "Voltage Index:" << pIndex<<" "<<m_nVoltRangeArray1[pIndex];
+    //double m_nVoltRangeArray1[4]={	0.2,	2.5,	7.75,	12.75	};
+    double m_nVoltRangeArray1[4]={	0.2,	2.5,	8,	13	};  // Anbu
+
+    // qDebug()<< "Voltage Index:" << pIndex<<" "<<m_nVoltRangeArray1[pIndex];
    // double m_nVoltRangeArray[6]={0.6,0.6,1.5,3.5,7.0,13.0}; // for testing
     int index=0;
 	if(m_nVoltRangeArray1[pIndex]>0.5&&m_nVoltRangeArray1[pIndex]<=1.5)
@@ -358,11 +360,11 @@ void VIHWClass::switchVoltageRegister(unsigned int pIndex)
 	{
 		index=2;
 	}
-	else if(m_nVoltRangeArray1[pIndex]>3.5&&m_nVoltRangeArray1[pIndex]<=7)
+	else if(m_nVoltRangeArray1[pIndex]>3.5&&m_nVoltRangeArray1[pIndex]<=8)  // Anbu  7(8)
 	{
 		index=3;
 	}
-	else if(m_nVoltRangeArray1[pIndex]>7&&m_nVoltRangeArray1[pIndex]<=13)
+	else if(m_nVoltRangeArray1[pIndex]>8 &&m_nVoltRangeArray1[pIndex]<=13) // Anbu 7.1(8.1)
 	{
 		index=4;
 	}

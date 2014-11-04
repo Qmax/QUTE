@@ -25,11 +25,15 @@ Plotter::Plotter(QWidget *parent) :
     m_bClearTrace = false;
     m_nClearID=-1;
     m_nOffset=0.0;
+    m_nXZoomFactor = 1.0;
+    m_nYZoomFactor = 1.0;
     zoomScreenFlag=false;
 }
 
-void Plotter::zooomScreenStatus(bool status){
+void Plotter::zooomScreenStatus(bool status,double pZoomXValue,double pZoomYValue){
 	zoomScreenFlag=status;
+	m_nXZoomFactor = pZoomXValue;
+	m_nYZoomFactor = pZoomYValue;
 }
 void Plotter::clearCurveData()
 {
@@ -407,7 +411,8 @@ void Plotter::drawGrid(QPainter *painter)
             //printf("X Axis:%f\n",label);
             for(float l_nPoint=1;l_nPoint<rect.height();l_nPoint+=2.0)
                 painter->drawPoint(QPointF(x,rect.top()+l_nPoint));
-            //painter->drawLine(x,rect.bottom(),x,rect.bottom()+5);
+
+            painter->drawLine(x,rect.bottom(),x,rect.bottom()+5);
             painter->drawText(x-50,rect.bottom()+5,100,20, Qt::AlignHCenter|Qt::AlignTop,QString::number(label,5,2));
         }
         for(int j=0;j<settings.numYTicks;j++)
@@ -417,7 +422,7 @@ void Plotter::drawGrid(QPainter *painter)
             //printf("Y Axis:%f\n",label);
             for(float l_nPoint=0;l_nPoint<rect.width();l_nPoint+=2.0)
                 painter->drawPoint(QPointF(rect.left()+l_nPoint,y));
-            //painter->drawLine(rect.left(),y,rect.right(),y);
+            painter->drawLine(rect.left(),y,rect.right(),y);
             painter->drawText(rect.left()-Margin,y-10,Margin-5, 20,Qt::AlignRight|Qt::AlignVCenter,QString::number(label,5,2));
         }
 
@@ -434,7 +439,7 @@ void Plotter::drawGrid(QPainter *painter)
         for(int j=0;j<rect.width();j+=(rect.width()/settings.numXTicks)/5 )
         {
             if(j!=0 && j%5!=0){
-                //painter->drawLine(Margin+j,Margin+rect.height()/2-3,Margin+j,Margin+rect.height()/2+3);
+               // painter->drawLine(Margin+j,Margin+rect.height()/2-3,Margin+j,Margin+rect.height()/2+3);
             }
         }
     }
@@ -458,7 +463,7 @@ void Plotter::drawGrid(QPainter *painter)
             if(i!=0 && i%2!=0)
             {
             if(zoomScreenFlag==true){
-///*vertical grid*/   painter->drawLine((Margin+rect.width()/2-3)-1,Margin+i,(Margin+rect.width()/2+3)-1,Margin+i);
+            	//painter->drawLine((Margin+rect.width()/2-3)-1,Margin+i,(Margin+rect.width()/2+3)-1,Margin+i);
             }
            }
         }
@@ -466,7 +471,7 @@ void Plotter::drawGrid(QPainter *painter)
         {
             if(j!=0)
             {
-///*horizontal grid*/  painter->drawLine(Margin+j-5,Margin+rect.height()/2-3,Margin+j-5,Margin+rect.height()/2+3);
+            	//painter->drawLine(Margin+j-5,Margin+rect.height()/2-3,Margin+j-5,Margin+rect.height()/2+3);
             }
         }
 
@@ -672,12 +677,14 @@ void Plotter::drawCurves(QPainter *painter)
         {
             stringList.append(textStream.readLine());
         }
-        adjustXaxis=stringList.value(0).toDouble(&ok);
-        adjustYaxis=stringList.value(1).toDouble(&ok);
+        adjustXaxis=stringList.value(0).toDouble(&ok) * m_nXZoomFactor;
+        adjustYaxis=stringList.value(1).toDouble(&ok) * m_nYZoomFactor;
     }else{
         adjustXaxis=5.5;
         adjustYaxis=0;
     }
+//    qDebug() << "Zoom Factor:" << m_nXZoomFactor << m_nYZoomFactor;
+//    qDebug() << "Adjust Axis:" << adjustXaxis << adjustYaxis;
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     static const QColor colorForIds[8] = {Qt::red,Qt::green,Qt::cyan,Qt::magenta,Qt::yellow,Qt::white,Qt::gray,Qt::black};
     PlotSettings settings = zoomStack[curZoom];
