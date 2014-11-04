@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'IAD5318Widget.h'
 **
-** Created: Mon Sep 8 15:59:08 2014
+** Created: Tue Nov 4 13:08:40 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!

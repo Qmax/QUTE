@@ -12,7 +12,8 @@ SOURCES += ad5293.cpp \
     ad5318.cpp \
     ad5318components.cpp \
     IAD5318Widget.cpp
-HEADERS += PTAppBckPsocInterface.h \
+HEADERS += DMMSPITestJigInterface.h \
+    PTAppBckPsocInterface.h \
     PTLMH6518Interface.h \
     BackPlaneInterface.h \
     ICALIBTestJigInterface.h \

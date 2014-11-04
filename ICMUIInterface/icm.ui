@@ -4054,7 +4054,7 @@ font:bold 25px;
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="icm.qrc">
+       <iconset>
         <normaloff>:/Symbols/Time-Machine-icon.png</normaloff>:/Symbols/Time-Machine-icon.png</iconset>
       </property>
       <property name="iconSize">
@@ -4094,7 +4094,7 @@ font:bold 25px;
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="icm.qrc">
+       <iconset>
         <normaloff>:/Symbols/Number-0-icon.png</normaloff>:/Symbols/Number-0-icon.png</iconset>
       </property>
       <property name="iconSize">
@@ -4127,7 +4127,7 @@ font:bold 25px;
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="icm.qrc">
+       <iconset>
         <normaloff>:/Symbols/Letter-I-icon.png</normaloff>:/Symbols/Letter-I-icon.png</iconset>
       </property>
       <property name="iconSize">
@@ -4167,7 +4167,7 @@ font:bold 25px;
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="icm.qrc">
+       <iconset>
         <normaloff>:/Symbols/settings.png</normaloff>:/Symbols/settings.png</iconset>
       </property>
       <property name="iconSize">
@@ -4207,7 +4207,7 @@ font:bold 25px;
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="icm.qrc">
+       <iconset>
         <normaloff>:/Symbols/Button-Play-icon.png</normaloff>:/Symbols/Button-Play-icon.png</iconset>
       </property>
       <property name="iconSize">
@@ -4382,7 +4382,7 @@ font:bold 25px;
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="icm.qrc">
+       <iconset>
         <normaloff>:/Symbols/Letter-ac-icon.png</normaloff>:/Symbols/Letter-ac-icon.png</iconset>
       </property>
       <property name="iconSize">
@@ -4802,7 +4802,7 @@ border:1px solid black;
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="icm.qrc">
+      <iconset>
        <normaloff>:/Symbols/Control-Panel-icon.png</normaloff>:/Symbols/Control-Panel-icon.png</iconset>
      </property>
      <property name="iconSize">
@@ -4848,7 +4848,7 @@ border:1px solid black;
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="icm.qrc">
+      <iconset>
        <normaloff>:/ac.png</normaloff>:/ac.png</iconset>
      </property>
      <property name="iconSize">
@@ -5047,7 +5047,7 @@ Calibration</string>
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="icm.qrc">
+      <iconset>
        <normaloff>:/Symbols/Letter-C-icon.png</normaloff>:/Symbols/Letter-C-icon.png</iconset>
      </property>
      <property name="iconSize">
@@ -5146,7 +5146,7 @@ border-top:1px solid gray; border-top-right-radius: 0px;
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="icm.qrc">
+      <iconset>
        <normaloff>:/C1.png</normaloff>:/C1.png</iconset>
      </property>
      <property name="iconSize">
@@ -5281,7 +5281,7 @@ border-bottom-left-radius: 0px;
 </string>
      </property>
      <property name="icon">
-      <iconset resource="icm.qrc">
+      <iconset>
        <normaloff>:/R1.png</normaloff>:/R1.png</iconset>
      </property>
      <property name="iconSize">
@@ -5417,7 +5417,7 @@ border-top:1px solid gray; border-top-right-radius: 0px;
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="icm.qrc">
+      <iconset>
        <normaloff>:/graph.png</normaloff>:/graph.png</iconset>
      </property>
      <property name="iconSize">
@@ -5471,7 +5471,7 @@ border-top:1px solid gray; border-top-right-radius: 0px;
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="icm.qrc">
+      <iconset>
        <normaloff>:/L1.png</normaloff>:/L1.png</iconset>
      </property>
      <property name="iconSize">
@@ -7173,7 +7173,9 @@ background-color: rgb(0, 0, 0,0);
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QFrame{border:1px solid black; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #dadbff);border-radius:10px;}
+     <string notr="true">QFrame{border:1px solid black; 
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #dadbff);
+border-radius:10px;}
 QLabel{border:1px solid rgba(0,0,0,0);}
 </string>
     </property>
@@ -7803,8 +7805,6 @@ color: rgba(0, 0, 0, 0); }</string>
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="icm.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -104,6 +104,7 @@ public:
     QMovie *movie;
     void callMeasure();
     void AutoRange();
+    void AutoRangeRes(double);
     void Null();
     void nullify_save();
     void nullify_load();

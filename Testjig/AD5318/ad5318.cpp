@@ -68,6 +68,9 @@ void AD5318::enableRichGUI(){
 
         ui->appBck->setParent(m_objWidget);
         ui->appBck->setGeometry(730,340,61,61);
+
+        ui->butHY3131->setParent(m_objWidget);
+        ui->butHY3131->setGeometry(680,460,111,50);
 }
 void AD5318::initialiseValues()
 {
@@ -158,6 +161,10 @@ void AD5318::initialiseLineEdits()
 
 void AD5318::initialiseHWLibraries()
 {
+    QPluginLoader loaderDMMTESTJIG("libtestSPI.so", this);
+    DMMTestjig = qobject_cast<DMMSPITestJigInterface*> (
+    loaderDMMTESTJIG.instance());
+
     QPluginLoader loader4("libQmaxPTInterface.so", this);
     ILineEdit = qobject_cast<IQmaxLineEdit*> (loader4.instance());
     IPTLibrary = qobject_cast<IQmaxPTLibrary*> (loader4.instance());
@@ -818,5 +825,11 @@ void AD5318::on_appBck_clicked()
 {
     QWidget *newWidget = test->getPTAppBckPsoc();
     newWidget->setWindowTitle("AppCard BackPanel PSoC Panel");
+    newWidget->show();
+}
+
+void AD5318::on_butHY3131_clicked()
+{
+    QWidget *newWidget = DMMTestjig->getDMMSPI();
     newWidget->show();
 }

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dmm.ui'
 **
-** Created: Mon Nov 3 23:16:18 2014
+** Created: Tue Nov 4 17:27:12 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -44,11 +44,9 @@ public:
     QPushButton *leftArrow;
     QLabel *label_5;
     QFrame *line;
-    QFrame *line_7;
     QLabel *label_6;
     QPushButton *rightArrow;
     QFrame *line_4;
-    QFrame *line_6;
     QLabel *label_4;
     QFrame *line_8;
     QFrame *line_9;
@@ -132,6 +130,7 @@ public:
     QLabel *fp_VI2_EXT_label;
     QFrame *fp_VI1_ICM_SL;
     QLabel *fp_ICM_Guard;
+    QLabel *fp_DMM_label_2;
     QFrame *frame_15;
     QLabel *label_74;
     QLabel *label_75;
@@ -166,11 +165,17 @@ public:
     QLabel *fp_REF_label;
     QLabel *fp_GND_label;
     QFrame *fp_GND;
+    QFrame *fp_VI_ICM_SL_2;
+    QFrame *fp_Guarding_2;
+    QLabel *fp_ICM_Guard_2;
     QWidget *graphLegend;
     QLabel *label_13;
     QLabel *minLabel;
     QLabel *label_9;
     QLabel *maxLabel;
+    QFrame *line_2;
+    QFrame *line_3;
+    QFrame *line_5;
 
     void setupUi(QWidget *DMM)
     {
@@ -572,12 +577,27 @@ public:
         rangeFrame->setEnabled(true);
         rangeFrame->setGeometry(QRect(100, 140, 480, 75));
         rangeFrame->setFont(font1);
-        rangeFrame->setStyleSheet(QString::fromUtf8("color:gray;"));
+        rangeFrame->setStyleSheet(QString::fromUtf8("QFrame{\n"
+"color:gray;\n"
+"border:1px solid white;\n"
+"border-radius:10px;\n"
+"}\n"
+"QLabel{\n"
+"color:gray;\n"
+"border:0px solid white;\n"
+"border-radius:0px;\n"
+"}\n"
+"Line{\n"
+"	background-color: rgba(0, 0, 0, 0);\n"
+"color:gray;\n"
+"border:0px solid white;\n"
+"border-radius:0px;\n"
+"}"));
         rangeFrame->setFrameShape(QFrame::StyledPanel);
         rangeFrame->setFrameShadow(QFrame::Raised);
         leftArrow = new QPushButton(rangeFrame);
         leftArrow->setObjectName(QString::fromUtf8("leftArrow"));
-        leftArrow->setGeometry(QRect(10, 10, 50, 60));
+        leftArrow->setGeometry(QRect(120, 10, 50, 60));
         leftArrow->setFocusPolicy(Qt::NoFocus);
         leftArrow->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "         border: 2px solid rgba(0,0,0,0);\n"
@@ -612,16 +632,10 @@ public:
         line->setStyleSheet(QString::fromUtf8(""));
         line->setFrameShape(QFrame::HLine);
         line->setFrameShadow(QFrame::Sunken);
-        line_7 = new QFrame(rangeFrame);
-        line_7->setObjectName(QString::fromUtf8("line_7"));
-        line_7->setGeometry(QRect(170, 18, 10, 40));
-        line_7->setStyleSheet(QString::fromUtf8(""));
-        line_7->setFrameShape(QFrame::VLine);
-        line_7->setFrameShadow(QFrame::Sunken);
         label_6 = new QLabel(rangeFrame);
         label_6->setObjectName(QString::fromUtf8("label_6"));
         label_6->setEnabled(false);
-        label_6->setGeometry(QRect(87, 30, 91, 21));
+        label_6->setGeometry(QRect(20, 30, 91, 21));
         QFont font4;
         font4.setFamily(QString::fromUtf8("DejaVu Sans"));
         font4.setPointSize(14);
@@ -633,7 +647,7 @@ public:
         label_6->setAlignment(Qt::AlignCenter);
         rightArrow = new QPushButton(rangeFrame);
         rightArrow->setObjectName(QString::fromUtf8("rightArrow"));
-        rightArrow->setGeometry(QRect(420, 9, 50, 60));
+        rightArrow->setGeometry(QRect(310, 9, 50, 60));
         rightArrow->setFocusPolicy(Qt::NoFocus);
         rightArrow->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "         border: 2px solid rgba(0,0,0,0);\n"
@@ -652,16 +666,10 @@ public:
         line_4->setStyleSheet(QString::fromUtf8(""));
         line_4->setFrameShape(QFrame::HLine);
         line_4->setFrameShadow(QFrame::Sunken);
-        line_6 = new QFrame(rangeFrame);
-        line_6->setObjectName(QString::fromUtf8("line_6"));
-        line_6->setGeometry(QRect(302, 18, 10, 40));
-        line_6->setStyleSheet(QString::fromUtf8(""));
-        line_6->setFrameShape(QFrame::VLine);
-        line_6->setFrameShadow(QFrame::Sunken);
         label_4 = new QLabel(rangeFrame);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setEnabled(false);
-        label_4->setGeometry(QRect(297, 29, 91, 20));
+        label_4->setGeometry(QRect(374, 29, 91, 20));
         label_4->setFont(font4);
         label_4->setStyleSheet(QString::fromUtf8("color:#cccccc;"));
         label_4->setScaledContents(false);
@@ -678,17 +686,15 @@ public:
         line_9->setStyleSheet(QString::fromUtf8(""));
         line_9->setFrameShape(QFrame::VLine);
         line_9->setFrameShadow(QFrame::Sunken);
-        leftArrow->raise();
+        line->raise();
+        line_4->raise();
         label_5->raise();
-        line_7->raise();
         label_6->raise();
-        rightArrow->raise();
-        line_6->raise();
         label_4->raise();
         line_8->raise();
         line_9->raise();
-        line->raise();
-        line_4->raise();
+        leftArrow->raise();
+        rightArrow->raise();
         label_8 = new QLabel(inputPanel);
         label_8->setObjectName(QString::fromUtf8("label_8"));
         label_8->setGeometry(QRect(290, 13, 110, 20));
@@ -702,7 +708,7 @@ public:
         label_8->setAlignment(Qt::AlignCenter);
         label_18 = new QLabel(inputPanel);
         label_18->setObjectName(QString::fromUtf8("label_18"));
-        label_18->setGeometry(QRect(290, 122, 100, 20));
+        label_18->setGeometry(QRect(290, 133, 100, 20));
         label_18->setFont(font5);
         label_18->setStyleSheet(QString::fromUtf8("background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);"));
         label_18->setAlignment(Qt::AlignCenter);
@@ -984,7 +990,7 @@ public:
         textEdit_5->setCursorWidth(0);
         label_3 = new QLabel(displayPanel);
         label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setGeometry(QRect(610, 10, 33, 31));
+        label_3->setGeometry(QRect(610, 30, 33, 31));
         QPalette palette6;
         palette6.setBrush(QPalette::Active, QPalette::WindowText, brush8);
         palette6.setBrush(QPalette::Active, QPalette::Button, brush6);
@@ -1251,7 +1257,6 @@ public:
         label_7->raise();
         label_2->raise();
         textEdit_5->raise();
-        label_3->raise();
         textEdit_3->raise();
         textEdit_6->raise();
         label_11->raise();
@@ -1262,6 +1267,7 @@ public:
         label_10->raise();
         label_14->raise();
         label->raise();
+        label_3->raise();
         textEdit = new QTextEdit(DMM);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
         textEdit->setEnabled(false);
@@ -1607,9 +1613,9 @@ public:
         framePowerUSB = new QFrame(frontPanel_DMM);
         framePowerUSB->setObjectName(QString::fromUtf8("framePowerUSB"));
         framePowerUSB->setGeometry(QRect(5, 6, 47, 150));
-        framePowerUSB->setStyleSheet(QString::fromUtf8("/*QFrame{border:2px solid black; background-color: rgba(0,0,0,0);border-radius:10px;}\n"
-"QLabel{border:1px solid rgba(0,0,0,0);}*/\n"
-"QFrame{border:1px solid black; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #dadbff);border-radius:10px;}\n"
+        framePowerUSB->setStyleSheet(QString::fromUtf8("QFrame{border:1px solid black;\n"
+"background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #ffffff);\n"
+"border-radius:10px;}\n"
 "QLabel{border:1px solid rgba(0,0,0,0);\n"
 "background-color: rgb(0, 0, 0,0);\n"
 "}\n"
@@ -1652,10 +1658,14 @@ public:
         fp_powerLabel->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);"));
         analogHighway = new QFrame(frontPanel_DMM);
         analogHighway->setObjectName(QString::fromUtf8("analogHighway"));
-        analogHighway->setGeometry(QRect(54, 6, 300, 72));
-        analogHighway->setStyleSheet(QString::fromUtf8("/*QFrame{border:2px solid black; background-color: rgba(0,0,0,0);border-radius:10px;}\n"
-"QLabel{border:1px solid rgba(0,0,0,0);}*/\n"
-"QFrame{border:1px solid black; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #dadbff);border-radius:10px;}\n"
+        analogHighway->setGeometry(QRect(54, 6, 296, 72));
+        analogHighway->setStyleSheet(QString::fromUtf8("QFrame{\n"
+"border-top-right-radius:10px;\n"
+"border-top-left-radius:10px;\n"
+"border-bottom-left-radius:10px;\n"
+"border-bottom-right-radius:0px;\n"
+"border:1px solid black; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #a09f9e, stop: 1 #a09f9e);\n"
+"}\n"
 "QLabel{border:1px solid rgba(0,0,0,0);\n"
 "background-color: rgb(0, 0, 0,0);\n"
 "}\n"
@@ -1676,28 +1686,28 @@ public:
         ah1_outer = new QFrame(analogHighway);
         ah1_outer->setObjectName(QString::fromUtf8("ah1_outer"));
         ah1_outer->setGeometry(QRect(22, 26, 41, 41));
-        ah1_outer->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:20px;\n"
+        ah1_outer->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:20px;\n"
 "image: url(:/new/prefix1/Button-Blank-Gray-icon.png);"));
         ah1_outer->setFrameShape(QFrame::StyledPanel);
         ah1_outer->setFrameShadow(QFrame::Raised);
         ah1_inner = new QFrame(ah1_outer);
         ah1_inner->setObjectName(QString::fromUtf8("ah1_inner"));
         ah1_inner->setGeometry(QRect(15, 15, 10, 10));
-        ah1_inner->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:4px;\n"
+        ah1_inner->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:4px;\n"
 ""));
         ah1_inner->setFrameShape(QFrame::StyledPanel);
         ah1_inner->setFrameShadow(QFrame::Raised);
         ah3_outer = new QFrame(analogHighway);
         ah3_outer->setObjectName(QString::fromUtf8("ah3_outer"));
         ah3_outer->setGeometry(QRect(96, 26, 41, 41));
-        ah3_outer->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:20px;\n"
+        ah3_outer->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:20px;\n"
 "image: url(:/new/prefix1/Button-Blank-Gray-icon.png);"));
         ah3_outer->setFrameShape(QFrame::StyledPanel);
         ah3_outer->setFrameShadow(QFrame::Raised);
         ah_inner = new QFrame(ah3_outer);
         ah_inner->setObjectName(QString::fromUtf8("ah_inner"));
         ah_inner->setGeometry(QRect(15, 15, 10, 10));
-        ah_inner->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:4px;\n"
+        ah_inner->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:4px;\n"
 ""));
         ah_inner->setFrameShape(QFrame::StyledPanel);
         ah_inner->setFrameShadow(QFrame::Raised);
@@ -1721,14 +1731,14 @@ public:
         ah0_outer = new QFrame(analogHighway);
         ah0_outer->setObjectName(QString::fromUtf8("ah0_outer"));
         ah0_outer->setGeometry(QRect(237, 26, 41, 41));
-        ah0_outer->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:20px;\n"
+        ah0_outer->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:20px;\n"
 "image: url(:/new/prefix1/Button-Blank-Gray-icon.png);"));
         ah0_outer->setFrameShape(QFrame::StyledPanel);
         ah0_outer->setFrameShadow(QFrame::Raised);
         ah0_inner = new QFrame(ah0_outer);
         ah0_inner->setObjectName(QString::fromUtf8("ah0_inner"));
         ah0_inner->setGeometry(QRect(16, 15, 10, 10));
-        ah0_inner->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:4px;\n"
+        ah0_inner->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:4px;\n"
 ""));
         ah0_inner->setFrameShape(QFrame::StyledPanel);
         ah0_inner->setFrameShadow(QFrame::Raised);
@@ -1740,23 +1750,21 @@ public:
         ah2_outer = new QFrame(analogHighway);
         ah2_outer->setObjectName(QString::fromUtf8("ah2_outer"));
         ah2_outer->setGeometry(QRect(167, 26, 41, 41));
-        ah2_outer->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:20px;\n"
+        ah2_outer->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:20px;\n"
 "image: url(:/new/prefix1/Button-Blank-Gray-icon.png);"));
         ah2_outer->setFrameShape(QFrame::StyledPanel);
         ah2_outer->setFrameShadow(QFrame::Raised);
         ah2_inner = new QFrame(ah2_outer);
         ah2_inner->setObjectName(QString::fromUtf8("ah2_inner"));
         ah2_inner->setGeometry(QRect(16, 15, 10, 10));
-        ah2_inner->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:4px;\n"
+        ah2_inner->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:4px;\n"
 ""));
         ah2_inner->setFrameShape(QFrame::StyledPanel);
         ah2_inner->setFrameShadow(QFrame::Raised);
         fp_VI_ICM_SL = new QFrame(frontPanel_DMM);
         fp_VI_ICM_SL->setObjectName(QString::fromUtf8("fp_VI_ICM_SL"));
-        fp_VI_ICM_SL->setGeometry(QRect(54, 84, 300, 72));
-        fp_VI_ICM_SL->setStyleSheet(QString::fromUtf8("/*QFrame{border:2px solid black; background-color: rgba(0,0,0,0);border-radius:10px;}\n"
-"QLabel{border:1px solid rgba(0,0,0,0);}*/\n"
-"QFrame{border:1px solid black; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #dadbff);border-radius:10px;}\n"
+        fp_VI_ICM_SL->setGeometry(QRect(54, 84, 186, 72));
+        fp_VI_ICM_SL->setStyleSheet(QString::fromUtf8("QFrame{border:1px solid black; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #a09f9e, stop: 1 #a09f9e);border-radius:10px;}\n"
 "QLabel{border:1px solid rgba(0,0,0,0);\n"
 "background-color: rgb(0, 0, 0,0);\n"
 "}\n"
@@ -1776,25 +1784,25 @@ public:
         fp_Guarding->setFrameShadow(QFrame::Raised);
         fp_VI2_EXT = new QFrame(fp_VI_ICM_SL);
         fp_VI2_EXT->setObjectName(QString::fromUtf8("fp_VI2_EXT"));
-        fp_VI2_EXT->setGeometry(QRect(110, 20, 41, 41));
-        fp_VI2_EXT->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:20px;\n"
+        fp_VI2_EXT->setGeometry(QRect(110, 27, 41, 41));
+        fp_VI2_EXT->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:20px;\n"
 "image: url(:/new/prefix1/Button-Blank-Gray-icon.png);"));
         fp_VI2_EXT->setFrameShape(QFrame::StyledPanel);
         fp_VI2_EXT->setFrameShadow(QFrame::Raised);
         fp_VI1_ICM_SL_label = new QLabel(fp_VI_ICM_SL);
         fp_VI1_ICM_SL_label->setObjectName(QString::fromUtf8("fp_VI1_ICM_SL_label"));
-        fp_VI1_ICM_SL_label->setGeometry(QRect(11, 1, 74, 17));
+        fp_VI1_ICM_SL_label->setGeometry(QRect(20, 14, 60, 17));
         fp_VI1_ICM_SL_label->setFont(font16);
         fp_VI1_ICM_SL_label->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);"));
         fp_VI2_EXT_label = new QLabel(fp_VI_ICM_SL);
         fp_VI2_EXT_label->setObjectName(QString::fromUtf8("fp_VI2_EXT_label"));
-        fp_VI2_EXT_label->setGeometry(QRect(106, 1, 60, 17));
+        fp_VI2_EXT_label->setGeometry(QRect(106, 14, 60, 17));
         fp_VI2_EXT_label->setFont(font16);
         fp_VI2_EXT_label->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);"));
         fp_VI1_ICM_SL = new QFrame(fp_VI_ICM_SL);
         fp_VI1_ICM_SL->setObjectName(QString::fromUtf8("fp_VI1_ICM_SL"));
-        fp_VI1_ICM_SL->setGeometry(QRect(24, 20, 41, 41));
-        fp_VI1_ICM_SL->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:20px;\n"
+        fp_VI1_ICM_SL->setGeometry(QRect(24, 27, 41, 41));
+        fp_VI1_ICM_SL->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:20px;\n"
 "image: url(:/new/prefix1/Button-Blank-Gray-icon.png);"));
         fp_VI1_ICM_SL->setFrameShape(QFrame::StyledPanel);
         fp_VI1_ICM_SL->setFrameShadow(QFrame::Raised);
@@ -1803,12 +1811,21 @@ public:
         fp_ICM_Guard->setGeometry(QRect(196, 1, 75, 17));
         fp_ICM_Guard->setFont(font16);
         fp_ICM_Guard->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);"));
+        fp_DMM_label_2 = new QLabel(fp_VI_ICM_SL);
+        fp_DMM_label_2->setObjectName(QString::fromUtf8("fp_DMM_label_2"));
+        fp_DMM_label_2->setGeometry(QRect(0, 0, 190, 16));
+        fp_DMM_label_2->setFont(font5);
+        fp_DMM_label_2->setStyleSheet(QString::fromUtf8("/*background-color:blue;\n"
+"color: rgb(0, 85, 255);\n"
+"color:white;\n"
+"border:1px solid black;\n"
+"border-radius:8px;*/\n"
+"color: rgb(0, 85, 255);"));
+        fp_DMM_label_2->setAlignment(Qt::AlignCenter);
         frame_15 = new QFrame(frontPanel_DMM);
         frame_15->setObjectName(QString::fromUtf8("frame_15"));
         frame_15->setGeometry(QRect(355, 6, 300, 72));
-        frame_15->setStyleSheet(QString::fromUtf8("/*QFrame{border:2px solid black; background-color: rgba(0,0,0,0);border-radius:10px;}\n"
-"QLabel{border:1px solid rgba(0,0,0,0);}*/\n"
-"QFrame{border:1px solid black; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #dadbff);border-radius:10px;}\n"
+        frame_15->setStyleSheet(QString::fromUtf8("QFrame{border:1px solid black; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #a09f9e, stop: 1 #a09f9e);border-radius:10px;}\n"
 "QLabel{border:1px solid rgba(0,0,0,0);\n"
 "background-color: rgb(0, 0, 0,0);\n"
 "}\n"
@@ -1829,28 +1846,28 @@ public:
         dso1_outer_9 = new QFrame(frame_15);
         dso1_outer_9->setObjectName(QString::fromUtf8("dso1_outer_9"));
         dso1_outer_9->setGeometry(QRect(22, 27, 41, 41));
-        dso1_outer_9->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:20px;\n"
+        dso1_outer_9->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:20px;\n"
 "image: url(:/new/prefix1/Button-Blank-Gray-icon.png);"));
         dso1_outer_9->setFrameShape(QFrame::StyledPanel);
         dso1_outer_9->setFrameShadow(QFrame::Raised);
         dso1_inner_6 = new QFrame(dso1_outer_9);
         dso1_inner_6->setObjectName(QString::fromUtf8("dso1_inner_6"));
         dso1_inner_6->setGeometry(QRect(15, 15, 10, 10));
-        dso1_inner_6->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:4px;\n"
+        dso1_inner_6->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:4px;\n"
 ""));
         dso1_inner_6->setFrameShape(QFrame::StyledPanel);
         dso1_inner_6->setFrameShadow(QFrame::Raised);
         dso_outer_18 = new QFrame(frame_15);
         dso_outer_18->setObjectName(QString::fromUtf8("dso_outer_18"));
         dso_outer_18->setGeometry(QRect(96, 27, 41, 41));
-        dso_outer_18->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:20px;\n"
+        dso_outer_18->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:20px;\n"
 "image: url(:/new/prefix1/Button-Blank-Gray-icon.png);"));
         dso_outer_18->setFrameShape(QFrame::StyledPanel);
         dso_outer_18->setFrameShadow(QFrame::Raised);
         dso_inner_6 = new QFrame(dso_outer_18);
         dso_inner_6->setObjectName(QString::fromUtf8("dso_inner_6"));
         dso_inner_6->setGeometry(QRect(15, 15, 10, 10));
-        dso_inner_6->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:4px;\n"
+        dso_inner_6->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:4px;\n"
 ""));
         dso_inner_6->setFrameShape(QFrame::StyledPanel);
         dso_inner_6->setFrameShadow(QFrame::Raised);
@@ -1873,14 +1890,14 @@ public:
         frame_40 = new QFrame(frame_15);
         frame_40->setObjectName(QString::fromUtf8("frame_40"));
         frame_40->setGeometry(QRect(237, 27, 41, 41));
-        frame_40->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:20px;\n"
+        frame_40->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:20px;\n"
 "image: url(:/new/prefix1/Button-Blank-Gray-icon.png);"));
         frame_40->setFrameShape(QFrame::StyledPanel);
         frame_40->setFrameShadow(QFrame::Raised);
         frame_41 = new QFrame(frame_40);
         frame_41->setObjectName(QString::fromUtf8("frame_41"));
         frame_41->setGeometry(QRect(16, 15, 10, 10));
-        frame_41->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:4px;\n"
+        frame_41->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:4px;\n"
 ""));
         frame_41->setFrameShape(QFrame::StyledPanel);
         frame_41->setFrameShadow(QFrame::Raised);
@@ -1892,23 +1909,23 @@ public:
         frame_42 = new QFrame(frame_15);
         frame_42->setObjectName(QString::fromUtf8("frame_42"));
         frame_42->setGeometry(QRect(167, 27, 41, 41));
-        frame_42->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:20px;\n"
+        frame_42->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:20px;\n"
 "image: url(:/new/prefix1/Button-Blank-Gray-icon.png);"));
         frame_42->setFrameShape(QFrame::StyledPanel);
         frame_42->setFrameShadow(QFrame::Raised);
         frame_43 = new QFrame(frame_42);
         frame_43->setObjectName(QString::fromUtf8("frame_43"));
         frame_43->setGeometry(QRect(16, 15, 10, 10));
-        frame_43->setStyleSheet(QString::fromUtf8("border:1px solid gray;border-radius:4px;\n"
+        frame_43->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);border-radius:4px;\n"
 ""));
         frame_43->setFrameShape(QFrame::StyledPanel);
         frame_43->setFrameShadow(QFrame::Raised);
         frame_DMM = new QFrame(frontPanel_DMM);
         frame_DMM->setObjectName(QString::fromUtf8("frame_DMM"));
         frame_DMM->setGeometry(QRect(355, 84, 300, 72));
-        frame_DMM->setStyleSheet(QString::fromUtf8("/*QFrame{border:2px solid black; background-color: rgba(0,0,0,0);border-radius:10px;}\n"
-"QLabel{border:1px solid rgba(0,0,0,0);}*/\n"
-"QFrame{border:1px solid black; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #dadbff);border-radius:10px;}\n"
+        frame_DMM->setStyleSheet(QString::fromUtf8("QFrame{border:1px solid black;\n"
+"background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #ffffff);\n"
+"border-radius:10px;}\n"
 "QLabel{border:1px solid rgba(0,0,0,0);\n"
 "background-color: rgb(0, 0, 0,0);\n"
 "}\n"
@@ -2072,38 +2089,93 @@ public:
 "}"));
         fp_GND->setFrameShape(QFrame::StyledPanel);
         fp_GND->setFrameShadow(QFrame::Raised);
+        fp_VI_ICM_SL_2 = new QFrame(frontPanel_DMM);
+        fp_VI_ICM_SL_2->setObjectName(QString::fromUtf8("fp_VI_ICM_SL_2"));
+        fp_VI_ICM_SL_2->setGeometry(QRect(244, 77, 106, 79));
+        fp_VI_ICM_SL_2->setStyleSheet(QString::fromUtf8("QFrame{\n"
+"border-top-right-radius:0px;\n"
+"border-top-left-radius:0px;\n"
+"border-bottom-left-radius:10px;\n"
+"border-bottom-right-radius:10px;\n"
+"border-top:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #a09f9e, stop: 1 #a09f9e);\n"
+"border-right:1px solid black;\n"
+"border-bottom:1px solid black;\n"
+"border-left:1px solid black;\n"
+"\n"
+" background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #a09f9e, stop: 1 #a09f9e);\n"
+"}\n"
+"QLabel{border:1px solid rgba(0,0,0,0);\n"
+"background-color: rgb(0, 0, 0,0);\n"
+"}\n"
+"\n"
+""));
+        fp_VI_ICM_SL_2->setFrameShape(QFrame::StyledPanel);
+        fp_VI_ICM_SL_2->setFrameShadow(QFrame::Raised);
+        fp_Guarding_2 = new QFrame(fp_VI_ICM_SL_2);
+        fp_Guarding_2->setObjectName(QString::fromUtf8("fp_Guarding_2"));
+        fp_Guarding_2->setGeometry(QRect(15, 40, 80, 30));
+        fp_Guarding_2->setStyleSheet(QString::fromUtf8("border:1px solid rgb(53, 53, 53);\n"
+" border-top-right-radius: 8px;\n"
+" border-top-left-radius: 8px;\n"
+" border-bottom-right-radius: 15px;\n"
+" border-bottom-left-radius: 15px;"));
+        fp_Guarding_2->setFrameShape(QFrame::StyledPanel);
+        fp_Guarding_2->setFrameShadow(QFrame::Raised);
+        fp_ICM_Guard_2 = new QLabel(fp_VI_ICM_SL_2);
+        fp_ICM_Guard_2->setObjectName(QString::fromUtf8("fp_ICM_Guard_2"));
+        fp_ICM_Guard_2->setGeometry(QRect(15, 15, 80, 17));
+        fp_ICM_Guard_2->setFont(font16);
+        fp_ICM_Guard_2->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);"));
         graphLegend = new QWidget(DMM);
         graphLegend->setObjectName(QString::fromUtf8("graphLegend"));
-        graphLegend->setGeometry(QRect(403, 435, 300, 158));
+        graphLegend->setGeometry(QRect(392, 435, 312, 158));
         graphLegend->setStyleSheet(QString::fromUtf8("background-color: rgb(212, 208, 197);"));
         label_13 = new QLabel(graphLegend);
         label_13->setObjectName(QString::fromUtf8("label_13"));
-        label_13->setGeometry(QRect(240, 92, 60, 60));
+        label_13->setGeometry(QRect(260, 100, 60, 60));
         QFont font17;
         font17.setFamily(QString::fromUtf8("DejaVu Sans"));
-        font17.setPointSize(20);
+        font17.setPointSize(18);
         label_13->setFont(font17);
         minLabel = new QLabel(graphLegend);
         minLabel->setObjectName(QString::fromUtf8("minLabel"));
-        minLabel->setGeometry(QRect(3, 87, 250, 60));
+        minLabel->setGeometry(QRect(20, 87, 265, 60));
         QFont font18;
         font18.setFamily(QString::fromUtf8("DejaVu Sans"));
-        font18.setPointSize(40);
-        font18.setBold(true);
-        font18.setWeight(75);
+        font18.setPointSize(45);
+        font18.setBold(false);
+        font18.setWeight(50);
         minLabel->setFont(font18);
         label_9 = new QLabel(graphLegend);
         label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setGeometry(QRect(240, 15, 60, 60));
+        label_9->setGeometry(QRect(260, 23, 60, 60));
         label_9->setFont(font17);
         maxLabel = new QLabel(graphLegend);
         maxLabel->setObjectName(QString::fromUtf8("maxLabel"));
-        maxLabel->setGeometry(QRect(3, 10, 250, 60));
+        maxLabel->setGeometry(QRect(20, 10, 265, 60));
         maxLabel->setFont(font18);
+        line_2 = new QFrame(graphLegend);
+        line_2->setObjectName(QString::fromUtf8("line_2"));
+        line_2->setGeometry(QRect(4, 76, 307, 3));
+        line_2->setFrameShape(QFrame::HLine);
+        line_2->setFrameShadow(QFrame::Sunken);
+        line_3 = new QFrame(graphLegend);
+        line_3->setObjectName(QString::fromUtf8("line_3"));
+        line_3->setGeometry(QRect(2, 0, 3, 160));
+        line_3->setFrameShape(QFrame::VLine);
+        line_3->setFrameShadow(QFrame::Sunken);
+        line_5 = new QFrame(graphLegend);
+        line_5->setObjectName(QString::fromUtf8("line_5"));
+        line_5->setGeometry(QRect(310, 0, 3, 160));
+        line_5->setFrameShape(QFrame::VLine);
+        line_5->setFrameShadow(QFrame::Sunken);
         minLabel->raise();
         maxLabel->raise();
-        label_13->raise();
+        line_3->raise();
         label_9->raise();
+        label_13->raise();
+        line_2->raise();
+        line_5->raise();
 
         retranslateUi(DMM);
 
@@ -2196,12 +2268,13 @@ public:
         fp_powerLabel->setText(QApplication::translate("DMM", "POWER", 0, QApplication::UnicodeUTF8));
         ah3_label->setText(QApplication::translate("DMM", "AH3", 0, QApplication::UnicodeUTF8));
         ah1_label->setText(QApplication::translate("DMM", "AH1", 0, QApplication::UnicodeUTF8));
-        ah_label->setText(QApplication::translate("DMM", "ANALOG HIGHWAY", 0, QApplication::UnicodeUTF8));
+        ah_label->setText(QApplication::translate("DMM", "ICM", 0, QApplication::UnicodeUTF8));
         ah0_label->setText(QApplication::translate("DMM", "AH0", 0, QApplication::UnicodeUTF8));
         ah2_label->setText(QApplication::translate("DMM", "AH2", 0, QApplication::UnicodeUTF8));
-        fp_VI1_ICM_SL_label->setText(QApplication::translate("DMM", "VI-1/ICM/SL", 0, QApplication::UnicodeUTF8));
+        fp_VI1_ICM_SL_label->setText(QApplication::translate("DMM", "VI-1/SL", 0, QApplication::UnicodeUTF8));
         fp_VI2_EXT_label->setText(QApplication::translate("DMM", "VI-2/EXT", 0, QApplication::UnicodeUTF8));
         fp_ICM_Guard->setText(QApplication::translate("DMM", "ICM GUARD", 0, QApplication::UnicodeUTF8));
+        fp_DMM_label_2->setText(QApplication::translate("DMM", "VI", 0, QApplication::UnicodeUTF8));
         label_74->setText(QApplication::translate("DMM", "CH2", 0, QApplication::UnicodeUTF8));
         label_75->setText(QApplication::translate("DMM", "CH1", 0, QApplication::UnicodeUTF8));
         label_76->setText(QApplication::translate("DMM", "DSO", 0, QApplication::UnicodeUTF8));
@@ -2215,6 +2288,7 @@ public:
         fp_mA_label->setText(QApplication::translate("DMM", "mA", 0, QApplication::UnicodeUTF8));
         fp_REF_label->setText(QApplication::translate("DMM", "REF", 0, QApplication::UnicodeUTF8));
         fp_GND_label->setText(QApplication::translate("DMM", "GND", 0, QApplication::UnicodeUTF8));
+        fp_ICM_Guard_2->setText(QApplication::translate("DMM", "ICM GUARD", 0, QApplication::UnicodeUTF8));
         label_13->setText(QApplication::translate("DMM", "Min", 0, QApplication::UnicodeUTF8));
         minLabel->setText(QString());
         label_9->setText(QApplication::translate("DMM", "Max", 0, QApplication::UnicodeUTF8));

@@ -20,6 +20,8 @@
 #include "RXCALIBTestJigInterface.h"
 #include "RefCALIBTestJigInterface.h"
 #include "PTAppBckPsocInterface.h"
+#include "DMMSPITestJigInterface.h"
+
 
 #define PI  3.14
 
@@ -39,6 +41,7 @@ protected:
         IRXCALIBTestJigInterface *RXCalib;
         IRefCALIBTestJigInterface *REFCalib;
         IPTAppBckPsocInterface *test;
+        DMMSPITestJigInterface *DMMTestjig;
 
         IPTLMH6518Interface *LMH6518;
 
@@ -80,6 +83,7 @@ protected:
 
     void changeEvent(QEvent *e);
 private slots:
+    void on_butHY3131_clicked();
     void on_appBck_clicked();
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();

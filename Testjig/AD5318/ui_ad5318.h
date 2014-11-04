@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ad5318.ui'
 **
-** Created: Mon Sep 29 19:52:05 2014
+** Created: Tue Nov 4 13:10:19 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -88,6 +88,7 @@ public:
     QPushButton *pushButton;
     QPushButton *pushButton_2;
     QPushButton *appBck;
+    QPushButton *butHY3131;
 
     void setupUi(QWidget *AD5318)
     {
@@ -2342,6 +2343,10 @@ public:
         icon.addFile(QString::fromUtf8(":/Symbols/Control-Panel-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         appBck->setIcon(icon);
         appBck->setIconSize(QSize(55, 50));
+        butHY3131 = new QPushButton(AD5318);
+        butHY3131->setObjectName(QString::fromUtf8("butHY3131"));
+        butHY3131->setGeometry(QRect(680, 470, 111, 50));
+        butHY3131->setFont(font);
 
         retranslateUi(AD5318);
 
@@ -2427,6 +2432,8 @@ public:
 "Panel", 0, QApplication::UnicodeUTF8));
         pushButton_2->setText(QApplication::translate("AD5318", "Close Testjig", 0, QApplication::UnicodeUTF8));
         appBck->setText(QString());
+        butHY3131->setText(QApplication::translate("AD5318", "HY3131\n"
+"SPI R/W", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
