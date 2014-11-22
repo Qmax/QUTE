@@ -324,7 +324,7 @@ void DACCalibration::callActualValueEdit(){
     	else if(ui.comboBox->currentText()=="V-DC"||ui.comboBox->currentText()=="V-AC")
                openNumKBPanelminmax(1, 'v',1100, -1100);
     	else if(ui.comboBox->currentText()=="I-DC"||ui.comboBox->currentText()=="I-AC")
-               openNumKBPanelminmax(1, 'C',5, -5);
+               openNumKBPanelminmax(1, 'C',11, -11);
 
             m_nLineEditIndex = 1;
     }

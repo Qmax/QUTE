@@ -546,9 +546,9 @@ void DMM::onMeasure() {
 					display.retval = display.retvalHY3131*1e-3;
 					dis->setRange(500);
 				} else if (ui->label_5->text() == mapCurrent.value(4)) {
-					display.retvalHY3131 = hy3131DMM->Measure(DC10A);
-					display.retval = display.retvalHY3131*10;
-					dis->setRange(3);
+					display.retvalHY3131 = hy3131DMM->Measure(DC10A)*10;
+					display.retval = display.retvalHY3131;
+					dis->setRange(10);
 				}
 			} else if (Flag.acFlag == 1) {
 				if (ui->label_5->text() == mapCurrent.value(0)) {
@@ -568,9 +568,9 @@ void DMM::onMeasure() {
 					display.retval = display.retvalHY3131*1e-3;
 					dis->setRange(500);
 				} else if (ui->label_5->text() == mapCurrent.value(4)) {
-					display.retvalHY3131 = hy3131DMM->Measure(AC10A);
-					display.retval = display.retvalHY3131*10;
-					dis->setRange(3);
+					display.retvalHY3131 = hy3131DMM->Measure(AC10A)*10;
+					display.retval = display.retvalHY3131;
+					dis->setRange(10);
 				}
 			}
 		}
@@ -595,7 +595,7 @@ void DMM::onMeasure() {
 				Beep(false);
 		}
 		//*********************************************************************
-		ui->displayInput->setText(QString::number(display.retval, 'f', 15));
+		ui->displayInput->setText(QString::number(display.retvalHY3131, 'f', 15));
 
 		//		display.retval2 = display.retval;
 		display.retval2 = display.retvalHY3131;
@@ -722,7 +722,7 @@ void DMM::onMeasure() {
 			else if((ui->label_5->text()==mapResistance.value(1)||ui->label_5->text()==mapResistance.value(4)||ui->label_5->text()==mapCurrent.value(0)||ui->label_5->text()==mapCurrent.value(3)||ui->label_5->text()==mapDCVoltage.value(1)||ui->label_5->text()==mapDCVoltage.value(4)||ui->label_5->text()==mapACVoltage.value(1)||ui->label_5->text()==mapACVoltage.value(4))&&(digitsLimiter(display.retvalHY3131)>510)&&(Flag.autoFlag==0)){
 				dis->setValue("OL");
 			}
-			else if((ui->label_5->text()==mapCurrent.value(4))&&(digitsLimiter(display.retvalHY3131)>3.1)&&(Flag.autoFlag==0)){
+			else if((ui->label_5->text()==mapCurrent.value(4))&&(digitsLimiter(display.retvalHY3131)>11)&&(Flag.autoFlag==0)){
 				dis->setValue("OL");
 			}
 			else if((ui->label_5->text()==mapACVoltage.value(5))&&(digitsLimiter(display.retvalHY3131)>760)&&(Flag.autoFlag==0)){

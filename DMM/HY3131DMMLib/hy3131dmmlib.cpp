@@ -339,6 +339,7 @@ u_int32_t HY3131DMMLib::readDMMSPI(u_int16_t _Address) {
 		while ((IBackPlane->readBackPlaneRegister(DMM_CMD_BP) & 0x0001));
 
 	usleep(1000);
+	usleep(1000);
 
 	if(selAppCard)
 			mMData = IAppCard->readRegister(DMM_DATA_RX_MSW);
