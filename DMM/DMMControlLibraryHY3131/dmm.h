@@ -119,7 +119,7 @@ public:
     double digitsLimiter(double);
     void InitialiseValues();//Value Mapping
     void InitialiseKnob();
-
+    void alignIcons(bool);
     double initialKnobValue,changedKnobValue;
 	int currentKnobValue,previousKnobValue,switchedValue;
 	QString units;

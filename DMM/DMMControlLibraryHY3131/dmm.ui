@@ -1528,7 +1528,7 @@ background-color:grey
 }</string>
     </property>
     <property name="text">
-     <string>CNTY</string>
+     <string>CONT</string>
     </property>
     <property name="iconSize">
      <size>
@@ -6984,7 +6984,7 @@ background-color: rgb(0, 0, 0,0);
    <property name="styleSheet">
     <string notr="true">background-color: rgb(212, 208, 197);</string>
    </property>
-   <widget class="QLabel" name="label_13">
+   <widget class="QLabel" name="minCap">
     <property name="geometry">
      <rect>
       <x>260</x>
@@ -7003,28 +7003,7 @@ background-color: rgb(0, 0, 0,0);
      <string>Min</string>
     </property>
    </widget>
-   <widget class="QLabel" name="minLabel">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>87</y>
-      <width>265</width>
-      <height>60</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>DejaVu Sans</family>
-      <pointsize>45</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_9">
+   <widget class="QLabel" name="maxCap">
     <property name="geometry">
      <rect>
       <x>260</x>
@@ -7041,27 +7020,6 @@ background-color: rgb(0, 0, 0,0);
     </property>
     <property name="text">
      <string>Max</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="maxLabel">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>265</width>
-      <height>60</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>DejaVu Sans</family>
-      <pointsize>45</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
     </property>
    </widget>
    <widget class="Line" name="line_2">
@@ -7103,13 +7061,50 @@ background-color: rgb(0, 0, 0,0);
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <zorder>minLabel</zorder>
-   <zorder>maxLabel</zorder>
-   <zorder>line_3</zorder>
-   <zorder>label_9</zorder>
-   <zorder>label_13</zorder>
-   <zorder>line_2</zorder>
-   <zorder>line_5</zorder>
+   <widget class="QLineEdit" name="maxEdit">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>240</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+      <pointsize>45</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border:1px solid rgba(0,0,0,0);</string>
+    </property>
+    <property name="maxLength">
+     <number>6</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="minEdit">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>87</y>
+      <width>240</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans</family>
+      <pointsize>45</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border:1px solid rgba(0,0,0,0);</string>
+    </property>
+    <property name="maxLength">
+     <number>6</number>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources>

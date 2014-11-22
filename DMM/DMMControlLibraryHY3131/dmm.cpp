@@ -319,7 +319,17 @@ void DMM::InitialiseValues() {
 			"QPushButton {color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #e59244, stop: 0.6 #ffa500 , stop:1 #FFFFFF);font:bold;}");
         ui->voltMeter->animateClick(1);//buttonPressed(0);
 	//Setting Auto mode as default
-	buttonPressed(14);
+//	buttonPressed(14);
+		ui->manual->setVisible(false);
+		ui->Auto->setVisible(true);
+
+		ui->label_7->setText("Auto");
+		Flag.autoFlag = 1;
+		//setColor(1);
+		ui->label_6->setDisabled(true);
+		ui->label_5->setDisabled(true);
+		ui->label_4->setDisabled(true);
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	ui->label_6->setDisabled(true);
 	ui->label_5->setDisabled(true);
@@ -536,8 +546,8 @@ void DMM::onMeasure() {
 					display.retval = display.retvalHY3131*1e-3;
 					dis->setRange(500);
 				} else if (ui->label_5->text() == mapCurrent.value(4)) {
-					display.retvalHY3131 = hy3131DMM->Measure(DC3A);
-					display.retval = display.retvalHY3131;
+					display.retvalHY3131 = hy3131DMM->Measure(DC10A);
+					display.retval = display.retvalHY3131*10;
 					dis->setRange(3);
 				}
 			} else if (Flag.acFlag == 1) {
@@ -558,8 +568,8 @@ void DMM::onMeasure() {
 					display.retval = display.retvalHY3131*1e-3;
 					dis->setRange(500);
 				} else if (ui->label_5->text() == mapCurrent.value(4)) {
-					display.retvalHY3131 = hy3131DMM->Measure(AC3A);
-					display.retval = display.retvalHY3131;
+					display.retvalHY3131 = hy3131DMM->Measure(AC10A);
+					display.retval = display.retvalHY3131*10;
 					dis->setRange(3);
 				}
 			}
@@ -616,7 +626,7 @@ void DMM::onMeasure() {
 			//*******************Display*************************************
 			//***********************Unit change***************************
 
-			emit DMM2GCalib(display.retval2, ui->label_5->text());
+			emit DMM2GCalib(display.retval, ui->label_5->text());
 
 			if (ui->label_5->text() == mapResistance.value(0)
 					|| ui->label_5->text() == mapResistance.value(1))
@@ -789,113 +799,113 @@ void DMM::InsertGraphData(double gData){
 	}
 
         if(minData>=55000000)
-                ui->minLabel->setText("0");
+                ui->minEdit->setText("0");
         else{
 
             if(minData>=0 && minData<9)
-                ui->minLabel->setText("+"+QString::number(minData,'f',4)+ui->lineEdit_4->text());
+                ui->minEdit->setText("+"+QString::number(minData,'f',4)+ui->lineEdit_4->text());
             else if(minData>=10 && minData<99)
-                ui->minLabel->setText("+"+QString::number(minData,'f',3)+ui->lineEdit_4->text());
+                ui->minEdit->setText("+"+QString::number(minData,'f',3)+ui->lineEdit_4->text());
             else if(minData>=100 && minData<999)
-                ui->minLabel->setText("+"+QString::number(minData,'f',2)+ui->lineEdit_4->text());
+                ui->minEdit->setText("+"+QString::number(minData,'f',2)+ui->lineEdit_4->text());
             else if(minData>=1000 && minData<9999)
-                ui->minLabel->setText("+"+QString::number(minData,'f',1)+ui->lineEdit_4->text());
+                ui->minEdit->setText("+"+QString::number(minData,'f',1)+ui->lineEdit_4->text());
             else
-                ui->minLabel->setText("+"+QString::number(minData,'f',0)+ui->lineEdit_4->text());
+                ui->minEdit->setText("+"+QString::number(minData,'f',0)+ui->lineEdit_4->text());
 
             if(minData<0 && minData>-9)
-                ui->minLabel->setText(QString::number(minData,'f',4)+ui->lineEdit_4->text());
+                ui->minEdit->setText(QString::number(minData,'f',4)+ui->lineEdit_4->text());
             else if(minData<=10 && minData>-99)
-                ui->minLabel->setText(QString::number(minData,'f',3)+ui->lineEdit_4->text());
+                ui->minEdit->setText(QString::number(minData,'f',3)+ui->lineEdit_4->text());
             else if(minData<=100 && minData>-999)
-                ui->minLabel->setText(QString::number(minData,'f',2)+ui->lineEdit_4->text());
+                ui->minEdit->setText(QString::number(minData,'f',2)+ui->lineEdit_4->text());
             else if(minData<=1000 && minData>-9999)
-                ui->minLabel->setText(QString::number(minData,'f',1)+ui->lineEdit_4->text());
+                ui->minEdit->setText(QString::number(minData,'f',1)+ui->lineEdit_4->text());
             else
-                ui->minLabel->setText(QString::number(minData,'f',0)+ui->lineEdit_4->text());
+                ui->minEdit->setText(QString::number(minData,'f',0)+ui->lineEdit_4->text());
         }
         if(maxData>=55000000)
-                ui->maxLabel->setText("OL");
+                ui->maxEdit->setText("OL");
         else{
 
             if(maxData>=0 && maxData<9)
-                ui->maxLabel->setText("+"+QString::number(maxData,'f',4)+ui->lineEdit_4->text());
+                ui->maxEdit->setText("+"+QString::number(maxData,'f',4)+ui->lineEdit_4->text());
             else if(maxData>=10 && maxData<99)
-                ui->maxLabel->setText("+"+QString::number(maxData,'f',3)+ui->lineEdit_4->text());
+                ui->maxEdit->setText("+"+QString::number(maxData,'f',3)+ui->lineEdit_4->text());
             else if(maxData>=100 && maxData<999)
-                ui->maxLabel->setText("+"+QString::number(maxData,'f',2)+ui->lineEdit_4->text());
+                ui->maxEdit->setText("+"+QString::number(maxData,'f',2)+ui->lineEdit_4->text());
             else if(maxData>=1000 && maxData<9999)
-                ui->maxLabel->setText("+"+QString::number(maxData,'f',1)+ui->lineEdit_4->text());
+                ui->maxEdit->setText("+"+QString::number(maxData,'f',1)+ui->lineEdit_4->text());
             else
-                ui->maxLabel->setText("+"+QString::number(maxData,'f',0)+ui->lineEdit_4->text());
+                ui->maxEdit->setText("+"+QString::number(maxData,'f',0)+ui->lineEdit_4->text());
 
             if(maxData<0 && maxData>-9)
-                ui->maxLabel->setText(QString::number(maxData,'f',4)+ui->lineEdit_4->text());
+                ui->maxEdit->setText(QString::number(maxData,'f',4)+ui->lineEdit_4->text());
             else if(maxData<=10 && maxData>-99)
-                ui->maxLabel->setText(QString::number(maxData,'f',3)+ui->lineEdit_4->text());
+                ui->maxEdit->setText(QString::number(maxData,'f',3)+ui->lineEdit_4->text());
             else if(maxData<=100 && maxData>-999)
-                ui->maxLabel->setText(QString::number(maxData,'f',2)+ui->lineEdit_4->text());
+                ui->maxEdit->setText(QString::number(maxData,'f',2)+ui->lineEdit_4->text());
             else if(maxData<=1000 && maxData>-9999)
-                ui->maxLabel->setText(QString::number(maxData,'f',1)+ui->lineEdit_4->text());
+                ui->maxEdit->setText(QString::number(maxData,'f',1)+ui->lineEdit_4->text());
             else
-                ui->maxLabel->setText(QString::number(maxData,'f',0)+ui->lineEdit_4->text());
+                ui->maxEdit->setText(QString::number(maxData,'f',0)+ui->lineEdit_4->text());
         }
 
         /*if(dis->getRange()==3 || dis->getRange()==5){
 
 		if(minData>=55000000)
-			ui->minLabel->setText("OL");
+                        ui->minEdit->setText("OL");
 		else
-			ui->minLabel->setText(QString::number(minData,'f',4)+ui->lineEdit_4->text());
+                        ui->minEdit->setText(QString::number(minData,'f',4)+ui->lineEdit_4->text());
 
 		if(maxData>=55000000)
-			ui->minLabel->setText("OL");
+                        ui->minEdit->setText("OL");
 		else
-			ui->maxLabel->setText(QString::number(maxData,'f',4)+ui->lineEdit_4->text());
+                        ui->maxEdit->setText(QString::number(maxData,'f',4)+ui->lineEdit_4->text());
 	}
 	else if(dis->getRange()==50){
 		if(minData>=55000000)
-			ui->minLabel->setText("OL");
+                        ui->minEdit->setText("OL");
 		else
-			ui->minLabel->setText(QString::number(minData,'f',3)+ui->lineEdit_4->text());
+                        ui->minEdit->setText(QString::number(minData,'f',3)+ui->lineEdit_4->text());
 
 		if(maxData>=55000000)
-			ui->minLabel->setText("OL");
+                        ui->minEdit->setText("OL");
 		else
-			ui->maxLabel->setText(QString::number(maxData,'f',3)+ui->lineEdit_4->text());
+                        ui->maxEdit->setText(QString::number(maxData,'f',3)+ui->lineEdit_4->text());
 	}
 	else if(dis->getRange()==500|| dis->getRange()==750){
 		if(minData>=55000000)
-			ui->minLabel->setText("OL");
+                        ui->minEdit->setText("OL");
 		else
-			ui->minLabel->setText(QString::number(minData,'f',2)+ui->lineEdit_4->text());
+                        ui->minEdit->setText(QString::number(minData,'f',2)+ui->lineEdit_4->text());
 
 		if(maxData>=55000000)
-			ui->minLabel->setText("OL");
+                        ui->minEdit->setText("OL");
 		else
-			ui->maxLabel->setText(QString::number(maxData,'f',2)+ui->lineEdit_4->text());
+                        ui->maxEdit->setText(QString::number(maxData,'f',2)+ui->lineEdit_4->text());
 	}
 	else if(dis->getRange()==1000){
 		if(minData>=55000000)
-			ui->minLabel->setText("OL");
+                        ui->minEdit->setText("OL");
 		else
-			ui->minLabel->setText(QString::number(minData,'f',1)+ui->lineEdit_4->text());
+                        ui->minEdit->setText(QString::number(minData,'f',1)+ui->lineEdit_4->text());
 
 		if(maxData>=55000000)
-			ui->minLabel->setText("OL");
+                        ui->minEdit->setText("OL");
 		else
-			ui->maxLabel->setText(QString::number(maxData,'f',1)+ui->lineEdit_4->text());
+                        ui->maxEdit->setText(QString::number(maxData,'f',1)+ui->lineEdit_4->text());
 	}
 	else{
 		if(minData>=55000000)
-			ui->minLabel->setText("OL");
+                        ui->minEdit->setText("OL");
 		else
-			ui->minLabel->setText(QString::number(minData,'f',0)+ui->lineEdit_4->text());
+                        ui->minEdit->setText(QString::number(minData,'f',0)+ui->lineEdit_4->text());
 
 		if(maxData>=55000000)
-			ui->minLabel->setText("OL");
+                        ui->minEdit->setText("OL");
 		else
-			ui->maxLabel->setText(QString::number(maxData,'f',0)+ui->lineEdit_4->text());
+                        ui->maxEdit->setText(QString::number(maxData,'f',0)+ui->lineEdit_4->text());
         }*/
 
 
@@ -933,7 +943,22 @@ void DMM::InsertGraphData(double gData){
 }
 void DMM::CalibrateDisplay(QString value) {
 	QString l_strFileName;
-	l_strFileName = "DMMCalibration.xml";
+//	l_strFileName = "DMMCalibration.xml";
+    if(Flag.r2wFlag==1){
+        l_strFileName = "DMMResCalib.xml";
+    }
+    else if(Flag.vFlag==1){
+    	if(Flag.dcFlag==1)
+    		l_strFileName = "DMMDCVCalib.xml";
+    	else
+    		l_strFileName = "DMMACVCalib.xml";
+    }
+    else if(Flag.iFlag==1){
+    	if(Flag.dcFlag==1)
+    		l_strFileName = "DMMDCICalib.xml";
+    	else
+    		l_strFileName = "DMMACICalib.xml";
+    }
 	////qDebug() << "Range:" << value;
 
 	QString comp;
@@ -1087,9 +1112,9 @@ void DMM::callMeasure(void) {
 			} else if (ui->label_5->text() == mapCurrent.value(4)) {
 
 				if (Flag.acFlag == 1) {
-					hy3131DMM->Configure(AC3A);
+					hy3131DMM->Configure(AC10A);
 				} else if (Flag.dcFlag == 1) {
-					hy3131DMM->Configure(DC3A);
+					hy3131DMM->Configure(DC10A);
 				}
 			}
 			if (Flag.acFlag == 1) {
@@ -1252,7 +1277,7 @@ void DMM::buttonPressed(int pPressed) {
 		if (Flag.diodeFlag == 1)
 			ui->textEdit_5->setText("Diode");
 		else if (Flag.continuityFlag == 1)
-			ui->textEdit_5->setText("CNTY");
+			ui->textEdit_5->setText("CONT");
 
 		if(display.retval >= 55000000)
 			ui->label_10->setText("OL");
@@ -1279,7 +1304,7 @@ void DMM::buttonPressed(int pPressed) {
 
 		showSymbol(0);
 
-		ui->textEdit_5->setText("CNTY");
+		ui->textEdit_5->setText("CONT");
 		ui->label->setText(mapResistance.value(1));
 
 		//Value Mapping--------------------------------------------
@@ -1349,7 +1374,7 @@ void DMM::buttonPressed(int pPressed) {
 		if (Flag.diodeFlag == 1)
 			ui->textEdit_5->setText("Diode");
 		else if (Flag.continuityFlag == 1)
-			ui->textEdit_5->setText("CNTY");
+			ui->textEdit_5->setText("CONT");
 		callMeasure();
                 m_nADCtimer->start(250);
 		//                movie = new QMovie(":/indicate1.gif");
@@ -1369,7 +1394,7 @@ void DMM::buttonPressed(int pPressed) {
 			if (Flag.diodeFlag == 1)
 				ui->textEdit_5->setText("Diode");
 			else if (Flag.continuityFlag == 1)
-				ui->textEdit_5->setText("CNTY");
+				ui->textEdit_5->setText("CONT");
 			m_nADCtimer->stop();
 			//                    movie->stop();
 			//                    ui->label_12->clear();
@@ -1628,7 +1653,7 @@ void DMM::buttonPressed(int pPressed) {
 		if (Flag.diodeFlag == 1)
 			ui->textEdit_5->setText("Diode");
 		else if (Flag.continuityFlag == 1)
-			ui->textEdit_5->setText("CNTY");
+			ui->textEdit_5->setText("CONT");
 		//                }
 		break;
 	}
@@ -2029,6 +2054,9 @@ void DMM::on_idc_clicked() {
 }
 
 void DMM::on_r2w_clicked() {
+	ui->Auto->setEnabled(true);
+	ui->Auto->setStyleSheet("QPushButton {color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);font:bold;}QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);}QPushButton:flat {border: none;}QPushButton:default {border-color: navy;}QPushButton:disabled{color:lightgrey;background-color:grey}");
+
 	setHighlight(7);
 	buttonPressed(7);
 }
@@ -2044,8 +2072,51 @@ void DMM::on_leftArrow_clicked() {
 void DMM::on_exit_clicked() {
 	buttonPressed(11);
 }
+void DMM::alignIcons(bool state){
+	if(state){
+		ui->r2w->setGeometry(93,46,64,64);
+
+		ui->Continuity->setGeometry(181,46,64,64);
+		ui->vac->setGeometry(181,46,64,64);
+		ui->iac->setGeometry(181,46,64,64);
+
+		ui->Diode->setGeometry(269,46,64,64);
+		ui->vdc->setGeometry(269,46,64,64);
+		ui->r4w->setGeometry(269,46,64,64);
+		ui->idc->setGeometry(269,46,64,64);
+
+		ui->Auto->setGeometry(357,46,64,64);
+		ui->manual->setGeometry(357,46,64,64);
+
+		ui->hold->setGeometry(445,46,64,64);
+
+		ui->Null->setGeometry(533,46,64,64);
+
+
+	}else{
+
+		ui->r2w->setGeometry(138,46,64,64);
+		ui->Continuity->setGeometry(138,46,64,64);
+		ui->vac->setGeometry(138,46,64,64);
+		ui->iac->setGeometry(138,46,64,64);
+
+		ui->Diode->setGeometry(226,46,64,64);
+		ui->vdc->setGeometry(226,46,64,64);
+		ui->r4w->setGeometry(226,46,64,64);
+		ui->idc->setGeometry(226,46,64,64);
+
+		ui->Auto->setGeometry(314,46,64,64);
+		ui->manual->setGeometry(314,46,64,64);
+
+		ui->hold->setGeometry(402,46,64,64);
+
+		ui->Null->setGeometry(490,46,64,64);
+	}
+}
 
 void DMM::on_voltMeter_clicked() {
+	alignIcons(false);
+
 	ui->vac->setVisible(true);
 	ui->vdc->setVisible(true);
 	;
@@ -2070,6 +2141,8 @@ void DMM::on_voltMeter_clicked() {
 }
 
 void DMM::on_ampMeter_clicked() {
+	alignIcons(false);
+
 	ui->vac->setVisible(false);
 	ui->vdc->setVisible(false);
 	ui->iac->setVisible(true);
@@ -2093,9 +2166,10 @@ void DMM::on_ampMeter_clicked() {
 }
 
 void DMM::on_ohmMeter_clicked() {
+	alignIcons(true);
+
 	ui->vac->setVisible(false);
 	ui->vdc->setVisible(false);
-	;
 	ui->iac->setVisible(false);
 	ui->idc->setVisible(false);
 	ui->r2w->setVisible(true);
@@ -2171,34 +2245,37 @@ void DMM::on_pushButton_15_clicked() {
 }
 
 void DMM::on_Continuity_clicked() {
-	if (Flag.continuityFlag == 1) {
-		ui->Auto->setEnabled(true);
-		setHighlight(7);			//RESISTANCE
-		buttonPressed(7);
-	} else {
+//	if (Flag.continuityFlag == 1) {
+//		ui->Auto->setEnabled(true);
+//		setHighlight(7);			//RESISTANCE
+//		buttonPressed(7);
+//	} else {
 		ui->Auto->setEnabled(false);
+
+		ui->Auto->setStyleSheet("QPushButton{color:gray;border: 1px solid #2D5059;border-radius: 20px;background-color: rgba(88,88,88);}QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);}QPushButton:flat {border: none;}QPushButton:default {border-color: navy;}QPushButton:disabled{color:lightgrey;background-color:grey}");
+
 		setHighlight(5);			//CONTINUITY
 		ui->label->setText("500E");
 		buttonPressed(5);
                 Flag.autoFlag=true;
-//		ui->Auto->setStyleSheet(
-//				"QPushButton {color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #e59244, stop: 0.6 #ffa500 , stop:1 #FFFFFF);font:bold;}");
 		ui->rangeFrame->setVisible(false);
 		ui->frame_6->setVisible(false);
 		ui->label_18->setVisible(false);
 		ui->manual->setVisible(false);
 		ui->Auto->setVisible(true);
 
-	}
+//	}
 }
 
 void DMM::on_Diode_clicked() {
-	if (Flag.diodeFlag == 1) {
-		ui->Auto->setEnabled(true);
-		setHighlight(7);			//RESISTANCE
-		buttonPressed(7);
-	} else {
+//	if (Flag.diodeFlag == 1) {
+//		ui->Auto->setEnabled(true);
+//		setHighlight(7);			//RESISTANCE
+//		buttonPressed(7);
+//	} else {
 		ui->Auto->setEnabled(false);
+		ui->Auto->setStyleSheet("QPushButton{color:gray;border: 1px solid #2D5059;border-radius: 20px;background-color: rgba(88,88,88);}QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);}QPushButton:flat {border: none;}QPushButton:default {border-color: navy;}QPushButton:disabled{color:lightgrey;background-color:grey}");
+
 		setHighlight(6);			//DIODE
 		buttonPressed(6);
 
@@ -2212,7 +2289,7 @@ void DMM::on_Diode_clicked() {
 		ui->Auto->setVisible(true);
 
 
-	}
+//	}
 
 }
 

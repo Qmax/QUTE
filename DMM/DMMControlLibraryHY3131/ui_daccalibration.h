@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'daccalibration.ui'
 **
-** Created: Tue Nov 4 17:27:12 2014
+** Created: Sat Nov 22 21:35:18 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -51,13 +51,13 @@ public:
     {
         if (DACCalibrationClass->objectName().isEmpty())
             DACCalibrationClass->setObjectName(QString::fromUtf8("DACCalibrationClass"));
-        DACCalibrationClass->resize(400, 341);
+        DACCalibrationClass->resize(400, 371);
         DACCalibrationClass->setStyleSheet(QString::fromUtf8("QWidget{\n"
 "background-color:rgba(0,0,0,0);\n"
 "}"));
         CalibBox = new QGroupBox(DACCalibrationClass);
         CalibBox->setObjectName(QString::fromUtf8("CalibBox"));
-        CalibBox->setGeometry(QRect(5, 2, 391, 337));
+        CalibBox->setGeometry(QRect(5, 2, 391, 365));
         CalibBox->setStyleSheet(QString::fromUtf8("QGroupBox {\n"
 "     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
 "                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);\n"
@@ -156,11 +156,11 @@ public:
 " }"));
         label_5 = new QLabel(CalibBox);
         label_5->setObjectName(QString::fromUtf8("label_5"));
-        label_5->setGeometry(QRect(10, 240, 69, 20));
+        label_5->setGeometry(QRect(10, 230, 69, 20));
         label_5->setFont(font);
         slope = new QLineEdit(CalibBox);
         slope->setObjectName(QString::fromUtf8("slope"));
-        slope->setGeometry(QRect(90, 240, 90, 26));
+        slope->setGeometry(QRect(90, 230, 250, 26));
         slope->setFont(font1);
         slope->setStyleSheet(QString::fromUtf8(" QLineEdit {\n"
 "     border: 2px solid gray;\n"
@@ -173,11 +173,11 @@ public:
 " }"));
         label_6 = new QLabel(CalibBox);
         label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setGeometry(QRect(202, 240, 80, 20));
+        label_6->setGeometry(QRect(12, 280, 80, 20));
         label_6->setFont(font);
         constant = new QLineEdit(CalibBox);
         constant->setObjectName(QString::fromUtf8("constant"));
-        constant->setGeometry(QRect(280, 240, 90, 26));
+        constant->setGeometry(QRect(90, 280, 250, 26));
         constant->setFont(font1);
         constant->setStyleSheet(QString::fromUtf8(" QLineEdit {\n"
 "     border: 2px solid gray;\n"
@@ -190,7 +190,7 @@ public:
 " }"));
         saveBut = new QPushButton(CalibBox);
         saveBut->setObjectName(QString::fromUtf8("saveBut"));
-        saveBut->setGeometry(QRect(70, 290, 93, 30));
+        saveBut->setGeometry(QRect(70, 325, 93, 30));
         saveBut->setFont(font);
         saveBut->setStyleSheet(QString::fromUtf8(" QPushButton {\n"
 "     border: 2px solid #8f8f91;\n"
@@ -214,7 +214,7 @@ public:
 " }"));
         exitBut = new QPushButton(CalibBox);
         exitBut->setObjectName(QString::fromUtf8("exitBut"));
-        exitBut->setGeometry(QRect(230, 290, 93, 30));
+        exitBut->setGeometry(QRect(230, 325, 93, 30));
         exitBut->setFont(font);
         exitBut->setStyleSheet(QString::fromUtf8(" QPushButton {\n"
 "     border: 2px solid #8f8f91;\n"

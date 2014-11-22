@@ -111,7 +111,7 @@ int main()
 						CyPins_ClearPin(RL5_CTR_P4_0);
 						CyPins_ClearPin(RL7_CTR_P12_2);
 						CyDelay(10);// 10 milli seconds delay
-                        CyPins_SetPin(RL6_CTR_P12_3);
+                        CyPins_ClearPin(RL6_CTR_P12_3);//changed for direct 10A on 22/11/2014
                         CyDelay(10);// 10 milli seconds delay
 					break;
 					case 0x03:									//ACI & DCI Mode	-	mA
@@ -145,6 +145,7 @@ int main()
 						CyPins_ClearPin(RL7_CTR_P12_2);
 						CyDelay(10);// 10 milli seconds delay
                         CyPins_SetPin(RL1_CTR_P0_2);
+			CyPins_SetPin(RL6_CTR_P12_3);//changed on 22/11/2014
                         CyDelay(10);// 10 milli seconds delay
 					break;
 					case 0x06:									//Frequency

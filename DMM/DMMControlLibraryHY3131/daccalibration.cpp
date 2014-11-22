@@ -22,12 +22,14 @@ void DACCalibration::DMM2GCalib(double value,QString com){
 		qDebug()<<"Received from DMM in range"<<com<<"value:"<<value;
 		ui.lineEdit_3->setText(QString::number(m_nRxedValue));
 
-		if(value>=1000&&value<1000000)
-        	value=value/1000;
-        else if(value>=1000000)
-        	value=value/1000000;
+//		if(value>=1000&&value<1000000)
+//        	value=value/1000;
+//        else if(value>=1000000)
+//        	value=value/1000000;
 
 		m_nRxedValue=value;
+
+		qDebug()<<"Received2 from DMM in range"<<com<<"value:"<<value;
 
 	}
 }
@@ -94,7 +96,18 @@ void DACCalibration::InitializeCalibration(){
 void DACCalibration::on_saveBut_clicked()
 {
     QString l_strFileName;
-            l_strFileName = "DMMCalibration.xml";
+    if(ui.comboBox->currentIndex()==0)
+        l_strFileName = "DMMResCalib.xml";
+    else if(ui.comboBox->currentIndex()==2)
+        l_strFileName = "DMMDCVCalib.xml";
+    else if(ui.comboBox->currentIndex()==3)
+        l_strFileName = "DMMDCICalib.xml";
+    else if(ui.comboBox->currentIndex()==4)
+        l_strFileName = "DMMACVCalib.xml";
+    else if(ui.comboBox->currentIndex()==5)
+        l_strFileName = "DMMACICalib.xml";
+
+//            l_strFileName = "DMMCalibration.xml";
 
     QFile *file = new QFile(l_strFileName);
     if (!file->open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -167,9 +180,19 @@ void DACCalibration::on_saveBut_clicked()
 }
 void DACCalibration::readCalibrationFile(){
 
-    QString l_strFilename="DMMCalibration.xml";
+    QString l_strFileName;//="DMMCalibration.xml";
+    if(ui.comboBox->currentIndex()==0)
+        l_strFileName = "DMMResCalib.xml";
+    else if(ui.comboBox->currentIndex()==2)
+        l_strFileName = "DMMDCVCalib.xml";
+    else if(ui.comboBox->currentIndex()==3)
+        l_strFileName = "DMMDCICalib.xml";
+    else if(ui.comboBox->currentIndex()==4)
+        l_strFileName = "DMMACVCalib.xml";
+    else if(ui.comboBox->currentIndex()==5)
+        l_strFileName = "DMMACICalib.xml";
 
-    QFile *xmlFile= new QFile(l_strFilename);
+    QFile *xmlFile= new QFile(l_strFileName);
             if (!xmlFile->open(QIODevice::ReadOnly | QIODevice::Text)) {
                  qDebug()<<"calibration file read error";
             }
@@ -327,27 +350,29 @@ void DACCalibration::receiveValue(unsigned int pValue){
     }
 }
 void DACCalibration::receiveValue(double pValue){
+	qDebug()<<"double receiveValue:"<<pValue;
     switch(m_nLineEditIndex){
     case 0:
         m_nNoOfPoints=m_nNoOfSamples=pValue;
         break;
     case 1:
-		if(ui.comboBox->currentText()=="V-DC"||ui.comboBox->currentText()=="I-DC"||ui.comboBox->currentText()=="V-AC"||ui.comboBox->currentText()=="I-AC"){
-			if(pValue<1)
-				m_nActualValue=pValue*1000;
-			else
-				m_nActualValue=pValue;
-		}
-		else{
-
-	        if(pValue>=1000&&pValue<1000000)
-	        	pValue=pValue/1000;
-	        else if(pValue>=1000000)
-	        	pValue=pValue/1000000;
-
+//		if(ui.comboBox->currentText()=="V-DC"||ui.comboBox->currentText()=="I-DC"||ui.comboBox->currentText()=="V-AC"||ui.comboBox->currentText()=="I-AC"){
+//			if(pValue>0 && pValue<0.001)
+//				m_nActualValue=pValue*1000000;
+//			else if(pValue>=0.001 && pValue< 1)
+//				m_nActualValue=pValue*1000;
+//			else
+//				m_nActualValue=pValue;
+//		}
+//		else{
+//	        if(pValue>=1000&&pValue<1000000)
+//	        	pValue=pValue/1000;
+//	        else if(pValue>=1000000)
+//	        	pValue=pValue/1000000;
+    		m_objLE_ActualValue->setText(QString::number(pValue));
 			m_nActualValue=pValue;
-		}
-
+//		}
+		qDebug()<<"double m_nActualValue:"<<m_nActualValue;
         break;
     case 2:
         m_nRxedValue=pValue;
@@ -362,7 +387,7 @@ void DACCalibration::receiveValue(QString pValue){
     	m_objLE_NoOfPoints->setText(pValue);
         break;
     case 1:
-        m_objLE_ActualValue->setText(pValue);
+//        m_objLE_ActualValue->setText(pValue);
         break;
     case 2:
         m_objLE_RxedValue->setText(pValue);
@@ -450,7 +475,7 @@ void DACCalibration::on_comboBox_currentIndexChanged(int index)
         ui.ICM->insertItem(1,"5mA");
         ui.ICM->insertItem(0,"50mA");
         ui.ICM->insertItem(1,"500mA");
-        ui.ICM->insertItem(2,"3A");
+        ui.ICM->insertItem(2,"10A");
 
         break;
     case 4:
@@ -469,7 +494,7 @@ void DACCalibration::on_comboBox_currentIndexChanged(int index)
         ui.ICM->insertItem(1,"5mA");
         ui.ICM->insertItem(0,"50mA");
         ui.ICM->insertItem(1,"500mA");
-        ui.ICM->insertItem(2,"3A");
+        ui.ICM->insertItem(2,"10A");
 
         break;
     }
