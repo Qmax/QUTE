@@ -68,6 +68,9 @@ private slots:
         void on_pushButton_clicked();
         void on_pushButton_5_clicked();
         void on_butSeqWrite_clicked(); // Added for Sequence Write Operations Elangovan.D 1-11-2014
+        void on_butSampling_clicked();
+        void on_butSamplingRD_clicked();
+
 //        void TestButton();
 //        void SwitchMux();
 //        void ReadCodeID();

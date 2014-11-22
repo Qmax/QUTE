@@ -1158,18 +1158,20 @@ void MainWindow::updateInteractive()
 	{
 		l_objWaveData->m_nEnvelopBand = m_objVISubject->getProbeThreshold();
 	}
-	//CALIB *l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
-	//    CALIB l_objCalibData;
-	//	l_objCalibData.m_nConstant =l_objWaveData->m_nCalibrationConstant;
-	//	l_objCalibData.m_nGain = l_objWaveData->m_nCalibrationGain;
-	//	m_objFunctionalObject->setFileBit(true);
-	//	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
-	//			m_objVISubject->getVoltageValue(), &l_objCalibData);
+	CALIB *l_objCalibData;
+	l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
+	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
+	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
+		m_objFunctionalObject->setFileBit(true);
+
+		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
 	// qDebug()<<"Before Conv Actual Pos Peak voltage:"<<m_objVISubject->getPosPeak();
-	//  qDebug()<<"After Conv Actual Pos Peak voltage:"<<(m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD<<m_objVISubject->getVoltageValue();
+	  qDebug()<<"After Conv Actual Pos Peak voltage:"<<(m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD<<m_objVISubject->getVoltageValue();
 	//
 	//qDebug()<<"Before Conv Neg Actual Peak voltage:"<<m_objVISubject->getNegPeak();
-	//qDebug()<<"After Conv Neg Actual Peak voltage:"<<(m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD<<m_objVISubject->getVoltageValue();
+	qDebug()<<"After Conv Neg Actual Peak voltage:"<<(m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD<<m_objVISubject->getVoltageValue();
+	qDebug()<< "Voltage:" << m_objVISubject->getVoltageValue() << "Freq:" << m_objVISubject->getFrequencyValue() << "Impedance:" << m_objVISubject->getImpedanceValue();
 
 	//	m_objFunctionalObject->setFileBit(false);
 	//m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
@@ -1365,7 +1367,6 @@ void MainWindow::on_startButton_clicked()
 
         //	ui->selectFrame->setGeometry(702, 154, 9, 60);
 
-	m_bAutoCurveFit = true; // Added for testing
 	if(m_bAutoCurveFit==true)
 	{
 		callAutoCurveFit();
@@ -2414,6 +2415,16 @@ void MainWindow::on_butViewTrace_clicked()
 
 //AutoCurve Fit Functions
 
+void MainWindow::on_chkAC_clicked()
+{
+	// For Autocurvefit testing purpose
+	if(ui->chkAC->isChecked() == true){
+		m_bAutoCurveFit = true;
+	}
+	else
+		m_bAutoCurveFit = false;
+
+}
 void MainWindow::callAutoCurveFit()
 {
 	if(m_objFunctionalObject->getProbeStatus() != PROBE1 ||
@@ -2468,7 +2479,6 @@ void MainWindow::doAutoCurveFitAlgorithm()
 			checkforShortCalibration();
 		}*/
 	}
-	m_bCaporInd=true;
 	m_objVISubject->clearAutoCurveFitPatters();
 	m_objVISubject->setComponent(0,0);
 	m_nDualIndex=0;
@@ -2497,10 +2507,15 @@ void MainWindow::doAutoCurveFitAlgorithm()
 	if(diodeDetection() == true)
 		return;
 	qDebug()	<< "Checking Resistance..........................................................";
-	if(resistanceDetection() == true)
-		return;
+	resistanceDetection();
+//	if(resistanceDetection() == true && m_bInductance == false && m_bCapacitance == false)
+//		return;
+//	if(m_bCapacitance == true)
+		measureCapactiance();
+	if(m_bInductance == true)
+		measureInductance();
 
-	updateInteractive();
+	//updateInteractive();
 
 //
 //	if (confirmDiodes() == true)
@@ -2544,8 +2559,8 @@ bool MainWindow::diodeDetection()
 	double l_nLowerThreshold = 0.5, l_nHigherThreshold = 1.25;
 	unsigned short l_nSelectedImpedance = 50;
 	double l_nDiodeRatio =0.0,l_nZP2Voltage=0.0,l_n2P5Voltage=0.0;
-	for(int l_nDriveIndex=0;l_nDriveIndex < 1;l_nDriveIndex++)
-		driveACPattern(0,0,2);
+//	for(int l_nDriveIndex=0;l_nDriveIndex < 1;l_nDriveIndex++)
+//		driveACPattern(0,0,2);
 	CALIB *l_objCalibData;
 
 	bool l_bDrive2P5 = false,l_bConfirmDiode = false;
@@ -2559,33 +2574,33 @@ bool MainWindow::diodeDetection()
 		l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
 		l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
 
-		qDebug() << "Calibration............";
+		//qDebug() << "Calibration............";
 		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
 				m_objVISubject->getVoltageValue(), l_objCalibData);
 		double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 		double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
-		qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
+		//qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
+		//qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
 
-		qDebug() << "Received............";
+		//qDebug() << "Received............";
 		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
 				m_objVISubject->getVoltageValue(), l_objCalibData);
 		double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 		double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 
-		qDebug() << "Positive Peak" << l_nPosPeakVoltage << m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();
-		qDebug() << "Negative Peak" << l_nNegPeakVoltage;
+		//qDebug() << "Positive Peak" << l_nPosPeakVoltage << m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();
+		//qDebug() << "Negative Peak" << l_nNegPeakVoltage;
 
 		double l_nPositivePeakCurrent = (l_nCalibPosVoltage - l_nPosPeakVoltage) / l_nSelectedImpedance;
 		double l_nPositiveReceiveImpedance = (l_nPosPeakVoltage / l_nPositivePeakCurrent);
-		qDebug() << "Positive Receive Impedance:" << l_nPositiveReceiveImpedance;
+		//qDebug() << "Positive Receive Impedance:" << l_nPositiveReceiveImpedance;
 
 		double l_nNegativePeakCurrent = (l_nCalibNegVoltage - l_nNegPeakVoltage) / l_nSelectedImpedance;
 		double l_nNegativeeReceiveImpedance = (l_nNegPeakVoltage / l_nNegativePeakCurrent);
-		qDebug() << "NegativeReceive Impedance:" << l_nNegativeeReceiveImpedance;
+		//qDebug() << "NegativeReceive Impedance:" << l_nNegativeeReceiveImpedance;
 
 		double l_nLoadImpedance = ( abs(l_nPositiveReceiveImpedance) + abs(l_nNegativeeReceiveImpedance)) / 2.0;
-		qDebug() << "Load Impedance:" << l_nLoadImpedance;
+		//qDebug() << "Load Impedance:" << l_nLoadImpedance;
 
 		if(l_nLoadImpedance >=(l_nSelectedImpedance - 3) && l_nLoadImpedance <= (l_nSelectedImpedance + 3)) {
 			l_bDrive2P5 = true;
@@ -2605,26 +2620,26 @@ bool MainWindow::diodeDetection()
 		l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
 		l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
 
-		qDebug() << "Calibration............";
+		//qDebug() << "Calibration............";
 		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
 				m_objVISubject->getVoltageValue(), l_objCalibData);
-		double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
-		qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
+		//double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		//double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		//qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
+		//qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
 
-		qDebug() << "Received............";
+		//qDebug() << "Received............";
 		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
 				m_objVISubject->getVoltageValue(), l_objCalibData);
 		double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 		double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 
-		qDebug() << "Positive Peak" << l_nPosPeakVoltage << m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();
-		qDebug() << "Negative Peak" << l_nNegPeakVoltage;
+		//qDebug() << "Positive Peak" << l_nPosPeakVoltage << m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();
+		//qDebug() << "Negative Peak" << l_nNegPeakVoltage;
 		l_n2P5Voltage = ( l_nPosPeakVoltage - l_nNegPeakVoltage ) / m_objVISubject->getVoltageValue() * 2.0; // Selected voltage doubled for peaks
 
 		l_nDiodeRatio = l_nZP2Voltage / l_n2P5Voltage;
-		qDebug() << "Diode Ratio:" << l_nDiodeRatio;
+		//qDebug() << "Diode Ratio:" << l_nDiodeRatio;
 
 		if(l_nDiodeRatio >= l_nLowerThreshold && l_nDiodeRatio <= l_nHigherThreshold)
 		{
@@ -2641,22 +2656,22 @@ bool MainWindow::diodeDetection()
 		l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
 		l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
 
-		qDebug() << "Calibration............";
+		//qDebug() << "Calibration............";
 		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
 				m_objVISubject->getVoltageValue(), l_objCalibData);
-		double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
-		qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
+//		double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+//		double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		//qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
+		//qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
 
-		qDebug() << "Received............";
+		//qDebug() << "Received............";
 		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
 				m_objVISubject->getVoltageValue(), l_objCalibData);
-		double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+//		double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+//		double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 
-		qDebug() << "Positive Peak" << l_nPosPeakVoltage << m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();
-		qDebug() << "Negative Peak" << l_nNegPeakVoltage;
+		//qDebug() << "Positive Peak" << l_nPosPeakVoltage << m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();
+		//qDebug() << "Negative Peak" << l_nNegPeakVoltage;
 		l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
 				objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
 				objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
@@ -2676,78 +2691,210 @@ bool MainWindow::resistanceDetection()
 		Resistance Voltage yet to be confirmed with Pazhani sir, 2.5V kept for testing.
 		-----------------------------------------------------------------]]
 	*/
-	CALIB *l_objCalibData;
 	double l_nSelectedImpedance = 1000;
 	short int l_nImpedanceIndex = 6;
 	bool l_bPeakDetected = false;
+	int l_nIterations =0;
+	double l_nCalibPosVoltage,l_nCalibNegVoltage =0.0;
+	double l_nPosPeakVoltage,l_nNegPeakVoltage =0.0;
 
 	while(!l_bPeakDetected) {
 		driveACPattern(1,0,l_nImpedanceIndex);
 		l_nSelectedImpedance =  m_objVISubject->getImpedanceValue();
-		l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
-		l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
-		l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
-
-		qDebug() << "Calibration............";
-		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
-				m_objVISubject->getVoltageValue(), l_objCalibData);
-		double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		//qDebug() << "Calibration............";
+		measureVoltages(&l_nCalibPosVoltage,&l_nCalibNegVoltage,true);
 		qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
 		qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
-
-		qDebug() << "Received............";
-		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
-				m_objVISubject->getVoltageValue(), l_objCalibData);
-		double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-
-		qDebug() << "Positive Peak" << l_nPosPeakVoltage << m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();
+		//qDebug() << "Received............";
+		measureVoltages(&l_nPosPeakVoltage,&l_nNegPeakVoltage,false);
+		qDebug() << "Positive Peak" << l_nPosPeakVoltage;
 		qDebug() << "Negative Peak" << l_nNegPeakVoltage;
-
 		double l_nPositivePeakCurrent = (l_nCalibPosVoltage - l_nPosPeakVoltage) / l_nSelectedImpedance;
 		double l_nPositiveReceiveImpedance = (l_nPosPeakVoltage / l_nPositivePeakCurrent);
-		qDebug() << "Positive Receive Impedance:" << l_nPositiveReceiveImpedance;
-
+		//qDebug() << "Positive Receive Impedance:" << l_nPositiveReceiveImpedance << l_nPositivePeakCurrent;
 		double l_nNegativePeakCurrent = (l_nCalibNegVoltage - l_nNegPeakVoltage) / l_nSelectedImpedance;
 		double l_nNegativeeReceiveImpedance = (l_nNegPeakVoltage / l_nNegativePeakCurrent);
-		qDebug() << "NegativeReceive Impedance:" << l_nNegativeeReceiveImpedance;
-
+		//qDebug() << "NegativeReceive Impedance:" << l_nNegativeeReceiveImpedance<<l_nNegativePeakCurrent;
 		double l_nLoadImpedance = ( abs(l_nPositiveReceiveImpedance) + abs(l_nNegativeeReceiveImpedance)) / 2.0;
-		qDebug() << "Load Impedance:" << floor(l_nLoadImpedance);
+		//qDebug() << "Load Impedance:" << floor(l_nLoadImpedance);
 		double l_nResistancePeakVoltage = (l_nPosPeakVoltage - l_nNegPeakVoltage) / 2.0 ;
 		double l_nActualVoltage = (l_nCalibPosVoltage - l_nCalibNegVoltage)/2.0;
-		double l_nPeakDifference = (l_nActualVoltage*0.5 - l_nResistancePeakVoltage);
-		qDebug() << "Resistance Voltage:" << l_nPeakDifference<<l_nResistancePeakVoltage << l_nActualVoltage* 0.5 << l_nActualVoltage * 0.55;
-		if( l_nResistancePeakVoltage >= l_nActualVoltage*0.4 && l_nResistancePeakVoltage < l_nActualVoltage*0.52)
+		//double l_nPeakDifference = (l_nActualVoltage*0.5 - l_nResistancePeakVoltage);
+		qDebug() << "Resistance Voltage:" << l_nResistancePeakVoltage << l_nActualVoltage* 0.4 << l_nActualVoltage * 0.6;
+		if( l_nResistancePeakVoltage >= l_nActualVoltage*0.4 && l_nResistancePeakVoltage < l_nActualVoltage*0.6) {
+			l_bPeakDetected = true;
 			break;
+		}
 		l_nImpedanceIndex = selectImpedanceIndex(floor(l_nLoadImpedance));
-		updateInteractive();
+		if(l_nImpedanceIndex == -1) break;
+		//updateInteractive();
+		if(l_nIterations > 4) {
+			l_bPeakDetected = false;
+			break;
+		}
+		l_nIterations++;
 	}
+	qDebug() << "No. of Iterations:" << l_nIterations;
 
 	// Measure the Phase Shift
+	if( l_bPeakDetected ) {
+		short int l_nDiffPhaseShift = measurePhaseShift();
+		if( l_nDiffPhaseShift >=-4 &&  l_nDiffPhaseShift <=4) {
 
+		QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
+						objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
+						objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
+				QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
+				m_objFunctionalObject->renameFile(l_strTestFileName);
+				m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount++, l_strFileName,
+						m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
+		}
+	}
+	// 1. Select the Voltage: 2.5V ,  Frequency: 200Hz , Impedance: 1K
+	// Increase the Frequency by 20 times 200Hz
+	driveACPattern(1,4,l_nImpedanceIndex);
+	short int l_n200HzPhaseShift = measurePhaseShift();
 
+	// 1. Select the Voltage: 2.5V ,  Frequency: 2 KHz , Impedance: 1K
+	// Increase the Frequency by 200 times 2 KHz
+	driveACPattern(1,7,l_nImpedanceIndex);
+	short int l_n2KHzPhaseShift = measurePhaseShift();
+
+	qDebug() << "200 Hz:" << l_n200HzPhaseShift << "2 Khz:" << l_n2KHzPhaseShift;
+	qDebug() << "Difference Phase Shift:" << l_n2KHzPhaseShift - l_n200HzPhaseShift;
+	short int l_nDiffPhaseShift = l_n2KHzPhaseShift - l_n200HzPhaseShift;
+	if(l_nDiffPhaseShift >=-4 && l_nDiffPhaseShift <= 4 && l_bPeakDetected ) {
+		driveACPattern(1,12,l_nImpedanceIndex);
+		QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
+						objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
+						objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
+				QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
+				m_objFunctionalObject->renameFile(l_strTestFileName);
+				m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
+						m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
+	}
+	m_bCapacitance = m_bInductance = false;
+	if(l_nDiffPhaseShift > 4)
+		m_bCapacitance = true;
+	else if(l_nDiffPhaseShift > -4 )
+		m_bInductance = true;
+	qDebug()<< "End of Resistance.............................";
 	return l_bPeakDetected;
+}
+
+void MainWindow::measureVoltages(double *pPosVoltage,double *pNegVoltage, bool isRef)
+{
+	CALIB *l_objCalibData;
+	l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
+	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
+	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
+	if(isRef == true)
+		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
+	else
+		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
+
+	*pPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+	*pNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+}
+
+void MainWindow::measureCapactiance()
+{
+	/*[[-------------------------------------------------------------
+			1. Select the Voltage: 2.5V ,  Frequency: 2KHz , Impedance: 50E
+    	-----------------------------------------------------------------]]
+		*/
+		short int l_nFrequencyIndex = 6;
+		bool l_bPeakDetected = false;
+		int l_nIterations =0;
+		double l_nCalibPosVoltage,l_nCalibNegVoltage =0.0;
+		double l_nPosPeakVoltage,l_nNegPeakVoltage =0.0;
+
+		while(!l_bPeakDetected) {
+			driveACPattern(1,l_nFrequencyIndex,7);
+			qDebug()<< "Freq:" << m_objVISubject->getFrequencyValue();
+			//qDebug() << "Calibration............";
+
+			measureVoltages(&l_nCalibPosVoltage,&l_nCalibNegVoltage,true);
+
+			qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage<<l_nCalibPosVoltage*0.5;
+			qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage<<l_nCalibNegVoltage*0.5;
+
+			//qDebug() << "Received............";
+			measureVoltages(&l_nPosPeakVoltage,&l_nNegPeakVoltage,false);
+
+			qDebug() << "Positive Peak" << l_nPosPeakVoltage << l_nCalibPosVoltage * 0.5 << l_nCalibPosVoltage * 0.6;
+			qDebug() << "Negative Peak" << l_nNegPeakVoltage << l_nCalibNegVoltage * 0.5 << l_nCalibNegVoltage * 0.6;
+			qDebug()<< "Voltage:" << m_objVISubject->getVoltageValue() << "Freq:" << m_objVISubject->getFrequencyValue() << "Impedance:" << m_objVISubject->getImpedanceValue();
+			if(l_nPosPeakVoltage > l_nCalibPosVoltage * 0.5 || l_nNegPeakVoltage > l_nCalibNegVoltage * 0.5) {
+				l_nFrequencyIndex++;
+			}
+			else {
+				l_nFrequencyIndex--;
+			}
+			if((l_nPosPeakVoltage >= l_nCalibPosVoltage * 0.45  && l_nPosPeakVoltage < l_nCalibPosVoltage * 0.55)
+				||(l_nNegPeakVoltage >= l_nCalibNegVoltage * 0.45  && l_nNegPeakVoltage < l_nCalibNegVoltage * 0.55))
+				break;
+			updateInteractive();
+			if(l_nFrequencyIndex > 12 || l_nFrequencyIndex < 1) break;
+		}
+}
+
+void MainWindow::measureInductance()
+{
+
+}
+
+short int MainWindow::measurePhaseShift()
+{
+	CALIB *l_objCalibData;
+	l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
+	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
+	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
+	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
+	double l_nPosCalibrationDegree = (360*m_objVISubject->getPosPeakIndex())/100;
+	double l_nNegCalibrationDegree = (360*m_objVISubject->getNegPeakIndex())/100;
+
+	double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+	double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+
+//	qDebug()<< "Ref Pos Peak Index:" << m_objVISubject->getPosPeakIndex() << "Ref Neg Peak Index:" << m_objVISubject->getNegPeakIndex();
+//	qDebug()<< "Ref Pos Peak Value:" << m_objVISubject->getPosPeakValue() << "Ref Neg Peak Value:" << m_objVISubject->getNegPeakValue();
+
+	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
+				m_objVISubject->getVoltageValue(), l_objCalibData);
+	double l_nPosActualDegree = (360*m_objVISubject->getPosPeakIndex())/100;
+	double l_nNegActualDegree = (360*m_objVISubject->getNegPeakIndex())/100;
+
+	double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+	double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+
+//	qDebug()<< "Pos Peak Index:" << m_objVISubject->getPosPeakIndex() << "Neg Peak Index:" << m_objVISubject->getNegPeakIndex();
+//	qDebug()<< "Pos Peak Value:" << m_objVISubject->getPosPeakValue() << "Neg Peak Value:" << m_objVISubject->getNegPeakValue();
+
+	qDebug()<<"Pos Reference Degree:" << l_nPosCalibrationDegree << "Pos Actual Degree:" << l_nPosActualDegree << "Positive Difference:"<< (l_nPosCalibrationDegree-l_nPosActualDegree)<<(l_nCalibPosVoltage - l_nPosPeakVoltage);
+	qDebug()<<"Neg Reference Degree:" << l_nNegCalibrationDegree << "Neg Actual Degree:" << l_nNegActualDegree << "Negative Difference:"<< (l_nNegCalibrationDegree-l_nNegActualDegree)<<(l_nCalibNegVoltage - l_nNegPeakVoltage);
+
+	return (l_nPosCalibrationDegree-l_nPosActualDegree);
 }
 
 short int MainWindow::selectImpedanceIndex(double pValue) {
 	unsigned int l_nImpedanceArray[16] = {10,20,50,100,200,500,1000,2000,5000,10000,20000,50000,100000,200000,500000,1000000};
     for(int l_nIndex=0;l_nIndex <16; l_nIndex++) {
-    	unsigned int l_nR1 = l_nImpedanceArray[l_nIndex];
-    	double l_nPercentage = pValue - l_nImpedanceArray[l_nIndex];
-    	qDebug()<< "Percentage:" << l_nPercentage;
-//    	if(l_nPercentage < 100) {
-//    		qDebug() << "Selected Impedance:" << l_nImpedanceArray[l_nIndex] << l_nIndex;
-//    		return l_nIndex;
-//    	}
-    	if(l_nR1 >= pValue) {
-//    		if((l_nR1 + l_nImpedanceArray[l_nIndex+1])/2 <= pValue && l_nIndex > 0)
-//    			return l_nIndex-1;
-    		qDebug() << "Selected Impedance:" << l_nImpedanceArray[l_nIndex] << l_nIndex-1;
-    		return l_nIndex;
+    	double l_nR1 = l_nImpedanceArray[l_nIndex];
+    	double l_nBoundaryRX1 = l_nImpedanceArray[l_nIndex+1];
+    	if( pValue >= l_nR1 && pValue <=l_nBoundaryRX1 ) {
+    		double l_nBoundaryX2 = (l_nR1 + l_nBoundaryRX1 ) / 2.0;
+    		//qDebug() << "Selected Impedance:" << l_nImpedanceArray[l_nIndex] << l_nIndex << l_nBoundaryX2;
+    		if(pValue >= l_nBoundaryX2)
+    			return l_nIndex+1;
+    		else
+    			return l_nIndex;
     	}
     }
+    return -1;
 }
 
 bool MainWindow::checkforOC()
@@ -2770,16 +2917,16 @@ bool MainWindow::checkforOC()
 	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
 	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
 
-	qDebug() << "Calibration............";
+	//qDebug() << "Calibration............";
 	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
 			m_objVISubject->getVoltageValue(), l_objCalibData);
 	double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 	double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 
-	qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
-	qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
+	//qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
+	//qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
 
-	qDebug() << "Received............";
+	//qDebug() << "Received............";
 	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
 			m_objVISubject->getVoltageValue(), l_objCalibData);
 	//double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* l_nCalibPosVoltage)/REFERENCE_THRESHOLD;
@@ -2787,8 +2934,8 @@ bool MainWindow::checkforOC()
 	double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 	double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 
-	qDebug() << "Positive Peak" << l_nPosPeakVoltage<< m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();;
-	qDebug() << "Negative Peak" << l_nNegPeakVoltage;
+	//qDebug() << "Positive Peak" << l_nPosPeakVoltage<< m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();;
+	//qDebug() << "Negative Peak" << l_nNegPeakVoltage;
 
 	l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
 			objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
@@ -2829,7 +2976,7 @@ bool MainWindow::checkforSC()
 	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
 	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
 
-	qDebug() << "Calibration............";
+	//qDebug() << "Calibration............";
 	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
 			m_objVISubject->getVoltageValue(), l_objCalibData);
 	double l_nCalibPosVoltage = m_objVISubject->getPosPeak();
@@ -2837,7 +2984,7 @@ bool MainWindow::checkforSC()
 	qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
 	qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
 
-	qDebug() << "Received............";
+	//qDebug() << "Received............";
 	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
 			m_objVISubject->getVoltageValue(), l_objCalibData);
 	double l_nPosPeakVoltage = m_objVISubject->getPosPeak();
@@ -2845,8 +2992,8 @@ bool MainWindow::checkforSC()
 	l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
 			objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
 			objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
-	qDebug() << "Positive Peak" << l_nPosPeakVoltage<< m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();;
-	qDebug() << "Negative Peak" << l_nNegPeakVoltage;
+	//qDebug() << "Positive Peak" << l_nPosPeakVoltage<< m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();;
+	//qDebug() << "Negative Peak" << l_nNegPeakVoltage;
 
 	qDebug() << "Actual Comaprison:" << (l_nPosPeakVoltage < l_nCalibPosVoltage * l_nPeakDetection)
 				<< (l_nNegPeakVoltage < l_nCalibNegVoltage * l_nPeakDetection)
@@ -2861,887 +3008,6 @@ bool MainWindow::checkforSC()
 			return true;
 	}
 	return false;
-}
-
-bool MainWindow::confirmDiodes()
-{
-	qDebug()<< "Confirming Diode / Zener";
-	m_nAutoCount=0;
-	m_objVISubject->clearPatterns();
-	// Drive Parameters
-	// 13 V, 100K, 2Khz
-	m_objVISubject->setIndexTemplate(0,3);// 13V
-	m_objVISubject->setIndexTemplate(1,3);// 2KHz
-	m_objVISubject->setIndexTemplate(2,0);// 10E
-	m_objFunctionalObject->driveVI();
-	m_objFunctionalObject->peformDrive();
-	m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
-	CALIB *l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
-	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
-	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
-	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
-			m_objVISubject->getVoltageValue(), l_objCalibData);
-	double l_nCalibVoltage[100],l_nActualVoltage[100];
-	for(int l_nlstIndex=0;l_nlstIndex<100;l_nlstIndex++)
-	{
-		double l_nVoltageValue = (m_objVISubject->getADCReceVoltage(l_nlstIndex) * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		l_nCalibVoltage[l_nlstIndex] = l_nVoltageValue;
-		QApplication::processEvents();
-	}
-
-	//	m_nUpperBandPercentage = (m_objVISubject->getPosPeakValue() - MID_RANGE) * 0.30;
-	//	m_nLowerBandPercentage = (m_objVISubject->getPosPeakValue() - MID_RANGE) * 0.20;
-	double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	//	qDebug()<<"Calib Voltages"<<l_nCalibPosVoltage<<l_nCalibNegVoltage;
-	double l_nCalib5PosPercent = l_nCalibPosVoltage * 0.1;
-	double l_nCalib5NegPercent = l_nCalibNegVoltage * 0.1;
-	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
-			m_objVISubject->getVoltageValue(), l_objCalibData);
-	//	qDebug()<<"--X1"<<(m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD<<(m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	short int l_nPosDifferenceCount =0,l_nNegDifferenceCount=0;
-	//	qDebug()<<"Pos %:"<<l_nCalib5PosPercent<<"Neg %:"<<l_nCalib5NegPercent;
-	//qDebug()<<"Fail Index:"<<VIProduct->getCompareWaveIndex();
-	//qDebug()<<"Fail Voltage:"<<(m_objVISubject->getADCReceVoltage(VIProduct->getCompareWaveIndex()) * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	bool l_bFlevel=false,l_bRlevel=false;
-	for(int l_nlstIndex=0;l_nlstIndex<100;l_nlstIndex++)
-	{
-		double l_nVoltageValue = (m_objVISubject->getADCReceVoltage(l_nlstIndex) * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		l_nActualVoltage[l_nlstIndex] = l_nVoltageValue;
-		double l_nDifferenceVoltage =l_nCalibVoltage[l_nlstIndex] - l_nActualVoltage[l_nlstIndex];
-		//qDebug()<<"Diff Voltage:"<<l_nDifferenceVoltage<<"Calib Voltage:"<<l_nCalibVoltage[l_nlstIndex]<<"Actual Voltage:"<<l_nVoltageValue;
-
-		if(l_nDifferenceVoltage < l_nCalib5PosPercent && l_nDifferenceVoltage > l_nCalib5NegPercent)
-		{
-
-			//			if(l_nDifferenceVoltage < 0.8  && l_nDifferenceVoltage > -0.8)
-			//			{
-			//				qDebug()<<"FDiff Voltage:"<<l_nDifferenceVoltage<<"Calib Voltage:"<<l_nCalibVoltage[l_nlstIndex]<<"Actual Voltage:"<<l_nVoltageValue;
-			//			}
-			//			else if(l_nDifferenceVoltage > -0.8)
-			//			{
-			//				qDebug()<<"RDiff Voltage:"<<l_nDifferenceVoltage<<"Calib Voltage:"<<l_nCalibVoltage[l_nlstIndex]<<"Actual Voltage:"<<l_nVoltageValue;
-			//			}
-			//			qDebug()<<"Voltage:"<<l_nVoltageValue;
-			//			qDebug()<<"Diff Voltage:"<<l_nDifferenceVoltage;
-		}
-		if( l_nDifferenceVoltage >=0.4 && l_nDifferenceVoltage <0.9)
-		{
-			//	qDebug()<<"Pos Difference Voltage:"<<l_nDifferenceVoltage<<l_nlstIndex;
-			//l_nzeroLevel=true;
-			l_bFlevel=true;
-		}
-		else if(l_nDifferenceVoltage >1)
-		{
-			l_nPosDifferenceCount++;
-		}
-		else if(l_nDifferenceVoltage >=-0.9 && l_nDifferenceVoltage<-0.4)
-		{
-			//	qDebug()<<"Negative Difference Voltage:"<<l_nDifferenceVoltage<<l_nlstIndex;
-			l_bRlevel=true;
-			//l_nzeroLevel=true;
-		}
-		else if(l_nDifferenceVoltage <-1)
-		{
-			l_nNegDifferenceCount++;
-		}
-		QApplication::processEvents();
-	}
-	//	qDebug()<<"Positive Difference Count:"<<l_nPosDifferenceCount;
-	//	qDebug()<<"Negative Difference Count:"<<l_nNegDifferenceCount;
-	if(l_nPosDifferenceCount-l_nNegDifferenceCount == 0)
-		return false;
-	// double l_nPosPeakVoltage = (m_objVISubject->getPosPeak() *l_nCalibPosVoltage)/REFERENCE_THRESHOLD;
-	//double l_nNetPeakVoltage = -(m_objVISubject->getNegPeak() * l_nCalibNegVoltage)/REFERENCE_THRESHOLD;
-	//    qDebug() << "Voltages:"<<l_nPosPeakVoltage<<l_nNetPeakVoltage<<m_objVISubject->getPosPeak()<<m_objVISubject->getNegPeak();
-	//    qDebug()<<"Difference:"<<abs(l_nPosDifferenceCount-l_nNegDifferenceCount);
-	if(l_bFlevel == true)
-	{
-		checkforZeDiode();
-		return true;
-	}
-	else if(l_bRlevel == true)
-	{
-		checkforZeDiode();
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-	/*if(l_nPosPeakVoltage < 0.8 )
-	{
-		if(abs(l_nPosDifferenceCount-l_nNegDifferenceCount)>5)
-		{
-			checkforZeDiode();
-			return true;
-		}
-		else if(abs(50-l_nPosDifferenceCount)>0 && abs(50-l_nPosDifferenceCount)<5)
-		{
-			return false;
-		}
-
-	}
-	else if(l_nNetPeakVoltage > -0.8)
-	{
-		if(abs(l_nPosDifferenceCount-l_nNegDifferenceCount)>5)
-		{
-			checkforZeDiode();
-			return true;
-		}
-		else if(abs(50-l_nNegDifferenceCount)>0 && abs(50-l_nNegDifferenceCount)<5)
-		{
-			return false;
-		}
-	}
-	else
-	{
-		return false;
-	}*/
-}
-
-bool MainWindow::checkforZeDiode()
-{
-	m_nAutoFitPatternCount=0;
-	//	qDebug() << "Confirming the Zener / Diode Area.......................";
-	m_objVISubject->setIndexTemplate(0,0);// 0.2 V
-	m_objVISubject->setIndexTemplate(1,1);// 10 Hz
-	m_objVISubject->setIndexTemplate(2,0);// 10 E
-	m_objFunctionalObject->driveVI();
-	m_objFunctionalObject->peformDrive();
-	m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
-
-	CALIB *l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
-	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
-	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
-
-	//qDebug() << "Gain Factor:" << m_objVIModel->getVoltageValue() / 0.6;
-	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
-			m_objVISubject->getVoltageValue(), l_objCalibData);
-	double l_nPosPeakVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	double l_nNetPeakVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	//	qDebug() << "checkforZeDiode Voltages:"<<l_nPosPeakVoltage<<l_nNetPeakVoltage;
-	//	qDebug()<<"Cond1:"<<(l_nPosPeakVoltage > 0.03 );
-	//	qDebug()<<"Cond2:"<<(l_nNetPeakVoltage < -0.03 );
-	if(l_nPosPeakVoltage > 0.03 && l_nNetPeakVoltage <-0.03)
-	{
-		//		qDebug()<<"Diode found take trace..";
-		m_objVISubject->setIndexTemplate(0,3);// 13V
-		m_objVISubject->setIndexTemplate(1,0);// 2KHz
-		m_objVISubject->setIndexTemplate(2,0);// 10E
-		m_objFunctionalObject->driveVI();
-		m_objFunctionalObject->peformDrive();
-		m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
-		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
-				m_objVISubject->getVoltageValue(), l_objCalibData);
-		l_nPosPeakVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		l_nNetPeakVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-		//		qDebug() << "Diode Voltages:"<<l_nPosPeakVoltage<<l_nNetPeakVoltage;
-		QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
-				objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
-				objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
-
-		QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
-		m_objFunctionalObject->renameFile(l_strTestFileName);
-		m_objVISubject->setComponent(m_nAutoFitPatternCount,2);
-		m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount++, l_strFileName,
-				m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
-		m_objVISubject->setDiodeFlag(true);
-		//if(l_nPosPeakVoltage >=0.8 && l_nNetPeakVoltage <=-0.8)
-		return true;
-	}
-}
-
-bool MainWindow::binaryCapacitanceSearch(short int pVoltIndex )
-{
-	// Drive 3 Ranges
-	//			qDebug()<<"Capacitance & Inductance ...";
-	m_nInductanceCount=m_nCapacitanceCount=0;
-	m_bIsResistance= false;
-	//m_nAutoFitPatternCount=0;
-	m_nAutoCount=0;
-	short int l_nSelectionIndex[3];
-	short int l_nImpedanceIndex=6;
-	m_nVoltArray[0]=m_nVoltArray[1]=m_nVoltArray[2]=0.0;
-	m_nCalibVoltArray[0]=m_nCalibVoltArray[1]=m_nCalibVoltArray[2]=0.0;
-	//Initialise selection array
-	l_nSelectionIndex[2]=12;
-	l_nSelectionIndex[1]=6;
-	l_nSelectionIndex[0]=0;
-	m_bDivideLower=true;
-	unsigned int l_nIndexCount=0;
-	//m_objFunctionalObject->DISABLEINT();
-	while((m_bDivideLower== false && m_bDivideUpper== false)==false)
-	{
-		//			qDebug()<<"S0:"<<l_nSelectionIndex[0]<<"S1:"<<l_nSelectionIndex[1]<<"S2:"<<l_nSelectionIndex[2];
-		for(int l_nIndex=2;l_nIndex>=0;l_nIndex--)
-		{
-			driveCapacitance(pVoltIndex,l_nSelectionIndex[l_nIndex],l_nImpedanceIndex);
-			calcuateFitnessFunction(l_nIndex);
-			if(m_nAutoCount>0)
-				break;
-			QApplication::processEvents();
-		}
-		if(m_nAutoCount>0)
-			break;
-		// check for Lesser Voltages//
-		short int l_nVoltIndex=isGreater();
-		//qDebug()<<"VoltIndex:"<<l_nVoltIndex;
-		if(l_nVoltIndex==2 )
-		{
-			l_nSelectionIndex[2] = l_nSelectionIndex[l_nVoltIndex]-1;
-			l_nSelectionIndex[0] = l_nSelectionIndex[1]+1;
-			l_nSelectionIndex[1] = l_nSelectionIndex[1]+(((l_nSelectionIndex[2]+1) - l_nSelectionIndex[1])/2);
-		}
-		else if(l_nVoltIndex==1)
-		{
-			l_nSelectionIndex[2] = l_nSelectionIndex[l_nVoltIndex]-1;
-			l_nSelectionIndex[0]= l_nSelectionIndex[0]+1;
-			l_nSelectionIndex[1] = ((l_nSelectionIndex[2]+1 + l_nSelectionIndex[0])/2);
-		}
-		else if(l_nVoltIndex==-2)
-		{
-			break;
-		}
-		else if(l_nVoltIndex == -1)
-		{
-			break;
-		}
-		//			qDebug()<<"A0:"<<l_nSelectionIndex[0]<<"A1:"<<l_nSelectionIndex[1]<<"A2:"<<l_nSelectionIndex[2];
-		if(((l_nSelectionIndex[0]+l_nSelectionIndex[1]+l_nSelectionIndex[2])/3)==l_nSelectionIndex[0])
-		{
-			//qDebug()<<"Indices equal";
-			driveCapacitance(pVoltIndex,l_nSelectionIndex[0],l_nImpedanceIndex);
-			calcuateFitnessFunction(0);
-			break;
-		}
-		if(l_nSelectionIndex[0]<0||l_nSelectionIndex[1]<0||l_nSelectionIndex[2]<0 )
-		{
-			break;
-		}
-		l_nIndexCount++;
-		if(l_nIndexCount == MAXCOUNT)
-			break;
-	}
-	if(m_nAutoCount >0)
-		return true;
-	m_bDivideLower=true;
-	int l_nFreqIndex=0;
-	l_nIndexCount=0;
-	short int l_nGreaterIndex = checkGreaterVoltages();
-	//		qDebug()<<"---------------Second Loop---------------------.";
-
-	//	driveCapacitance(pVoltIndex,12,6);
-	//	calcuateFitnessFunction(pVoltIndex);
-	//	qDebug()<<"ZeroDegree:"<<m_objVISubject->getActualZeroDegree();
-	bool isCapFlag=false;
-	if(l_nGreaterIndex==2)
-	{
-		qDebug()<<"Inductance";
-		l_nFreqIndex=11;
-	}
-	else if (l_nGreaterIndex == 0)
-	{
-		l_nFreqIndex=0;
-		isCapFlag=true;
-		qDebug()<<"Capacitance";
-	}
-	int l_nLoopIndex=0;
-	while(l_nLoopIndex<3)
-	{
-		l_nSelectionIndex[2]=7;
-		l_nSelectionIndex[1]=3;
-		l_nSelectionIndex[0]=0;
-		m_bDivideLower=true;
-		unsigned short l_nLIndex=0;
-		while((m_bDivideLower== false && m_bDivideUpper== false)==false)
-		{
-			for(int l_nIndex=2;l_nIndex>=0;l_nIndex--)
-			{
-				driveCapacitance(pVoltIndex,l_nFreqIndex,l_nSelectionIndex[l_nIndex]);
-				calcuateFitnessFunction(l_nIndex);
-				if(m_nAutoCount>0)
-					break;
-				QApplication::processEvents();
-			}
-			if(m_nAutoCount>0)
-				break;
-			// check for Lesser Voltages//
-			short int l_nVoltIndex=isGreater();
-			//qDebug()<<"Voltage Index:"<<l_nVoltIndex;
-			if(l_nVoltIndex==2 )
-			{
-				l_nSelectionIndex[2] = l_nSelectionIndex[l_nVoltIndex]-1;
-				l_nSelectionIndex[0] = l_nSelectionIndex[1]+1;
-				l_nSelectionIndex[1] = l_nSelectionIndex[1]+(((l_nSelectionIndex[2]+1) - l_nSelectionIndex[1])/2);
-			}
-			else if(l_nVoltIndex==1)
-			{
-				l_nSelectionIndex[2] = l_nSelectionIndex[l_nVoltIndex]-1;
-				l_nSelectionIndex[0]= l_nSelectionIndex[0]+1;
-				l_nSelectionIndex[1] = ((l_nSelectionIndex[2] + l_nSelectionIndex[0])/2);
-			}
-			else if(l_nVoltIndex==-2)
-			{
-				break;
-			}
-			qDebug()<<"0:"<<l_nSelectionIndex[0]<<"1:"<<l_nSelectionIndex[1]<<"2:"<<l_nSelectionIndex[2];
-			if(((l_nSelectionIndex[0]+l_nSelectionIndex[1]+l_nSelectionIndex[2])/3)==l_nSelectionIndex[0])
-			{
-				qDebug()<<"Indices equal";
-				driveCapacitance(pVoltIndex,l_nSelectionIndex[0],l_nImpedanceIndex);
-				calcuateFitnessFunction(0);
-				//break;
-			}
-			if(l_nSelectionIndex[0]<0||l_nSelectionIndex[1]<0||l_nSelectionIndex[2]<0)
-			{
-				break;
-			}
-			if(l_nLIndex<2)
-				l_nLIndex++;
-			else
-				break;
-		}
-		l_nLoopIndex++;
-		if(m_nAutoCount>0)
-			break;
-		if(isCapFlag == true)
-			l_nFreqIndex++;
-		else
-			l_nFreqIndex--;
-	}
-	if(m_nAutoCount>0)
-		return true;
-}
-void MainWindow::calcuateFitnessFunction(short int pIndex)
-{
-	double l_nActPeakVoltage=0.0,l_nCalibPeakVoltage=0.0;
-	bool isLowerBand=false;
-	CALIB *l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
-	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
-	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
-
-	m_objFunctionalObject->setFileBit(false);
-	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
-			m_objVISubject->getVoltageValue(), l_objCalibData);
-
-	l_nCalibPeakVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	m_nCalibVoltArray[pIndex] = l_nCalibPeakVoltage;
-	double l_nCalibrationDegree = (360*m_objVISubject->getPosPeakIndex())/100;
-	//qDebug()<<"Ref Positive Peak Voltage:"<<l_nCalibPeakVoltage;
-	m_objFunctionalObject->setFileBit(true);
-	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
-			m_objVISubject->getVoltageValue(), l_objCalibData);
-	l_nActPeakVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	m_nVoltArray[pIndex] =l_nActPeakVoltage;
-	double l_nActualDegree = (360*m_objVISubject->getPosPeakIndex())/100;
-
-	//qDebug()<<"Ref Positive Peak Voltage:"<<l_nCalibPeakVoltage<<"Act Positive Peak Voltage:"<<l_nActPeakVoltage;
-	//qDebug()<<"peak 50% :"<<(l_nCalibPeakVoltage*0.52)<<"peak 70%:"<<(l_nCalibPeakVoltage*0.80);
-	int l_nCheckDegree = l_nActualDegree-l_nCalibrationDegree;
-	m_nCheckDegree = l_nCheckDegree;
-	//qDebug()<<"Check Degree:"<<l_nCheckDegree;
-	//	if(l_nCheckDegree>0){
-	//		m_nCapacitanceCount++;
-	//		//qDebug()<<"Divide Lower"<<"Actual Degree:"<<l_nActualDegree<<"CalibDegree:"<<l_nCalibrationDegree;
-	//	//	qDebug()<<"+++++++++Capacitance++++++++++++"<<l_nCheckDegree;
-	//	}
-	//	else{
-	//		//qDebug()<<"Divide Lower"<<"Actual Degree:"<<l_nActualDegree<<"CalibDegree:"<<l_nCalibrationDegree;
-	//		m_nInductanceCount++;
-	//		//qDebug()<<"+++++++++Inductance+++++++++++++"<<l_nCheckDegree;
-	//	}
-	if(l_nActPeakVoltage>=(l_nCalibPeakVoltage*0.52) && l_nActPeakVoltage<(l_nCalibPeakVoltage*0.82))
-	{
-		qDebug()<<"Divide Lower"<<"Actual Degree:"<<l_nActualDegree<<"CalibDegree:"<<l_nCalibrationDegree;
-		int l_nCheckDegree = l_nActualDegree-l_nCalibrationDegree;
-		if(l_nCheckDegree>0){
-			qDebug()<<"+++++++++fit Capacitance++++++++++++"<<l_nCheckDegree;
-			m_nCapacitanceCount++;
-		}
-		else{
-			qDebug()<<"+++++++++fit Inductance+++++++++++++"<<l_nCheckDegree;
-			m_nInductanceCount++;
-		}
-		l_nCheckDegree = abs(l_nCheckDegree);
-		QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
-				objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
-				objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
-
-		if((l_nCheckDegree)>=38 && (l_nCheckDegree) <=62)
-		{
-			QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
-			m_objFunctionalObject->renameFile(l_strTestFileName);
-			if(isLowerBand==true)
-				m_nAutoFitPatternCount--;
-			if(m_bIsResistance == false)
-			{
-				m_objVISubject->setComponent(m_nAutoFitPatternCount,2);
-				m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount++, l_strFileName,
-						m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
-			}
-			m_bDivideLower=false;
-			m_bDivideUpper=false;
-			m_nAutoCount++;
-			m_bCaporInd=true;
-			if(m_nCapacitanceCount>0)
-			{
-				m_objVISubject->setCapacitorFlag(true);
-				m_objVISubject->setComponent(m_nAutoFitPatternCount-1,3);
-			}
-			if(m_nInductanceCount>0)
-			{
-				m_objVISubject->setComponent(m_nAutoFitPatternCount-1,4);
-				m_objVISubject->setInductorFlag(true);
-			}
-		}
-		else if((l_nCheckDegree)>=25 && (l_nCheckDegree) <38)
-		{
-			QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
-			m_objFunctionalObject->renameFile(l_strTestFileName);
-			if(m_bIsResistance == false)
-			{
-				m_objVISubject->setComponent(m_nAutoFitPatternCount,2);
-				m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount++, l_strFileName,
-						m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
-			}
-			m_bDivideLower=false;
-			m_bDivideUpper=false;
-			isLowerBand=true;
-			m_bCaporInd=true;
-			if(m_nCapacitanceCount>0)
-			{
-				m_objVISubject->setCapacitorFlag(true);
-				m_objVISubject->setComponent(m_nAutoFitPatternCount-1,3);
-			}		if(m_bDummyDrive <  5) {  m_bDummyDrive++; return; }
-			if(m_nInductanceCount>0)
-			{
-				m_objVISubject->setComponent(m_nAutoFitPatternCount-1,4);
-				m_objVISubject->setInductorFlag(true);
-			}
-			//m_nAutoCount++;
-		}
-	}
-	else if(l_nActPeakVoltage>(l_nCalibPeakVoltage*0.82))
-	{
-		m_bDivideLower=false;
-		m_bDivideUpper=true;
-	}
-	else if(l_nActPeakVoltage<(l_nCalibPeakVoltage*0.52))
-	{
-		m_bDivideLower=true;
-		m_bDivideUpper=false;
-	}
-	else if(l_nActPeakVoltage<(l_nCalibPeakVoltage*0.10))
-	{
-		m_nShortcount++;
-	}
-}
-
-void MainWindow::driveCapacitance(short int pVoltIndex,short int pFreqIndex,short int pImpedanceIndex)
-{
-	m_objVISubject->setIndexTemplate(0,pVoltIndex);
-	m_objVISubject->setIndexTemplate(1,pFreqIndex);
-	m_objVISubject->setIndexTemplate(2,pImpedanceIndex);
-	m_objFunctionalObject->driveVI();
-	m_objFunctionalObject->peformDrive();
-	m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
-}
-
-short int MainWindow::isGreater()
-{
-	qDebug()<<"Voltages:"<<m_nVoltArray[0]<<m_nVoltArray[1]<<m_nVoltArray[2];
-	double l_nZeroToOne = (m_nVoltArray[0]-m_nVoltArray[1]);
-	double l_nOneToTwo =  (m_nVoltArray[1]-m_nVoltArray[2]);
-	if(l_nZeroToOne <0) l_nZeroToOne = l_nZeroToOne * -1.0;
-	if(l_nOneToTwo <0) l_nOneToTwo = l_nOneToTwo * -1.0;
-	qDebug()<<"0 to 1:"<<l_nZeroToOne<<" 1 to 2 :"<<l_nOneToTwo<<"0.1:"<<m_nCalibVoltArray[0]*0.1;
-
-	//qDebug()<<"Occurances:"<<l_nOccurances<<"1%:"<<m_nCalibVoltArray[0]*0.1<<"5%:"<<m_nCalibVoltArray[0]*0.52;
-	/*if(l_nOccurances>0)
-	{
-		return -2;
-	}*/
-	if(m_nVoltArray[0]>m_nCalibVoltArray[0]*0.1 && m_nVoltArray[0]<m_nCalibVoltArray[0]*0.52)
-	{
-		if((m_nVoltArray[0] > m_nVoltArray[1]) &&(m_nVoltArray[0] > m_nVoltArray[2]))
-			return -2;
-	}
-	else if(m_nVoltArray[0]>0.1&&m_nVoltArray[0]<0.2)
-	{
-		return -2;
-	}
-	if( l_nZeroToOne > l_nOneToTwo)
-	{
-		return 1;
-	}
-	else if(l_nOneToTwo > l_nZeroToOne)
-	{
-		return 2;
-	}
-	else
-		return -1;
-
-
-}
-
-
-bool MainWindow::checkforResistanceSteps(short int pVoltIndex,short int pImpedanceIndex)
-{
-	qDebug()<<"------------------------Drive Resistance-------------:"<<pImpedanceIndex;
-	m_objVISubject->setIndexTemplate(0,pVoltIndex);// 13 V
-	m_objVISubject->setIndexTemplate(1,1);// 20Hz
-	m_objVISubject->setIndexTemplate(2,pImpedanceIndex);
-	m_objFunctionalObject->driveVI();
-	m_objFunctionalObject->peformDrive();
-	m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
-	CALIB *l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
-	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
-	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
-
-	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
-			m_objVISubject->getVoltageValue(), l_objCalibData);
-	double l_nPosCalibPeakVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
-			m_objVISubject->getVoltageValue(), l_objCalibData);
-	calcuateFitnessFunction(pVoltIndex);
-	qDebug()<<"Cap Count:"<<m_nCapacitanceCount<<"Ind Count:"<<m_nInductanceCount;
-	double l_nPosActualPeakVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-	double l_nVoltPercentage40 = l_nPosCalibPeakVoltage * (30.0/100.0);
-	qDebug() << "Positive Peak:"<<l_nPosActualPeakVoltage<<"Calib Peak Voltage:"<<l_nPosCalibPeakVoltage;
-	m_nShortDiff = (l_nPosCalibPeakVoltage-l_nPosActualPeakVoltage);
-	qDebug()<<"Difference %:"<<m_nShortDiff;
-	qDebug()<<"Degree:"<<m_nCheckDegree;
-	qDebug() << "30 Percent Voltage:"<<l_nVoltPercentage40;
-	double Vin=0.0,Vout=0.0;
-	Vout = l_nPosActualPeakVoltage;
-	Vin = l_nPosCalibPeakVoltage;
-	m_nCurveFitResistance = -((l_nPosActualPeakVoltage)*m_objVISubject->getImpedanceValue()/(l_nPosActualPeakVoltage - l_nPosCalibPeakVoltage));
-	m_nCurveFitResistance/=1000.0;
-	qDebug()<<"Rx Value:"<<m_nCurveFitResistance;
-	return (l_nPosActualPeakVoltage>l_nVoltPercentage40);
-}
-
-bool MainWindow::checkforResistance(short int pVoltIndex)
-{
-	//Q_UNUSED(pVoltIndex);
-	m_bIsResistance = true;
-	qDebug()<<".............................Check for Resistance.....................................";
-	double l_nTolerance=10;
-	short impedanceIndex=-1;
-	if(checkforResistanceSteps(pVoltIndex,12)) // Drive for 100 K Source Impedance
-	{
-		if(m_bCaporInd == true)
-		{
-			qDebug()<<"Degree:"<<m_nCheckDegree;
-			if(m_nShortDiff <  0.01 )
-				return false;
-			else if (m_nCheckDegree >15){
-				return false;
-			}
-
-		}
-		if(m_nCurveFitResistance<0 && m_nCurveFitResistance ==0) return false;
-		//qDebug()<< "Resistance is >= 100 K to <=1M"<<m_nCurveFitResistance;
-		if(m_nCurveFitResistance>=(100-l_nTolerance) && m_nCurveFitResistance<(200))
-		{
-			impedanceIndex = 12;
-		}
-		else if(m_nCurveFitResistance>=(200-l_nTolerance) && m_nCurveFitResistance<(500))
-		{
-			impedanceIndex = 13;
-		}
-		else if(m_nCurveFitResistance>=(500-l_nTolerance) && m_nCurveFitResistance<(700))
-		{
-			impedanceIndex = 14;
-		}
-		else if(m_nCurveFitResistance>=(700-l_nTolerance) && m_nCurveFitResistance<(1000))
-		{
-			impedanceIndex = 14;
-		}
-		else
-		{
-			impedanceIndex = -1;
-		}
-		takeResistanceTrace(impedanceIndex,12,pVoltIndex);
-	}
-	if(impedanceIndex == -1)
-	{
-
-		if(m_nCurveFitResistance<0 && m_nCurveFitResistance ==0) return false;
-		if(checkforResistanceSteps(pVoltIndex,11))// Drive for 50 K Source Impedance
-		{
-			if(m_bCaporInd == true)
-			{
-				if(m_nShortDiff <  0.01 )
-					return false;
-				else if (m_nCheckDegree >15){
-					return false;
-				}
-
-
-			}
-
-			//qDebug()<< "Resistance is >= 50 K to <=100K"<<m_nCurveFitResistance;
-			if(m_nCurveFitResistance>=(50.0) && m_nCurveFitResistance<(70.0))
-			{
-				impedanceIndex = 11;
-			}
-			else if(m_nCurveFitResistance>=(70.0) && m_nCurveFitResistance<(100.0))
-			{
-				impedanceIndex = 12;
-			}
-			else
-			{
-				impedanceIndex = -1;
-			}
-			takeResistanceTrace(impedanceIndex,12,pVoltIndex);
-		}
-		if(impedanceIndex ==-1)
-		{
-			if(checkforResistanceSteps(pVoltIndex,10))// Drive for 20 K Source Impedance
-			{
-				if(m_bCaporInd == true)
-				{
-					if(m_nShortDiff <  0.01)
-						return false;
-					else if (m_nCheckDegree >15){
-						return false;
-					}
-				}
-
-				if(m_nCurveFitResistance<0 && m_nCurveFitResistance ==0) return false;
-
-				//	qDebug()<< "Resistance is >= 20 K to <=50K"<<(m_nCurveFitResistance>=20 && m_nCurveFitResistance <30.0);
-				if(m_nCurveFitResistance>=20.0 && m_nCurveFitResistance<40.0)
-				{
-					impedanceIndex = 10;
-				}
-				else if(m_nCurveFitResistance>=40.0 && m_nCurveFitResistance<50.0)
-				{
-					impedanceIndex = 11;
-				}
-				else
-				{
-					impedanceIndex = -1;
-				}
-				takeResistanceTrace(impedanceIndex,12,pVoltIndex);
-			}
-			if(impedanceIndex==-1)
-			{
-				if(checkforResistanceSteps(pVoltIndex,6))// Drive for 1 K Source Impedance
-				{
-					if(m_bCaporInd == true)
-					{
-						if(m_nShortDiff <  0.01)
-							return false;
-						else if (m_nCheckDegree >15){
-							return false;
-						}
-					}
-					if(m_nCurveFitResistance<0 && m_nCurveFitResistance ==0) return false;
-
-					//	qDebug()<< "Resistance is >= 1 K to <=20K"<<m_nCurveFitResistance;
-					if(m_nCurveFitResistance>=(1.0) && m_nCurveFitResistance<(2.0))
-					{
-						impedanceIndex = 6;
-					}
-					else if(m_nCurveFitResistance>=(2.0) && m_nCurveFitResistance<(4.5))
-					{
-						impedanceIndex = 7;
-					}
-					else if(m_nCurveFitResistance>=(4.5) && m_nCurveFitResistance<(10.0))
-					{
-						impedanceIndex = 8;
-					}
-					else if(m_nCurveFitResistance>=(10.0) && m_nCurveFitResistance<(20.0))
-					{
-						impedanceIndex = 9;
-					}
-					else
-					{
-						impedanceIndex = -1;
-					}
-					//qDebug()<<"Impedance Index:"<<impedanceIndex;
-					takeResistanceTrace(impedanceIndex,12,pVoltIndex);
-				}
-				if(impedanceIndex ==-1)
-				{
-					if(checkforResistanceSteps(pVoltIndex,5))// Drive for 500 Source Impedance
-					{
-						if(m_bCaporInd == true)
-						{
-							if(m_nShortDiff <  0.01 )
-								return false;
-							else if (m_nCheckDegree >15){
-								return false;
-							}
-
-
-						}
-						if(m_nCurveFitResistance<0 && m_nCurveFitResistance ==0) return false;
-						m_nCurveFitResistance = m_nCurveFitResistance *1000.0;
-						//qDebug()<< "Resistance is >=500E to <=1K"<<m_nCurveFitResistance;
-						if(m_nCurveFitResistance>=(500.0) && m_nCurveFitResistance<(700.0))
-						{
-							impedanceIndex = 5;
-						}
-						else if(m_nCurveFitResistance>=(700.0) && m_nCurveFitResistance<(1000.0))
-						{
-							impedanceIndex = 6;
-						}
-						else
-						{
-							impedanceIndex = -1;
-						}
-						takeResistanceTrace(impedanceIndex,12,pVoltIndex);
-					}
-					if(impedanceIndex==-1)
-					{
-						if(checkforResistanceSteps(pVoltIndex,3)) // 100 E
-						{
-							if(m_bCaporInd == true)
-							{
-								if(m_nShortDiff <  0.01 )
-									return false;
-								else if (m_nCheckDegree >15){
-									return false;
-								}
-							}
-
-							if(m_nCurveFitResistance<0 && m_nCurveFitResistance ==0) return false;
-							m_nCurveFitResistance = m_nCurveFitResistance *1000.0;
-							qDebug()<< "Resistance is >=50E to <=500EK"<<m_nCurveFitResistance;
-							if(m_nCurveFitResistance>=(50.0) && m_nCurveFitResistance<(70.0))
-							{
-								impedanceIndex = 2;
-							}
-							else if(m_nCurveFitResistance>=(70.0) && m_nCurveFitResistance<(200.0))
-							{
-								impedanceIndex = 3;
-							}
-							else if(m_nCurveFitResistance>=(200.0) && m_nCurveFitResistance<(400.0))
-							{
-								impedanceIndex = 4;
-							}
-							else if(m_nCurveFitResistance>=(400.0) && m_nCurveFitResistance<(500.0))
-							{
-								impedanceIndex = 5;
-							}
-
-							else
-							{
-								impedanceIndex = -1;
-							}
-							takeResistanceTrace(impedanceIndex,12,pVoltIndex);
-						}
-						if(impedanceIndex == -1)
-						{
-							if(checkforResistanceSteps(pVoltIndex,1)) // 20 E
-							{
-								if(m_bCaporInd == true)
-								{
-									if(m_nShortDiff <  0.01 )
-										return false;
-									else if (m_nCheckDegree >15){
-										return false;
-									}
-
-									impedanceIndex = -1;
-
-								}
-
-								if(m_nCurveFitResistance<0 && m_nCurveFitResistance ==0) return false;
-								m_nCurveFitResistance = m_nCurveFitResistance *1000.0;
-								qDebug()<< "Resistance is >=10E to <=50E"<<m_nCurveFitResistance;
-								if(m_nCurveFitResistance>=(9.0) && m_nCurveFitResistance<(20.0))
-								{
-									impedanceIndex = 0;
-								}
-								else if(m_nCurveFitResistance>=(20.0) && m_nCurveFitResistance<(40.0))
-								{
-									impedanceIndex = 1;
-								}
-								else if(m_nCurveFitResistance>=(40.0) && m_nCurveFitResistance<(50.0))
-								{
-									impedanceIndex = 2;
-								}
-								else
-								{
-									impedanceIndex = -1;
-								}
-								takeResistanceTrace(impedanceIndex,12,pVoltIndex);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	return true;
-}
-
-bool MainWindow::takeResistanceTrace(short pStImpedance,short pEndImpedance,short pVolt)
-{
-	Q_UNUSED(pEndImpedance);
-	if(pStImpedance==-1) return false;
-	qDebug()<<"ImpedanceIndex:"<<pStImpedance;
-	m_objVISubject->setIndexTemplate(0,pVolt);
-	m_objVISubject->setIndexTemplate(1,1);
-	m_objVISubject->setIndexTemplate(2,pStImpedance);
-	m_objFunctionalObject->driveVI();
-	m_objFunctionalObject->peformDrive();
-	m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
-	QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
-			objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
-			objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
-
-	QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
-	m_objFunctionalObject->renameFile(l_strTestFileName);
-	m_objVISubject->setComponent(m_nAutoFitPatternCount,1);
-	m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount++, l_strFileName,
-			m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
-	m_objVISubject->setResitorFlag(true);
-	//updateInteractive();
-	return true;
-
-
-	//
-	//	m_objFunctionalObject->peformDrive();
-	//	m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
-	//	CALIB *l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
-	//	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
-	//	m_objVISubject->getVoltageValue(), l_objCalibData);
-	//    double l_nPosPeakVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/0.6;
-	//    double l_nVoltPercentage30 = m_objVISubject->getVoltageValue() * (30.0/100.0);
-	//    qDebug()<< "Peak Voltage:"<<l_nPosPeakVoltage;
-	//    if(l_nPosPeakVoltage > l_nVoltPercentage30)
-	//    {
-	//    	return true;
-	//    }
-	//    else
-	//    {
-	//    	return false;
-	//    }
-
-}
-short int MainWindow::checkGreaterVoltages()
-{
-	if(m_nVoltArray[0]>0&&m_nVoltArray[1]>0&&m_nVoltArray[2]>0)
-		if(m_nVoltArray[0]> m_nVoltArray[1] && m_nVoltArray[0] > m_nVoltArray[2])
-		{
-			return 0;
-		}
-		else if(m_nVoltArray[1]>m_nVoltArray[2])
-		{
-			return 1;
-		}
-		else
-		{
-			return 2;
-		}
-	else
-		return 0;
 }
 
 void MainWindow::on_xAxisBox_valueChanged(double )
@@ -3793,7 +3059,6 @@ void MainWindow::on_butZoom_clicked()
         animation1->start();
     	VIProduct->setZoomFlag(false,1.0,1.0);
     }
-
 
 /*    if(VIProduct->geometry().width()==324){
         VIProduct->setDimensions(17, 40, 680, 545);

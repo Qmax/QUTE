@@ -225,7 +225,8 @@ double HY3131DMMLib::Measure2(int8_t index){
 		if(minus==true)
 			minus=false;
 		RMSData=readRMS();
-		if(reg4>0)
+
+		if(reg4>0 && index!=AC500uA && index!=AC5mA && index!=AC50mA && index!=AC500mA && index!=AC3A)
 			return 999999999;
 		else
 			RawData = (double)RMSData;

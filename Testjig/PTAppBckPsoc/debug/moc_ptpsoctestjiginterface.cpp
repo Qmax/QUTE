@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'ptpsoctestjiginterface.h'
 **
-** Created: Sat Nov 1 10:47:50 2014
+** Created: Sat Nov 15 18:50:25 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_PTPSoCTestJigInterface[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      30,   14, // methods
+      32,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -46,21 +46,23 @@ static const uint qt_meta_data_PTPSoCTestJigInterface[] = {
      347,   23,   23,   23, 0x08,
      373,   23,   23,   23, 0x08,
      398,   23,   23,   23, 0x08,
-     411,   23,   23,   23, 0x08,
-     425,   23,   23,   23, 0x08,
-     439,   23,   23,   23, 0x08,
-     458,   23,   23,   23, 0x08,
-     472,   23,   23,   23, 0x08,
-     486,   23,   23,   23, 0x08,
-     500,   23,   23,   23, 0x08,
-     514,   23,   23,   23, 0x08,
-     528,   23,   23,   23, 0x08,
-     542,   23,   23,   23, 0x08,
-     557,   23,   23,   23, 0x08,
-     579,   23,   23,   23, 0x08,
-     595,   23,   23,   23, 0x08,
-     614,   23,   23,   23, 0x08,
-     635,   23,   23,   23, 0x08,
+     423,   23,   23,   23, 0x08,
+     450,   23,   23,   23, 0x08,
+     463,   23,   23,   23, 0x08,
+     477,   23,   23,   23, 0x08,
+     491,   23,   23,   23, 0x08,
+     510,   23,   23,   23, 0x08,
+     524,   23,   23,   23, 0x08,
+     538,   23,   23,   23, 0x08,
+     552,   23,   23,   23, 0x08,
+     566,   23,   23,   23, 0x08,
+     580,   23,   23,   23, 0x08,
+     594,   23,   23,   23, 0x08,
+     609,   23,   23,   23, 0x08,
+     631,   23,   23,   23, 0x08,
+     647,   23,   23,   23, 0x08,
+     666,   23,   23,   23, 0x08,
+     687,   23,   23,   23, 0x08,
 
        0        // eod
 };
@@ -78,7 +80,9 @@ static const char qt_meta_stringdata_PTPSoCTestJigInterface[] = {
     "on_pushButton_2_clicked()\0"
     "on_pushButton_clicked()\0"
     "on_pushButton_5_clicked()\0"
-    "on_butSeqWrite_clicked()\0ReadRelays()\0"
+    "on_butSeqWrite_clicked()\0"
+    "on_butSampling_clicked()\0"
+    "on_butSamplingRD_clicked()\0ReadRelays()\0"
     "ResetRelays()\0SendCommand()\0"
     "callCommandInput()\0callAppAddr()\0"
     "callAppData()\0callBckAddr()\0callBckData()\0"
@@ -131,25 +135,27 @@ int PTPSoCTestJigInterface::qt_metacall(QMetaObject::Call _c, int _id, void **_a
         case 11: on_pushButton_clicked(); break;
         case 12: on_pushButton_5_clicked(); break;
         case 13: on_butSeqWrite_clicked(); break;
-        case 14: ReadRelays(); break;
-        case 15: ResetRelays(); break;
-        case 16: SendCommand(); break;
-        case 17: callCommandInput(); break;
-        case 18: callAppAddr(); break;
-        case 19: callAppData(); break;
-        case 20: callBckAddr(); break;
-        case 21: callBckData(); break;
-        case 22: callGenData(); break;
-        case 23: callGenAddr(); break;
-        case 24: callBaseAddr(); break;
-        case 25: CommandSelection((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 26: psocError((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 27: receiveValue((*reinterpret_cast< uint(*)>(_a[1]))); break;
-        case 28: receiveValue((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 29: receiveValue((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 14: on_butSampling_clicked(); break;
+        case 15: on_butSamplingRD_clicked(); break;
+        case 16: ReadRelays(); break;
+        case 17: ResetRelays(); break;
+        case 18: SendCommand(); break;
+        case 19: callCommandInput(); break;
+        case 20: callAppAddr(); break;
+        case 21: callAppData(); break;
+        case 22: callBckAddr(); break;
+        case 23: callBckData(); break;
+        case 24: callGenData(); break;
+        case 25: callGenAddr(); break;
+        case 26: callBaseAddr(); break;
+        case 27: CommandSelection((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 28: psocError((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 29: receiveValue((*reinterpret_cast< uint(*)>(_a[1]))); break;
+        case 30: receiveValue((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 31: receiveValue((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 30;
+        _id -= 32;
     }
     return _id;
 }

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Sat Nov 1 14:37:01 2014
+** Created: Sat Nov 15 15:54:13 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      35,   14, // methods
+      36,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -66,6 +66,7 @@ static const uint qt_meta_data_MainWindow[] = {
      747,   11,   11,   11, 0x08,
      766,   11,   11,   11, 0x08,
      785,   11,   11,   11, 0x08,
+     811,   11,   11,   11, 0x08,
 
        0        // eod
 };
@@ -93,6 +94,7 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "on_butClip_clicked()\0on_startButton_clicked()\0"
     "on_butProClip_clicked()\0on_tblVI_clicked()\0"
     "on_tblVT_clicked()\0on_butViewTrace_clicked()\0"
+    "on_chkAC_clicked()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -161,9 +163,10 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 32: on_tblVI_clicked(); break;
         case 33: on_tblVT_clicked(); break;
         case 34: on_butViewTrace_clicked(); break;
+        case 35: on_chkAC_clicked(); break;
         default: ;
         }
-        _id -= 35;
+        _id -= 36;
     }
     return _id;
 }

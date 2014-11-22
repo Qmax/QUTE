@@ -70,6 +70,7 @@ public:
     // ---------- AutoCurve Fit Functions
     void doAutoCurveFitAlgorithm();
     void converttoVoltage(QStringList pActualData,double l_nGainFactor,CALIB *pObj);
+    void measurePhaseShift(QStringList pActualData,CALIB *pObj);
     bool compareCureValues(QStringList pActualData,short int pLowerBand,short int pHigherBand,QString pStrPatternName);
     QList<short int> calculateLCSlope(QStringList pYActualData);
 

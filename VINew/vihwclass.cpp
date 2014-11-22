@@ -406,7 +406,7 @@ void VIHWClass::switchVoltageRegister(unsigned int pIndex)
 	            }
 	            for(int i=0;i<5;i++){
 	                offsetValue[i]=stringList.value(i).toDouble(&ok);
-	                qDebug()<<"Range:"<<m_nVoltRangeArray[index]<<offsetValue[i];
+	                //qDebug()<<"Range:"<<m_nVoltRangeArray[index]<<offsetValue[i];
 	            }
 	    }
 	    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

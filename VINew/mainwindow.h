@@ -146,22 +146,14 @@ protected:
         void doAutoCurveFitAlgorithm();
         bool checkforOC();
         bool checkforSC();
-        bool confirmDiodes();
-        bool binaryCapacitanceSearch(short int);
-        bool checkforResistance(short int);
-        bool checkforZeDiode();
-        short int isGreater();
-        void driveCapacitance(short int pVoltIndex,short int pFreqIndex,short int pImpedanceIndex);
-        void calcuateFitnessFunction(short int pIndex);
-        bool takeResistanceTrace(short pStImpedance,short pEndImpedance,short pVolt);
-        bool checkforResistanceSteps(short int pVoltIndex,short int pImpedanceIndex);
-        short int checkGreaterVoltages();
-
         bool diodeDetection();
         bool resistanceDetection();
         short int selectImpedanceIndex(double);
         void driveACPattern(short int,short int,short int);
-
+        short int measurePhaseShift();
+        void measureVoltages(double *,double *,bool);
+        void measureCapactiance();
+        void measureInductance();
 
     // Variables
     int m_nPTKeyCode,m_nKeyCode,m_nWaveIndex,m_nStoreWaveIndex;
@@ -172,7 +164,7 @@ protected:
     bool m_bAutoCurveFit,msgBoxLive,m_startTimer,isChangeActive,isChangeActive1,m_isProbesOnly,isCompareActive,m_biSLearnFlag,m_bParamFlag,m_bClipLearn;
     bool m_ISCalibDone,m_bClipVerify,m_bPCMode,m_bStartApp;
     double m_nCurveFitResistance;
-    bool m_bCaporInd,m_bIsResistance;
+    bool m_bCapacitance,m_bInductance,m_bIsResistance;
     double m_nVoltArray[3],m_nCalibVoltArray[3];
     bool m_bDivideUpper,m_bDivideLower;
     unsigned short m_nPOSCalibRange,m_nNegCalibRange;
@@ -234,6 +226,7 @@ private slots:
     void on_tblVI_clicked();
     void on_tblVT_clicked();
     void on_butViewTrace_clicked();
+    void on_chkAC_clicked(); // For Autocurvefit testing purpose
 
 };
 

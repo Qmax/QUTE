@@ -86,9 +86,9 @@ public:
     bool m_bVILabels;
     bool m_bVIMode;
     bool m_bisSingleorContinuous;
-     bool m_bUniPolar;
-     bool m_nLoopDrive;
-     QString m_strX1Label,m_strY1Label,m_strX2Label,m_strY2Label;
+    bool m_bUniPolar;
+    bool m_nLoopDrive;
+    QString m_strX1Label,m_strY1Label,m_strX2Label,m_strY2Label;
     void setPlotData(stWaveData*);
     void clearCurveData();
     void clearBand(int);

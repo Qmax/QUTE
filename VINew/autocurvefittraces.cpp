@@ -113,7 +113,7 @@ void AutoCurveFitTraces::LoadVITraces()
     	QString l_strActualFileName = "AutoCurve"+QString::number(l_nLstIndex,16)+".bin";
     	QString l_strReferenceFileName = m_lstBestFitPatterns.value(l_nLstIndex).remove(".bin");
     	m_objFunctionalObject->ReadCalibrationFunctionFile(l_strReferenceFileName);
-    	qDebug() << "Auto Curve Fit FileName:" << l_strActualFileName<<l_strReferenceFileName;
+    	qDebug() << "Auto Curve Fit FileName:" << l_strActualFileName<<l_strReferenceFileName<<l_nImpedance;
     	bool ok=true;
     	QString l_strVoltageValue= l_strListValues[1].remove("V");
     	qDebug() << "AutoCurveFIt Voltage Value:" <<l_strVoltageValue.toDouble(&ok);
@@ -128,6 +128,7 @@ void AutoCurveFitTraces::LoadVITraces()
         	l_objVIWaveData->m_nCalibrationConstant=m_objFunctionalObject->getReceiveCalibrationConstant(m_obVImodel->getIndexTemplate(0));
         	l_objVIWaveData->m_nCalibrationGain=m_objFunctionalObject->getReceiveCalibrationGain(m_obVImodel->getIndexTemplate(0));
     		VIProduct[l_nLstIndex]->LoadVIData("./CalibrationReference.bin",l_strActualFileName,l_nColor,0,l_objVIWaveData);
+    		//VIProduct[l_nLstIndex]->setLabels(l_strVoltageValue,QString::number(l_nImpedance), "-"+l_strVoltageValue, "-"+ QString::number(l_nImpedance));
     	}
     	}
     }

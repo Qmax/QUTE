@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ptpsoctestjiginterface.ui'
 **
-** Created: Sat Nov 1 10:47:37 2014
+** Created: Sat Nov 15 18:46:33 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -158,6 +158,8 @@ public:
     QLineEdit *leGenBaseAddr;
     QLabel *label_50;
     QPushButton *butSeqWrite;
+    QPushButton *butSampling;
+    QPushButton *butSamplingRD;
 
     void setupUi(QWidget *PTPSoCTestJigInterfaceClass)
     {
@@ -1327,6 +1329,14 @@ public:
         butSeqWrite->setObjectName(QString::fromUtf8("butSeqWrite"));
         butSeqWrite->setGeometry(QRect(350, 65, 70, 40));
         butSeqWrite->setFont(font5);
+        butSampling = new QPushButton(groupBox_3);
+        butSampling->setObjectName(QString::fromUtf8("butSampling"));
+        butSampling->setGeometry(QRect(426, 65, 41, 40));
+        butSampling->setFont(font5);
+        butSamplingRD = new QPushButton(groupBox_3);
+        butSamplingRD->setObjectName(QString::fromUtf8("butSamplingRD"));
+        butSamplingRD->setGeometry(QRect(474, 65, 41, 40));
+        butSamplingRD->setFont(font5);
 
         retranslateUi(PTPSoCTestJigInterfaceClass);
 
@@ -1422,7 +1432,9 @@ public:
         pbGenRead->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "Read", 0, QApplication::UnicodeUTF8));
         label_49->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "Data :", 0, QApplication::UnicodeUTF8));
         label_50->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "Base Addr :", 0, QApplication::UnicodeUTF8));
-        butSeqWrite->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "Seq WR", 0, QApplication::UnicodeUTF8));
+        butSeqWrite->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "Pll CFG", 0, QApplication::UnicodeUTF8));
+        butSampling->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "WR", 0, QApplication::UnicodeUTF8));
+        butSamplingRD->setText(QApplication::translate("PTPSoCTestJigInterfaceClass", "RD", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

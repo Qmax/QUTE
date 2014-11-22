@@ -27,7 +27,7 @@ void AD5318Components::configureAD5318DACCW(AD5318_ctrlTemplate pDACAD5318CW)
     //objAppcard->setSPITXLSW(DACCRWORD,SPI1);
     DACCRWORD =0x8020;
     objAppcard->setSPITXLSW(DACCRWORD,SPI1);
-    qDebug()<<"DAC ControlWord:"<<hex<<DACCRWORD;
+   // qDebug()<<"DAC ControlWord:"<<hex<<DACCRWORD;
 
 
 }
@@ -44,7 +44,7 @@ void AD5318Components::configureAD5318DACData(AD5318_dataTemplate pDACAD5318Data
       DACDATAWORD|= pDACAD5318Data.m_eDACSelect;
       objAppcard->setSPITXLSW(DACDATAWORD,SPI1);
 
-      qDebug()<<"DAC DataWord:"<<hex<<DACDATAWORD;
+     // qDebug()<<"DAC DataWord:"<<hex<<DACDATAWORD;
 }
 
 void AD5318Components::resetDAC5318(bool bDCRReset)
@@ -53,7 +53,7 @@ void AD5318Components::resetDAC5318(bool bDCRReset)
   unsigned short l_nResetDACData = 0xE000;
   if(bDCRReset == true)
     l_nResetDACData |= 0x1000;
-  qDebug()<<"DAC Reset:"<<hex<<l_nResetDACData;
+ // qDebug()<<"DAC Reset:"<<hex<<l_nResetDACData;
  // cout<<"DAC Reset:"<<hex<<l_nResetDACData<<endl;
 
   objAppcard->setSPITXLSW(l_nResetDACData,SPI1);
@@ -94,7 +94,7 @@ void AD5318Components::configureADC5318Data(AD5318_dataTemplate pstDAC)
 {
     //configure DAC Data template
 //    AD5318_dataTemplate l_nAD5318DW;
-	qDebug() <<"Data:"<<pstDAC.m_nVout;
+	//qDebug() <<"Data:"<<pstDAC.m_nVout;
     configureAD5318DACData(pstDAC);
 
     // Write 0x0103 to Register 0x08[SPI1 CONFIG : SEL AD5318 | Auto CS Assertion | 16 Bit Md Start Drive]
@@ -114,7 +114,7 @@ unsigned short  AD5318Components::convertToDecimalValue(double pVout,double pVre
     	// l_nD = ((pVout/GAINVALUE) * pow(2,DACResoultion)) / pVref;
      else if( bUnipolar == true)
        l_nD = ((pVout/GAINVALUE) * pow(2,DACResoultion)) / pVref;
-     qDebug()<<"DAC Digital Value:"<<l_nD;
+     //qDebug()<<"DAC Digital Value:"<<l_nD;
 
      return l_nD;
 }

@@ -1198,6 +1198,25 @@ void VIFunctionalLogic::setFileBit(bool pValue)
 	m_bRefFile = pValue;
 }
 
+void VIFunctionalLogic::measurePhaseShift(QStringList pActualData,CALIB *pObj)
+{
+	double l_nADCReceVoltage=0.0,l_nVRef=0.5;
+	short int l_nTemp=0;
+	bool ok= true;
+
+	for(int l_nActualIndex=0;l_nActualIndex<pActualData.count();l_nActualIndex++)
+	{
+		l_nTemp= pActualData.value(l_nActualIndex).toShort(&ok,16);
+		l_nADCReceVoltage = (2*l_nTemp*l_nVRef) / 16383;
+		l_nADCReceVoltage = (l_nADCReceVoltage - l_nVRef);
+		//qDebug() << "ADC Voltage" << l_nADCReceVoltage;
+		if(l_nADCReceVoltage<0.025 && l_nADCReceVoltage >-0.025) {
+			double l_nDegree = (360*l_nActualIndex)/100;
+			qDebug() << "Index:" << l_nActualIndex << l_nADCReceVoltage<<l_nDegree;
+		}
+	}
+}
+
 void VIFunctionalLogic::converttoVoltage(QStringList pActualData,double l_nGainFactor,CALIB *pObj)
 {
 	//Q_UNUSED(pObj);
@@ -1239,7 +1258,7 @@ void VIFunctionalLogic::converttoVoltage(QStringList pActualData,double l_nGainF
 		}
 		//qDebug() <<"Pos Peak:" << VIData->m_objInteractiveData->m_nADCReceVoltage.value(l_nlstIndex);
 	}
-	qDebug()<<"Positive Peak Value:" << l_nPeakValue<< pActualData.value(l_nPeakIndex).toShort(&ok,16);
+	//qDebug()<<"Positive Peak Value:" << l_nPeakValue<< pActualData.value(l_nPeakIndex).toShort(&ok,16);
 	m_objVISubject->setPosPeakValue(pActualData.value(l_nPeakIndex).toShort(&ok,16));
 	m_objVISubject->setPosPeak(l_nPeakValue);
 	m_objVISubject->setPosPeakIndex(l_nPeakIndex);
@@ -1258,7 +1277,7 @@ void VIFunctionalLogic::converttoVoltage(QStringList pActualData,double l_nGainF
 	m_objVISubject->setNegPeakValue(pActualData.value(l_nNegPeakIndex).toShort(&ok,16));
 	m_objVISubject->setNegPeak(l_nPeakValue);
 	m_objVISubject->setNegPeakIndex(l_nPeakIndex);
-	qDebug()<<"Negative Peak Value:" << l_nPeakValue<<pActualData.value(l_nNegPeakIndex).toShort(&ok,16);
+	//qDebug()<<"Negative Peak Value:" << l_nPeakValue<<pActualData.value(l_nNegPeakIndex).toShort(&ok,16);
 }
 
 

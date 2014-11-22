@@ -859,7 +859,53 @@ void PTPSoCTestJigInterface::on_butSeqWrite_clicked()
 	IDSOCard->writeRegister(0x0107,0x28);
 	while(IDSOCard->readRegister(0x28) & 0x0001);
 
-	qDebug()<< "Sequence Write Finished";
+	qDebug()<< "PLL CFG Write Finished";
 
+}
+
+void PTPSoCTestJigInterface::on_butSampling_clicked()
+{
+	IDSOCard->writeRegister(0x0106,0x52);
+
+	IDSOCard->writeRegister(0x24DD,0x54);
+	IDSOCard->writeRegister(0x0001,0x50);
+	IDSOCard->writeRegister(0x0001,0x8C);
+	IDSOCard->writeRegister(0x0003,0x5A);
+	IDSOCard->writeRegister(0x0005,0x5E);
+	IDSOCard->writeRegister(0x000F,0x60); // Sample Count
+	IDSOCard->writeRegister(0x0004,0x62);
+	//IDSOCard->writeRegister(0x0001,0x56); // Issue drive CMD
+}
+
+void PTPSoCTestJigInterface::on_butSamplingRD_clicked()
+{
+	unsigned int l_nReadCount = 0xF,l_nTriggerPoint=0;
+
+	IDSOCard->writeRegister(0x0000,0x8C);
+	unsigned int l_nValue1 = IDSOCard->readRegister(0x82); // MSB
+	unsigned int l_nValue2 = IDSOCard->readRegister(0x84); // LSB
+	qDebug()<< "82" << hex <<l_nValue1;
+	qDebug()<< "84" << hex <<l_nValue2;
+	l_nTriggerPoint = (l_nValue1 << 16) | l_nValue2;
+	IDSOCard->writeRegister(l_nValue1 | 0x8000,0x86);
+	IDSOCard->writeRegister(l_nValue2,0x88);
+
+	l_nValue1 = IDSOCard->readRegister(0x7E); // MSB
+	qDebug()<< "7E" << hex <<l_nValue1;
+	qDebug()<< "80" << hex <<IDSOCard->readRegister(0x80);
+	l_nReadCount = (l_nValue1 << 16) | IDSOCard->readRegister(0x80);
+
+	qDebug()<< "Count:"<<hex<<l_nReadCount<<l_nTriggerPoint << l_nReadCount-l_nTriggerPoint;
+	QFile outFile("RamData.txt");
+	outFile.open(QIODevice::WriteOnly);
+	QTextStream ts(&outFile);
+
+		for(int l_nReadIndex=0;l_nReadIndex < (l_nReadCount-l_nTriggerPoint); l_nReadIndex++)
+		{
+			ts << hex << IDSOCard->readRegister(0x8A);
+			ts << endl;
+		}
+		outFile.close();
+		qDebug()<< "File Write Finished";
 }
 

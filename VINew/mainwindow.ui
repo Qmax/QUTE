@@ -6651,6 +6651,56 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
+     <widget class="QCheckBox" name="chkAC">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>30</y>
+        <width>61</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>-1</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QCheckBox{
+font:bold 18px;
+color:white;
+}
+QCheckBox::indicator {
+width: 20px;
+height:20px;
+border: 2px solid black;
+}
+QCheckBox::indicator::unchecked {
+background-color:white;
+}
+QCheckBox::indicator:unchecked:hover {
+background-color:white;
+}
+QCheckBox::indicator:unchecked:pressed {
+background-color:white;
+}
+QCheckBox::indicator::checked {
+background-color:#f2a400;
+}
+QCheckBox::indicator:checked:hover {
+background-color:#f2a400;
+}
+QCheckBox::indicator:checked:pressed {
+background-color:#f2a400;
+}</string>
+      </property>
+      <property name="text">
+       <string>AC</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QGroupBox" name="grpEmbedded">
      <property name="geometry">
