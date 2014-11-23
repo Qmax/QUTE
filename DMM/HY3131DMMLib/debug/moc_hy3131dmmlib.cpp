@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'hy3131dmmlib.h'
 **
-** Created: Tue Sep 30 15:13:25 2014
+** Created: Sat Nov 22 22:37:22 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!

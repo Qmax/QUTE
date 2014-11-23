@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dmm.ui'
 **
-** Created: Tue Nov 4 17:27:12 2014
+** Created: Sat Nov 22 17:23:30 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -169,13 +169,13 @@ public:
     QFrame *fp_Guarding_2;
     QLabel *fp_ICM_Guard_2;
     QWidget *graphLegend;
-    QLabel *label_13;
-    QLabel *minLabel;
-    QLabel *label_9;
-    QLabel *maxLabel;
+    QLabel *minCap;
+    QLabel *maxCap;
     QFrame *line_2;
     QFrame *line_3;
     QFrame *line_5;
+    QLineEdit *maxEdit;
+    QLineEdit *minEdit;
 
     void setupUi(QWidget *DMM)
     {
@@ -2130,30 +2130,17 @@ public:
         graphLegend->setObjectName(QString::fromUtf8("graphLegend"));
         graphLegend->setGeometry(QRect(392, 435, 312, 158));
         graphLegend->setStyleSheet(QString::fromUtf8("background-color: rgb(212, 208, 197);"));
-        label_13 = new QLabel(graphLegend);
-        label_13->setObjectName(QString::fromUtf8("label_13"));
-        label_13->setGeometry(QRect(260, 100, 60, 60));
+        minCap = new QLabel(graphLegend);
+        minCap->setObjectName(QString::fromUtf8("minCap"));
+        minCap->setGeometry(QRect(260, 100, 60, 60));
         QFont font17;
         font17.setFamily(QString::fromUtf8("DejaVu Sans"));
         font17.setPointSize(18);
-        label_13->setFont(font17);
-        minLabel = new QLabel(graphLegend);
-        minLabel->setObjectName(QString::fromUtf8("minLabel"));
-        minLabel->setGeometry(QRect(20, 87, 265, 60));
-        QFont font18;
-        font18.setFamily(QString::fromUtf8("DejaVu Sans"));
-        font18.setPointSize(45);
-        font18.setBold(false);
-        font18.setWeight(50);
-        minLabel->setFont(font18);
-        label_9 = new QLabel(graphLegend);
-        label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setGeometry(QRect(260, 23, 60, 60));
-        label_9->setFont(font17);
-        maxLabel = new QLabel(graphLegend);
-        maxLabel->setObjectName(QString::fromUtf8("maxLabel"));
-        maxLabel->setGeometry(QRect(20, 10, 265, 60));
-        maxLabel->setFont(font18);
+        minCap->setFont(font17);
+        maxCap = new QLabel(graphLegend);
+        maxCap->setObjectName(QString::fromUtf8("maxCap"));
+        maxCap->setGeometry(QRect(260, 23, 60, 60));
+        maxCap->setFont(font17);
         line_2 = new QFrame(graphLegend);
         line_2->setObjectName(QString::fromUtf8("line_2"));
         line_2->setGeometry(QRect(4, 76, 307, 3));
@@ -2169,13 +2156,21 @@ public:
         line_5->setGeometry(QRect(310, 0, 3, 160));
         line_5->setFrameShape(QFrame::VLine);
         line_5->setFrameShadow(QFrame::Sunken);
-        minLabel->raise();
-        maxLabel->raise();
-        line_3->raise();
-        label_9->raise();
-        label_13->raise();
-        line_2->raise();
-        line_5->raise();
+        maxEdit = new QLineEdit(graphLegend);
+        maxEdit->setObjectName(QString::fromUtf8("maxEdit"));
+        maxEdit->setGeometry(QRect(20, 10, 240, 60));
+        QFont font18;
+        font18.setFamily(QString::fromUtf8("DejaVu Sans"));
+        font18.setPointSize(45);
+        maxEdit->setFont(font18);
+        maxEdit->setStyleSheet(QString::fromUtf8("border:1px solid rgba(0,0,0,0);"));
+        maxEdit->setMaxLength(6);
+        minEdit = new QLineEdit(graphLegend);
+        minEdit->setObjectName(QString::fromUtf8("minEdit"));
+        minEdit->setGeometry(QRect(20, 87, 240, 60));
+        minEdit->setFont(font18);
+        minEdit->setStyleSheet(QString::fromUtf8("border:1px solid rgba(0,0,0,0);"));
+        minEdit->setMaxLength(6);
 
         retranslateUi(DMM);
 
@@ -2203,7 +2198,7 @@ public:
         label_8->setText(QApplication::translate("DMM", "FUNCTIONS", 0, QApplication::UnicodeUTF8));
         label_18->setText(QApplication::translate("DMM", "RANGES", 0, QApplication::UnicodeUTF8));
         Diode->setText(QApplication::translate("DMM", "DIODE", 0, QApplication::UnicodeUTF8));
-        Continuity->setText(QApplication::translate("DMM", "CNTY", 0, QApplication::UnicodeUTF8));
+        Continuity->setText(QApplication::translate("DMM", "CONT", 0, QApplication::UnicodeUTF8));
         label_7->setText(QApplication::translate("DMM", "AUTO", 0, QApplication::UnicodeUTF8));
         label->setText(QString());
         label_2->setText(QApplication::translate("DMM", "Range :", 0, QApplication::UnicodeUTF8));
@@ -2289,10 +2284,8 @@ public:
         fp_REF_label->setText(QApplication::translate("DMM", "REF", 0, QApplication::UnicodeUTF8));
         fp_GND_label->setText(QApplication::translate("DMM", "GND", 0, QApplication::UnicodeUTF8));
         fp_ICM_Guard_2->setText(QApplication::translate("DMM", "ICM GUARD", 0, QApplication::UnicodeUTF8));
-        label_13->setText(QApplication::translate("DMM", "Min", 0, QApplication::UnicodeUTF8));
-        minLabel->setText(QString());
-        label_9->setText(QApplication::translate("DMM", "Max", 0, QApplication::UnicodeUTF8));
-        maxLabel->setText(QString());
+        minCap->setText(QApplication::translate("DMM", "Min", 0, QApplication::UnicodeUTF8));
+        maxCap->setText(QApplication::translate("DMM", "Max", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

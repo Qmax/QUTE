@@ -130,7 +130,7 @@ void HY3131DMMLib::Configure(int8_t index){
 		else
 			IBackPlane->writeBackPlaneRegister(0x00, DMM_RLY_SEL_BP);
 	}
-	else if(index==DC3A||index==AC3A){
+	else if(index==DC10A||index==AC10A){
 		if(selAppCard)
 			IAppCard->writeRegister(0x02, DMM_RLY_SEL);
 		else
@@ -196,7 +196,7 @@ void HY3131DMMLib::Configure(int8_t index){
 }
 double HY3131DMMLib::Measure(int8_t index){
 	busyState=true;
-	if(index==AC50mV || index==AC500mV ||index==AC5V || index==AC50V ||index==AC500V ||index==AC1000V || index==AC500uA || index==AC5mA ||index==AC50mA || index==AC500mA ||index==AC3A){
+	if(index==AC50mV || index==AC500mV ||index==AC5V || index==AC50V ||index==AC500V ||index==AC1000V || index==AC500uA || index==AC5mA ||index==AC50mA || index==AC500mA ||index==AC10A){
 		double rawData =Measure2(index);
 		double temp = rawData-m_nOffset[index];
 		double temp1= sqrt(temp);
@@ -221,12 +221,12 @@ double HY3131DMMLib::Measure(int8_t index){
 double HY3131DMMLib::Measure2(int8_t index){
 	busyState=true;
 	RawData=0.0;ADCDigital=0;
-	if(index==AC50mV || index==AC500mV ||index==AC5V || index==AC50V ||index==AC500V ||index==AC1000V || index==AC500uA || index==AC5mA ||index==AC50mA || index==AC500mA || index==AC3A){
+	if(index==AC50mV || index==AC500mV ||index==AC5V || index==AC50V ||index==AC500V ||index==AC1000V || index==AC500uA || index==AC5mA ||index==AC50mA || index==AC500mA || index==AC10A){
 		if(minus==true)
 			minus=false;
 		RMSData=readRMS();
 
-		if(reg4>0 && index!=AC500uA && index!=AC5mA && index!=AC50mA && index!=AC500mA && index!=AC3A)
+		if(reg4>0 && index!=AC500uA && index!=AC5mA && index!=AC50mA && index!=AC500mA && index!=AC10A)
 			return 999999999;
 		else
 			RawData = (double)RMSData;
@@ -338,6 +338,7 @@ u_int32_t HY3131DMMLib::readDMMSPI(u_int16_t _Address) {
 	else
 		while ((IBackPlane->readBackPlaneRegister(DMM_CMD_BP) & 0x0001));
 
+	usleep(1000);
 	usleep(1000);
 
 	if(selAppCard)

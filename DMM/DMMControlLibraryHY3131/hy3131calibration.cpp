@@ -340,7 +340,7 @@ void HY3131Calibration::on_cmbRange_currentIndexChanged(int index)
         case 4:
             ui->lblOffsetInfo->setText("Connect 0A DC and Click Measure");
             ui->lblMaxInfo->setText("Connect 3A DC and Click Measure");
-            m_nMacroValue=DC3A;
+            m_nMacroValue=DC10A;
             break;
         }
 
@@ -371,7 +371,7 @@ void HY3131Calibration::on_cmbRange_currentIndexChanged(int index)
         case 4:
             ui->lblOffsetInfo->setText("Connect 0A AC and Click Measure");
             ui->lblMaxInfo->setText("Connect 3A AC and Click Measure");
-            m_nMacroValue=AC3A;
+            m_nMacroValue=AC10A;
             break;
         }
 

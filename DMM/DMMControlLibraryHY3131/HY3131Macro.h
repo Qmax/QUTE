@@ -37,13 +37,13 @@
 #define DC5mA		22
 #define DC50mA      23
 #define DC500mA     24
-#define DC3A        25
+#define DC10A        25
 
 #define AC500uA		26
 #define AC5mA		27
 #define AC50mA      28
 #define AC500mA     29
-#define AC3A        30
+#define AC10A        30
 
 #define DMM_CMD             0x00F0
 #define DMM_ADDR            0x00F2
