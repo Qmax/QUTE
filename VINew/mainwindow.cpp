@@ -1171,7 +1171,7 @@ void MainWindow::updateInteractive()
 	//
 	//qDebug()<<"Before Conv Neg Actual Peak voltage:"<<m_objVISubject->getNegPeak();
 	qDebug()<<"After Conv Neg Actual Peak voltage:"<<(m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD<<m_objVISubject->getVoltageValue();
-	qDebug()<< "Voltage:" << m_objVISubject->getVoltageValue() << "Freq:" << m_objVISubject->getFrequencyValue() << "Impedance:" << m_objVISubject->getImpedanceValue();
+	qDebug()<< "Voltage:" << m_objVISubject->getVoltageValue() << "Freq:" << m_objVISubject->getFrequencyValue() << "Impedance:" << m_objVISubject->getImpedanceValue()<<m_objVISubject->getIndexTemplate(1)<<m_objVISubject->getIndexTemplate(2);
 
 	//	m_objFunctionalObject->setFileBit(false);
 	//m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
@@ -2806,13 +2806,15 @@ void MainWindow::measureCapactiance()
     	-----------------------------------------------------------------]]
 		*/
 		short int l_nFrequencyIndex = 6;
-		bool l_bPeakDetected = false;
-		int l_nIterations =0;
+		bool l_bcapcitanceDetected = false;
+		short int l_nImpedanceIndex =7;
+		bool changeImpedance = false;
 		double l_nCalibPosVoltage,l_nCalibNegVoltage =0.0;
 		double l_nPosPeakVoltage,l_nNegPeakVoltage =0.0;
 
-		while(!l_bPeakDetected) {
-			driveACPattern(1,l_nFrequencyIndex,7);
+		while(!l_bcapcitanceDetected) {
+			driveACPattern(1,l_nFrequencyIndex,l_nImpedanceIndex);
+			//updateInteractive();
 			qDebug()<< "Freq:" << m_objVISubject->getFrequencyValue();
 			//qDebug() << "Calibration............";
 
@@ -2824,20 +2826,61 @@ void MainWindow::measureCapactiance()
 			//qDebug() << "Received............";
 			measureVoltages(&l_nPosPeakVoltage,&l_nNegPeakVoltage,false);
 
-			qDebug() << "Positive Peak" << l_nPosPeakVoltage << l_nCalibPosVoltage * 0.5 << l_nCalibPosVoltage * 0.6;
-			qDebug() << "Negative Peak" << l_nNegPeakVoltage << l_nCalibNegVoltage * 0.5 << l_nCalibNegVoltage * 0.6;
-			qDebug()<< "Voltage:" << m_objVISubject->getVoltageValue() << "Freq:" << m_objVISubject->getFrequencyValue() << "Impedance:" << m_objVISubject->getImpedanceValue();
-			if(l_nPosPeakVoltage > l_nCalibPosVoltage * 0.5 || l_nNegPeakVoltage > l_nCalibNegVoltage * 0.5) {
-				l_nFrequencyIndex++;
+			qDebug() << "Positive Peak" << l_nPosPeakVoltage << l_nCalibPosVoltage * 0.45 << l_nCalibPosVoltage * 0.6;
+			qDebug() << "Negative Peak" << l_nNegPeakVoltage << l_nCalibNegVoltage * 0.45 << l_nCalibNegVoltage * 0.6;
+			qDebug()<< "Voltage:" << m_objVISubject->getVoltageValue() << "Freq:" << m_objVISubject->getFrequencyValue() << "Impedance:" << m_objVISubject->getImpedanceValue()<<m_objVISubject->getIndexTemplate(1)<<m_objVISubject->getIndexTemplate(2);
+			if( changeImpedance == false)
+				if(l_nPosPeakVoltage > l_nCalibPosVoltage * 0.5 || abs(l_nNegPeakVoltage) > abs(l_nCalibNegVoltage * 0.5)) {
+					l_nFrequencyIndex++;
+				}
+				else {
+					l_nFrequencyIndex--;
+				}
+			else if(changeImpedance == true) {
+				l_nImpedanceIndex--;
 			}
+			short int phaseShift = measurePhaseShift();
+			if(phaseShift < 0)
+				phaseShift *= -1;
 			else {
-				l_nFrequencyIndex--;
+				changeImpedance = true;
+				l_nFrequencyIndex = 1;
 			}
-			if((l_nPosPeakVoltage >= l_nCalibPosVoltage * 0.45  && l_nPosPeakVoltage < l_nCalibPosVoltage * 0.55)
-				||(l_nNegPeakVoltage >= l_nCalibNegVoltage * 0.45  && l_nNegPeakVoltage < l_nCalibNegVoltage * 0.55))
+			if( phaseShift >=35 && phaseShift <= 65 && l_nPosPeakVoltage > l_nCalibPosVoltage * 0.45 ) {
+				QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
+								objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
+								objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
+						QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
+						m_objFunctionalObject->renameFile(l_strTestFileName);
+						m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
+								m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
+						l_bcapcitanceDetected = true;
 				break;
-			updateInteractive();
-			if(l_nFrequencyIndex > 12 || l_nFrequencyIndex < 1) break;
+			}
+//			if((l_nPosPeakVoltage >= l_nCalibPosVoltage * 0.45  && l_nPosPeakVoltage < l_nCalibPosVoltage * 0.65)
+//				||(l_nNegPeakVoltage >= l_nCalibNegVoltage * 0.45  && l_nNegPeakVoltage < l_nCalibNegVoltage * 0.65))
+//				break;
+			if(changeImpedance == false)
+				if(l_nFrequencyIndex > 12 || l_nFrequencyIndex < -1) break;
+		}
+		l_nFrequencyIndex = 1;
+
+		while(l_bcapcitanceDetected == false) {
+			driveACPattern(1,l_nFrequencyIndex,l_nImpedanceIndex);
+			short int phaseShift = measurePhaseShift();
+			if(phaseShift < 0)
+				phaseShift *= -1;
+			if( phaseShift >=35 && phaseShift <= 55 ) {
+				QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
+								objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
+								objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
+						QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
+						m_objFunctionalObject->renameFile(l_strTestFileName);
+						m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
+								m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
+				break;
+						}
+			l_nImpedanceIndex--;
 		}
 }
 

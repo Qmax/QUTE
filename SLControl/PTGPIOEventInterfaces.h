@@ -11,6 +11,8 @@ public:
     virtual void  InvokeGPIOEvent(QWidget *parent,QString driver, QString device,int *pKeyCode)=0;
     virtual void closefd(void)=0;
     virtual bool BlockSig(bool get)=0;
+    virtual void setStopFlag(bool)=0;
+    virtual void setProbeFlag(short int)=0;
 };
 
 

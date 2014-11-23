@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'shortlocater.ui'
 **
-** Created: Wed Oct 15 11:34:23 2014
+** Created: Sun Nov 23 12:58:08 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -559,7 +559,7 @@ public:
         offset->setGeometry(QRect(202, 32, 100, 60));
         QFont font8;
         font8.setFamily(QString::fromUtf8("DejaVu Sans"));
-        font8.setPointSize(12);
+        font8.setPointSize(13);
         font8.setBold(true);
         font8.setItalic(false);
         font8.setWeight(75);
@@ -718,26 +718,9 @@ public:
         r2EBut->setGeometry(QRect(205, 39, 40, 40));
         r2EBut->setFont(font9);
         r2EBut->setFocusPolicy(Qt::NoFocus);
-        r2EBut->setStyleSheet(QString::fromUtf8("QPushButton {\n"
-"         border: 2px solid rgba(0,0,0,0);\n"
-"         border-radius: 25px;\n"
-"         background-color: rgba(0,0,0,0);\n"
-"     }\n"
-"\n"
-"     QPushButton:pressed {\n"
-"		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
-"     }\n"
-"	QPushButton::disabled{\n"
-"	\n"
-"	image: url(:/svgbutton/Beryl/hovered.svg);\n"
-"	}\n"
-"     QPushButton:flat {\n"
-"         border: none; /* no border for a flat push button */\n"
-"     }\n"
-"\n"
-"     QPushButton:default {\n"
-"         border-color: navy; /* make the default button prominent */\n"
-"     }"));
+        r2EBut->setStyleSheet(QString::fromUtf8("QPushButton {border: 0px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0);color: rgba(0,0,0,0);\n"
+"}\n"
+""));
         r2EBut->setIcon(icon1);
         r2EBut->setIconSize(QSize(48, 48));
         r2Ecap = new QLabel(Ranges);
@@ -749,26 +732,9 @@ public:
         r200mEBut->setGeometry(QRect(354, 38, 40, 40));
         r200mEBut->setFont(font9);
         r200mEBut->setFocusPolicy(Qt::NoFocus);
-        r200mEBut->setStyleSheet(QString::fromUtf8("QPushButton {\n"
-"         border: 2px solid rgba(0,0,0,0);\n"
-"         border-radius: 25px;\n"
-"         background-color: rgba(0,0,0,0);\n"
-"     }\n"
-"\n"
-"     QPushButton:pressed {\n"
-"		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
-"     }\n"
-"	QPushButton::disabled{\n"
-"	\n"
-"	image: url(:/svgbutton/Beryl/hovered.svg);\n"
-"	}\n"
-"     QPushButton:flat {\n"
-"         border: none; /* no border for a flat push button */\n"
-"     }\n"
-"\n"
-"     QPushButton:default {\n"
-"         border-color: navy; /* make the default button prominent */\n"
-"     }"));
+        r200mEBut->setStyleSheet(QString::fromUtf8("QPushButton {border: 0px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0);color: rgba(0,0,0,0);\n"
+"}\n"
+""));
         r200mEBut->setIcon(icon1);
         r200mEBut->setIconSize(QSize(48, 48));
         r200mECap = new QLabel(Ranges);
@@ -787,7 +753,7 @@ public:
         but2E->setObjectName(QString::fromUtf8("but2E"));
         but2E->setGeometry(QRect(170, 33, 150, 50));
         but2E->setFocusPolicy(Qt::NoFocus);
-        but2E->setStyleSheet(QString::fromUtf8("QPushButton {border: 1px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0);color:blue;\n"
+        but2E->setStyleSheet(QString::fromUtf8("QPushButton {border: 0px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0);color: rgba(0,0,0,0);\n"
 "}\n"
 ""));
         but2E->setIconSize(QSize(70, 70));
@@ -2106,7 +2072,13 @@ public:
         External = new QPushButton(ShortLocaterClass);
         External->setObjectName(QString::fromUtf8("External"));
         External->setGeometry(QRect(100, 200, 64, 64));
-        External->setFont(font8);
+        QFont font16;
+        font16.setFamily(QString::fromUtf8("DejaVu Sans"));
+        font16.setPointSize(12);
+        font16.setBold(true);
+        font16.setItalic(false);
+        font16.setWeight(75);
+        External->setFont(font16);
         External->setFocusPolicy(Qt::NoFocus);
         External->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "color:white;\n"
@@ -2135,7 +2107,7 @@ public:
         Internal = new QPushButton(ShortLocaterClass);
         Internal->setObjectName(QString::fromUtf8("Internal"));
         Internal->setGeometry(QRect(100, 200, 64, 64));
-        Internal->setFont(font8);
+        Internal->setFont(font16);
         Internal->setFocusPolicy(Qt::NoFocus);
         Internal->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "color:white;\n"
@@ -2164,7 +2136,7 @@ public:
         Auto = new QPushButton(ShortLocaterClass);
         Auto->setObjectName(QString::fromUtf8("Auto"));
         Auto->setGeometry(QRect(100, 200, 64, 64));
-        Auto->setFont(font8);
+        Auto->setFont(font16);
         Auto->setFocusPolicy(Qt::NoFocus);
         Auto->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "color:white;\n"
@@ -2193,7 +2165,7 @@ public:
         Null = new QPushButton(ShortLocaterClass);
         Null->setObjectName(QString::fromUtf8("Null"));
         Null->setGeometry(QRect(100, 200, 64, 64));
-        Null->setFont(font8);
+        Null->setFont(font16);
         Null->setFocusPolicy(Qt::NoFocus);
         Null->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "color:white;\n"
@@ -2222,7 +2194,7 @@ public:
         hold = new QPushButton(ShortLocaterClass);
         hold->setObjectName(QString::fromUtf8("hold"));
         hold->setGeometry(QRect(100, 200, 64, 64));
-        hold->setFont(font8);
+        hold->setFont(font16);
         hold->setFocusPolicy(Qt::NoFocus);
         hold->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "color:white;\n"

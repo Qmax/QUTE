@@ -66,7 +66,7 @@ PTDMMLibInterface::PTDMMLibInterface(QObject *parent):QObject(parent)
 	values.Data=0.0;
 	values.ConvertedData=0.0;
 
-	noOfSamples=1;
+	noOfSamples=10;
 
 	for(int i=0;i<noOfSamples;i++)
 		avgRetval[i]=0.0;

@@ -59,9 +59,10 @@ class ShortLocater : public QWidget
 public:
     //Variables
         QString rangeFlag;
+        QString prevRangeFlag;
+		bool tempBuzStatus;
 
-
-    	int m_nGPIOCode,m_nPTKeyCode;
+    	int m_nKeyCode,m_nPTKeyCode;
         double retval,retval2;
         int rangePrevValue,buzPrevValue,sliderValue,rangePrevOffset;
         QString ohms,micro;

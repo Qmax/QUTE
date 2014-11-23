@@ -1666,7 +1666,7 @@ QLabel::disabled {
      <property name="font">
       <font>
        <family>DejaVu Sans</family>
-       <pointsize>12</pointsize>
+       <pointsize>13</pointsize>
        <weight>75</weight>
        <italic>false</italic>
        <bold>true</bold>
@@ -1722,7 +1722,7 @@ background-color:grey
      <property name="font">
       <font>
        <family>DejaVu Sans</family>
-       <pointsize>12</pointsize>
+       <pointsize>13</pointsize>
        <weight>75</weight>
        <italic>false</italic>
        <bold>true</bold>
@@ -1778,7 +1778,7 @@ background-color:grey
      <property name="font">
       <font>
        <family>DejaVu Sans</family>
-       <pointsize>12</pointsize>
+       <pointsize>13</pointsize>
        <weight>75</weight>
        <italic>false</italic>
        <bold>true</bold>
@@ -1966,26 +1966,9 @@ background-color:grey
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton {
-         border: 2px solid rgba(0,0,0,0);
-         border-radius: 25px;
-         background-color: rgba(0,0,0,0);
-     }
-
-     QPushButton:pressed {
-		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);
-     }
-	QPushButton::disabled{
-	
-	image: url(:/svgbutton/Beryl/hovered.svg);
-	}
-     QPushButton:flat {
-         border: none; /* no border for a flat push button */
-     }
-
-     QPushButton:default {
-         border-color: navy; /* make the default button prominent */
-     }</string>
+      <string notr="true">QPushButton {border: 0px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0);color: rgba(0,0,0,0);
+}
+</string>
      </property>
      <property name="text">
       <string/>
@@ -2042,26 +2025,9 @@ background-color:grey
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton {
-         border: 2px solid rgba(0,0,0,0);
-         border-radius: 25px;
-         background-color: rgba(0,0,0,0);
-     }
-
-     QPushButton:pressed {
-		background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);
-     }
-	QPushButton::disabled{
-	
-	image: url(:/svgbutton/Beryl/hovered.svg);
-	}
-     QPushButton:flat {
-         border: none; /* no border for a flat push button */
-     }
-
-     QPushButton:default {
-         border-color: navy; /* make the default button prominent */
-     }</string>
+      <string notr="true">QPushButton {border: 0px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0);color: rgba(0,0,0,0);
+}
+</string>
      </property>
      <property name="text">
       <string/>
@@ -2139,7 +2105,7 @@ background-color:grey
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton {border: 1px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0);color:blue;
+      <string notr="true">QPushButton {border: 0px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0);color: rgba(0,0,0,0);
 }
 </string>
      </property>
@@ -2207,7 +2173,7 @@ border:2px solid white;</string>
      <property name="font">
       <font>
        <family>DejaVu Sans</family>
-       <pointsize>12</pointsize>
+       <pointsize>13</pointsize>
        <weight>75</weight>
        <italic>false</italic>
        <bold>true</bold>

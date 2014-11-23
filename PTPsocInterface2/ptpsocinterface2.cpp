@@ -437,6 +437,7 @@ unsigned int PTPsocInterface2::embeddedProbeStatus() {
 	writeSerial(0x18); //read embedded probe status
 	usleep(1000);
 	l_nProbeAck = readSerial();
+	usleep(1000);
 	qDebug() << "~~~~~~~~~~~~embedded probe status : "<<hex<<l_nProbeAck;
 	return l_nProbeAck;
 }
