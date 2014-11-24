@@ -309,12 +309,32 @@ double PTDMMLibInterface::displayResistance(unsigned int rValue)
 	}
 
 	ADCRxVoltage=l_nAIN;
+	//~~~~~~~~~~~~~Reading Current Values from File~~~~~~~~~~~~~~~~~~~~~~
+	double r200ECtValue,r2ECtValue,r200mECtValue;
+	QStringList stringList;
+	bool ok = true;
+	QFile textFile;
+	textFile.setFileName("slCurValues.txt");
 
+	if (textFile.open(QIODevice::ReadOnly)) {
+		QTextStream textStream(&textFile);
+		while (!textStream.atEnd()) {
+			stringList.append(textStream.readLine());
+		}
+		r200ECtValue  = stringList.value(0).toDouble(&ok);
+		r2ECtValue    = stringList.value(1).toDouble(&ok);
+		r200mECtValue = stringList.value(2).toDouble(&ok);
+	} else {
+		r200mECtValue = 10.0e-3;
+		r2ECtValue 	  = 10.0e-3;
+		r200ECtValue  = 1.0e-3;
+	}
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//Display Resistance-----------------------------------------------------------------
 	//R=V/I		Resistance=ADC Voltage/Forced Current
-	if (rValue==R200mE)     Resistance1 = (c_nAIN /10.0e-3 );
-	else if (rValue==R2E)  		 Resistance1 = c_nAIN /10.0e-3 ;
-	else if (rValue==SLR200E)	 Resistance1 = c_nAIN /1.0e-3;
+	if (rValue==R200mE)     Resistance1 = c_nAIN /r200mECtValue ;
+	else if (rValue==R2E)  		 Resistance1 = c_nAIN / r2ECtValue;
+	else if (rValue==SLR200E)	 Resistance1 = c_nAIN /r200ECtValue;
 
 	//-------------------------------------------------------------------------------------
 

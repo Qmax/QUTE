@@ -23,8 +23,8 @@ QMainWindow(parent), ui(new Ui::ICM) {
 	//	IPsoc->switchFly();
 	//	m_bExternal = true;
 	IPsoc->icmMeasurement();
-	m_bExternal = true;
-	on_pushButton_clicked();//internal selection
+        m_bExternal = false;
+        on_pushButton_clicked();//external selection
 
 	ui->label_X->setVisible(false);
 	ui->label_LC->setVisible(false);
@@ -47,8 +47,8 @@ void ICM::checkProbeConnect() {
         		if((IPsoc->readSerial()&0x08)!=0x08)
             		checkPrbStatus=showMessageBox(true,false,"Connect Internal Probe","OK","Cancel");
             }
-        	else if(m_bExternal==true)
-        		checkPrbStatus=showMessageBox(true,false,"Please Ensure External Probes are Connected","OK","Cancel");
+           else if(m_bExternal==true)
+                checkPrbStatus=showMessageBox(true,false,"Please Ensure External Probes are Connected","OK","Cancel");
 
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -369,6 +369,30 @@ void ICM::initialiseHWLibraries() {
 
 	//_______________________________________________________________________
 
+            setWidget = new QWidget(this);
+            setWidget->setGeometry(150,210,400,200);
+            setWidget->setStyleSheet("QWidget{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000); border: 2px solid white; border-radius: 5px;  margin-top: 1ex; /* leave space at the top for the title */}");
+            setWidget->setVisible(false);
+
+            QLabel *settLabel = new QLabel(setWidget);
+            settLabel->setStyleSheet("QLabel{border:1px solid white;            border-radius:5px;         subcontrol-origin: margin;         subcontrol-position: top center; /* position at the top center */         padding: 0 3px;             color:white;         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);}");
+            settLabel->setGeometry(156,7,90,30);
+            settLabel->setFont(QFont("DejaVu Sans", 15, 50, false));
+            settLabel->setText("SETTINGS");
+
+            ui->ACDC->setParent(setWidget);
+            ui->ACDC->setGeometry(30,40,55,55);
+
+            ui->pushButton->setParent(setWidget);
+            ui->pushButton->setGeometry(120,40,55,55);
+
+            QPushButton *closeBut = new QPushButton(setWidget);
+            closeBut->setGeometry(310,140,70,40);
+            closeBut->setFocusPolicy(Qt::NoFocus);
+            closeBut->setStyleSheet("QPushButton {       color:white;                border: 1px solid #2D5059;                border-radius: 20px;                background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);                font:bold;                }");
+            closeBut->setText("CLOSE");
+            connect(closeBut,SIGNAL(clicked()),setWidget,SLOT(hide()));
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	QPluginLoader loader4("libQmaxPTInterface.so", this);
 	ILineEdit = qobject_cast<IQmaxLineEdit*> (loader4.instance());
 	INumberPanel = qobject_cast<IQmaxNumberPanel*> (loader4.instance());
@@ -906,8 +930,8 @@ void ICM::callFeedBackChange(int index) {
 
 }
 void ICM::readADC(){
-	if(checkPrbStatus==false)
-		checkProbeConnect();
+//	if(checkPrbStatus==false)
+//		checkProbeConnect();
 
 //    showMessageBox(true,false,QDateTime::currentDateTime().toString());
 	if(ui->ResistanceRanges->isVisible()){
@@ -2318,14 +2342,13 @@ void ICM::on_L30H_clicked() {
 }
 
 void ICM::on_settings_clicked() {
-	obj
-	= new Settings(IPsoc, hwInterface, IAppCard, m_objAD7190Component,
+    if(panelStatus.dPanel==true){
+        obj = new Settings(IPsoc, hwInterface, IAppCard, m_objAD7190Component,
 			this);
 	//	obj->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
 	obj->setWindowFlags(Qt::Dialog);
 	obj->setStyleSheet(
 			"border:3px solid #45596f; border-style: groove; background-color:qlineargradient(x1:0, y1:0, x2:0, y2:1,stop:0 lightgray, stop:1 darkgray);");
-
 	QPropertyAnimation *animation = new QPropertyAnimation(obj, "geometry");
 	animation->setDuration(10000);
 	animation->setStartValue(QRect(150, 350, 525, 50));
@@ -2333,8 +2356,10 @@ void ICM::on_settings_clicked() {
 	animation->setEasingCurve(QEasingCurve::Linear);
 	animation->setDuration(300);
 	animation->start();
-
 	obj->show();
+    }else{
+        setWidget->show();
+    }
 }
 
 void ICM::on_ONOFF_clicked() {
@@ -3407,7 +3432,7 @@ void ICM::on_RacRdc_clicked() {
 		m_bRacRdc = false;
 		ui->RacRdc->setIcon(QIcon(QPixmap(":/dc.png")));
 		ui->ACDC->setIcon(QIcon(QPixmap(":/Symbols/Letter-dc-icon.png")));
-
+                ui->acDcLabel->setText("DC");
 		qDebug() << "DC Measurement";
 
 		m_nR1RMSIN=IAppCard->readRegister(0x36);
@@ -3437,6 +3462,7 @@ void ICM::on_RacRdc_clicked() {
 		m_bRacRdc = true;
 		ui->RacRdc->setIcon(QIcon(QPixmap(":/ac.png")));
 		ui->ACDC->setIcon(QIcon(QPixmap(":/Symbols/Letter-ac-icon.png")));
+                ui->acDcLabel->setText("AC");
 
 
 		qDebug() << "AC Measurement";
