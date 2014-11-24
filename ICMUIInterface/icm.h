@@ -54,6 +54,8 @@ struct PANEL{
 class ICM : public QMainWindow {
     Q_OBJECT
 public:
+    QWidget *setWidget;
+
     ICM(QWidget *parent = 0);
     ~ICM();
     void ToolBox(bool);
