@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dmm.ui'
 **
-** Created: Sat Nov 22 17:23:30 2014
+** Created: Sun Nov 23 19:09:49 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -2161,16 +2161,16 @@ public:
         maxEdit->setGeometry(QRect(20, 10, 240, 60));
         QFont font18;
         font18.setFamily(QString::fromUtf8("DejaVu Sans"));
-        font18.setPointSize(45);
+        font18.setPointSize(40);
         maxEdit->setFont(font18);
         maxEdit->setStyleSheet(QString::fromUtf8("border:1px solid rgba(0,0,0,0);"));
-        maxEdit->setMaxLength(6);
+        maxEdit->setMaxLength(10);
         minEdit = new QLineEdit(graphLegend);
         minEdit->setObjectName(QString::fromUtf8("minEdit"));
         minEdit->setGeometry(QRect(20, 87, 240, 60));
         minEdit->setFont(font18);
         minEdit->setStyleSheet(QString::fromUtf8("border:1px solid rgba(0,0,0,0);"));
-        minEdit->setMaxLength(6);
+        minEdit->setMaxLength(10);
 
         retranslateUi(DMM);
 

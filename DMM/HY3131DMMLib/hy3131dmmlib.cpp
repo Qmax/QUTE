@@ -21,9 +21,9 @@ HY3131DMMLib::HY3131DMMLib(QObject *parent):QObject(parent){
 
 	selAppCard=false;
 
-	if(selAppCard)
-			IAppCard->writeRegister(0x20, DMM_CLK_DIV);//DMM SPI Clock Settings 1MHz
-	else
+//	if(selAppCard)
+//			IAppCard->writeRegister(0x20, DMM_CLK_DIV);//DMM SPI Clock Settings 1MHz
+//	else
 			IBackPlane->writeBackPlaneRegister(0x20,DMM_CLK_DIV_BP);
 
 	D32Bit=0;
@@ -113,39 +113,39 @@ void HY3131DMMLib::Configure(int8_t index){
 	//	resetDMMSPI();
 	//Relay Switching
 	if(index==R50E||index==R500E||index==R5K||index==R50K||index==R500K||index==R5M||index==R50M||index==CNTY||index==DIODE){
-		if(selAppCard)
-			IAppCard->writeRegister(0x05, DMM_RLY_SEL);
-		else
+//		if(selAppCard)
+//			IAppCard->writeRegister(0x05, DMM_RLY_SEL);
+//		else
 			IBackPlane->writeBackPlaneRegister(0x05, DMM_RLY_SEL_BP);
 	}
 	else if(index==AC50mV||index==AC500mV||index==DC50mV||index==DC500mV){
-		if(selAppCard)
-			IAppCard->writeRegister(0x01, DMM_RLY_SEL);
-		else
+//		if(selAppCard)
+//			IAppCard->writeRegister(0x01, DMM_RLY_SEL);
+//		else
 			IBackPlane->writeBackPlaneRegister(0x01, DMM_RLY_SEL_BP);
 	}
 	else if(index==AC5V||index==AC50V||index==AC500V||index==AC1000V||index==DC5V||index==DC50V||index==DC500V||index==DC1000V){
-		if(selAppCard)
-			IAppCard->writeRegister(0x00, DMM_RLY_SEL);
-		else
+//		if(selAppCard)
+//			IAppCard->writeRegister(0x00, DMM_RLY_SEL);
+//		else
 			IBackPlane->writeBackPlaneRegister(0x00, DMM_RLY_SEL_BP);
 	}
 	else if(index==DC10A||index==AC10A){
-		if(selAppCard)
-			IAppCard->writeRegister(0x02, DMM_RLY_SEL);
-		else
+//		if(selAppCard)
+//			IAppCard->writeRegister(0x02, DMM_RLY_SEL);
+//		else
 			IBackPlane->writeBackPlaneRegister(0x02, DMM_RLY_SEL_BP);
 	}
 	else if(index==AC50mA||index==AC500mA||index==DC50mA||index==DC500mA){
-		if(selAppCard)
-			IAppCard->writeRegister(0x03, DMM_RLY_SEL);
-		else
+//		if(selAppCard)
+//			IAppCard->writeRegister(0x03, DMM_RLY_SEL);
+//		else
 			IBackPlane->writeBackPlaneRegister(0x03, DMM_RLY_SEL_BP);
 	}
 	else if(index==AC500uA||index==DC500uA||index==AC5mA||index==DC5mA){
-		if(selAppCard)
-			IAppCard->writeRegister(0x04, DMM_RLY_SEL);
-		else
+//		if(selAppCard)
+//			IAppCard->writeRegister(0x04, DMM_RLY_SEL);
+//		else
 			IBackPlane->writeBackPlaneRegister(0x04, DMM_RLY_SEL_BP);
 	}
 
@@ -172,6 +172,28 @@ void HY3131DMMLib::Configure(int8_t index){
 			usleep(1000);
 		}
 	file.close();
+
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+		return;
+		while (!file.atEnd()) {
+
+			QByteArray line = file.readLine();
+			QList<QByteArray> data = line.split('\t');
+
+			if (data[0].endsWith('\n'))
+				data[0].chop(1);
+			if (data[1].endsWith('\n'))
+				data[1].chop(1);
+
+			unsigned short wrAddress = data[0].toUInt(&ok, 16);
+			unsigned short wrData = data[1].toUInt(&ok, 16);
+			writeDMMSPI(wrAddress, wrData);
+/*			qDebug()<<"Address: "<<hex<<wrAddress;
+			qDebug()<<"Data   : "<<hex<<wrData;*/
+			usleep(1000);
+		}
+	file.close();
+
 	busyState=false;
 
 /*	unsigned short addr,data;
@@ -250,22 +272,23 @@ double HY3131DMMLib::Measure2(int8_t index){
 		RawData=RawData*-1;
 
 	busyState=false;
+	qDebug()<<"Raw Data- Before GAin & Offset:"<<RawData;
 	return RawData;
 }
 void HY3131DMMLib::buzzerState(bool state){
 	if(buzState!=state){
 		buzState=state;
 		if(state){
-			if(selAppCard)
-				IAppCard->writeRegister(0x07, DMM_RLY_SEL);
-			else
+//			if(selAppCard)
+//				IAppCard->writeRegister(0x07, DMM_RLY_SEL);
+//			else
 				IBackPlane->writeBackPlaneRegister(0x07, DMM_RLY_SEL_BP);
 			//qDebug()<<"Buzzer ON";
 		}
 		else{
-			if(selAppCard)
-				IAppCard->writeRegister(0x05, DMM_RLY_SEL);
-			else
+//			if(selAppCard)
+//				IAppCard->writeRegister(0x05, DMM_RLY_SEL);
+//			else
 				IBackPlane->writeBackPlaneRegister(0x05, DMM_RLY_SEL_BP);
 			usleep(1000);
 			//qDebug()<<"Buzzer OFF";
@@ -280,25 +303,25 @@ void HY3131DMMLib::writeDMMSPI(u_int16_t _Address, u_int16_t _Data){
 	mAddr = mAddr << 1;
 	mAddr = mAddr & 0xFE;
 
-	if(selAppCard)
-		IAppCard->writeRegister(mAddr, DMM_ADDR);
-	else
+//	if(selAppCard)
+//		IAppCard->writeRegister(mAddr, DMM_ADDR);
+//	else
 		IBackPlane->writeBackPlaneRegister(mAddr, DMM_ADDR_BP);
 
 	mData = _Data << 8;
-	if(selAppCard)
-		IAppCard->writeRegister(mData, DMM_DATA_TX_MSW);
-	else
+//	if(selAppCard)
+//		IAppCard->writeRegister(mData, DMM_DATA_TX_MSW);
+//	else
 		IBackPlane->writeBackPlaneRegister(mData, DMM_DATA_TX_MSW_BP);
 
-	if(selAppCard)
-		IAppCard->writeRegister(0xC001, DMM_CMD);
-	else
+//	if(selAppCard)
+//		IAppCard->writeRegister(0xC001, DMM_CMD);
+//	else
 		IBackPlane->writeBackPlaneRegister(0xC001, DMM_CMD_BP);
 
-	if(selAppCard)
-		while ((IAppCard->readRegister(DMM_CMD) & 0x0001));
-	else
+//	if(selAppCard)
+//		while ((IAppCard->readRegister(DMM_CMD) & 0x0001));
+//	else
 		while ((IBackPlane->readBackPlaneRegister(DMM_CMD_BP) & 0x0001));
 
 	//qDebug()<<"writeDMMSPI:"<<"Address:"<<hex<<mAddr<<"Data:"<<hex<<mData;
@@ -309,46 +332,45 @@ u_int32_t HY3131DMMLib::readDMMSPI(u_int16_t _Address) {
 	busyState=true;
 	u_int32_t mAddr = 0, mLData = 0, mMData = 0;
 
-	if(selAppCard)
-		IAppCard->writeRegister(0x0, DMM_DATA_TX_MSW);
-	else
+//	if(selAppCard)
+//		IAppCard->writeRegister(0x0, DMM_DATA_TX_MSW);
+//	else
 		IBackPlane->writeBackPlaneRegister(0x0, DMM_DATA_TX_MSW_BP);
 
-	if(selAppCard)
-		IAppCard->writeRegister(0x0, DMM_DATA_TX_LSW);
-	else
+//	if(selAppCard)
+//		IAppCard->writeRegister(0x0, DMM_DATA_TX_LSW);
+//	else
 		IBackPlane->writeBackPlaneRegister(0x0, DMM_DATA_TX_LSW_BP);
 
 	mAddr = _Address;
 	mAddr = mAddr << 1;
 	mAddr = mAddr | 0x01;
 
-	if(selAppCard)
-		IAppCard->writeRegister(mAddr, DMM_ADDR);
-	else
+//	if(selAppCard)
+//		IAppCard->writeRegister(mAddr, DMM_ADDR);
+//	else
 		IBackPlane->writeBackPlaneRegister(mAddr, DMM_ADDR_BP);
 
-	if(selAppCard)
-		IAppCard->writeRegister(0xC009, DMM_CMD);
-	else
+//	if(selAppCard)
+//		IAppCard->writeRegister(0xC009, DMM_CMD);
+//	else
 		IBackPlane->writeBackPlaneRegister(0xC009, DMM_CMD_BP);
 
-	if(selAppCard)
-		while ((IAppCard->readRegister(DMM_CMD) & 0x0001));
-	else
+//	if(selAppCard)
+//		while ((IAppCard->readRegister(DMM_CMD) & 0x0001));
+//	else
 		while ((IBackPlane->readBackPlaneRegister(DMM_CMD_BP) & 0x0001));
 
 	usleep(1000);
-	usleep(1000);
 
-	if(selAppCard)
-			mMData = IAppCard->readRegister(DMM_DATA_RX_MSW);
-	else
+//	if(selAppCard)
+//			mMData = IAppCard->readRegister(DMM_DATA_RX_MSW);
+//	else
 			mMData = IBackPlane->readBackPlaneRegister(DMM_DATA_RX_MSW_BP);
 
-	if(selAppCard)
-		mLData = IAppCard->readRegister(DMM_DATA_RX_LSW);
-	else
+//	if(selAppCard)
+//		mLData = IAppCard->readRegister(DMM_DATA_RX_LSW);
+//	else
 		mLData = IBackPlane->readBackPlaneRegister(DMM_DATA_RX_LSW_BP);
 
 	D32Bit = (((mMData << 16) & 0xFFFF0000)| (mLData & 0x0000FFFF));
@@ -376,13 +398,13 @@ u_int32_t HY3131DMMLib::readADC1(u_int8_t r0,u_int8_t r1,u_int8_t r2){
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	busyState=true;
 	//Clear SPI RX Registors
-	if(selAppCard)
-		IAppCard->writeRegister(0x0, DMM_DATA_TX_MSW);
-	else
+//	if(selAppCard)
+//		IAppCard->writeRegister(0x0, DMM_DATA_TX_MSW);
+//	else
 		IBackPlane->writeBackPlaneRegister(0x0, DMM_DATA_TX_MSW_BP);
-	if(selAppCard)
-		IAppCard->writeRegister(0x0, DMM_DATA_TX_LSW);
-	else
+//	if(selAppCard)
+//		IAppCard->writeRegister(0x0, DMM_DATA_TX_LSW);
+//	else
 		IBackPlane->writeBackPlaneRegister(0x0, DMM_DATA_TX_LSW_BP);
 	usleep(1000);
 

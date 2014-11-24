@@ -7073,14 +7073,14 @@ background-color: rgb(0, 0, 0,0);
     <property name="font">
      <font>
       <family>DejaVu Sans</family>
-      <pointsize>45</pointsize>
+      <pointsize>40</pointsize>
      </font>
     </property>
     <property name="styleSheet">
      <string notr="true">border:1px solid rgba(0,0,0,0);</string>
     </property>
     <property name="maxLength">
-     <number>6</number>
+     <number>10</number>
     </property>
    </widget>
    <widget class="QLineEdit" name="minEdit">
@@ -7095,14 +7095,14 @@ background-color: rgb(0, 0, 0,0);
     <property name="font">
      <font>
       <family>DejaVu Sans</family>
-      <pointsize>45</pointsize>
+      <pointsize>40</pointsize>
      </font>
     </property>
     <property name="styleSheet">
      <string notr="true">border:1px solid rgba(0,0,0,0);</string>
     </property>
     <property name="maxLength">
-     <number>6</number>
+     <number>10</number>
     </property>
    </widget>
   </widget>

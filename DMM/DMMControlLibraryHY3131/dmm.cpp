@@ -582,7 +582,7 @@ void DMM::onMeasure() {
 		}
 		//*******************Continuity***********************************
 		if (Flag.continuityFlag == 1) {
-			display.retvalHY3131 = hy3131DMM->Measure(CNTY);
+			display.retvalHY3131 = hy3131DMM->Measure(R500E);//changed to 500E Measurement 23/11/2014
 			display.retval = display.retvalHY3131;
 			dis->setRange(500);
 			ui->label->setText(mapResistance.value(1));
@@ -1130,7 +1130,7 @@ void DMM::callMeasure(void) {
 		//***********************Continuity*************************************
 		if (Flag.continuityFlag == 1) {
 			//            if (ui->label_5->text() == mapResistance.value(1)) {
-			hy3131DMM->Configure(CNTY);
+			hy3131DMM->Configure(R500E);	//changed to 500E Configuration
 			//            }
 		}
 		//		usleep(10000);//commented on Apr 28 5PM
@@ -2074,14 +2074,15 @@ void DMM::on_exit_clicked() {
 }
 void DMM::alignIcons(bool state){
 	if(state){
-		ui->r2w->setGeometry(93,46,64,64);
 
-		ui->Continuity->setGeometry(181,46,64,64);
-		ui->vac->setGeometry(181,46,64,64);
+                ui->Continuity->setGeometry(93,46,64,64);
+
+                ui->Diode->setGeometry(181,46,64,64);
+                ui->vac->setGeometry(181,46,64,64);
 		ui->iac->setGeometry(181,46,64,64);
 
-		ui->Diode->setGeometry(269,46,64,64);
-		ui->vdc->setGeometry(269,46,64,64);
+                ui->r2w->setGeometry(269,46,64,64);
+                ui->vdc->setGeometry(269,46,64,64);
 		ui->r4w->setGeometry(269,46,64,64);
 		ui->idc->setGeometry(269,46,64,64);
 
@@ -2333,7 +2334,7 @@ void DMM::on_ohmMeter_2_clicked() {
                                 "QGroupBox{border:1px solid white; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);border-radius:10px;border-top:1px qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #f6f7fa, stop: 1 #dadbde); border-top-right-radius: 0px; border-top-left-radius: 0px;border-top:1px solid gray;border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;}");
 		graphLoop=0;
 	}
-
+    configGraphData();
 
 }
 
