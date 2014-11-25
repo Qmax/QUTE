@@ -22,8 +22,8 @@ QString highlightOFF="QGroupBox{border:1px solid white; background-color: #dadbd
 QString highlightOFF2="QGroupBox{border:1px solid white;background-color: #dadbde;border-top:1px qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #f6f7fa, stop: 1 #dadbde);border-top:1px solid gray;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde);border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;}";
 
 MainWindow::MainWindow(QWidget *parent) :
-    		QMainWindow(parent),
-    		ui(new Ui::MainWindow)
+    				QMainWindow(parent),
+    				ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint);
@@ -33,8 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	InitializeVIFunctions();
 	InitializeLegendLabels();
 	on_butProClip_clicked();
-//      on_startButton_clicked();
-        ui->startButton->animateClick(1);
+	//      on_startButton_clicked();
+	ui->startButton->animateClick(1);
 }
 
 void MainWindow::InitializeVIFunctions()
@@ -116,107 +116,107 @@ void MainWindow::InitializeVIFunctions()
 
 void MainWindow::InitializeLegendLabels(){
 
-    QString legendlabelStyle="color:#d9d9d9";
-    QFont legendFont(QFont("DejaVu Sans", 10, 75, false));
-    QFont legendFont2(QFont("DejaVu Sans", 12, 50, false));
+	QString legendlabelStyle="color:#d9d9d9";
+	QFont legendFont(QFont("DejaVu Sans", 10, 75, false));
+	QFont legendFont2(QFont("DejaVu Sans", 12, 50, false));
 
-    int rightSP=600,leftSP=5,legendLabelWidth=150,legendLabelHeight=17,traceLabelWidth=60;
+	int rightSP=600,leftSP=5,legendLabelWidth=150,legendLabelHeight=17,traceLabelWidth=60;
 
-    l_objProbeStatus    =   new QLabel(VIProduct);
-    l_objProbeStatus->setFont(legendFont);
-    l_objProbeStatus->setStyleSheet(legendlabelStyle);
-    l_objProbeStatus->setGeometry(leftSP,524,legendLabelWidth,legendLabelHeight);
-    l_objProbeStatus->setText("SINGLE : PROBE-1");
+	l_objProbeStatus    =   new QLabel(VIProduct);
+	l_objProbeStatus->setFont(legendFont);
+	l_objProbeStatus->setStyleSheet(legendlabelStyle);
+	l_objProbeStatus->setGeometry(leftSP,524,legendLabelWidth,legendLabelHeight);
+	l_objProbeStatus->setText("SINGLE : PROBE-1");
 
-    l_objPassFail       =   new QLabel(VIProduct);
-    l_objPassFail->setFont(legendFont2);
-    l_objPassFail->setStyleSheet(legendlabelStyle);
-    l_objPassFail->setGeometry(rightSP,45,legendLabelWidth+5,legendLabelHeight+5);
-    l_objPassFail->setText("RESULT : PASS");
+	l_objPassFail       =   new QLabel(VIProduct);
+	l_objPassFail->setFont(legendFont2);
+	l_objPassFail->setStyleSheet(legendlabelStyle);
+	l_objPassFail->setGeometry(rightSP,45,legendLabelWidth+5,legendLabelHeight+5);
+	l_objPassFail->setText("RESULT : PASS");
 
-    l_objErrorPercentage=   new QLabel(VIProduct);
-    l_objErrorPercentage->setFont(legendFont2);
-    l_objErrorPercentage->setStyleSheet(legendlabelStyle);
-    l_objErrorPercentage->setGeometry(rightSP,25,legendLabelWidth+5,legendLabelHeight+5);
-    l_objErrorPercentage->setText("ERROR  : 5%");
+	l_objErrorPercentage=   new QLabel(VIProduct);
+	l_objErrorPercentage->setFont(legendFont2);
+	l_objErrorPercentage->setStyleSheet(legendlabelStyle);
+	l_objErrorPercentage->setGeometry(rightSP,25,legendLabelWidth+5,legendLabelHeight+5);
+	l_objErrorPercentage->setText("ERROR  : 5%");
 
-    l_objLearnVerify    =   new QLabel(VIProduct);
-    l_objLearnVerify->setFont(legendFont);
-    l_objLearnVerify->setStyleSheet(legendlabelStyle);
-    l_objLearnVerify->setGeometry(rightSP,5,legendLabelWidth,legendLabelHeight);
-    l_objLearnVerify->setText("LEARNING.....");
+	l_objLearnVerify    =   new QLabel(VIProduct);
+	l_objLearnVerify->setFont(legendFont);
+	l_objLearnVerify->setStyleSheet(legendlabelStyle);
+	l_objLearnVerify->setGeometry(rightSP,5,legendLabelWidth,legendLabelHeight);
+	l_objLearnVerify->setText("LEARNING.....");
 
-    l_objTraceNumber1    =   new QLabel(VIProduct);
-    l_objTraceNumber1->setFont(legendFont);
-    l_objTraceNumber1->setPalette(QColor(200,0,0));
-    l_objTraceNumber1->setGeometry(leftSP,5,traceLabelWidth,legendLabelHeight);
-    l_objTraceNumber1->setText("REF -----");
+	l_objTraceNumber1    =   new QLabel(VIProduct);
+	l_objTraceNumber1->setFont(legendFont);
+	l_objTraceNumber1->setPalette(QColor(200,0,0));
+	l_objTraceNumber1->setGeometry(leftSP,5,traceLabelWidth,legendLabelHeight);
+	l_objTraceNumber1->setText("REF -----");
 
-    l_objTraceNumber2    =   new QLabel(VIProduct);
-    l_objTraceNumber2->setFont(legendFont);
-    l_objTraceNumber2->setPalette(colorForIds[1]);
-    l_objTraceNumber2->setGeometry(leftSP,20,traceLabelWidth,legendLabelHeight);
-    l_objTraceNumber2->setText("T1   -----");
+	l_objTraceNumber2    =   new QLabel(VIProduct);
+	l_objTraceNumber2->setFont(legendFont);
+	l_objTraceNumber2->setPalette(colorForIds[1]);
+	l_objTraceNumber2->setGeometry(leftSP,20,traceLabelWidth,legendLabelHeight);
+	l_objTraceNumber2->setText("T1   -----");
 
-    l_objTraceNumber3    =   new QLabel(VIProduct);
-    l_objTraceNumber3->setFont(legendFont);
-    l_objTraceNumber3->setPalette(colorForIds[2]);
-    l_objTraceNumber3->setGeometry(leftSP,35,traceLabelWidth,legendLabelHeight);
-    l_objTraceNumber3->setText("T2   -----");
+	l_objTraceNumber3    =   new QLabel(VIProduct);
+	l_objTraceNumber3->setFont(legendFont);
+	l_objTraceNumber3->setPalette(colorForIds[2]);
+	l_objTraceNumber3->setGeometry(leftSP,35,traceLabelWidth,legendLabelHeight);
+	l_objTraceNumber3->setText("T2   -----");
 
-    l_objTraceNumber4    =   new QLabel(VIProduct);
-    l_objTraceNumber4->setFont(legendFont);
-    l_objTraceNumber4->setPalette(colorForIds[3]);
-    l_objTraceNumber4->setGeometry(leftSP,50,traceLabelWidth,legendLabelHeight);
-    l_objTraceNumber4->setText("T3   -----");
+	l_objTraceNumber4    =   new QLabel(VIProduct);
+	l_objTraceNumber4->setFont(legendFont);
+	l_objTraceNumber4->setPalette(colorForIds[3]);
+	l_objTraceNumber4->setGeometry(leftSP,50,traceLabelWidth,legendLabelHeight);
+	l_objTraceNumber4->setText("T3   -----");
 
-    l_objTraceNumber5    =   new QLabel(VIProduct);
-    l_objTraceNumber5->setFont(legendFont);
-    l_objTraceNumber5->setPalette(colorForIds[4]);
-    l_objTraceNumber5->setGeometry(leftSP,65,traceLabelWidth,legendLabelHeight);
-    l_objTraceNumber5->setText("T4   -----");
+	l_objTraceNumber5    =   new QLabel(VIProduct);
+	l_objTraceNumber5->setFont(legendFont);
+	l_objTraceNumber5->setPalette(colorForIds[4]);
+	l_objTraceNumber5->setGeometry(leftSP,65,traceLabelWidth,legendLabelHeight);
+	l_objTraceNumber5->setText("T4   -----");
 
-    l_objRefType        =   new QLabel(VIProduct);
-    l_objRefType->setFont(legendFont);
-    l_objRefType->setStyleSheet(legendlabelStyle);
-    l_objRefType->setGeometry(leftSP,447,legendLabelWidth,legendLabelHeight);
-    l_objRefType->setText("REF      : FIXED");
+	l_objRefType        =   new QLabel(VIProduct);
+	l_objRefType->setFont(legendFont);
+	l_objRefType->setStyleSheet(legendlabelStyle);
+	l_objRefType->setGeometry(leftSP,447,legendLabelWidth,legendLabelHeight);
+	l_objRefType->setText("REF      : FIXED");
 
-    l_objCombinations   =   new QLabel(VIProduct);
-    l_objCombinations->setFont(legendFont);
-    l_objCombinations->setStyleSheet(legendlabelStyle);
-    l_objCombinations->setGeometry(leftSP,467,legendLabelWidth,legendLabelHeight);
-    l_objCombinations->setText("COMB  : 19");
+	l_objCombinations   =   new QLabel(VIProduct);
+	l_objCombinations->setFont(legendFont);
+	l_objCombinations->setStyleSheet(legendlabelStyle);
+	l_objCombinations->setGeometry(leftSP,467,legendLabelWidth,legendLabelHeight);
+	l_objCombinations->setText("COMB  : 19");
 
-    l_objDriveSettings  =   new QLabel(VIProduct);
-    l_objDriveSettings->setFont(legendFont);
-    l_objDriveSettings->setStyleSheet(legendlabelStyle);
-    l_objDriveSettings->setGeometry(leftSP,506,legendLabelWidth+5,legendLabelHeight);
-    l_objDriveSettings->setText("DRIVE   : 2.5V_2KE_2KHz");
+	l_objDriveSettings  =   new QLabel(VIProduct);
+	l_objDriveSettings->setFont(legendFont);
+	l_objDriveSettings->setStyleSheet(legendlabelStyle);
+	l_objDriveSettings->setGeometry(leftSP,506,legendLabelWidth+5,legendLabelHeight);
+	l_objDriveSettings->setText("DRIVE   : 2.5V_2KE_2KHz");
 
-    l_objComparison     =   new QLabel(VIProduct);
-    l_objComparison->setFont(legendFont);
-    l_objComparison->setStyleSheet(legendlabelStyle);
-    l_objComparison->setGeometry(leftSP,487,legendLabelWidth,legendLabelHeight);
-    l_objComparison->setText("COMP   : AVERAGE");
+	l_objComparison     =   new QLabel(VIProduct);
+	l_objComparison->setFont(legendFont);
+	l_objComparison->setStyleSheet(legendlabelStyle);
+	l_objComparison->setGeometry(leftSP,487,legendLabelWidth,legendLabelHeight);
+	l_objComparison->setText("COMP   : AVERAGE");
 
-    l_objKeyLeft        =   new QLabel(VIProduct);
-    l_objKeyLeft->setFont(legendFont);
-    l_objKeyLeft->setStyleSheet(legendlabelStyle);
-    l_objKeyLeft->setGeometry(rightSP,487,legendLabelWidth,legendLabelHeight);
-    l_objKeyLeft->setText("L  : STORE");
+	l_objKeyLeft        =   new QLabel(VIProduct);
+	l_objKeyLeft->setFont(legendFont);
+	l_objKeyLeft->setStyleSheet(legendlabelStyle);
+	l_objKeyLeft->setGeometry(rightSP,487,legendLabelWidth,legendLabelHeight);
+	l_objKeyLeft->setText("L  : STORE");
 
-    l_objKeyRight       =   new QLabel(VIProduct);
-    l_objKeyRight->setFont(legendFont);
-    l_objKeyRight->setStyleSheet(legendlabelStyle);
-    l_objKeyRight->setGeometry(rightSP,524,legendLabelWidth,legendLabelHeight);
-    l_objKeyRight->setText("R : DELETE");
+	l_objKeyRight       =   new QLabel(VIProduct);
+	l_objKeyRight->setFont(legendFont);
+	l_objKeyRight->setStyleSheet(legendlabelStyle);
+	l_objKeyRight->setGeometry(rightSP,524,legendLabelWidth,legendLabelHeight);
+	l_objKeyRight->setText("R : DELETE");
 
-    l_objKeyMiddle      =   new QLabel(VIProduct);
-    l_objKeyMiddle->setFont(legendFont);
-    l_objKeyMiddle->setStyleSheet(legendlabelStyle);
-    l_objKeyMiddle->setGeometry(rightSP,506,legendLabelWidth,legendLabelHeight);
-    l_objKeyMiddle->setText("M : RUN/STOP");
+	l_objKeyMiddle      =   new QLabel(VIProduct);
+	l_objKeyMiddle->setFont(legendFont);
+	l_objKeyMiddle->setStyleSheet(legendlabelStyle);
+	l_objKeyMiddle->setGeometry(rightSP,506,legendLabelWidth,legendLabelHeight);
+	l_objKeyMiddle->setText("M : RUN/STOP");
 
 	l_objTraceNumber1->setVisible(false);
 	l_objTraceNumber2->setVisible(false);
@@ -234,17 +234,17 @@ void MainWindow::InitializeLegendLabels(){
 
 }
 void MainWindow::UpdateLegendLabels(){
-    l_objDriveSettings->setText("DRIVE   : "+ui->lblVoltage->text()+"_"+ui->lblImpedance->text()+"_"+ui->lblFrequency->text());
+	l_objDriveSettings->setText("DRIVE   : "+ui->lblVoltage->text()+"_"+ui->lblImpedance->text()+"_"+ui->lblFrequency->text());
 
-    if(ui->lblMiddle->text()=="RUN/STOP")
-        l_objKeyMiddle->setText("M  : RUN/STOP");
-    else if(ui->lblMiddle->text()=="VOL/FQ/IMP")
-        l_objKeyMiddle->setText("M  : VOLTAGE");
-    else
-        l_objKeyMiddle->setText("M  : "+ui->lblMiddle->text());
+	if(ui->lblMiddle->text()=="RUN/STOP")
+		l_objKeyMiddle->setText("M  : RUN/STOP");
+	else if(ui->lblMiddle->text()=="VOL/FQ/IMP")
+		l_objKeyMiddle->setText("M  : VOLTAGE");
+	else
+		l_objKeyMiddle->setText("M  : "+ui->lblMiddle->text());
 
-    l_objKeyRight->setText("R : "+ui->lblRight->text());
-    l_objKeyLeft->setText("L : "+ui->lblLeft->text());
+	l_objKeyRight->setText("R : "+ui->lblRight->text());
+	l_objKeyLeft->setText("L : "+ui->lblLeft->text());
 }
 
 void MainWindow::setGraphValues()
@@ -374,7 +374,7 @@ void MainWindow::InitializeUILibraries()
 	ui->grpClip->setVisible(false);
 	ui->singleCap_2->setVisible(false);
 	ui->butAM->setVisible(false);
-        ui->lblProbeComparison_2->setText("Average : 5%");//added by rravivarman july 24th 2014
+	ui->lblProbeComparison_2->setText("Average : 5%");//added by rravivarman july 24th 2014
 	//~~~~~~~~Check for debug panel~~~~~~~~~~~~~~~~~~~~~~~~
 	QStringList l_strdebugPanel;
 	QFile textFile2("debugPanel.txt");
@@ -423,7 +423,7 @@ void MainWindow::notifyClipObserver()
 {
 	if( m_objVISubject->getChipDialog(0) == 0)
 	{
-            ui->lblClip->setText("14 Pins");
+		ui->lblClip->setText("14 Pins");
 	}
 	else if( m_objVISubject->getChipDialog(0) == 1)
 	{
@@ -456,34 +456,34 @@ void MainWindow::notifyClipObserver()
 	{
 		m_objFunctionalObject->generateFixedReference();
 		ui->lblRefereceType->setText("Fixed");
-                l_objRefType->setText("REF      : FIXED");
+		l_objRefType->setText("REF      : FIXED");
 		ui->lblNC->setText(QString::number(m_objVISubject->getChipDialog(4)));
-                l_objCombinations->setText("COMB  : "+QString::number(m_objVISubject->getChipDialog(4)));
+		l_objCombinations->setText("COMB  : "+QString::number(m_objVISubject->getChipDialog(4)));
 	}
 	else if(m_objVISubject->getChipDialog(2) == 1)
 	{
 		m_objFunctionalObject->generateMovingReference();
 		ui->lblRefereceType->setText("Moving");
-                l_objRefType->setText("REF      : MOVING");
+		l_objRefType->setText("REF      : MOVING");
 		ui->lblNC->setText(QString::number(m_objVISubject->getChipDialog(4)));
-                l_objCombinations->setText("COMB  : "+QString::number(m_objVISubject->getChipDialog(4)));
+		l_objCombinations->setText("COMB  : "+QString::number(m_objVISubject->getChipDialog(4)));
 	}
-        if(m_objVISubject->getChipDialog(5) == 0){
+	if(m_objVISubject->getChipDialog(5) == 0){
 		ui->lblComparisonMode->setText("Average");
-                l_objComparison->setText("COMP   : AVERAGE");
-            }
-        else{
+		l_objComparison->setText("COMP   : AVERAGE");
+	}
+	else{
 		ui->lblComparisonMode->setText("Envelope");
-                l_objComparison->setText("COMP   : ENVELOPE");
-            }
+		l_objComparison->setText("COMP   : ENVELOPE");
+	}
 	m_isProbesOnly =false;
-        m_bClipLearn=false;
+	m_bClipLearn=false;
 
-        l_objCombinations->setVisible(true);
-        l_objComparison->setVisible(true);
-        l_objRefType->setVisible(true);
-        l_objLearnVerify->setVisible(true);
-        l_objLearnVerify->setText("LEARN.");
+	l_objCombinations->setVisible(true);
+	l_objComparison->setVisible(true);
+	l_objRefType->setVisible(true);
+	l_objLearnVerify->setVisible(true);
+	l_objLearnVerify->setText("LEARN.");
 }
 
 void MainWindow::notifyProbeObserver()
@@ -552,12 +552,12 @@ void MainWindow::notifyProbeObserver()
 
 		if(m_objVISubject->getProbeDialog(4)==0)
 		{
-                        ui->lblProbe1->setText("Probe1\nRef");
+			ui->lblProbe1->setText("Probe1\nRef");
 			m_nSelectedProbe=0;
 		}
 		else
 		{
-                        ui->lblProbe2->setText("Probe2\nRef");
+			ui->lblProbe2->setText("Probe2\nRef");
 			m_nSelectedProbe=1;
 		}
 		m_objVISubject->clearWaveTraces();
@@ -771,28 +771,28 @@ void MainWindow::doKeyFunction(int pKeyCode)
 		return;
 	if(m_nSelectedProbe==1 && l_nTKey==true)
 		return;
-	qDebug() << "KeyCode-line564:"<<hex<<pKeyCode;
+	//	qDebug() << "KeyCode-line564:"<<hex<<pKeyCode;
 
 	if ((m_objVISubject->getIndexTemplate(0,true) == "VOL/FQ/IMP" && (pKeyCode == 0x0b || pKeyCode == 0xb0))
 			|| (m_objVISubject->getIndexTemplate(1,true) == "VOL/FQ/IMP" && (pKeyCode == 0x0a || pKeyCode == 0xa0))
 			|| (m_objVISubject->getIndexTemplate(2,true) == "VOL/FQ/IMP" && (pKeyCode == 0x09 || pKeyCode == 0x90))) {
 		if (m_nToggleIndex == 0) {
 			m_strFunctionKey = "VOLTAGE";
-                        UpdateLegendLabels();//Zoom Legend Update
+			UpdateLegendLabels();//Zoom Legend Update
 		}
 		if (m_nToggleIndex == 2) {
 			m_strFunctionKey = "FREQUENCY";
-                        UpdateLegendLabels();//Zoom Legend Update
+			UpdateLegendLabels();//Zoom Legend Update
 		}
 		if (m_nToggleIndex == 1) {
 			m_strFunctionKey = "IMPEDANCE";
-                        UpdateLegendLabels();//Zoom Legend Update
+			UpdateLegendLabels();//Zoom Legend Update
 		}
-		                    qDebug()<<"Toggle Index:"<<m_nToggleIndex;
+		qDebug()<<"Toggle Index:"<<m_nToggleIndex;
 		//switchString(m_nToggleIndex);
-                l_objKeyLeft->setText("L :  "+m_strFunctionKey);//Zoom Left Key Update
+		l_objKeyLeft->setText("L :  "+m_strFunctionKey);//Zoom Left Key Update
 	}
-	qDebug() << "Key code:" << pKeyCode;
+	//	qDebug() << "Key code:" << pKeyCode;
 
 	if (m_objVISubject->getIndexTemplate(0,true) == "VOLTAGE" ||m_objVISubject->getIndexTemplate(1,true)
 			== "VOLTAGE" || m_objVISubject->getIndexTemplate(2,true) == "VOLTAGE"
@@ -821,37 +821,37 @@ void MainWindow::doKeyFunction(int pKeyCode)
 		switchString(1);
 	}
 	//IGPIOEvent->BlockSig(true);
-        if(m_nStoreWaveIndex<2){
-            if (pKeyCode == 0x0b || pKeyCode == 0xb0) {
-                    switchFunctions(0,l_nIncrementIndex,l_nDecrementIndex);
-            }
-            else if (pKeyCode == 0x0a || pKeyCode == 0xa0)
-            {
-                    switchFunctions(1,l_nIncrementIndex,l_nDecrementIndex);
+	if(m_nStoreWaveIndex<2){
+		if (pKeyCode == 0x0b || pKeyCode == 0xb0) {
+			switchFunctions(0,l_nIncrementIndex,l_nDecrementIndex);
+		}
+		else if (pKeyCode == 0x0a || pKeyCode == 0xa0)
+		{
+			switchFunctions(1,l_nIncrementIndex,l_nDecrementIndex);
 
-            } else if (pKeyCode == 0x09 || pKeyCode == 0x90) {
-                    switchFunctions(2,l_nIncrementIndex,l_nDecrementIndex);
-            }
-        }
+		} else if (pKeyCode == 0x09 || pKeyCode == 0x90) {
+			switchFunctions(2,l_nIncrementIndex,l_nDecrementIndex);
+		}
+	}
 
 
-            if (pKeyCode == 0x0D || pKeyCode == 0xD0) {
-//		 on_startButton_clicked();
-               on_bestFitButton_clicked();
-             }
-             else if (pKeyCode == 0x0E || pKeyCode == 0xE0) {
-		 on_deleteButton_clicked();
-             }
-             else if (pKeyCode == 0x0F || pKeyCode == 0xF0) {
-		 on_storeButton_clicked();
-	 }
+	if (pKeyCode == 0x0D || pKeyCode == 0xD0) {
+		//		 on_startButton_clicked();
+		on_bestFitButton_clicked();
+	}
+	else if (pKeyCode == 0x0E || pKeyCode == 0xE0) {
+		on_deleteButton_clicked();
+	}
+	else if (pKeyCode == 0x0F || pKeyCode == 0xF0) {
+		on_storeButton_clicked();
+	}
 
-    }
+}
 
 void MainWindow::switchFunctions(short int pKey,short int pIncrement,short int pDecrement)
 {
 
-	        qDebug()<<"Key String:"<<m_objVISubject->getIndexTemplate(pKey,true);
+	qDebug()<<"Key String:"<<m_objVISubject->getIndexTemplate(pKey,true);
 	if (m_objVISubject->getIndexTemplate(pKey,true) == "STORE") {
 		on_storeButton_clicked();
 	} else if (m_objVISubject->getIndexTemplate(pKey,true) == "DELETE") {
@@ -888,6 +888,10 @@ void MainWindow::switchFunctions(short int pKey,short int pIncrement,short int p
 			m_nToggleIndex=2;
 
 	}
+	qDebug()<<"after-m_nSelectInteractiveParam : "<<m_nSelectInteractiveParam;
+	qDebug()<<"after-m_nVoltageIndex :"<<m_nVoltageIndex;
+	qDebug()<<"after-m_nImpedanceIndex :"<<m_nImpedanceIndex;
+	qDebug()<<"after-m_nFrequencyIndex :"<<m_nFrequencyIndex;
 }
 void MainWindow::switchString(short int pIndex)
 {
@@ -924,8 +928,8 @@ void MainWindow::doPTKeyFunction()
 		//qDebug() << ("\nF1");
 		if(/*IPTMessageBox->GetmsgBoxLiveStatus()*/msgBoxLive!=true)
 		{
-//			on_startButton_clicked();
-                    on_bestFitButton_clicked();
+			//			on_startButton_clicked();
+			on_bestFitButton_clicked();
 
 		}
 
@@ -1009,7 +1013,7 @@ void MainWindow::doPTKeyFunction()
 		}
 	}
 	else if(m_nPTKeyCode==17){
-//		clickedPRSCR();
+		//		clickedPRSCR();
 	}
 
 
@@ -1097,23 +1101,23 @@ void MainWindow::stopVITimer()
 		ui->redPallete->setPalette(Qt::red);
 	}
 	ui->edtErrPercentage->setText("");
-        l_objErrorPercentage->setText("");
+	l_objErrorPercentage->setText("");
 	ui->lblPassFail->setText("");
-        l_objPassFail->setText("");
+	l_objPassFail->setText("");
 
-    	l_objTraceNumber1->setVisible(false);
-    	l_objTraceNumber2->setVisible(false);
-    	l_objTraceNumber3->setVisible(false);
-    	l_objTraceNumber4->setVisible(false);
-    	l_objTraceNumber5->setVisible(false);
+	l_objTraceNumber1->setVisible(false);
+	l_objTraceNumber2->setVisible(false);
+	l_objTraceNumber3->setVisible(false);
+	l_objTraceNumber4->setVisible(false);
+	l_objTraceNumber5->setVisible(false);
 
-    	l_objLearnVerify->setVisible(false);
-    	l_objErrorPercentage->setVisible(false);
-    	l_objPassFail->setVisible(false);
+	l_objLearnVerify->setVisible(false);
+	l_objErrorPercentage->setVisible(false);
+	l_objPassFail->setVisible(false);
 
-    	l_objRefType->setVisible(false);
-    	l_objCombinations->setVisible(false);
-    	l_objComparison->setVisible(false);
+	l_objRefType->setVisible(false);
+	l_objCombinations->setVisible(false);
+	l_objComparison->setVisible(false);
 	//m_objFunctionalObject->stopDrive();
 	//  ui->lblStatus->setText("Idle.");
 	//    movie->stop();
@@ -1162,12 +1166,12 @@ void MainWindow::updateInteractive()
 	l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
 	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
 	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
-		m_objFunctionalObject->setFileBit(true);
+	m_objFunctionalObject->setFileBit(true);
 
-		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
-				m_objVISubject->getVoltageValue(), l_objCalibData);
+	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
+			m_objVISubject->getVoltageValue(), l_objCalibData);
 	// qDebug()<<"Before Conv Actual Pos Peak voltage:"<<m_objVISubject->getPosPeak();
-	  qDebug()<<"After Conv Actual Pos Peak voltage:"<<(m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD<<m_objVISubject->getVoltageValue();
+	qDebug()<<"After Conv Actual Pos Peak voltage:"<<(m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD<<m_objVISubject->getVoltageValue();
 	//
 	//qDebug()<<"Before Conv Neg Actual Peak voltage:"<<m_objVISubject->getNegPeak();
 	qDebug()<<"After Conv Neg Actual Peak voltage:"<<(m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD<<m_objVISubject->getVoltageValue();
@@ -1212,9 +1216,9 @@ void MainWindow::displayComparison()
 		//qDebug()<< "Err Percentage:"<<l_nErrPercentage;
 		if (l_nErrPercentage >= m_objVISubject->getProbeThreshold()){
 			ui->edtErrPercentage->setText(QString::number(l_nErrPercentage, 10) + "%");
-                        l_objErrorPercentage->setText("ERROR  : "+QString::number(l_nErrPercentage, 10) + "%");
+			l_objErrorPercentage->setText("ERROR  : "+QString::number(l_nErrPercentage, 10) + "%");
 			ui->lblPassFail->setText("FAIL");
-                        l_objPassFail->setText("RESULT : FAIL");
+			l_objPassFail->setText("RESULT : FAIL");
 		}
 		else if(l_nErrPercentage >=0)
 		{
@@ -1223,16 +1227,16 @@ void MainWindow::displayComparison()
 			{
 				//qDebug()<< "check Pass Message:"<<m_nStoreWaveIndex;
 				ui->edtErrPercentage->setText(QString::number(l_nErrPercentage, 10) + "%");
-                                l_objErrorPercentage->setText("ERROR  : "+QString::number(l_nErrPercentage, 10) + "%");
+				l_objErrorPercentage->setText("ERROR  : "+QString::number(l_nErrPercentage, 10) + "%");
 				ui->lblPassFail->setText("PASS");
-                                l_objPassFail->setText("RESULT : PASS");
+				l_objPassFail->setText("RESULT : PASS");
 			}
 			else
 			{
 				ui->edtErrPercentage->setText("");
-                                l_objErrorPercentage->setText("");
+				l_objErrorPercentage->setText("");
 				ui->lblPassFail->setText("");
-                                l_objPassFail->setText("");
+				l_objPassFail->setText("");
 			}
 		}
 	}
@@ -1241,12 +1245,12 @@ void MainWindow::displayComparison()
 		if (VIProduct->compareBand(0) == true)
 		{
 			ui->edtErrPercentage->setText("PASS");
-                        l_objErrorPercentage->setText("ERROR  : PASS");
+			l_objErrorPercentage->setText("ERROR  : PASS");
 		}
 		else
 		{
 			ui->edtErrPercentage->setText("FAIL");
-                        l_objErrorPercentage->setText("ERROR  : FAIL");
+			l_objErrorPercentage->setText("ERROR  : FAIL");
 		}
 	}
 }
@@ -1280,9 +1284,9 @@ void MainWindow::initialiseInteractive()
 void MainWindow::disableInteractiveGrp(bool pFlag)
 {
 	ui->grpClip->setDisabled(pFlag);
-//	ui->grpEmbedded->setDisabled(pFlag);
+	//	ui->grpEmbedded->setDisabled(pFlag);
 	ui->grpProbes->setDisabled(pFlag);
-//	ui->PCBox->setDisabled(pFlag);
+	//	ui->PCBox->setDisabled(pFlag);
 	ui->CalibBox->setDisabled(pFlag);
 	if(m_objVISubject->getProbeDialog(0) == 1 || m_nSelectedProbe == 2)
 	{
@@ -1304,7 +1308,7 @@ void MainWindow::on_butProClip_clicked()
 	ui->deleteBox->setStyleSheet(highlightOFF);
 	ui->calibButton->setStyleSheet(highlightOFF);
 	ui->PCBox->setStyleSheet(PCBoxON);
-//	ui->selectFrame->setGeometry(ui->selectFrame->x(),50,ui->selectFrame->width(),ui->selectFrame->height());
+	//	ui->selectFrame->setGeometry(ui->selectFrame->x(),50,ui->selectFrame->width(),ui->selectFrame->height());
 	ui->selectFrame->setGeometry(702, 54, 9, 60);
 	if(m_bPCMode == true)
 	{
@@ -1318,7 +1322,7 @@ void MainWindow::on_butProClip_clicked()
 		ui->CalibBox->setDisabled(true);
 		ui->storeBox->setDisabled(true);
 		ui->deleteBox->setDisabled(true);
-//		ui->grpEmbedded->setDisabled(true);
+		//		ui->grpEmbedded->setDisabled(true);
 		if(m_bClipLearn== true)
 			notifyClipObserver();
 		/*	    ui->frame_20->setStyleSheet("border:0px solid gray; border-top-right-radius: 5px; border-top-left-radius: 5px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;image: url(:/res/25PinDIN.png)");
@@ -1329,7 +1333,7 @@ void MainWindow::on_butProClip_clicked()
 	    ui->frame_23->setGeometry(30,90,60,15);02072014*/
 
 		//	notifyProbeObserver();
-                on_butProbe2_clicked();
+		on_butProbe2_clicked();
 	}
 	else
 	{
@@ -1342,16 +1346,16 @@ void MainWindow::on_butProClip_clicked()
 		ui->CalibBox->setDisabled(false);
 		ui->storeBox->setDisabled(false);
 		ui->deleteBox->setDisabled(false);
-//		ui->grpEmbedded->setDisabled(false);
+		//		ui->grpEmbedded->setDisabled(false);
 		if(m_bStartApp==false)
 			notifyProbeObserver();
 
 		m_bPCMode=true;
 
-        l_objCombinations->setVisible(false);
-        l_objComparison->setVisible(false);
-        l_objRefType->setVisible(false);
-        l_objLearnVerify->setVisible(false);
+		l_objCombinations->setVisible(false);
+		l_objComparison->setVisible(false);
+		l_objRefType->setVisible(false);
+		l_objLearnVerify->setVisible(false);
 	}
 }
 
@@ -1360,12 +1364,12 @@ void MainWindow::on_startButton_clicked()
 	qDebug() << "Start/Stop VI Interactive";
 
 	ui->storeBox->setStyleSheet(highlightOFF);
-        ui->startBox->setStyleSheet(highlightOFF);
+	ui->startBox->setStyleSheet(highlightOFF);
 	ui->deleteBox->setStyleSheet(highlightOFF);
 	ui->CalibBox->setStyleSheet(highlightOFF);
-//	ui->PCBox->setStyleSheet(highlightOFF2);
+	//	ui->PCBox->setStyleSheet(highlightOFF2);
 
-        //	ui->selectFrame->setGeometry(702, 154, 9, 60);
+	//	ui->selectFrame->setGeometry(702, 154, 9, 60);
 
 	if(m_bAutoCurveFit==true)
 	{
@@ -1435,7 +1439,7 @@ void MainWindow::clipLearn(bool pLearnFlag)
 	{
 		//		qDebug() << "Clip Learn in Progress..";
 		l_strText = "Clip Learn in Progress.";
-                l_objLearnVerify->setText("LEARNING.....");
+		l_objLearnVerify->setText("LEARNING.....");
 		l_strLearnt = "Learnt_";
 		m_biSLearnFlag= false;
 	}
@@ -1443,7 +1447,7 @@ void MainWindow::clipLearn(bool pLearnFlag)
 	{
 		//		qDebug() << "Clip Verify in Progress..";
 		l_strText = "Clip Verify in Progress.";
-                l_objLearnVerify->setText("VERIFYING.....");
+		l_objLearnVerify->setText("VERIFYING.....");
 		l_strLearnt = "Test_";
 	}
 	m_objFunctionalObject->DISABLEINT();
@@ -1468,38 +1472,38 @@ void MainWindow::clipLearn(bool pLearnFlag)
 			//			m_objFunctionalObject->externalMuxMeasurement(m_objVISubject->getPin2Channel(l_lstPindexIndex->value(l_nPinsIndex)),m_objVISubject->getPin2Channel(l_nReferencePin));////commented RRV 26062014
 			m_objFunctionalObject->switchTestChannel(m_objVISubject->getPin2Channel(l_lstPindexIndex->value(l_nPinsIndex)));
 			m_objFunctionalObject->switchRefChannel(m_objVISubject->getPin2Channel(l_nReferencePin));
-                        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//                                                if(!m_objFunctionalObject->switchTestChannel(m_objVISubject->getPin2Channel(l_lstPindexIndex->value(l_nPinsIndex))))
-//                                                {
-//                                                        abortFlag=true;
-//                                                        break;
-//                                                }
-//                                                usleep(10000);
-//                                                ///*IPTMessageBox->QMsgBox*/showMessageBox(true, false, "Test Channel Switched.");
-//                                                if(!m_objFunctionalObject->switchRefChannel(m_objVISubject->getPin2Channel(l_nReferencePin)))
-//                                                {
-//                                                        abortFlag=true;
-//                                                        break;
-//                                                }
-//                                                usleep(10000);
-//                        /*IPTMessageBox->QMsgBox*/showMessageBox(true, false, "Ref Channel Switched.");
-                        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			//                                                if(!m_objFunctionalObject->switchTestChannel(m_objVISubject->getPin2Channel(l_lstPindexIndex->value(l_nPinsIndex))))
+			//                                                {
+			//                                                        abortFlag=true;
+			//                                                        break;
+			//                                                }
+			//                                                usleep(10000);
+			//                                                ///*IPTMessageBox->QMsgBox*/showMessageBox(true, false, "Test Channel Switched.");
+			//                                                if(!m_objFunctionalObject->switchRefChannel(m_objVISubject->getPin2Channel(l_nReferencePin)))
+			//                                                {
+			//                                                        abortFlag=true;
+			//                                                        break;
+			//                                                }
+			//                                                usleep(10000);
+			//                        /*IPTMessageBox->QMsgBox*/showMessageBox(true, false, "Ref Channel Switched.");
+			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			ISplash->setLoadingText(l_strText + l_strCombination);
 			ISplash->selectSplashImage(0);
 			ISplash->setPos(300,325,327,30);
 			ISplash->setSplashStyle("border-width: 3px; border-style: groove; border-color: #ED9D13;border-radius: 10px; padding: 0 8px;text-align: center;background-color:qlineargradient(x1:0, y1:0, x2:0, y2:1,stop:0 #E7F598, stop: 0.5 #ECF5BA,stop: 0.7 #F3F7DA,stop:1 #F7F7F2);font:bold 18px;color:#3A3B32");
 			ISplash->ShowSplash();
-                        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//                                               qDebug() << "Test Channel:"<<m_objVISubject->getPin2Channel(l_lstPindexIndex->value(l_nPinsIndex));
-//                                                qDebug() << "Reference Channel:" << m_objVISubject->getPin2Channel(l_nReferencePin);
-//                        sleep(1);
-//                                                m_objFunctionalObject->readChannels();
-//                                                if( m_objFunctionalObject->checkMuxStatus() == false)
-//			{
-//				abortFlag=true;
-//				break;
-//                        }//commented RRV 26062014
-                        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			//                                               qDebug() << "Test Channel:"<<m_objVISubject->getPin2Channel(l_lstPindexIndex->value(l_nPinsIndex));
+			//                                                qDebug() << "Reference Channel:" << m_objVISubject->getPin2Channel(l_nReferencePin);
+			//                        sleep(1);
+			//                                                m_objFunctionalObject->readChannels();
+			//                                                if( m_objFunctionalObject->checkMuxStatus() == false)
+			//			{
+			//				abortFlag=true;
+			//				break;
+			//                        }//commented RRV 26062014
+			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			l_strTestFileName = l_strLearnt+QString::number(l_nReferencePin,10)+"_"+QString::number(l_lstPindexIndex->value(l_nPinsIndex),10)+".bin";
 			m_objFunctionalObject->peformDrive();
 			usleep(10000);
@@ -1515,32 +1519,32 @@ void MainWindow::clipLearn(bool pLearnFlag)
 			double l_nNetPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 			Q_UNUSED(l_nPosPeakVoltage)
 			Q_UNUSED(l_nNetPeakVoltage)
-                        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//                                            qDebug()<<"PositivePeak:"<<l_nPosPeakVoltage;
-//                                            qDebug()<<"NegativePeak:"<<l_nNetPeakVoltage;
-//                                            if(l_nPosPeakVoltage <0.5 && l_nNetPeakVoltage >-0.5)//by ravi
-//                                            {
-//                                                isFailFlag = true;
-//                                                break;
-//                                            }
-//
-//                                                if(pLearnFlag == false)
-//                                                {
-//                                                        qDebug()<<"File:"<<l_strTestFileName;
-//                                                        if(compareTwoClipTraces("Learnt_"+QString::number(l_nReferencePin,10)+"_"+QString::number(l_lstPindexIndex->value(l_nPinsIndex),10)+".bin","Test_"+QString::number(l_nReferencePin,10)+"_"+QString::number(l_lstPindexIndex->value(l_nPinsIndex),10)+".bin"))
-//                                                        {
-//                                                                qDebug() <<"Pin:"<<l_lstPindexIndex->value(l_nPinsIndex)<<"Reference Pin:"<<l_nReferencePin;
-//                                                                qDebug() << "Test Channel:"<<m_objVISubject->getPin2Channel(l_lstPindexIndex->value(l_nPinsIndex));
-//                                                                qDebug() << "Ref Channe:" << m_objVISubject->getPin2Channel(l_nReferencePin);
-//                                                                isFailFlag = true;
-//                                                                break;
-//                                                        }
-//                                                }
-                    //~~~~~~~~~~~~
-            QApplication::processEvents();
+			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			//                                            qDebug()<<"PositivePeak:"<<l_nPosPeakVoltage;
+			//                                            qDebug()<<"NegativePeak:"<<l_nNetPeakVoltage;
+			//                                            if(l_nPosPeakVoltage <0.5 && l_nNetPeakVoltage >-0.5)//by ravi
+			//                                            {
+			//                                                isFailFlag = true;
+			//                                                break;
+			//                                            }
+			//
+			//                                                if(pLearnFlag == false)
+			//                                                {
+			//                                                        qDebug()<<"File:"<<l_strTestFileName;
+			//                                                        if(compareTwoClipTraces("Learnt_"+QString::number(l_nReferencePin,10)+"_"+QString::number(l_lstPindexIndex->value(l_nPinsIndex),10)+".bin","Test_"+QString::number(l_nReferencePin,10)+"_"+QString::number(l_lstPindexIndex->value(l_nPinsIndex),10)+".bin"))
+			//                                                        {
+			//                                                                qDebug() <<"Pin:"<<l_lstPindexIndex->value(l_nPinsIndex)<<"Reference Pin:"<<l_nReferencePin;
+			//                                                                qDebug() << "Test Channel:"<<m_objVISubject->getPin2Channel(l_lstPindexIndex->value(l_nPinsIndex));
+			//                                                                qDebug() << "Ref Channe:" << m_objVISubject->getPin2Channel(l_nReferencePin);
+			//                                                                isFailFlag = true;
+			//                                                                break;
+			//                                                        }
+			//                                                }
+			//~~~~~~~~~~~~
+			QApplication::processEvents();
 		}
 		if(isFailFlag == true) break;
-        QApplication::processEvents();
+		QApplication::processEvents();
 	}
 	if(isFailFlag == true){
 		disableClipLearnGrp(false);
@@ -1620,22 +1624,22 @@ void MainWindow::clipLearn(bool pLearnFlag)
 }
 bool MainWindow::compareTwoClipTraces(QString pStrLearntName,QString pStrTestName)
 {
-        QStringList l_lstRefData = m_objFunctionalObject->getFileData(pStrLearntName);//m_obVImodel->getFileData("Learnt" +l_strActualFileName+".bin");
-        QStringList l_lstTestData = m_objFunctionalObject->getFileData(pStrTestName);
-        m_objFunctionalObject->calculateAverage("./CalibrationReference.bin");
-        unsigned int l_nErrpercentage = m_objFunctionalObject->caluculateErrorPercentange(l_lstRefData,l_lstTestData);
-        if(l_nErrpercentage >m_objVISubject->getClipThreshold())
-        {
-                return true;
-        }
-        else
-                return false;
+	QStringList l_lstRefData = m_objFunctionalObject->getFileData(pStrLearntName);//m_obVImodel->getFileData("Learnt" +l_strActualFileName+".bin");
+	QStringList l_lstTestData = m_objFunctionalObject->getFileData(pStrTestName);
+	m_objFunctionalObject->calculateAverage("./CalibrationReference.bin");
+	unsigned int l_nErrpercentage = m_objFunctionalObject->caluculateErrorPercentange(l_lstRefData,l_lstTestData);
+	if(l_nErrpercentage >m_objVISubject->getClipThreshold())
+	{
+		return true;
+	}
+	else
+		return false;
 }
 void MainWindow::disableClipLearnGrp(bool pFlag)
 {
 	ui->grpClip->setDisabled(pFlag);
 	ui->grpProbes->setDisabled(pFlag);
-//	ui->grpEmbedded->setDisabled(pFlag);
+	//	ui->grpEmbedded->setDisabled(pFlag);
 	//ui->grpError->setDisabled(pFlag);
 	//ui->startBox->setDisabled(pFlag);
 	//ui->startBox->setDisabled(true);
@@ -1673,24 +1677,24 @@ void MainWindow::on_butProbe_clicked()
 void MainWindow::on_storeButton_clicked()
 {
 	//	qDebug() << "Store Trace";
-    if(m_objVISubject->getWaveType() == IV){
-	ui->storeBox->setStyleSheet(highlightON);
-	ui->startBox->setStyleSheet(highlightOFF);
-	ui->deleteBox->setStyleSheet(highlightOFF);
-	ui->CalibBox->setStyleSheet(highlightOFF);
-	ui->PCBox->setStyleSheet(highlightOFF2);
-//	ui->selectFrame->setGeometry(ui->selectFrame->x(),230,ui->selectFrame->width(),ui->selectFrame->height());
-	ui->selectFrame->setGeometry(702, 254, 9, 60);
+	if(m_objVISubject->getWaveType() == IV){
+		ui->storeBox->setStyleSheet(highlightON);
+		ui->startBox->setStyleSheet(highlightOFF);
+		ui->deleteBox->setStyleSheet(highlightOFF);
+		ui->CalibBox->setStyleSheet(highlightOFF);
+		ui->PCBox->setStyleSheet(highlightOFF2);
+		//	ui->selectFrame->setGeometry(ui->selectFrame->x(),230,ui->selectFrame->width(),ui->selectFrame->height());
+		ui->selectFrame->setGeometry(702, 254, 9, 60);
 
 
-	if (m_objVISubject->getProbeDialog(0) == 1)
-		return;
-	if (m_startTimer == false)
-		return;
-	storeTrace();
-    }else{
-        showMessageBox(true,false,"Cannot Store Trace in VT Mode");
-    }
+		if (m_objVISubject->getProbeDialog(0) == 1)
+			return;
+		if (m_startTimer == false)
+			return;
+		storeTrace();
+	}else{
+		showMessageBox(true,false,"Cannot Store Trace in VT Mode");
+	}
 
 }
 
@@ -1702,7 +1706,7 @@ void MainWindow::on_deleteButton_clicked()
 	ui->deleteBox->setStyleSheet(highlightON);
 	ui->CalibBox->setStyleSheet(highlightOFF);
 	ui->PCBox->setStyleSheet(highlightOFF2);
-//	ui->selectFrame->setGeometry(ui->selectFrame->x(),320,ui->selectFrame->width(),ui->selectFrame->height());
+	//	ui->selectFrame->setGeometry(ui->selectFrame->x(),320,ui->selectFrame->width(),ui->selectFrame->height());
 	ui->selectFrame->setGeometry(702, 354, 9, 60);
 	if (m_objVISubject->getProbeDialog(0) == 1)
 		return;
@@ -1718,45 +1722,45 @@ void MainWindow::on_deleteButton_clicked()
 void MainWindow::on_calibButton_clicked()
 {
 	if(m_objVISubject->getCalibrationStatus()==true){
-			if(showMessageBox(true, true, "Do you want to cancel the calibration.") == true)
-				m_objVISubject->setCalibrationStatus(false);
-		}else{
-	ui->storeBox->setStyleSheet(highlightOFF);
-	ui->startBox->setStyleSheet(highlightOFF);
-	ui->deleteBox->setStyleSheet(highlightOFF);
-	ui->CalibBox->setStyleSheet(highlightON);
-	ui->PCBox->setStyleSheet(highlightOFF2);
+		if(showMessageBox(true, true, "Do you want to cancel the calibration.") == true)
+			m_objVISubject->setCalibrationStatus(false);
+	}else{
+		ui->storeBox->setStyleSheet(highlightOFF);
+		ui->startBox->setStyleSheet(highlightOFF);
+		ui->deleteBox->setStyleSheet(highlightOFF);
+		ui->CalibBox->setStyleSheet(highlightON);
+		ui->PCBox->setStyleSheet(highlightOFF2);
 
-//	ui->selectFrame->setGeometry(ui->selectFrame->x(),410,ui->selectFrame->width(),ui->selectFrame->height());
-	ui->selectFrame->setGeometry(702, 454, 9, 60);
-	if( m_startTimer== true)
-		return;
-	//    qDebug() << "Start Calibration";
-	if( /*IPTMessageBox->QMsgBox*/showMessageBox(true, true, "Do you want to calibrate.") == true)
-	{
-		if( /*IPTMessageBox->QMsgBox*/showMessageBox(true, false, "Please Ensure it Probes are not connected to DUT.") == true)
+		//	ui->selectFrame->setGeometry(ui->selectFrame->x(),410,ui->selectFrame->width(),ui->selectFrame->height());
+		ui->selectFrame->setGeometry(702, 454, 9, 60);
+		if( m_startTimer== true)
+			return;
+		//    qDebug() << "Start Calibration";
+		if( /*IPTMessageBox->QMsgBox*/showMessageBox(true, true, "Do you want to calibrate.") == true)
 		{
-			ISplash->setLoadingText("CALIBRATION IN PROGRESS....\n(Press ESC Key to Abort)");
-			ISplash->selectSplashImage(0);
-			ISplash->setPos(220,315,350,50);
-			ISplash->setSplashStyle("border-width: 3px; border-style: groove; border-color: #ED9D13;border-radius: 10px; padding: 0 8px;text-align: center;background-color:qlineargradient(x1:0, y1:0, x2:0, y2:1,stop:0 #E7F598, stop: 0.5 #ECF5BA,stop: 0.7 #F3F7DA,stop:1 #F7F7F2);font:bold 18px;color:#3A3B32");
-			ISplash->ShowSplash();
+			if( /*IPTMessageBox->QMsgBox*/showMessageBox(true, false, "Please Ensure it Probes are not connected to DUT.") == true)
+			{
+				ISplash->setLoadingText("CALIBRATION IN PROGRESS....\n(Press ESC Key to Abort)");
+				ISplash->selectSplashImage(0);
+				ISplash->setPos(220,315,350,50);
+				ISplash->setSplashStyle("border-width: 3px; border-style: groove; border-color: #ED9D13;border-radius: 10px; padding: 0 8px;text-align: center;background-color:qlineargradient(x1:0, y1:0, x2:0, y2:1,stop:0 #E7F598, stop: 0.5 #ECF5BA,stop: 0.7 #F3F7DA,stop:1 #F7F7F2);font:bold 18px;color:#3A3B32");
+				ISplash->ShowSplash();
 
-			VIProduct->setLoopDrive(true);
-			m_objVISubject->setWaveType(IV);
+				VIProduct->setLoopDrive(true);
+				m_objVISubject->setWaveType(IV);
 
-			m_objFunctionalObject->doMemoryCalibration();
+				m_objFunctionalObject->doMemoryCalibration();
 
-			VIProduct->clearCurves(0);
+				VIProduct->clearCurves(0);
 
-			ISplash->closeSplash();
-		}
-		else
-		{
+				ISplash->closeSplash();
+			}
+			else
+			{
 
+			}
 		}
 	}
-		}
 }
 
 void MainWindow::on_exit_clicked()
@@ -1858,7 +1862,7 @@ void MainWindow::storeTrace()
 			VIProduct->LoadVIData(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),m_objVISubject->getReferenceWaveData(l_nWaveIndex-1),l_nWaveIndex,m_nWaveIndex,l_objWaveData);
 		}
 		//else
-			//	VIProduct->LoadVIData(REFERENCE_FILENAME, ACTUAL_FILENAME, l_nWaveIndex,m_nWaveIndex, l_objWaveData);
+		//	VIProduct->LoadVIData(REFERENCE_FILENAME, ACTUAL_FILENAME, l_nWaveIndex,m_nWaveIndex, l_objWaveData);
 		QApplication::processEvents();
 	}
 	//}
@@ -1933,99 +1937,264 @@ void MainWindow::deleteTrace()
 	}
 
 }
+bool MainWindow::validateLimit(short int dir){
+	qDebug()<<"before-m_nSelectInteractiveParam : "<<m_nSelectInteractiveParam;
+	qDebug()<<"before-m_nVoltageIndex :"<<m_nVoltageIndex;
+	qDebug()<<"before-m_nImpedanceIndex :"<<m_nImpedanceIndex;
+	qDebug()<<"before-m_nFrequencyIndex :"<<m_nFrequencyIndex;
+
+	bool ret = true;
+	if(dir == 1)//Increment (on_butUP_clicked)
+	{
+		switch(m_nSelectInteractiveParam){
+		case 0://Voltage
+			if(m_nVoltageIndex == 1){
+				if(m_nImpedanceIndex > 0)
+					ret = true;
+				else
+					ret =false;
+			}
+			else if(m_nVoltageIndex == 2){
+				if(m_nImpedanceIndex > 1)
+					ret = true;
+				else
+					ret =false;
+			}
+			else{
+				ret =true;
+			}
+			break;
+
+		case 1://Impedance
+			if(m_nFrequencyIndex == 12){
+				if(m_nImpedanceIndex > 7)
+					ret=false;
+				else
+					ret=true;
+			}
+			else if(m_nFrequencyIndex == 11){
+				if(m_nImpedanceIndex > 8)
+					ret=false;
+				else
+					ret=true;
+			}
+			else if(m_nFrequencyIndex == 10){
+				if(m_nImpedanceIndex > 9)
+					ret=false;
+				else
+					ret=true;
+			}
+			else if(m_nFrequencyIndex == 9){
+				if(m_nImpedanceIndex > 10)
+					ret=false;
+				else
+					ret=true;
+			}
+			else if(m_nFrequencyIndex == 8){
+				if(m_nImpedanceIndex > 11)
+					ret=false;
+				else
+					ret=true;
+			}
+			else if(m_nFrequencyIndex == 7){
+				if(m_nImpedanceIndex > 12)
+					ret=false;
+				else
+					ret=true;
+			}
+			else if(m_nFrequencyIndex == 6){
+				if(m_nImpedanceIndex > 13)
+					ret=false;
+				else
+					ret=true;
+			}
+			else
+				ret=true;
+
+			break;
+
+		case 2://Frequency
+			if(m_nImpedanceIndex < 9){
+				ret=true;
+			}
+			else if(m_nImpedanceIndex == 9){
+				if(m_nFrequencyIndex < 11)
+					ret=true;
+				else
+					ret=false;
+			}
+			else if(m_nImpedanceIndex == 10){
+				if(m_nFrequencyIndex < 10)
+					ret=true;
+				else
+					ret=false;
+			}
+			else if(m_nImpedanceIndex == 11){
+				if(m_nFrequencyIndex < 9)
+					ret=true;
+				else
+					ret=false;
+			}
+			else if(m_nImpedanceIndex == 12){
+				if(m_nFrequencyIndex < 8)
+					ret=true;
+				else
+					ret=false;
+			}
+			else if(m_nImpedanceIndex == 13){
+				if(m_nFrequencyIndex < 7)
+					ret=true;
+				else
+					ret=false;
+			}
+			else
+				ret=false;
+			break;
+		}
+	}
+	else if(dir == 0)//Decrement (on_butDown_clicked)
+	{
+		switch(m_nSelectInteractiveParam){
+		case 0://Voltage
+			break;
+
+		case 1://Impedance
+			if(m_nImpedanceIndex == 2){
+				if(m_nVoltageIndex != 3)
+					ret=true;
+				else
+					ret=false;
+			}
+			else if(m_nImpedanceIndex == 1){
+				if(m_nVoltageIndex != 2 && m_nVoltageIndex != 3)
+					ret=true;
+				else
+					ret=false;
+			}
+			else{
+				ret=true;
+			}
+			break;
+			break;
+
+		case 2://Frequency
+			if(m_nImpedanceIndex == 2){
+				if(m_nVoltageIndex != 3)
+					ret=true;
+				else
+					ret=false;
+			}
+			else if(m_nImpedanceIndex == 1){
+				if(m_nVoltageIndex != 2 && m_nVoltageIndex != 3)
+					ret=true;
+				else
+					ret=false;
+			}
+			else{
+				ret=true;
+			}
+			break;
+		}
+	}
+	return ret;
+}
 void MainWindow::on_butUP_clicked()
 {
-	switch(m_nSelectInteractiveParam)
-	{
-	case 0:
-		if(m_nVoltageIndex >=0 && m_nVoltageIndex<3)
-			m_nVoltageIndex++;
-		else
-			m_nVoltageIndex =3;
+	if(validateLimit(1) == true){
+		switch(m_nSelectInteractiveParam)
+		{
+		case 0://Voltage
+			if(m_nVoltageIndex >=0 && m_nVoltageIndex<3)
+				m_nVoltageIndex++;
+			else
+				m_nVoltageIndex =3;
 
-		break;
-	case 1:
-		if(m_nImpedanceIndex >=0 && m_nImpedanceIndex<14)
-			m_nImpedanceIndex++;
-		else
-			m_nImpedanceIndex =14;
+			break;
+		case 1://Frequency
+			if(m_nImpedanceIndex >=0 && m_nImpedanceIndex<14)
+				m_nImpedanceIndex++;
+			else
+				m_nImpedanceIndex =14;
 
-		break;
-	case 2:
-		if(m_nFrequencyIndex >=0 && m_nFrequencyIndex<12)
-			m_nFrequencyIndex++;
-		else
-			m_nFrequencyIndex =12;
+			break;
+		case 2://Impedance
+			if(m_nFrequencyIndex >=0 && m_nFrequencyIndex<12)
+				m_nFrequencyIndex++;
+			else
+				m_nFrequencyIndex =12;
 
-		break;
+			break;
+		}
+
+		m_objVISubject->setIndexTemplate(0,m_nVoltageIndex);
+		m_objVISubject->setIndexTemplate(1,m_nFrequencyIndex);
+		m_objVISubject->setIndexTemplate(2,m_nImpedanceIndex);
+
+		isChangeActive = true;
+		isChangeActive1 = true;
+		LoadInteractiveValues();
+		UpdateLegendLabels();
+		setGraphValues();
+		m_bDummyDrive = 1;
 	}
-
-	m_objVISubject->setIndexTemplate(0,m_nVoltageIndex);
-	m_objVISubject->setIndexTemplate(1,m_nFrequencyIndex);
-	m_objVISubject->setIndexTemplate(2,m_nImpedanceIndex);
-
-	isChangeActive = true;
-	isChangeActive1 = true;
-	LoadInteractiveValues();
-        UpdateLegendLabels();
-	setGraphValues();
-	m_bDummyDrive = 1;
 
 }
 
 void MainWindow::on_butDown_clicked()
 {
-	switch(m_nSelectInteractiveParam)
-	{
-	case 0:
-		if(m_nVoltageIndex <=3 && m_nVoltageIndex>=1)
-			m_nVoltageIndex--;
-		else
-			m_nVoltageIndex=0;
+	if(validateLimit(0) == true){
+		switch(m_nSelectInteractiveParam)
+		{
+		case 0://Voltage
+			if(m_nVoltageIndex <=3 && m_nVoltageIndex>=1)
+				m_nVoltageIndex--;
+			else
+				m_nVoltageIndex=0;
 
-		break;
-	case 1:
-		if(m_nImpedanceIndex <=14 && m_nImpedanceIndex>=1)
-			m_nImpedanceIndex--;
-		else
-			m_nImpedanceIndex =0;
+			break;
+		case 1://Frequency
+			if(m_nImpedanceIndex <=14 && m_nImpedanceIndex>=1)
+				m_nImpedanceIndex--;
+			else
+				m_nImpedanceIndex =0;
 
-		break;
-	case 2:
-		if(m_nFrequencyIndex <=12 && m_nFrequencyIndex>=1)
-			m_nFrequencyIndex--;
-		else
-			m_nFrequencyIndex =0;
+			break;
+		case 2://Impedance
+			if(m_nFrequencyIndex <=12 && m_nFrequencyIndex>=1)
+				m_nFrequencyIndex--;
+			else
+				m_nFrequencyIndex =0;
 
-		break;
+			break;
+		}
+
+		m_objVISubject->setIndexTemplate(0,m_nVoltageIndex);
+		m_objVISubject->setIndexTemplate(1,m_nFrequencyIndex);
+		m_objVISubject->setIndexTemplate(2,m_nImpedanceIndex);
+		isChangeActive = true;
+		isChangeActive1 = true;
+
+
+		LoadInteractiveValues();
+		UpdateLegendLabels();
+		setGraphValues();
+		m_bDummyDrive = 1;
 	}
-
-	m_objVISubject->setIndexTemplate(0,m_nVoltageIndex);
-	m_objVISubject->setIndexTemplate(1,m_nFrequencyIndex);
-	m_objVISubject->setIndexTemplate(2,m_nImpedanceIndex);
-	isChangeActive = true;
-	isChangeActive1 = true;
-
-
-	LoadInteractiveValues();
-        UpdateLegendLabels();
-	setGraphValues();
-	m_bDummyDrive = 1;
 }
 
 void MainWindow::on_butL_clicked()
 {
-//	m_objEmbedded->show();
+	//	m_objEmbedded->show();
 }
 
 void MainWindow::on_butM_clicked()
 {
-//	m_objEmbedded->show();
+	//	m_objEmbedded->show();
 }
 
 void MainWindow::on_butR_clicked()
 {
-//	m_objEmbedded->show();
+	//	m_objEmbedded->show();
 }
 
 void MainWindow::shrinkSize(int index)
@@ -2243,12 +2412,12 @@ void MainWindow::on_butAM_clicked()
 
 void MainWindow::LoadEmbeddedKeys()
 {
-//	ui->lblLeft->setText(m_objVISubject->getIndexTemplate(0,true));
-//	ui->lblMiddle->setText(m_objVISubject->getIndexTemplate(1,true));
-//	ui->lblRight->setText(m_objVISubject->getIndexTemplate(2,true));
-		ui->lblLeft->setText("INCREASE");
-		ui->lblMiddle->setText("DECREASE");
-		ui->lblRight->setText("VOL/FQ/IMP");
+	//	ui->lblLeft->setText(m_objVISubject->getIndexTemplate(0,true));
+	//	ui->lblMiddle->setText(m_objVISubject->getIndexTemplate(1,true));
+	//	ui->lblRight->setText(m_objVISubject->getIndexTemplate(2,true));
+	ui->lblLeft->setText("INCREASE");
+	ui->lblMiddle->setText("DECREASE");
+	ui->lblRight->setText("VOL/FQ/IMP");
 }
 void MainWindow::readVISettings()
 {
@@ -2296,7 +2465,7 @@ void MainWindow::on_butLearn_clicked()
 
 	QString l_strDriveSettings = objInteractiveData.getVoltageMap(m_nClipLVoltage).remove(" ")+"_"+objInteractiveData.getImpedanceMap(m_nClipLImepdance).remove(" ")+"_"+objInteractiveData.getFrequencyMap(m_nClipFrequency).remove(" ");
 	ui->lblDriveSettings->setText(l_strDriveSettings);
-        l_objDriveSettings->setText("DRIVE   : "+l_strDriveSettings);//Zoom Legend
+	l_objDriveSettings->setText("DRIVE   : "+l_strDriveSettings);//Zoom Legend
 	//	qDebug()<< "PSOC CODE ID"<<hex<<m_objFunctionalObject->ReadPSOCCODEID();
 
 	//	ISplash->setLoadingText("Clip Learn in Progress....");
@@ -2384,17 +2553,17 @@ void MainWindow::on_tblVI_clicked()
 }
 void MainWindow::on_tblVT_clicked()
 {
-    if(m_nStoreWaveIndex>1){
-        showMessageBox(true,false,"Cannot change mode when trace is stored.");
-    }else{
-	m_objVISubject->setWaveType(VT);
-	QString l_strON="QToolButton {color:white;border: 1px solid #2D5059;border-radius: 0px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);border-top-right-radius: 10px;border-bottom-right-radius: 10px;}";
-	QString l_strOFF="QToolButton {color:black;border: 1px solid #2D5059;border-radius: 0px;background-color: gray;border-top-right-radius: 10px;border-bottom-right-radius: 10px;}";
+	if(m_nStoreWaveIndex>1){
+		showMessageBox(true,false,"Cannot change mode when trace is stored.");
+	}else{
+		m_objVISubject->setWaveType(VT);
+		QString l_strON="QToolButton {color:white;border: 1px solid #2D5059;border-radius: 0px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);border-top-right-radius: 10px;border-bottom-right-radius: 10px;}";
+		QString l_strOFF="QToolButton {color:black;border: 1px solid #2D5059;border-radius: 0px;background-color: gray;border-top-right-radius: 10px;border-bottom-right-radius: 10px;}";
 
-	ui->tblVI->setStyleSheet(l_strOFF);
-	ui->tblVT->setStyleSheet(l_strON);
-	m_nWaveIndex=1;
-        }
+		ui->tblVI->setStyleSheet(l_strOFF);
+		ui->tblVT->setStyleSheet(l_strON);
+		m_nWaveIndex=1;
+	}
 
 }
 
@@ -2489,11 +2658,11 @@ void MainWindow::doAutoCurveFitAlgorithm()
 	m_objVISubject->setDiodeFlag(false);
 
 	/*
-	*  Auto Curvefit Algorithm - Elangovan D Dt: 25-10-2014
-	*  1. Open Circuit Detection
-	*  2. Short Circuit Detection
-	*  3. Diode Detection
-	*/
+	 *  Auto Curvefit Algorithm - Elangovan D Dt: 25-10-2014
+	 *  1. Open Circuit Detection
+	 *  2. Short Circuit Detection
+	 *  3. Diode Detection
+	 */
 	// 1. Detect Open Circuit Trace.
 	qDebug()	<< "Checking OC..............................................................";
 	if (checkforOC() == true)
@@ -2508,26 +2677,26 @@ void MainWindow::doAutoCurveFitAlgorithm()
 		return;
 	qDebug()	<< "Checking Resistance..........................................................";
 	resistanceDetection();
-//	if(resistanceDetection() == true && m_bInductance == false && m_bCapacitance == false)
-//		return;
-//	if(m_bCapacitance == true)
-		measureCapactiance();
+	//	if(resistanceDetection() == true && m_bInductance == false && m_bCapacitance == false)
+	//		return;
+	//	if(m_bCapacitance == true)
+	measureCapactiance();
 	if(m_bInductance == true)
 		measureInductance();
 
 	//updateInteractive();
 
-//
-//	if (confirmDiodes() == true)
-//	{
-//		//return;
-//	}
-//	//return;
-//	if( binaryCapacitanceSearch(0)== true)
-//	{
-//		//return;
-//	}
-//	checkforResistance(0);
+	//
+	//	if (confirmDiodes() == true)
+	//	{
+	//		//return;
+	//	}
+	//	//return;
+	//	if( binaryCapacitanceSearch(0)== true)
+	//	{
+	//		//return;
+	//	}
+	//	checkforResistance(0);
 	//QPluginLoader RLCloader("libRLC.so",this);
 	//IRLC = qobject_cast<RLCInterface*>(RLCloader.instance());
 
@@ -2538,12 +2707,12 @@ void MainWindow::doAutoCurveFitAlgorithm()
 
 void MainWindow::driveACPattern(short int pVoltIndex,short int pFrequencyIndex,short int pImpedanceIndex)
 {
-		m_objVISubject->setIndexTemplate(0,pVoltIndex);
-		m_objVISubject->setIndexTemplate(1,pFrequencyIndex);
-		m_objVISubject->setIndexTemplate(2,pImpedanceIndex);
-		m_objFunctionalObject->driveVI();
-		m_objFunctionalObject->peformDrive();
-		m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
+	m_objVISubject->setIndexTemplate(0,pVoltIndex);
+	m_objVISubject->setIndexTemplate(1,pFrequencyIndex);
+	m_objVISubject->setIndexTemplate(2,pImpedanceIndex);
+	m_objFunctionalObject->driveVI();
+	m_objFunctionalObject->peformDrive();
+	m_objFunctionalObject->peformReceive(ACTUAL_FILENAME);
 }
 
 bool MainWindow::diodeDetection()
@@ -2552,15 +2721,15 @@ bool MainWindow::diodeDetection()
 	1. Select the Voltage:0.2V,  Frequency: 10Hz , Impedance: 50E
 	Diode Tolerance: Lower Threshold : 0.5, Higher Threshold: 1.25
 	-----------------------------------------------------------------]]
-	*/
+	 */
 
 	m_objVISubject->clearPatterns();
 	QString l_strFileName;
 	double l_nLowerThreshold = 0.5, l_nHigherThreshold = 1.25;
 	unsigned short l_nSelectedImpedance = 50;
 	double l_nDiodeRatio =0.0,l_nZP2Voltage=0.0,l_n2P5Voltage=0.0;
-//	for(int l_nDriveIndex=0;l_nDriveIndex < 1;l_nDriveIndex++)
-//		driveACPattern(0,0,2);
+	//	for(int l_nDriveIndex=0;l_nDriveIndex < 1;l_nDriveIndex++)
+	//		driveACPattern(0,0,2);
 	CALIB *l_objCalibData;
 
 	bool l_bDrive2P5 = false,l_bConfirmDiode = false;
@@ -2614,7 +2783,7 @@ bool MainWindow::diodeDetection()
 		/*[[-------------------------------------------------------------
 			2. Select the Voltage:2.5V,  Frequency: 10Hz , Impedance: 50E
 			-----------------------------------------------------------------]]
-		*/
+		 */
 		driveACPattern(1,0,2);
 		l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
 		l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
@@ -2650,7 +2819,7 @@ bool MainWindow::diodeDetection()
 		/*[[-------------------------------------------------------------
 			3. Select the Voltage: 13V,  Frequency: 10Hz , Impedance: 50E
 			-----------------------------------------------------------------]]
-		*/
+		 */
 		driveACPattern(3,0,2);
 		l_objCalibData = ICALIB->ParallelDACCalibration(m_objVISubject->getIndexTemplate(0));
 		l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
@@ -2659,16 +2828,16 @@ bool MainWindow::diodeDetection()
 		//qDebug() << "Calibration............";
 		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
 				m_objVISubject->getVoltageValue(), l_objCalibData);
-//		double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-//		double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		//		double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		//		double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 		//qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage;
 		//qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage;
 
 		//qDebug() << "Received............";
 		m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
 				m_objVISubject->getVoltageValue(), l_objCalibData);
-//		double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
-//		double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		//		double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
+		//		double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 
 		//qDebug() << "Positive Peak" << l_nPosPeakVoltage << m_objVISubject->getVoltageValue() << m_objVISubject->getImpedanceValue() << m_objVISubject->getFrequencyValue();
 		//qDebug() << "Negative Peak" << l_nNegPeakVoltage;
@@ -2690,7 +2859,7 @@ bool MainWindow::resistanceDetection()
 		1. Select the Voltage: 2.5V ,  Frequency: 10Hz , Impedance: 1K
 		Resistance Voltage yet to be confirmed with Pazhani sir, 2.5V kept for testing.
 		-----------------------------------------------------------------]]
-	*/
+	 */
 	double l_nSelectedImpedance = 1000;
 	short int l_nImpedanceIndex = 6;
 	bool l_bPeakDetected = false;
@@ -2741,13 +2910,13 @@ bool MainWindow::resistanceDetection()
 		short int l_nDiffPhaseShift = measurePhaseShift();
 		if( l_nDiffPhaseShift >=-4 &&  l_nDiffPhaseShift <=4) {
 
-		QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
-						objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
-						objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
-				QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
-				m_objFunctionalObject->renameFile(l_strTestFileName);
-				m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount++, l_strFileName,
-						m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
+			QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
+					objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
+					objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
+			QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
+			m_objFunctionalObject->renameFile(l_strTestFileName);
+			m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount++, l_strFileName,
+					m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
 		}
 	}
 	// 1. Select the Voltage: 2.5V ,  Frequency: 200Hz , Impedance: 1K
@@ -2766,12 +2935,12 @@ bool MainWindow::resistanceDetection()
 	if(l_nDiffPhaseShift >=-4 && l_nDiffPhaseShift <= 4 && l_bPeakDetected ) {
 		driveACPattern(1,12,l_nImpedanceIndex);
 		QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
-						objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
-						objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
-				QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
-				m_objFunctionalObject->renameFile(l_strTestFileName);
-				m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
-						m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
+				objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
+				objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
+		QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
+		m_objFunctionalObject->renameFile(l_strTestFileName);
+		m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
+				m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
 	}
 	m_bCapacitance = m_bInductance = false;
 	if(l_nDiffPhaseShift > 4)
@@ -2804,84 +2973,84 @@ void MainWindow::measureCapactiance()
 	/*[[-------------------------------------------------------------
 			1. Select the Voltage: 2.5V ,  Frequency: 2KHz , Impedance: 50E
     	-----------------------------------------------------------------]]
-		*/
-		short int l_nFrequencyIndex = 6;
-		bool l_bcapcitanceDetected = false;
-		short int l_nImpedanceIndex =7;
-		bool changeImpedance = false;
-		double l_nCalibPosVoltage,l_nCalibNegVoltage =0.0;
-		double l_nPosPeakVoltage,l_nNegPeakVoltage =0.0;
+	 */
+	short int l_nFrequencyIndex = 6;
+	bool l_bcapcitanceDetected = false;
+	short int l_nImpedanceIndex =7;
+	bool changeImpedance = false;
+	double l_nCalibPosVoltage,l_nCalibNegVoltage =0.0;
+	double l_nPosPeakVoltage,l_nNegPeakVoltage =0.0;
 
-		while(!l_bcapcitanceDetected) {
-			driveACPattern(1,l_nFrequencyIndex,l_nImpedanceIndex);
-			//updateInteractive();
-			qDebug()<< "Freq:" << m_objVISubject->getFrequencyValue();
-			//qDebug() << "Calibration............";
+	while(!l_bcapcitanceDetected) {
+		driveACPattern(1,l_nFrequencyIndex,l_nImpedanceIndex);
+		//updateInteractive();
+		qDebug()<< "Freq:" << m_objVISubject->getFrequencyValue();
+		//qDebug() << "Calibration............";
 
-			measureVoltages(&l_nCalibPosVoltage,&l_nCalibNegVoltage,true);
+		measureVoltages(&l_nCalibPosVoltage,&l_nCalibNegVoltage,true);
 
-			qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage<<l_nCalibPosVoltage*0.5;
-			qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage<<l_nCalibNegVoltage*0.5;
+		qDebug() << "Ref Positive Peak" << l_nCalibPosVoltage<<l_nCalibPosVoltage*0.5;
+		qDebug() << "Ref Negative Peak" << l_nCalibNegVoltage<<l_nCalibNegVoltage*0.5;
 
-			//qDebug() << "Received............";
-			measureVoltages(&l_nPosPeakVoltage,&l_nNegPeakVoltage,false);
+		//qDebug() << "Received............";
+		measureVoltages(&l_nPosPeakVoltage,&l_nNegPeakVoltage,false);
 
-			qDebug() << "Positive Peak" << l_nPosPeakVoltage << l_nCalibPosVoltage * 0.45 << l_nCalibPosVoltage * 0.6;
-			qDebug() << "Negative Peak" << l_nNegPeakVoltage << l_nCalibNegVoltage * 0.45 << l_nCalibNegVoltage * 0.6;
-			qDebug()<< "Voltage:" << m_objVISubject->getVoltageValue() << "Freq:" << m_objVISubject->getFrequencyValue() << "Impedance:" << m_objVISubject->getImpedanceValue()<<m_objVISubject->getIndexTemplate(1)<<m_objVISubject->getIndexTemplate(2);
-			if( changeImpedance == false)
-				if(l_nPosPeakVoltage > l_nCalibPosVoltage * 0.5 || abs(l_nNegPeakVoltage) > abs(l_nCalibNegVoltage * 0.5)) {
-					l_nFrequencyIndex++;
-				}
-				else {
-					l_nFrequencyIndex--;
-				}
-			else if(changeImpedance == true) {
-				l_nImpedanceIndex--;
+		qDebug() << "Positive Peak" << l_nPosPeakVoltage << l_nCalibPosVoltage * 0.45 << l_nCalibPosVoltage * 0.6;
+		qDebug() << "Negative Peak" << l_nNegPeakVoltage << l_nCalibNegVoltage * 0.45 << l_nCalibNegVoltage * 0.6;
+		qDebug()<< "Voltage:" << m_objVISubject->getVoltageValue() << "Freq:" << m_objVISubject->getFrequencyValue() << "Impedance:" << m_objVISubject->getImpedanceValue()<<m_objVISubject->getIndexTemplate(1)<<m_objVISubject->getIndexTemplate(2);
+		if( changeImpedance == false)
+			if(l_nPosPeakVoltage > l_nCalibPosVoltage * 0.5 || abs(l_nNegPeakVoltage) > abs(l_nCalibNegVoltage * 0.5)) {
+				l_nFrequencyIndex++;
 			}
-			short int phaseShift = measurePhaseShift();
-			if(phaseShift < 0)
-				phaseShift *= -1;
 			else {
-				changeImpedance = true;
-				l_nFrequencyIndex = 1;
+				l_nFrequencyIndex--;
 			}
-			if( phaseShift >=35 && phaseShift <= 65 && l_nPosPeakVoltage > l_nCalibPosVoltage * 0.45 ) {
-				QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
-								objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
-								objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
-						QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
-						m_objFunctionalObject->renameFile(l_strTestFileName);
-						m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
-								m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
-						l_bcapcitanceDetected = true;
-				break;
-			}
-//			if((l_nPosPeakVoltage >= l_nCalibPosVoltage * 0.45  && l_nPosPeakVoltage < l_nCalibPosVoltage * 0.65)
-//				||(l_nNegPeakVoltage >= l_nCalibNegVoltage * 0.45  && l_nNegPeakVoltage < l_nCalibNegVoltage * 0.65))
-//				break;
-			if(changeImpedance == false)
-				if(l_nFrequencyIndex > 12 || l_nFrequencyIndex < -1) break;
-		}
-		l_nFrequencyIndex = 1;
-
-		while(l_bcapcitanceDetected == false) {
-			driveACPattern(1,l_nFrequencyIndex,l_nImpedanceIndex);
-			short int phaseShift = measurePhaseShift();
-			if(phaseShift < 0)
-				phaseShift *= -1;
-			if( phaseShift >=35 && phaseShift <= 55 ) {
-				QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
-								objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
-								objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
-						QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
-						m_objFunctionalObject->renameFile(l_strTestFileName);
-						m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
-								m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
-				break;
-						}
+		else if(changeImpedance == true) {
 			l_nImpedanceIndex--;
 		}
+		short int phaseShift = measurePhaseShift();
+		if(phaseShift < 0)
+			phaseShift *= -1;
+		else {
+			changeImpedance = true;
+			l_nFrequencyIndex = 1;
+		}
+		if( phaseShift >=35 && phaseShift <= 65 && l_nPosPeakVoltage > l_nCalibPosVoltage * 0.45 ) {
+			QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
+					objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
+					objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
+			QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
+			m_objFunctionalObject->renameFile(l_strTestFileName);
+			m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
+					m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
+			l_bcapcitanceDetected = true;
+			break;
+		}
+		//			if((l_nPosPeakVoltage >= l_nCalibPosVoltage * 0.45  && l_nPosPeakVoltage < l_nCalibPosVoltage * 0.65)
+		//				||(l_nNegPeakVoltage >= l_nCalibNegVoltage * 0.45  && l_nNegPeakVoltage < l_nCalibNegVoltage * 0.65))
+		//				break;
+		if(changeImpedance == false)
+			if(l_nFrequencyIndex > 12 || l_nFrequencyIndex < -1) break;
+	}
+	l_nFrequencyIndex = 1;
+
+	while(l_bcapcitanceDetected == false) {
+		driveACPattern(1,l_nFrequencyIndex,l_nImpedanceIndex);
+		short int phaseShift = measurePhaseShift();
+		if(phaseShift < 0)
+			phaseShift *= -1;
+		if( phaseShift >=35 && phaseShift <= 55 ) {
+			QString l_strFileName =  "SINE_"+objInteractiveData.getVoltageMap(m_objVISubject->getIndexTemplate(0)) +"_"+
+					objInteractiveData.getFrequencyMap(m_objVISubject->getIndexTemplate(1)) +"_" +
+					objInteractiveData.getImpedanceMap(m_objVISubject->getIndexTemplate(2));
+			QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
+			m_objFunctionalObject->renameFile(l_strTestFileName);
+			m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
+					m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
+			break;
+		}
+		l_nImpedanceIndex--;
+	}
 }
 
 void MainWindow::measureInductance()
@@ -2896,26 +3065,26 @@ short int MainWindow::measurePhaseShift()
 	l_objCalibData->m_nConstant = m_objFunctionalObject->getReceiveCalibrationConstant(m_objVISubject->getIndexTemplate(0));
 	l_objCalibData->m_nGain = m_objFunctionalObject->getReceiveCalibrationGain(m_objVISubject->getIndexTemplate(0));
 	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(REFERENCE_FILENAME),
-				m_objVISubject->getVoltageValue(), l_objCalibData);
+			m_objVISubject->getVoltageValue(), l_objCalibData);
 	double l_nPosCalibrationDegree = (360*m_objVISubject->getPosPeakIndex())/100;
 	double l_nNegCalibrationDegree = (360*m_objVISubject->getNegPeakIndex())/100;
 
 	double l_nCalibPosVoltage = (m_objVISubject->getPosPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 	double l_nCalibNegVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 
-//	qDebug()<< "Ref Pos Peak Index:" << m_objVISubject->getPosPeakIndex() << "Ref Neg Peak Index:" << m_objVISubject->getNegPeakIndex();
-//	qDebug()<< "Ref Pos Peak Value:" << m_objVISubject->getPosPeakValue() << "Ref Neg Peak Value:" << m_objVISubject->getNegPeakValue();
+	//	qDebug()<< "Ref Pos Peak Index:" << m_objVISubject->getPosPeakIndex() << "Ref Neg Peak Index:" << m_objVISubject->getNegPeakIndex();
+	//	qDebug()<< "Ref Pos Peak Value:" << m_objVISubject->getPosPeakValue() << "Ref Neg Peak Value:" << m_objVISubject->getNegPeakValue();
 
 	m_objFunctionalObject->converttoVoltage(m_objFunctionalObject->getFileData(ACTUAL_FILENAME),
-				m_objVISubject->getVoltageValue(), l_objCalibData);
+			m_objVISubject->getVoltageValue(), l_objCalibData);
 	double l_nPosActualDegree = (360*m_objVISubject->getPosPeakIndex())/100;
 	double l_nNegActualDegree = (360*m_objVISubject->getNegPeakIndex())/100;
 
 	double l_nPosPeakVoltage = (m_objVISubject->getPosPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 	double l_nNegPeakVoltage = (m_objVISubject->getNegPeak()* m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 
-//	qDebug()<< "Pos Peak Index:" << m_objVISubject->getPosPeakIndex() << "Neg Peak Index:" << m_objVISubject->getNegPeakIndex();
-//	qDebug()<< "Pos Peak Value:" << m_objVISubject->getPosPeakValue() << "Neg Peak Value:" << m_objVISubject->getNegPeakValue();
+	//	qDebug()<< "Pos Peak Index:" << m_objVISubject->getPosPeakIndex() << "Neg Peak Index:" << m_objVISubject->getNegPeakIndex();
+	//	qDebug()<< "Pos Peak Value:" << m_objVISubject->getPosPeakValue() << "Neg Peak Value:" << m_objVISubject->getNegPeakValue();
 
 	qDebug()<<"Pos Reference Degree:" << l_nPosCalibrationDegree << "Pos Actual Degree:" << l_nPosActualDegree << "Positive Difference:"<< (l_nPosCalibrationDegree-l_nPosActualDegree)<<(l_nCalibPosVoltage - l_nPosPeakVoltage);
 	qDebug()<<"Neg Reference Degree:" << l_nNegCalibrationDegree << "Neg Actual Degree:" << l_nNegActualDegree << "Negative Difference:"<< (l_nNegCalibrationDegree-l_nNegActualDegree)<<(l_nCalibNegVoltage - l_nNegPeakVoltage);
@@ -2925,19 +3094,19 @@ short int MainWindow::measurePhaseShift()
 
 short int MainWindow::selectImpedanceIndex(double pValue) {
 	unsigned int l_nImpedanceArray[16] = {10,20,50,100,200,500,1000,2000,5000,10000,20000,50000,100000,200000,500000,1000000};
-    for(int l_nIndex=0;l_nIndex <16; l_nIndex++) {
-    	double l_nR1 = l_nImpedanceArray[l_nIndex];
-    	double l_nBoundaryRX1 = l_nImpedanceArray[l_nIndex+1];
-    	if( pValue >= l_nR1 && pValue <=l_nBoundaryRX1 ) {
-    		double l_nBoundaryX2 = (l_nR1 + l_nBoundaryRX1 ) / 2.0;
-    		//qDebug() << "Selected Impedance:" << l_nImpedanceArray[l_nIndex] << l_nIndex << l_nBoundaryX2;
-    		if(pValue >= l_nBoundaryX2)
-    			return l_nIndex+1;
-    		else
-    			return l_nIndex;
-    	}
-    }
-    return -1;
+	for(int l_nIndex=0;l_nIndex <16; l_nIndex++) {
+		double l_nR1 = l_nImpedanceArray[l_nIndex];
+		double l_nBoundaryRX1 = l_nImpedanceArray[l_nIndex+1];
+		if( pValue >= l_nR1 && pValue <=l_nBoundaryRX1 ) {
+			double l_nBoundaryX2 = (l_nR1 + l_nBoundaryRX1 ) / 2.0;
+			//qDebug() << "Selected Impedance:" << l_nImpedanceArray[l_nIndex] << l_nIndex << l_nBoundaryX2;
+			if(pValue >= l_nBoundaryX2)
+				return l_nIndex+1;
+			else
+				return l_nIndex;
+		}
+	}
+	return -1;
 }
 
 bool MainWindow::checkforOC()
@@ -2946,7 +3115,7 @@ bool MainWindow::checkforOC()
 	/*[[-------------------------------------------------------------
 		1. Select the Voltage:13V, Frequency: 2KHz ,Impedance: 100KE
 	-----------------------------------------------------------------]]
-	*/
+	 */
 	m_nAutoCount=0;
 	m_objVISubject->clearPatterns();
 	double l_nPeakDetection= 0.95;
@@ -2988,8 +3157,8 @@ bool MainWindow::checkforOC()
 	l_nNegPeakVoltage = (m_objVISubject->getNegPeak() * m_objVISubject->getVoltageValue())/REFERENCE_THRESHOLD;
 
 	qDebug() << "Actual Comaprison:" << (l_nPosPeakVoltage > l_nCalibPosVoltage * l_nPeakDetection)
-			<< (l_nNegPeakVoltage < l_nCalibNegVoltage * l_nPeakDetection)
-			<< l_nCalibPosVoltage * l_nPeakDetection  << l_nCalibNegVoltage * l_nPeakDetection;
+					<< (l_nNegPeakVoltage < l_nCalibNegVoltage * l_nPeakDetection)
+					<< l_nCalibPosVoltage * l_nPeakDetection  << l_nCalibNegVoltage * l_nPeakDetection;
 
 	if (l_nPosPeakVoltage > l_nCalibPosVoltage * l_nPeakDetection && l_nNegPeakVoltage < l_nCalibNegVoltage * l_nPeakDetection ) {
 		QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
@@ -3007,7 +3176,7 @@ bool MainWindow::checkforSC()
 	/*[[-------------------------------------------------------------
 		1. Select the Voltage: 0.2V, Frequency: 10Hz, Impedance: 10E
 	-----------------------------------------------------------------]]
-	*/
+	 */
 	double l_nPeakDetection= 0.05;
 	QString l_strFileName;
 
@@ -3039,16 +3208,16 @@ bool MainWindow::checkforSC()
 	//qDebug() << "Negative Peak" << l_nNegPeakVoltage;
 
 	qDebug() << "Actual Comaprison:" << (l_nPosPeakVoltage < l_nCalibPosVoltage * l_nPeakDetection)
-				<< (l_nNegPeakVoltage < l_nCalibNegVoltage * l_nPeakDetection)
-				<< l_nCalibPosVoltage * l_nPeakDetection  << l_nCalibNegVoltage * l_nPeakDetection<<m_nAutoFitPatternCount;
+						<< (l_nNegPeakVoltage < l_nCalibNegVoltage * l_nPeakDetection)
+						<< l_nCalibPosVoltage * l_nPeakDetection  << l_nCalibNegVoltage * l_nPeakDetection<<m_nAutoFitPatternCount;
 
 	if(l_nPosPeakVoltage <= l_nCalibPosVoltage * l_nPeakDetection &&
 			l_nNegPeakVoltage <=  l_nCalibNegVoltage * l_nPeakDetection) {
-			QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
-			m_objFunctionalObject->renameFile(l_strTestFileName);
-			m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
-					m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
-			return true;
+		QString l_strTestFileName = "./AutoCurve"+QString::number(m_nAutoFitPatternCount,16)+".bin";
+		m_objFunctionalObject->renameFile(l_strTestFileName);
+		m_objVISubject->setAutoCurvePattern(m_nAutoFitPatternCount, l_strFileName,
+				m_objFunctionalObject->getFileData(ACTUAL_FILENAME));
+		return true;
 	}
 	return false;
 }
@@ -3071,39 +3240,39 @@ void MainWindow::on_yAxisBox_valueChanged(double )
 
 void MainWindow::on_butZoom_clicked()
 {
-    QPropertyAnimation *animation2 = new QPropertyAnimation(VIProduct, "geometry");
-    animation2->setEasingCurve(QEasingCurve::Linear);
-    animation2->setDuration(100);
-    QPropertyAnimation *animation1 = new QPropertyAnimation(ui->butZoom, "geometry");
-    animation1->setEasingCurve(QEasingCurve::Linear);
-    animation1->setDuration(100);
+	QPropertyAnimation *animation2 = new QPropertyAnimation(VIProduct, "geometry");
+	animation2->setEasingCurve(QEasingCurve::Linear);
+	animation2->setDuration(100);
+	QPropertyAnimation *animation1 = new QPropertyAnimation(ui->butZoom, "geometry");
+	animation1->setEasingCurve(QEasingCurve::Linear);
+	animation1->setDuration(100);
 
-    double l_nRectWidth = 324,l_nRectHeight = 272;
-    double l_nZoomRectWidth = 707,l_nZoomRectHeight = 560;
+	double l_nRectWidth = 324,l_nRectHeight = 272;
+	double l_nZoomRectWidth = 707,l_nZoomRectHeight = 560;
 
-    if(VIProduct->geometry().width()==324){
-        animation2->setStartValue(QRect(17, 40, l_nRectWidth, l_nRectHeight));
-        animation1->setStartValue(QRect(0, 0, l_nRectWidth, l_nRectHeight));
-        animation2->setEndValue(QRect(0, 30, l_nZoomRectWidth, l_nZoomRectHeight));
-        animation1->setEndValue(QRect(0, 0, l_nZoomRectWidth, l_nZoomRectHeight));
-        animation2->start();
-        animation1->start();
-        ui->butZoom->setStyleSheet("QPushButton {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:pressed {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:flat {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:default {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; }");
-        UpdateLegendLabels();
-    	VIProduct->setZoomFlag(true,(l_nZoomRectWidth/l_nRectWidth),(l_nZoomRectHeight/l_nRectHeight));
-    }
-    else{
-        animation2->setStartValue(QRect(0, 30, l_nZoomRectWidth, l_nZoomRectHeight));
-        animation1->setStartValue(QRect(0, 0, l_nZoomRectWidth, l_nZoomRectHeight));
-        animation2->setEndValue(QRect(17, 40, l_nRectWidth, l_nRectHeight));
-        animation1->setEndValue(QRect(0, 0, l_nRectWidth, l_nRectHeight));
-        animation2->start();
-        ui->butZoom->setStyleSheet(" QPushButton {background-color: rgb(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); } QPushButton:pressed {background-color:rg(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); } QPushButton:flat {background-color: rgb(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); } QPushButton:default {background-color: rgb(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); }");
-        animation1->start();
-    	VIProduct->setZoomFlag(false,1.0,1.0);
-    }
+	if(VIProduct->geometry().width()==324){
+		animation2->setStartValue(QRect(17, 40, l_nRectWidth, l_nRectHeight));
+		animation1->setStartValue(QRect(0, 0, l_nRectWidth, l_nRectHeight));
+		animation2->setEndValue(QRect(0, 30, l_nZoomRectWidth, l_nZoomRectHeight));
+		animation1->setEndValue(QRect(0, 0, l_nZoomRectWidth, l_nZoomRectHeight));
+		animation2->start();
+		animation1->start();
+		ui->butZoom->setStyleSheet("QPushButton {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:pressed {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:flat {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:default {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; }");
+		UpdateLegendLabels();
+		VIProduct->setZoomFlag(true,(l_nZoomRectWidth/l_nRectWidth),(l_nZoomRectHeight/l_nRectHeight));
+	}
+	else{
+		animation2->setStartValue(QRect(0, 30, l_nZoomRectWidth, l_nZoomRectHeight));
+		animation1->setStartValue(QRect(0, 0, l_nZoomRectWidth, l_nZoomRectHeight));
+		animation2->setEndValue(QRect(17, 40, l_nRectWidth, l_nRectHeight));
+		animation1->setEndValue(QRect(0, 0, l_nRectWidth, l_nRectHeight));
+		animation2->start();
+		ui->butZoom->setStyleSheet(" QPushButton {background-color: rgb(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); } QPushButton:pressed {background-color:rg(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); } QPushButton:flat {background-color: rgb(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); } QPushButton:default {background-color: rgb(0, 0, 0,0);border:2px solid white:color: rgba(0, 0, 0, 0); }");
+		animation1->start();
+		VIProduct->setZoomFlag(false,1.0,1.0);
+	}
 
-/*    if(VIProduct->geometry().width()==324){
+	/*    if(VIProduct->geometry().width()==324){
         VIProduct->setDimensions(17, 40, 680, 545);
         ui->butZoom->setGeometry(0, 0, 680, 545);
     }else{
@@ -3123,31 +3292,31 @@ void MainWindow::on_AD5318Panel_clicked()
 
 void MainWindow::on_DACFValues_clicked()
 {
-    QWidget *newwidget2 = new QWidget();
-    QPluginLoader loader("libPTDACFManual.so", this);
-    DACFValues = qobject_cast<IPTDACFInterface*>(loader.instance());
-    newwidget2=DACFValues->getPTDACF();
-    newwidget2->show();
+	QWidget *newwidget2 = new QWidget();
+	QPluginLoader loader("libPTDACFManual.so", this);
+	DACFValues = qobject_cast<IPTDACFInterface*>(loader.instance());
+	newwidget2=DACFValues->getPTDACF();
+	newwidget2->show();
 }
 
 void MainWindow::on_butP1Area_clicked()
 {
-    ui->butProbe1->animateClick(1);
+	ui->butProbe1->animateClick(1);
 }
 
 void MainWindow::on_butP2Area_clicked()
 {
-    ui->butProbe2->animateClick(1);
+	ui->butProbe2->animateClick(1);
 }
 
 void MainWindow::on_bestFitButton_clicked()
 {
 
-    ui->storeBox->setStyleSheet(highlightOFF);
-    ui->startBox->setStyleSheet(highlightON);
-    ui->deleteBox->setStyleSheet(highlightOFF);
-    ui->CalibBox->setStyleSheet(highlightOFF);
-//	ui->PCBox->setStyleSheet(highlightOFF2);
-    ui->startButton->animateClick(1);
-    ui->selectFrame->setGeometry(702, 154, 9, 60);
+	ui->storeBox->setStyleSheet(highlightOFF);
+	ui->startBox->setStyleSheet(highlightON);
+	ui->deleteBox->setStyleSheet(highlightOFF);
+	ui->CalibBox->setStyleSheet(highlightOFF);
+	//	ui->PCBox->setStyleSheet(highlightOFF2);
+	ui->startButton->animateClick(1);
+	ui->selectFrame->setGeometry(702, 154, 9, 60);
 }

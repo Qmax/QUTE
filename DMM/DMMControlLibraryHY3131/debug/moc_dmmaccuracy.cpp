@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'dmmaccuracy.h'
 **
-** Created: Sat Nov 22 12:06:34 2014
+** Created: Mon Nov 24 11:18:23 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!

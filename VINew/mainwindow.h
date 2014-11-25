@@ -108,6 +108,7 @@ protected:
         void LoadInteractiveValues();
         void InitializeLegendLabels();
         void UpdateLegendLabels();
+        bool validateLimit(short int);
 
         void LoadMiddelLayer();
         void LoadUpperLayer();

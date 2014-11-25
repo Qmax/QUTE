@@ -929,20 +929,20 @@ void ICM::callFeedBackChange(int index) {
 		m_lstRFCapcitance.insert(C_Index, m_lstRFResistance.value(index));
 
 }
-void ICM::readADC(){
+void    ICM::readADC(){
 //	if(checkPrbStatus==false)
 //		checkProbeConnect();
 
 //    showMessageBox(true,false,QDateTime::currentDateTime().toString());
 	if(ui->ResistanceRanges->isVisible()){
-                if( autoFlag == true && scanFlag == true )
-			AutoRangeR();
+                if( autoFlag == true)// && scanFlag == true )
+                        AutoRangeR3();
 		else{
 			m_nResistance = readADCR(ui->rangeLabel->text());
 			DisplayR();
 		}
-		ui->lblfrequency->setText(QString::number(m_nFrequency, 'f', 0));
-		if(autoFlag==true){
+                ui->lblfrequency->setText(QString::number(m_nFrequency, 'f', 0));
+               /* if(autoFlag==true){
 //			do{
                                 m_nResistance = readADCR(ui->rangeLabel->text());
 				DisplayR();
@@ -978,7 +978,7 @@ void ICM::readADC(){
                                 }else
                                     scanFlag=false;
 //			}while(1);
-		}
+                }*/
 	}
 	if(ui->Inductorranges->isVisible()){
 		readADC2();
@@ -1223,6 +1223,236 @@ double ICM::readADCR(QString str) {
 	        qDebug()<<"ReadADC Resistance for"<<str<<":"<<l_nResistance;
 	m_nResistance = l_nResistance;
 	return l_nResistance;
+}
+void ICM::AutoRangeR3(){
+    double r300,r3K,r30K,r300K,r1M;
+    double r300Per,r3KPer,r30KPer,r300KPer,r1MPer;
+    QString swRange;
+
+    //FullScan
+
+    on_R100E_clicked();     r300 = readADCR("300E");        r300Per=(r300/100)*5;
+
+    on_R1KE_clicked();      r3K = readADCR("3KE");          r3KPer=(r3K/100)*5;
+
+    on_R10KE_clicked();     r30K = readADCR("30KE");        r30KPer=(r30K/100)*5;
+
+    on_R100KE_clicked();    r300K = readADCR("300KE");      r300KPer=(r300K/100)*5;
+
+    on_R1ME_clicked();      r1M = readADCR("1ME");          r1MPer=(r1M/100)*5;
+
+    if( ((r3K >(r300-r300Per)) && r3K < (r300+r300Per))){
+        if(r3K < r300)
+            swRange = "3KE";
+        else
+            swRange = "300E";
+    }
+    else if( ((r30K >(r300-r300Per)) && r30K < (r300+r300Per))){
+        if(r30K < r300)
+            swRange = "30KE";
+        else
+            swRange = "300E";
+    }
+    else if( ((r300K >(r300-r300Per)) && r300K < (r300+r300Per))){
+        if(r300K < r300)
+            swRange = "300KE";
+        else
+            swRange = "300E";
+    }
+    else if( ((r1M >(r300-r300Per)) && r1M < (r300+r300Per))){
+        if(r1M < r300)
+            swRange = "1ME";
+        else
+            swRange = "300E";
+    }
+
+    if( ((r300 >(r3K-r3KPer)) && r300 < (r3K+r3KPer))){
+        if(r300 < r3K)
+            swRange = "300E";
+        else
+            swRange = "3KE";
+    }
+    else if( ((r30K >(r3K-r3KPer)) && r30K < (r3K+r3KPer))){
+        if(r30K < r3K)
+            swRange = "30KE";
+        else
+            swRange = "3KE";
+    }
+    else if( ((r300K >(r3K-r3KPer)) && r300K < (r3K+r3KPer))){
+        if(r300K < r3K)
+            swRange = "300KE";
+        else
+            swRange = "3KE";
+    }
+    else if( ((r1M >(r3K-r3KPer)) && r1M < (r3K+r3KPer))){
+        if(r1M < r3K)
+            swRange = "1ME";
+        else
+            swRange = "3KE";
+    }
+
+    if( ((r300 >(r30K-r30KPer)) && r300 < (r30K+r30KPer))){
+        if(r300 < r30K)
+            swRange = "300E";
+        else
+            swRange = "30KE";
+    }
+    else if( ((r3K >(r30K-r30KPer)) && r3K < (r30K+r30KPer))){
+        if(r3K < r30K)
+            swRange = "3KE";
+        else
+            swRange = "30KE";
+    }
+    else if( ((r300K >(r30K-r30KPer)) && r300K < (r30K+r30KPer))){
+        if(r300K < r30K)
+            swRange = "300KE";
+        else
+            swRange = "30KE";
+    }
+    else if( ((r1M >(r30K-r30KPer)) && r1M < (r30K+r30KPer))){
+        if(r1M < r30K)
+            swRange = "3KE";
+        else
+            swRange = "1ME";
+    }
+
+    if( ((r300 >(r300K-r300KPer)) && r300 < (r300K+r300KPer))){
+        if(r300 < r300K)
+            swRange = "300E";
+        else
+            swRange = "300KE";
+    }
+    else if( ((r3K >(r300K-r300KPer)) && r3K < (r300K+r300KPer))){
+        if(r3K < r300K)
+            swRange = "3KE";
+        else
+            swRange = "300KE";
+    }
+    else if( ((r30K >(r300K-r300KPer)) && r30K < (r300K+r300KPer))){
+        if(r30K < r300K)
+            swRange = "30KE";
+        else
+            swRange = "300KE";
+    }
+    else if( ((r1M >(r300K-r300KPer)) && r1M < (r300K+r300KPer))){
+        if(r1M < r300K)
+            swRange = "1ME";
+        else
+            swRange = "300KE";
+    }
+    if( ((r300 >(r1M-r1MPer)) && r300 < (r1M+r1MPer))){
+        if(r300 < r1M)
+            swRange = "300E";
+        else
+            swRange = "1ME";
+    }
+    else if( ((r3K >(r1M-r1MPer)) && r3K < (r1M+r1MPer))){
+        if(r3K < r1M)
+            swRange = "3KE";
+        else
+            swRange = "1ME";
+    }
+    else if( ((r30K >(r1M-r1MPer)) && r30K < (r1M+r1MPer))){
+        if(r30K < r1M)
+            swRange = "30KE";
+        else
+            swRange = "1ME";
+    }
+    else if( ((r300K >(r1M-r1MPer)) && r300K < (r1M+r1MPer))){
+        if(r300K < r1M)
+            swRange = "300KE";
+        else
+            swRange = "1ME";
+    }
+
+    if(swRange == "300E"){
+        ui->R100E->setChecked(true);
+        on_R100E_clicked();
+    }
+    else if(swRange == "3KE"){
+        ui->R1KE->setChecked(true);
+            on_R1KE_clicked();
+    }
+    else if(swRange == "30KE"){
+        ui->R10KE->setChecked(true);
+            on_R10KE_clicked();
+    }
+    else if(swRange == "300KE"){
+        ui->R100KE->setChecked(true);
+            on_R100KE_clicked();
+    }
+    else if(swRange == "1ME"){
+        ui->R1ME->setChecked(true);
+        on_R1ME_clicked();
+    }
+    m_nResistance = readADCR(ui->rangeLabel->text());
+    DisplayR();
+}
+
+void ICM::AutoRangeR2(){
+
+/*    if(m_nRange == 300){
+        if(l_nAIN2 < 0.02 || l_nAIN2 > 0.45){
+            ui->R1KE->setChecked(true);
+                on_R1KE_clicked();
+        }
+    }
+    else if(m_nRange == 3000){
+        if(l_nAIN2 < 0.02 || l_nAIN2 > 0.45){
+            ui->R10KE->setChecked(true);
+                on_R10KE_clicked();
+        }
+    }
+    else if(m_nRange == 30000){
+        if(l_nAIN2 < 0.02 || l_nAIN2 > 0.45){
+            ui->R100KE->setChecked(true);
+                on_R100KE_clicked();
+        }
+    }
+    else if(m_nRange == 300000){
+        if(l_nAIN2 < 0.02 || l_nAIN2 > 0.45){
+            ui->R1ME->setChecked(true);
+                on_R1ME_clicked();
+        }
+    }
+    else if(m_nRange == 1000000){
+        if(l_nAIN2 < 0.02 || l_nAIN2 > 0.45){
+            dis->setValue("OL");
+        }
+    }
+    */
+
+   if(m_nRange == 300){
+        if(l_nAIN2 < 0.02 || l_nAIN2 > 0.45){
+            ui->R1KE->setChecked(true);
+            on_R1KE_clicked();
+        }
+    }
+    else if(m_nRange == 3000){
+        if(l_nAIN2 < 0.03 || l_nAIN2 > 0.30){
+            ui->R10KE->setChecked(true);
+            on_R10KE_clicked();
+        }
+    }
+    else if(m_nRange == 30000){
+        if(l_nAIN2 < 0.03 || l_nAIN2 > 0.32){
+            ui->R100KE->setChecked(true);
+            on_R100KE_clicked();
+        }
+    }
+    else if(m_nRange == 300000){
+        if(l_nAIN2 < 0.03 || l_nAIN2 > 0.32){
+            ui->R100KE->setChecked(true);
+            on_R100KE_clicked();
+        }
+    }
+    else if(m_nRange == 1000000){
+        if(l_nAIN2 < 0.04 || l_nAIN2 > 0.14){
+                dis->setValue("OL");
+        }
+    }
+    m_nResistance = readADCR(ui->rangeLabel->text());
+    DisplayR();
 }
 
 void ICM::AutoRangeR(){
@@ -1791,6 +2021,9 @@ void ICM::on_R_clicked() {
 	rFlag=true;lFlag=false;cFlag=false;
 	//        on_R10E_clicked();
 	ui->ACDC->setEnabled(true);
+//        m_nRange = 300;
+//        ui->R100E->setChecked(true);
+//        on_R100E_clicked();
 }
 
 void ICM::on_L_clicked() {
@@ -2459,7 +2692,7 @@ void ICM::GetDisplayResistance(double pResistanceValue, double pRangeValue) {
 	m_nResistance_2 = pResistanceValue;
 
 	if (autoFlag == true){
-		AutoRangeR();
+                AutoRangeR();
 	}
 
 	if (ui->checkBox->isChecked()) {

@@ -160,6 +160,8 @@ protected:
 
     double readADCR(QString);
     void AutoRangeR();
+    void AutoRangeR2();
+    void AutoRangeR3();
     void DisplayR();
 
     QString convertToUnits(double l_nvalue);

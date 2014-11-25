@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'plotter.h'
 **
-** Created: Fri Nov 14 17:44:07 2014
+** Created: Mon Nov 24 17:15:52 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
