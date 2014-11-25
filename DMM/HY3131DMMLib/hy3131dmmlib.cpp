@@ -173,27 +173,6 @@ void HY3131DMMLib::Configure(int8_t index){
 		}
 	file.close();
 
-	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-		return;
-		while (!file.atEnd()) {
-
-			QByteArray line = file.readLine();
-			QList<QByteArray> data = line.split('\t');
-
-			if (data[0].endsWith('\n'))
-				data[0].chop(1);
-			if (data[1].endsWith('\n'))
-				data[1].chop(1);
-
-			unsigned short wrAddress = data[0].toUInt(&ok, 16);
-			unsigned short wrData = data[1].toUInt(&ok, 16);
-			writeDMMSPI(wrAddress, wrData);
-/*			qDebug()<<"Address: "<<hex<<wrAddress;
-			qDebug()<<"Data   : "<<hex<<wrData;*/
-			usleep(1000);
-		}
-	file.close();
-
 	busyState=false;
 
 /*	unsigned short addr,data;
@@ -248,7 +227,7 @@ double HY3131DMMLib::Measure2(int8_t index){
 			minus=false;
 		RMSData=readRMS();
 
-		if(reg4>0 && index!=AC500uA && index!=AC5mA && index!=AC50mA && index!=AC500mA && index!=AC10A)
+		if(reg4>0)// && index!=AC5V && index!=AC500uA && index!=AC5mA && index!=AC50mA && index!=AC500mA && index!=AC10A)
 			return 999999999;
 		else
 			RawData = (double)RMSData;
@@ -325,7 +304,7 @@ void HY3131DMMLib::writeDMMSPI(u_int16_t _Address, u_int16_t _Data){
 		while ((IBackPlane->readBackPlaneRegister(DMM_CMD_BP) & 0x0001));
 
 	//qDebug()<<"writeDMMSPI:"<<"Address:"<<hex<<mAddr<<"Data:"<<hex<<mData;
-	usleep(1000);
+	usleep(5000);
 	busyState=false;
 }
 u_int32_t HY3131DMMLib::readDMMSPI(u_int16_t _Address) {
@@ -463,6 +442,7 @@ u_int32_t HY3131DMMLib::readLPF(){
 	_rms = _rms | _reg_t2;
 	_rms = _rms | _reg_t3;
 	_rms = _rms | _reg_t4;
+
 	/*(20062014)_rms = _rms | _reg_t5;*/
 	//qDebug()<<"======================================================================";
 //	qDebug()<<"RMS ADC Read Data-Before Mask:"<<QString::number(_rms,16);

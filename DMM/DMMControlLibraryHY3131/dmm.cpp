@@ -54,7 +54,7 @@ void customMessageHandler(QtMsgType type, const char *msg) {
 }
 
 DMM::DMM(QWidget *parent) :
-        		QMainWindow(parent), ui(new Ui::DMM) {
+        				QMainWindow(parent), ui(new Ui::DMM) {
 	ui->setupUi(this);
 	QPluginLoader hy3131Loader("libHY3131DMMLib.so", this);
 	hy3131DMM = qobject_cast<IHY3131DMMLibInterface*> (hy3131Loader.instance());
@@ -155,8 +155,8 @@ DMM::DMM(QWidget *parent) :
 
 	ui->r4w->setVisible(false);
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	/*	QPluginLoader testing("libAppBckPsoc.so", this);
-         test = qobject_cast<IPTAppBckPsocInterface*> (testing.instance());*/
+		QPluginLoader testing2("libAppBckPsoc.so", this);
+         test = qobject_cast<IPTAppBckPsocInterface*> (testing2.instance());
 
 	//	QTimer *timerb1 = new QTimer(this);
 	//	connect(timerb1, SIGNAL(timeout()), this, SLOT(blink1()));
@@ -203,7 +203,7 @@ void DMM::doPTKeyFunction() {
 	} else if (m_nPTKeyCode == 12) {
 		ui->leftArrow->animateClick(1);
 	} else if (m_nPTKeyCode == 13) {
-		//    	clickedPRSCR();
+//		    	clickedPRSCR();
 	} else if (m_nPTKeyCode == 14) {
 		//        if(toolboxFlag==true){
 		//            toolboxFlag=false;
@@ -317,18 +317,18 @@ void DMM::InitialiseValues() {
 	setHighlight(0);
 	ui->Auto->setStyleSheet(
 			"QPushButton {color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #e59244, stop: 0.6 #ffa500 , stop:1 #FFFFFF);font:bold;}");
-        ui->voltMeter->animateClick(1);//buttonPressed(0);
+	ui->voltMeter->animateClick(1);//buttonPressed(0);
 	//Setting Auto mode as default
-//	buttonPressed(14);
-		ui->manual->setVisible(false);
-		ui->Auto->setVisible(true);
+	//	buttonPressed(14);
+	ui->manual->setVisible(false);
+	ui->Auto->setVisible(true);
 
-		ui->label_7->setText("Auto");
-		Flag.autoFlag = 1;
-		//setColor(1);
-		ui->label_6->setDisabled(true);
-		ui->label_5->setDisabled(true);
-		ui->label_4->setDisabled(true);
+	ui->label_7->setText("Auto");
+	Flag.autoFlag = 1;
+	//setColor(1);
+	ui->label_6->setDisabled(true);
+	ui->label_5->setDisabled(true);
+	ui->label_4->setDisabled(true);
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	ui->label_6->setDisabled(true);
@@ -743,7 +743,7 @@ void DMM::onMeasure() {
 		//                 ui->adcConvData->setText(QString::number(values.ConvertedData, 'f', 16));
 	}
 	if(graphWidget->isVisible())
-			InsertGraphData(display.retvalHY3131);
+		InsertGraphData(display.retvalHY3131);
 }
 void DMM::configGraphData(){
 	QString str=ui->label->text();
@@ -798,60 +798,60 @@ void DMM::InsertGraphData(double gData){
 			maxData=yData[k];
 	}
 
-        if(minData>=55000000)
-                ui->minEdit->setText("0");
-        else{
+	if(minData>=55000000)
+		ui->minEdit->setText("0");
+	else{
 
-            if(minData>=0 && minData<9)
-                ui->minEdit->setText("+"+QString::number(minData,'f',4)+ui->lineEdit_4->text());
-            else if(minData>=10 && minData<99)
-                ui->minEdit->setText("+"+QString::number(minData,'f',3)+ui->lineEdit_4->text());
-            else if(minData>=100 && minData<999)
-                ui->minEdit->setText("+"+QString::number(minData,'f',2)+ui->lineEdit_4->text());
-            else if(minData>=1000 && minData<9999)
-                ui->minEdit->setText("+"+QString::number(minData,'f',1)+ui->lineEdit_4->text());
-            else
-                ui->minEdit->setText("+"+QString::number(minData,'f',0)+ui->lineEdit_4->text());
+		if(minData>=0 && minData<9)
+			ui->minEdit->setText("+"+QString::number(minData,'f',4)+ui->lineEdit_4->text());
+		else if(minData>=10 && minData<99)
+			ui->minEdit->setText("+"+QString::number(minData,'f',3)+ui->lineEdit_4->text());
+		else if(minData>=100 && minData<999)
+			ui->minEdit->setText("+"+QString::number(minData,'f',2)+ui->lineEdit_4->text());
+		else if(minData>=1000 && minData<9999)
+			ui->minEdit->setText("+"+QString::number(minData,'f',1)+ui->lineEdit_4->text());
+		else
+			ui->minEdit->setText("+"+QString::number(minData,'f',0)+ui->lineEdit_4->text());
 
-            if(minData<0 && minData>-9)
-                ui->minEdit->setText(QString::number(minData,'f',4)+ui->lineEdit_4->text());
-            else if(minData<=10 && minData>-99)
-                ui->minEdit->setText(QString::number(minData,'f',3)+ui->lineEdit_4->text());
-            else if(minData<=100 && minData>-999)
-                ui->minEdit->setText(QString::number(minData,'f',2)+ui->lineEdit_4->text());
-            else if(minData<=1000 && minData>-9999)
-                ui->minEdit->setText(QString::number(minData,'f',1)+ui->lineEdit_4->text());
-            else
-                ui->minEdit->setText(QString::number(minData,'f',0)+ui->lineEdit_4->text());
-        }
-        if(maxData>=55000000)
-                ui->maxEdit->setText("OL");
-        else{
+		if(minData<0 && minData>-9)
+			ui->minEdit->setText(QString::number(minData,'f',4)+ui->lineEdit_4->text());
+		else if(minData<=10 && minData>-99)
+			ui->minEdit->setText(QString::number(minData,'f',3)+ui->lineEdit_4->text());
+		else if(minData<=100 && minData>-999)
+			ui->minEdit->setText(QString::number(minData,'f',2)+ui->lineEdit_4->text());
+		else if(minData<=1000 && minData>-9999)
+			ui->minEdit->setText(QString::number(minData,'f',1)+ui->lineEdit_4->text());
+		else
+			ui->minEdit->setText(QString::number(minData,'f',0)+ui->lineEdit_4->text());
+	}
+	if(maxData>=55000000)
+		ui->maxEdit->setText("OL");
+	else{
 
-            if(maxData>=0 && maxData<9)
-                ui->maxEdit->setText("+"+QString::number(maxData,'f',4)+ui->lineEdit_4->text());
-            else if(maxData>=10 && maxData<99)
-                ui->maxEdit->setText("+"+QString::number(maxData,'f',3)+ui->lineEdit_4->text());
-            else if(maxData>=100 && maxData<999)
-                ui->maxEdit->setText("+"+QString::number(maxData,'f',2)+ui->lineEdit_4->text());
-            else if(maxData>=1000 && maxData<9999)
-                ui->maxEdit->setText("+"+QString::number(maxData,'f',1)+ui->lineEdit_4->text());
-            else
-                ui->maxEdit->setText("+"+QString::number(maxData,'f',0)+ui->lineEdit_4->text());
+		if(maxData>=0 && maxData<9)
+			ui->maxEdit->setText("+"+QString::number(maxData,'f',4)+ui->lineEdit_4->text());
+		else if(maxData>=10 && maxData<99)
+			ui->maxEdit->setText("+"+QString::number(maxData,'f',3)+ui->lineEdit_4->text());
+		else if(maxData>=100 && maxData<999)
+			ui->maxEdit->setText("+"+QString::number(maxData,'f',2)+ui->lineEdit_4->text());
+		else if(maxData>=1000 && maxData<9999)
+			ui->maxEdit->setText("+"+QString::number(maxData,'f',1)+ui->lineEdit_4->text());
+		else
+			ui->maxEdit->setText("+"+QString::number(maxData,'f',0)+ui->lineEdit_4->text());
 
-            if(maxData<0 && maxData>-9)
-                ui->maxEdit->setText(QString::number(maxData,'f',4)+ui->lineEdit_4->text());
-            else if(maxData<=10 && maxData>-99)
-                ui->maxEdit->setText(QString::number(maxData,'f',3)+ui->lineEdit_4->text());
-            else if(maxData<=100 && maxData>-999)
-                ui->maxEdit->setText(QString::number(maxData,'f',2)+ui->lineEdit_4->text());
-            else if(maxData<=1000 && maxData>-9999)
-                ui->maxEdit->setText(QString::number(maxData,'f',1)+ui->lineEdit_4->text());
-            else
-                ui->maxEdit->setText(QString::number(maxData,'f',0)+ui->lineEdit_4->text());
-        }
+		if(maxData<0 && maxData>-9)
+			ui->maxEdit->setText(QString::number(maxData,'f',4)+ui->lineEdit_4->text());
+		else if(maxData<=10 && maxData>-99)
+			ui->maxEdit->setText(QString::number(maxData,'f',3)+ui->lineEdit_4->text());
+		else if(maxData<=100 && maxData>-999)
+			ui->maxEdit->setText(QString::number(maxData,'f',2)+ui->lineEdit_4->text());
+		else if(maxData<=1000 && maxData>-9999)
+			ui->maxEdit->setText(QString::number(maxData,'f',1)+ui->lineEdit_4->text());
+		else
+			ui->maxEdit->setText(QString::number(maxData,'f',0)+ui->lineEdit_4->text());
+	}
 
-        /*if(dis->getRange()==3 || dis->getRange()==5){
+	/*if(dis->getRange()==3 || dis->getRange()==5){
 
 		if(minData>=55000000)
                         ui->minEdit->setText("OL");
@@ -943,22 +943,22 @@ void DMM::InsertGraphData(double gData){
 }
 void DMM::CalibrateDisplay(QString value) {
 	QString l_strFileName;
-//	l_strFileName = "DMMCalibration.xml";
-    if(Flag.r2wFlag==1){
-        l_strFileName = "DMMResCalib.xml";
-    }
-    else if(Flag.vFlag==1){
-    	if(Flag.dcFlag==1)
-    		l_strFileName = "DMMDCVCalib.xml";
-    	else
-    		l_strFileName = "DMMACVCalib.xml";
-    }
-    else if(Flag.iFlag==1){
-    	if(Flag.dcFlag==1)
-    		l_strFileName = "DMMDCICalib.xml";
-    	else
-    		l_strFileName = "DMMACICalib.xml";
-    }
+	//	l_strFileName = "DMMCalibration.xml";
+	if(Flag.r2wFlag==1){
+		l_strFileName = "DMMResCalib.xml";
+	}
+	else if(Flag.vFlag==1){
+		if(Flag.dcFlag==1)
+			l_strFileName = "DMMDCVCalib.xml";
+		else
+			l_strFileName = "DMMACVCalib.xml";
+	}
+	else if(Flag.iFlag==1){
+		if(Flag.dcFlag==1)
+			l_strFileName = "DMMDCICalib.xml";
+		else
+			l_strFileName = "DMMACICalib.xml";
+	}
 	////qDebug() << "Range:" << value;
 
 	QString comp;
@@ -1135,7 +1135,7 @@ void DMM::callMeasure(void) {
 		}
 		//		usleep(10000);//commented on Apr 28 5PM
 		if (Flag.runFlag == 1)
-                        m_nADCtimer->start(250);
+			m_nADCtimer->start(250);
 	}
 	if(graphWidget->isVisible())
 		configGraphData();
@@ -1327,7 +1327,7 @@ void DMM::buttonPressed(int pPressed) {
 		break;
 
 	case 6:
-                //qDebug() << "case Diode";
+		//qDebug() << "case Diode";
 		Flag.diodeFlag = 1;
 		Flag.vFlag = Flag.iFlag = Flag.r2wFlag = Flag.dcFlag = Flag.acFlag = Flag.continuityFlag = Flag.autoFlag = 0;
 		Flag.buzzerFlag = 0;
@@ -1376,7 +1376,7 @@ void DMM::buttonPressed(int pPressed) {
 		else if (Flag.continuityFlag == 1)
 			ui->textEdit_5->setText("CONT");
 		callMeasure();
-                m_nADCtimer->start(250);
+		m_nADCtimer->start(250);
 		//                movie = new QMovie(":/indicate1.gif");
 		//                //        	QSize size(150,20);
 		//                //            movie->setScaledSize(size);
@@ -1414,7 +1414,7 @@ void DMM::buttonPressed(int pPressed) {
 		IBackPlane->closeObject();
 		parentWidget()->close();
 		//		} else {
-			//			showMessageBox(true, false, "Stop the DMM and then Exit", "Ok");
+		//			showMessageBox(true, false, "Stop the DMM and then Exit", "Ok");
 		//			break;
 		//		}
 	}
@@ -1796,81 +1796,81 @@ void DMM::showSymbol(unsigned char symbol) {
 }
 void DMM::AutoRangeRes(double val){
 
-    if(val>=4900000){
-        if(n2WResistanceCur!=6){
-            hy3131DMM->Configure(R50M);
-            qDebug()<<"Range R50M Configured";
-        }
-        n2WResistancePrev = 5;        n2WResistanceCur  = 6;        n2WResistanceNext = 6;
-    }
-    else if(val>=490000 && val <510000){
-        if(n2WResistanceCur!=5){
-            hy3131DMM->Configure(R5M);
-            qDebug()<<"Range R5M Configured";
-        }
-       n2WResistancePrev = 4;        n2WResistanceCur  = 5;        n2WResistanceNext = 6;
-    }
-    else if(val>=49000 && val <510000){
-        if(n2WResistanceCur!=4){
-            hy3131DMM->Configure(R500K);
-            qDebug()<<"Range R500K Configured";
-        }
-        n2WResistancePrev = 3;        n2WResistanceCur  = 4;        n2WResistanceNext = 5;
-    }
-    else if(val>=4999 && val <51000){
-        if(n2WResistanceCur!=3){
-            hy3131DMM->Configure(R50K);
-            qDebug()<<"Range R50K Configured";
-        }
-        n2WResistancePrev = 2;        n2WResistanceCur  = 3;        n2WResistanceNext = 4;
-    }
-    else if(val>=499 && val <5100){
-        if(n2WResistanceCur!=2){
-            hy3131DMM->Configure(R5K);
-            qDebug()<<"Range R5K Configured";
-        }
-        n2WResistancePrev = 1;        n2WResistanceCur  = 2;        n2WResistanceNext = 3;
-    }
-    else if(val>=49 && val <510){
-        if(n2WResistanceCur!=1){
-            hy3131DMM->Configure(R500E);
-            qDebug()<<"Range R500E Configured";
-        }
-        n2WResistancePrev = 0;        n2WResistanceCur  = 1;        n2WResistanceNext = 2;
-    }
-    else if(val>=0 && val <49){
-        if(n2WResistanceCur!=0){
-            hy3131DMM->Configure(R50E);
-            qDebug()<<"Range R50E Configured";
-        }
-        n2WResistancePrev = 0;        n2WResistanceCur  = 0;        n2WResistanceNext = 1;
-    }
-    else if(val<0){
-        if(n2WResistanceCur!=0){
-            hy3131DMM->Configure(R50E);
-            qDebug()<<"Range R50E Configured";
-        }
-        n2WResistancePrev = 0;        n2WResistanceCur  = 0;        n2WResistanceNext = 1;
-    }
+	if(val>=4900000){
+		if(n2WResistanceCur!=6){
+			hy3131DMM->Configure(R50M);
+			qDebug()<<"Range R50M Configured";
+		}
+		n2WResistancePrev = 5;        n2WResistanceCur  = 6;        n2WResistanceNext = 6;
+	}
+	else if(val>=490000 && val <510000){
+		if(n2WResistanceCur!=5){
+			hy3131DMM->Configure(R5M);
+			qDebug()<<"Range R5M Configured";
+		}
+		n2WResistancePrev = 4;        n2WResistanceCur  = 5;        n2WResistanceNext = 6;
+	}
+	else if(val>=49000 && val <510000){
+		if(n2WResistanceCur!=4){
+			hy3131DMM->Configure(R500K);
+			qDebug()<<"Range R500K Configured";
+		}
+		n2WResistancePrev = 3;        n2WResistanceCur  = 4;        n2WResistanceNext = 5;
+	}
+	else if(val>=4999 && val <51000){
+		if(n2WResistanceCur!=3){
+			hy3131DMM->Configure(R50K);
+			qDebug()<<"Range R50K Configured";
+		}
+		n2WResistancePrev = 2;        n2WResistanceCur  = 3;        n2WResistanceNext = 4;
+	}
+	else if(val>=499 && val <5100){
+		if(n2WResistanceCur!=2){
+			hy3131DMM->Configure(R5K);
+			qDebug()<<"Range R5K Configured";
+		}
+		n2WResistancePrev = 1;        n2WResistanceCur  = 2;        n2WResistanceNext = 3;
+	}
+	else if(val>=49 && val <510){
+		if(n2WResistanceCur!=1){
+			hy3131DMM->Configure(R500E);
+			qDebug()<<"Range R500E Configured";
+		}
+		n2WResistancePrev = 0;        n2WResistanceCur  = 1;        n2WResistanceNext = 2;
+	}
+	else if(val>=0 && val <49){
+		if(n2WResistanceCur!=0){
+			hy3131DMM->Configure(R50E);
+			qDebug()<<"Range R50E Configured";
+		}
+		n2WResistancePrev = 0;        n2WResistanceCur  = 0;        n2WResistanceNext = 1;
+	}
+	else if(val<0){
+		if(n2WResistanceCur!=0){
+			hy3131DMM->Configure(R50E);
+			qDebug()<<"Range R50E Configured";
+		}
+		n2WResistancePrev = 0;        n2WResistanceCur  = 0;        n2WResistanceNext = 1;
+	}
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    ui->label_6->setText(mapResistance.value(n2WResistancePrev));
-    ui->label_5->setText(mapResistance.value(n2WResistanceCur));
-    ui->label_4->setText(mapResistance.value(n2WResistanceNext));
-    ui->label->setText(mapResistance.value(n2WResistanceCur));
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    if (n2WResistanceCur == 0)
-            showSymbol(7);
-    else if ((n2WResistanceCur > 0) && (n2WResistanceCur <= 3))
-            showSymbol(3);
-    else if (n2WResistanceCur > 3)
-            showSymbol(5);
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    if (Flag.runFlag == 1)
-        m_nADCtimer->start(250);
-    if(graphWidget->isVisible())
-        configGraphData();
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	ui->label_6->setText(mapResistance.value(n2WResistancePrev));
+	ui->label_5->setText(mapResistance.value(n2WResistanceCur));
+	ui->label_4->setText(mapResistance.value(n2WResistanceNext));
+	ui->label->setText(mapResistance.value(n2WResistanceCur));
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	if (n2WResistanceCur == 0)
+		showSymbol(7);
+	else if ((n2WResistanceCur > 0) && (n2WResistanceCur <= 3))
+		showSymbol(3);
+	else if (n2WResistanceCur > 3)
+		showSymbol(5);
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	if (Flag.runFlag == 1)
+		m_nADCtimer->start(250);
+	if(graphWidget->isVisible())
+		configGraphData();
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 
 void DMM::AutoRange() {
@@ -1880,23 +1880,23 @@ void DMM::AutoRange() {
 			buttonPressed(12);
 			//qDebug() << "ADC Full Scale";
 		} else {
-//			if ((display.retval >= 51.0 && n2WResistanceCur == 0)
-//					|| (display.retval >= 510.0 && n2WResistanceCur == 1)
-//					|| (display.retval >= 5100.0 && n2WResistanceCur == 2)
-//					|| (display.retval >= 51000.0 && n2WResistanceCur == 3)
-//					|| (display.retval >= 510000.0 && n2WResistanceCur == 4)
-//                                        || (display.retval >= 5100000.0 && n2WResistanceCur == 5)){
-//                                buttonPressed(12);
-//                        }
-//			else if ((display.retval < 4900000.0 && n2WResistanceCur == 6)
-//					|| (display.retval < 490000.0 && n2WResistanceCur == 5)
-//					|| (display.retval < 49000.0 && n2WResistanceCur == 4)
-//					|| (display.retval < 4900.0 && n2WResistanceCur == 3)
-//					|| (display.retval < 490.0 && n2WResistanceCur == 2)
-//                                        || (display.retval < 49.0 && n2WResistanceCur == 1)){
-//				buttonPressed(13);
-//                            }
-                                                AutoRangeRes(display.retval);
+			//			if ((display.retval >= 51.0 && n2WResistanceCur == 0)
+			//					|| (display.retval >= 510.0 && n2WResistanceCur == 1)
+			//					|| (display.retval >= 5100.0 && n2WResistanceCur == 2)
+			//					|| (display.retval >= 51000.0 && n2WResistanceCur == 3)
+			//					|| (display.retval >= 510000.0 && n2WResistanceCur == 4)
+			//                                        || (display.retval >= 5100000.0 && n2WResistanceCur == 5)){
+			//                                buttonPressed(12);
+			//                        }
+			//			else if ((display.retval < 4900000.0 && n2WResistanceCur == 6)
+			//					|| (display.retval < 490000.0 && n2WResistanceCur == 5)
+			//					|| (display.retval < 49000.0 && n2WResistanceCur == 4)
+			//					|| (display.retval < 4900.0 && n2WResistanceCur == 3)
+			//					|| (display.retval < 490.0 && n2WResistanceCur == 2)
+			//                                        || (display.retval < 49.0 && n2WResistanceCur == 1)){
+			//				buttonPressed(13);
+			//                            }
+			AutoRangeRes(display.retval);
 		}
 	}
 
@@ -2054,9 +2054,10 @@ void DMM::on_idc_clicked() {
 }
 
 void DMM::on_r2w_clicked() {
-	ui->Auto->setEnabled(true);
-	ui->Auto->setStyleSheet("QPushButton {color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);font:bold;}QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);}QPushButton:flat {border: none;}QPushButton:default {border-color: navy;}QPushButton:disabled{color:lightgrey;background-color:grey}");
-
+	if(ui->Auto->isEnabled()!=true){
+		ui->Auto->setEnabled(true);
+		ui->Auto->setStyleSheet("QPushButton {color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #e59244, stop: 0.6 #ffa500 , stop:1 #FFFFFF);font:bold;}");
+	}
 	setHighlight(7);
 	buttonPressed(7);
 }
@@ -2075,14 +2076,14 @@ void DMM::on_exit_clicked() {
 void DMM::alignIcons(bool state){
 	if(state){
 
-                ui->Continuity->setGeometry(93,46,64,64);
+		ui->Continuity->setGeometry(93,46,64,64);
 
-                ui->Diode->setGeometry(181,46,64,64);
-                ui->vac->setGeometry(181,46,64,64);
+		ui->Diode->setGeometry(181,46,64,64);
+		ui->vac->setGeometry(181,46,64,64);
 		ui->iac->setGeometry(181,46,64,64);
 
-                ui->r2w->setGeometry(269,46,64,64);
-                ui->vdc->setGeometry(269,46,64,64);
+		ui->r2w->setGeometry(269,46,64,64);
+		ui->vdc->setGeometry(269,46,64,64);
 		ui->r4w->setGeometry(269,46,64,64);
 		ui->idc->setGeometry(269,46,64,64);
 
@@ -2117,6 +2118,10 @@ void DMM::alignIcons(bool state){
 
 void DMM::on_voltMeter_clicked() {
 	alignIcons(false);
+	if(ui->Auto->isEnabled()!=true){
+		ui->Auto->setEnabled(true);
+		ui->Auto->setStyleSheet("QPushButton {color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #e59244, stop: 0.6 #ffa500 , stop:1 #FFFFFF);font:bold;}");
+	}
 
 	ui->vac->setVisible(true);
 	ui->vdc->setVisible(true);
@@ -2143,6 +2148,10 @@ void DMM::on_voltMeter_clicked() {
 
 void DMM::on_ampMeter_clicked() {
 	alignIcons(false);
+	if(ui->Auto->isEnabled()!=true){
+		ui->Auto->setEnabled(true);
+		ui->Auto->setStyleSheet("QPushButton {color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #e59244, stop: 0.6 #ffa500 , stop:1 #FFFFFF);font:bold;}");
+	}
 
 	ui->vac->setVisible(false);
 	ui->vdc->setVisible(false);
@@ -2168,6 +2177,10 @@ void DMM::on_ampMeter_clicked() {
 
 void DMM::on_ohmMeter_clicked() {
 	alignIcons(true);
+	if(ui->Auto->isEnabled()!=true){
+		ui->Auto->setEnabled(true);
+		ui->Auto->setStyleSheet("QPushButton {color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #e59244, stop: 0.6 #ffa500 , stop:1 #FFFFFF);font:bold;}");
+	}
 
 	ui->vac->setVisible(false);
 	ui->vdc->setVisible(false);
@@ -2205,9 +2218,9 @@ void DMM::on_Null_clicked() {
 }
 
 void DMM::on_pushButton_clicked() {
-	/*	QWidget *newWidget = test->getPTAppBckPsoc();
+		QWidget *newWidget = test->getPTAppBckPsoc();
          newWidget->setWindowTitle("AppCard BackPanel PSoC Panel");
-         newWidget->show();*/
+         newWidget->show();
 }
 
 void DMM::on_pushButton_14_clicked() {
@@ -2246,51 +2259,51 @@ void DMM::on_pushButton_15_clicked() {
 }
 
 void DMM::on_Continuity_clicked() {
-//	if (Flag.continuityFlag == 1) {
-//		ui->Auto->setEnabled(true);
-//		setHighlight(7);			//RESISTANCE
-//		buttonPressed(7);
-//	} else {
-		ui->Auto->setEnabled(false);
+	//	if (Flag.continuityFlag == 1) {
+	//		ui->Auto->setEnabled(true);
+	//		setHighlight(7);			//RESISTANCE
+	//		buttonPressed(7);
+	//	} else {
+	ui->Auto->setEnabled(false);
 
-		ui->Auto->setStyleSheet("QPushButton{color:gray;border: 1px solid #2D5059;border-radius: 20px;background-color: rgba(88,88,88);}QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);}QPushButton:flat {border: none;}QPushButton:default {border-color: navy;}QPushButton:disabled{color:lightgrey;background-color:grey}");
+	ui->Auto->setStyleSheet("QPushButton{color:gray;border: 1px solid #2D5059;border-radius: 20px;background-color: rgba(88,88,88);}QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);}QPushButton:flat {border: none;}QPushButton:default {border-color: navy;}QPushButton:disabled{color:lightgrey;background-color:grey}");
 
-		setHighlight(5);			//CONTINUITY
-		ui->label->setText("500E");
-		buttonPressed(5);
-                Flag.autoFlag=true;
-		ui->rangeFrame->setVisible(false);
-		ui->frame_6->setVisible(false);
-		ui->label_18->setVisible(false);
-		ui->manual->setVisible(false);
-		ui->Auto->setVisible(true);
+	setHighlight(5);			//CONTINUITY
+	ui->label->setText("500E");
+	buttonPressed(5);
+	Flag.autoFlag=true;
+	ui->rangeFrame->setVisible(false);
+	ui->frame_6->setVisible(false);
+	ui->label_18->setVisible(false);
+	ui->manual->setVisible(false);
+	ui->Auto->setVisible(true);
 
-//	}
+	//	}
 }
 
 void DMM::on_Diode_clicked() {
-//	if (Flag.diodeFlag == 1) {
-//		ui->Auto->setEnabled(true);
-//		setHighlight(7);			//RESISTANCE
-//		buttonPressed(7);
-//	} else {
-		ui->Auto->setEnabled(false);
-		ui->Auto->setStyleSheet("QPushButton{color:gray;border: 1px solid #2D5059;border-radius: 20px;background-color: rgba(88,88,88);}QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);}QPushButton:flat {border: none;}QPushButton:default {border-color: navy;}QPushButton:disabled{color:lightgrey;background-color:grey}");
+	//	if (Flag.diodeFlag == 1) {
+	//		ui->Auto->setEnabled(true);
+	//		setHighlight(7);			//RESISTANCE
+	//		buttonPressed(7);
+	//	} else {
+	ui->Auto->setEnabled(false);
+	ui->Auto->setStyleSheet("QPushButton{color:gray;border: 1px solid #2D5059;border-radius: 20px;background-color: rgba(88,88,88);}QPushButton:pressed {background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);}QPushButton:flat {border: none;}QPushButton:default {border-color: navy;}QPushButton:disabled{color:lightgrey;background-color:grey}");
 
-		setHighlight(6);			//DIODE
-		buttonPressed(6);
+	setHighlight(6);			//DIODE
+	buttonPressed(6);
 
-                Flag.autoFlag=true;
-//		ui->Auto->setStyleSheet(
-//				"QPushButton {color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #e59244, stop: 0.6 #ffa500 , stop:1 #FFFFFF);font:bold;}");
-		ui->rangeFrame->setVisible(false);
-		ui->frame_6->setVisible(false);
-		ui->label_18->setVisible(false);
-		ui->manual->setVisible(false);
-		ui->Auto->setVisible(true);
+	Flag.autoFlag=true;
+	//		ui->Auto->setStyleSheet(
+	//				"QPushButton {color:white;border: 1px solid #2D5059;border-radius: 20px;background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #e59244, stop: 0.6 #ffa500 , stop:1 #FFFFFF);font:bold;}");
+	ui->rangeFrame->setVisible(false);
+	ui->frame_6->setVisible(false);
+	ui->label_18->setVisible(false);
+	ui->manual->setVisible(false);
+	ui->Auto->setVisible(true);
 
 
-//	}
+	//	}
 
 }
 
@@ -2301,14 +2314,14 @@ void DMM::on_calibrateDisplay_clicked() {
 void DMM::on_ohmMeter_2_clicked() {
 	ui->selectFrame->setGeometry(701, 354, 10, 60);
 
-//	ui->voltBox->setStyleSheet(
-//			"QGroupBox{border:1px solid white; background-color: #dadbde;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde); border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;}");
-//	ui->AmpBox->setStyleSheet(
-//			"QGroupBox{border:1px solid white; background-color: #dadbde;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde);border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;border-top:1px solid gray; border-top-right-radius: 0px; border-top-left-radius: 0px;}");
-//	ui->OhmBox->setStyleSheet(
-//			"QGroupBox{border:1px solid white; background-color: #dadbde;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde);border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;border-top:1px solid gray; border-top-right-radius: 0px; border-top-left-radius: 0px;}");
-//	ui->OhmBox_2->setStyleSheet(
-//			"QGroupBox{border:1px solid white; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);border-radius:10px;border-top:1px qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #f6f7fa, stop: 1 #dadbde); border-top-right-radius: 0px; border-top-left-radius: 0px;border-top:1px solid gray;border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;}");
+	//	ui->voltBox->setStyleSheet(
+	//			"QGroupBox{border:1px solid white; background-color: #dadbde;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde); border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;}");
+	//	ui->AmpBox->setStyleSheet(
+	//			"QGroupBox{border:1px solid white; background-color: #dadbde;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde);border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;border-top:1px solid gray; border-top-right-radius: 0px; border-top-left-radius: 0px;}");
+	//	ui->OhmBox->setStyleSheet(
+	//			"QGroupBox{border:1px solid white; background-color: #dadbde;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde);border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;border-top:1px solid gray; border-top-right-radius: 0px; border-top-left-radius: 0px;}");
+	//	ui->OhmBox_2->setStyleSheet(
+	//			"QGroupBox{border:1px solid white; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);border-radius:10px;border-top:1px qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #f6f7fa, stop: 1 #dadbde); border-top-right-radius: 0px; border-top-left-radius: 0px;border-top:1px solid gray;border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;}");
 
 	//~~~~~~~~Check for debug panel~~~~~~~~~~~~~~~~~~~~~~~~
 	QStringList debugPanel;
@@ -2324,17 +2337,17 @@ void DMM::on_ohmMeter_2_clicked() {
 	if(graphWidget->isVisible()){
 		graphWidget->setVisible(false);
 		ui->graphLegend->setVisible(false);
-                        ui->OhmBox_2->setStyleSheet(
-                                        "QGroupBox{border:1px solid white; background-color: #dadbde;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde);border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;border-top:1px solid gray; border-top-right-radius: 0px; border-top-left-radius: 0px;}");
+		ui->OhmBox_2->setStyleSheet(
+				"QGroupBox{border:1px solid white; background-color: #dadbde;border-radius:10px;border-bottom:1px qlineargradient(x1: 0, y1: 0,stop: 0 #f6f7fa, stop: 1 #dadbde);border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;border-top:1px solid gray; border-top-right-radius: 0px; border-top-left-radius: 0px;}");
 	}
 	else{
 		graphWidget->setVisible(true);
 		ui->graphLegend->setVisible(true);
-                ui->OhmBox_2->setStyleSheet(
-                                "QGroupBox{border:1px solid white; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);border-radius:10px;border-top:1px qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #f6f7fa, stop: 1 #dadbde); border-top-right-radius: 0px; border-top-left-radius: 0px;border-top:1px solid gray;border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;}");
+		ui->OhmBox_2->setStyleSheet(
+				"QGroupBox{border:1px solid white; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);border-radius:10px;border-top:1px qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #f6f7fa, stop: 1 #dadbde); border-top-right-radius: 0px; border-top-left-radius: 0px;border-top:1px solid gray;border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;}");
 		graphLoop=0;
 	}
-    configGraphData();
+	configGraphData();
 
 }
 
