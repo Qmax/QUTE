@@ -935,14 +935,14 @@ void    ICM::readADC(){
 
 //    showMessageBox(true,false,QDateTime::currentDateTime().toString());
 	if(ui->ResistanceRanges->isVisible()){
-                if( autoFlag == true)// && scanFlag == true )
+                if( autoFlag == true )//&& scanFlag == true )
                         AutoRangeR3();
 		else{
 			m_nResistance = readADCR(ui->rangeLabel->text());
 			DisplayR();
 		}
                 ui->lblfrequency->setText(QString::number(m_nFrequency, 'f', 0));
-               /* if(autoFlag==true){
+/*                if(autoFlag==true){
 //			do{
                                 m_nResistance = readADCR(ui->rangeLabel->text());
 				DisplayR();

@@ -1912,14 +1912,14 @@ void DMM::AutoRange() {
 				if (((display.retval5 >=51.0) && nVoltageCur == 0)
 						|| ((display.retval5 >= 510.0) && nVoltageCur == 1)
 						|| ((display.retval5 >= 5100.0) && nVoltageCur == 2)
-						|| ((display.retval5 >= 51000.0) && nVoltageCur == 3)
-						|| ((display.retval5 >= 510000.0) && nVoltageCur == 4)){
+/*						|| ((display.retval5 >= 51000.0) && nVoltageCur == 3)
+						|| ((display.retval5 >= 510000.0) && nVoltageCur == 4)*/){
 					qDebug()<<"buttonPressed(12) in Voltage Autorange"<<"display.retval:"<<display.retvalHY3131<<"nVoltageCur:"<<nVoltageCur;
 					buttonPressed(12);
 				}
-				else if (((display.retval5 < 490000.0) && nVoltageCur == 5)
+				else if (/*((display.retval5 < 490000.0) && nVoltageCur == 5)
 						|| ((display.retval5 < 49000.0) && nVoltageCur == 4)
-						|| ((display.retval5 < 4900.0) && nVoltageCur == 3)
+						||*/ ((display.retval5 < 4900.0) && nVoltageCur == 3)
 						|| ((display.retval5 < 490.0) && nVoltageCur == 2)
 						|| ((display.retval5 < 49.0) && nVoltageCur == 1)){
 					qDebug()<<"buttonPressed(13) in Voltage Autorange"<<"display.retval:"<<display.retvalHY3131<<"nVoltageCur:"<<nVoltageCur;
@@ -1930,12 +1930,12 @@ void DMM::AutoRange() {
 				if (((display.retval5 < -51.0) && nVoltageCur == 0)
 						|| ((display.retval5 < -510.0) && nVoltageCur == 1)
 						|| ((display.retval5 < -5100.0) && nVoltageCur == 2)
-						|| ((display.retval5 < -51000.0) && nVoltageCur == 3)
-						|| ((display.retval5 < -510000.0) && nVoltageCur == 4))
+/*						|| ((display.retval5 < -51000.0) && nVoltageCur == 3)
+						|| ((display.retval5 < -510000.0) && nVoltageCur == 4)*/)
 					buttonPressed(12);
-				else if (((display.retval5 >= -490000.0) && nVoltageCur == 5)
+				else if (/*((display.retval5 >= -490000.0) && nVoltageCur == 5)
 						|| ((display.retval5 >= -49000.0) && nVoltageCur == 4)
-						|| ((display.retval5 >= -4900.0) && nVoltageCur == 3)
+						||*/ ((display.retval5 >= -4900.0) && nVoltageCur == 3)
 						|| ((display.retval5 >= -490.0) && nVoltageCur == 2)
 						|| ((display.retval5 >= -49.0) && nVoltageCur == 1))
 					buttonPressed(13);
