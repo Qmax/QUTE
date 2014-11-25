@@ -20,14 +20,19 @@ void DACCalibration::DMM2GCalib(double value,QString com){
 	if(com==ui.ICM->currentText()){
 
 		qDebug()<<"Received from DMM in range"<<com<<"value:"<<value;
+
+		if(ui.ICM->currentText().endsWith("ME"))
+			m_nRxedValue=value/1000000;
+		else if(ui.ICM->currentText().endsWith("KE"))
+			m_nRxedValue=value/1000;
+		else if(ui.ICM->currentText().endsWith("mV") || ui.ICM->currentText().endsWith("mA"))
+			m_nRxedValue=value*1000;
+		else if(ui.ICM->currentText().endsWith("uA"))
+			m_nRxedValue=value*1000000;
+		else
+			m_nRxedValue=value;
+
 		ui.lineEdit_3->setText(QString::number(m_nRxedValue));
-
-//		if(value>=1000&&value<1000000)
-//        	value=value/1000;
-//        else if(value>=1000000)
-//        	value=value/1000000;
-
-		m_nRxedValue=value;
 
 		qDebug()<<"Received2 from DMM in range"<<com<<"value:"<<value;
 
@@ -369,8 +374,18 @@ void DACCalibration::receiveValue(double pValue){
 //	        	pValue=pValue/1000;
 //	        else if(pValue>=1000000)
 //	        	pValue=pValue/1000000;
-    		m_objLE_ActualValue->setText(QString::number(pValue));
+		if(ui.ICM->currentText().endsWith("ME"))
+			m_nActualValue=pValue/1000000;
+		else if(ui.ICM->currentText().endsWith("KE"))
+			m_nActualValue=pValue/1000;
+		else if(ui.ICM->currentText().endsWith("mV") || ui.ICM->currentText().endsWith("mA"))
+			m_nActualValue=pValue*1000;
+		else if(ui.ICM->currentText().endsWith("uA"))
+			m_nActualValue=pValue*1000000;
+		else
 			m_nActualValue=pValue;
+
+    		m_objLE_ActualValue->setText(QString::number(m_nActualValue));
 //		}
 		qDebug()<<"double m_nActualValue:"<<m_nActualValue;
         break;
