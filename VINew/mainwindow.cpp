@@ -580,7 +580,7 @@ void MainWindow::notifyProbeObserver()
 		ui->ah2_outer->setStyleSheet("border:1px solid gray;border-radius:20px;image: url(:/new/prefix1/Button-Blank-Gray-icon.png);");
 		ui->ah2_outer->setGeometry(96,26,41,41);
 
-		ui->ah3_inner->setVisible(true);
+		ui->ah_inner->setVisible(true);
 		ui->ah3_outer->setStyleSheet("border:1px solid gray;border-radius:20px;image: url(:/new/prefix1/Button-Blank-Gray-icon.png);");
 		ui->ah3_outer->setGeometry(167,26,41,41);
 
@@ -2259,7 +2259,7 @@ void MainWindow::on_butProbe1_clicked()
 	ui->ah2_outer->setStyleSheet("border:1px solid gray;border-radius:20px;image: url(:/new/prefix1/Button-Blank-Gray-icon.png);");
 	ui->ah2_outer->setGeometry(96,26,41,41);
 
-	ui->ah3_inner->setVisible(true);
+	ui->ah_inner->setVisible(true);
 	ui->ah3_outer->setStyleSheet("border:1px solid gray;border-radius:20px;image: url(:/new/prefix1/Button-Blank-Gray-icon.png);");
 	ui->ah3_outer->setGeometry(167,26,41,41);
 
@@ -2312,7 +2312,7 @@ void MainWindow::on_butProbe2_clicked()
 	ui->ah2_outer->setStyleSheet("border:1px solid gray;border-radius:20px;image: url(:/new/prefix1/Button-Blank-Gray-icon.png);");
 	ui->ah2_outer->setGeometry(96,26,41,41);
 
-	ui->ah3_inner->setVisible(true);
+	ui->ah_inner->setVisible(true);
 	ui->ah3_outer->setStyleSheet("border:1px solid gray;border-radius:20px;image: url(:/new/prefix1/Button-Blank-Gray-icon.png);");
 	ui->ah3_outer->setGeometry(167,26,41,41);
 
@@ -2368,7 +2368,7 @@ void MainWindow::on_butExternal_2_clicked()
 		ui->ah2_outer->setStyleSheet("border:1px solid gray;border-radius:20px;image: url(:/fp_images/bnc.png);");
 		ui->ah2_outer->setGeometry(96,26,41,41);
 
-		ui->ah3_inner->setVisible(false);
+		ui->ah_inner->setVisible(false);
 		ui->ah3_outer->setStyleSheet("border:1px solid gray;border-radius:20px;image: url(:/fp_images/bnc.png);");
 		ui->ah3_outer->setGeometry(167,26,41,41);
 

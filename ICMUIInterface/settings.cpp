@@ -564,3 +564,10 @@ void Settings::on_comboBox_currentIndexChanged(int index)
     IAppCard->writeRegister(m_nICMMGR,0x3A);
     emit FeedbackChange(index);
 }
+
+void Settings::on_srcImpBox_10_currentIndexChanged(int index)
+{
+     unsigned int source_impedance=(unsigned int)index;
+     qDebug()<<hex<<"impedance index:"<<source_impedance;
+     IPsoc->srcImpedanceSelection(source_impedance);
+}

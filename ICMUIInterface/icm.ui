@@ -5216,6 +5216,22 @@ Calibration</string>
       <string/>
      </property>
     </widget>
+    <widget class="QLineEdit" name="scrDisplay">
+     <property name="geometry">
+      <rect>
+       <x>412</x>
+       <y>0</y>
+       <width>231</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="selectFrame">
     <property name="geometry">
@@ -7421,7 +7437,7 @@ color: rgb(0, 85, 255);</string>
    <widget class="QFrame" name="graphPlotting">
     <property name="geometry">
      <rect>
-      <x>800</x>
+      <x>10</x>
       <y>434</y>
       <width>693</width>
       <height>160</height>
@@ -8049,6 +8065,19 @@ color: rgba(0, 0, 0, 0); }</string>
      </property>
     </widget>
    </widget>
+   <zorder>displayBox</zorder>
+   <zorder>Components</zorder>
+   <zorder>debugPanel</zorder>
+   <zorder>selectFrame</zorder>
+   <zorder>cBox</zorder>
+   <zorder>ExitBox</zorder>
+   <zorder>rBox</zorder>
+   <zorder>t2Box</zorder>
+   <zorder>graphBox</zorder>
+   <zorder>lBox</zorder>
+   <zorder>plottingWindow</zorder>
+   <zorder>graphPlotting</zorder>
+   <zorder>frontPanel_ICM</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

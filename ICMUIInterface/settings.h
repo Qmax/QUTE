@@ -72,6 +72,7 @@ private:
     Ui::Settings *ui;
 
 private slots:
+        void on_srcImpBox_10_currentIndexChanged(int index);
         void on_comboBox_currentIndexChanged(int index);
         void on_right_clicked();
         void on_left_clicked();

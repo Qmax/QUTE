@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'settings.ui'
 **
-** Created: Mon Sep 29 16:02:11 2014
+** Created: Tue Dec 2 10:33:48 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -74,17 +74,19 @@ public:
     QPushButton *pushButton_2;
     QLabel *label_10;
     QLineEdit *lineEdit_7;
+    QLabel *label_11;
+    QComboBox *srcImpBox_10;
 
     void setupUi(QWidget *Settings)
     {
         if (Settings->objectName().isEmpty())
             Settings->setObjectName(QString::fromUtf8("Settings"));
-        Settings->resize(525, 390);
+        Settings->resize(525, 425);
         Settings->setStyleSheet(QString::fromUtf8("QWidget{background-color: rgba(0,0,0,0);border:1px solid rgba(0,0,0,0);}\n"
 ""));
         widget = new QWidget(Settings);
         widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(3, 3, 520, 387));
+        widget->setGeometry(QRect(3, 3, 520, 425));
         widget->setStyleSheet(QString::fromUtf8("QLineEdit{border-width: 2px;border-style: outset;border-color: gray; border-radius: 1px;  padding: 0 8px;     background: black;     selection-background-color: yellow;   color:white;     font: bold 14px;}\n"
 "\n"
 "QComboBox{border-width: 2px;border-style: outset;border-color: gray; border-radius: 1px;  padding: 0 8px;     background: black;     selection-background-color: yellow;   color:white;     font: bold 14px;}\n"
@@ -153,7 +155,7 @@ public:
 "	}"));
         groupBox = new QGroupBox(widget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(0, -5, 520, 391));
+        groupBox->setGeometry(QRect(0, -5, 520, 425));
         groupBox->setStyleSheet(QString::fromUtf8(""));
         pushButton = new QPushButton(groupBox);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
@@ -853,6 +855,71 @@ public:
         lineEdit_7 = new QLineEdit(groupBox);
         lineEdit_7->setObjectName(QString::fromUtf8("lineEdit_7"));
         lineEdit_7->setGeometry(QRect(170, 98, 96, 24));
+        label_11 = new QLabel(groupBox);
+        label_11->setObjectName(QString::fromUtf8("label_11"));
+        label_11->setGeometry(QRect(10, 393, 150, 24));
+        srcImpBox_10 = new QComboBox(groupBox);
+        srcImpBox_10->setObjectName(QString::fromUtf8("srcImpBox_10"));
+        srcImpBox_10->setGeometry(QRect(160, 389, 131, 28));
+        QFont font5;
+        font5.setBold(false);
+        font5.setItalic(false);
+        font5.setWeight(50);
+        srcImpBox_10->setFont(font5);
+        srcImpBox_10->setStyleSheet(QString::fromUtf8(" QComboBox {\n"
+"     border: 1px solid white;\n"
+"     border-radius: 6px;\n"
+"     padding: 1px 18px 1px 3px;\n"
+"     min-width: 6em;\n"
+"     color:black;\n"
+"     font:14px;\n"
+"\n"
+" }\n"
+"\n"
+" QComboBox:editable {\n"
+"     background: white;\n"
+" }\n"
+"\n"
+" QComboBox:!editable, QComboBox::drop-down:editable {\n"
+"      background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                  stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,\n"
+"                                  stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);\n"
+" }\n"
+"\n"
+" /* QComboBox gets the \"on\" state when the popup is open */\n"
+" QComboBox:!editable:on, QComboBox::drop-down:editable:on {\n"
+"     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                 stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,\n"
+"                                 stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);\n"
+" }\n"
+"\n"
+" QComboBox:on { /* shift the text when the popup opens */\n"
+"     padding-top: 3px;\n"
+"     padding-left: 4px;\n"
+""
+                        " }\n"
+"\n"
+" QComboBox::drop-down {\n"
+"     subcontrol-origin: padding;\n"
+"     subcontrol-position: top right;\n"
+"     width: 15px;\n"
+"\n"
+"     border-left-width: 1px;\n"
+"     border-left-color: darkgray;\n"
+"     border-left-style: solid; /* just a single line */\n"
+"     border-top-right-radius: 3px; /* same radius as the QComboBox */\n"
+"     border-bottom-right-radius: 3px;\n"
+" }\n"
+"\n"
+" QComboBox::down-arrow {\n"
+"     image: url(/usr/share/icons/crystalsvg/16x16/actions/1downarrow.png);\n"
+" }\n"
+"\n"
+" QComboBox::down-arrow:on { /* shift the arrow when popup is open */\n"
+"     top: 1px;\n"
+"     left: 1px;\n"
+" }\n"
+""));
 
         retranslateUi(Settings);
 
@@ -913,6 +980,34 @@ public:
         pushButton_2->setText(QApplication::translate("Settings", "Open/Short \n"
 " Calibration", 0, QApplication::UnicodeUTF8));
         label_10->setText(QApplication::translate("Settings", "DC Voltage :", 0, QApplication::UnicodeUTF8));
+        label_11->setText(QApplication::translate("Settings", "Source Impedance:", 0, QApplication::UnicodeUTF8));
+        srcImpBox_10->clear();
+        srcImpBox_10->insertItems(0, QStringList()
+         << QApplication::translate("Settings", "0E", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "10E", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "20E", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "50E", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "100E", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "200E", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "500E", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "1K", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "2K", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "5K", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "10K", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "20K", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "50K", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "100K", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "200K", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "500K", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "1M", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "X1", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "X2", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "X3", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "X4", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "X5", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "X6", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "X7", 0, QApplication::UnicodeUTF8)
+        );
     } // retranslateUi
 
 };

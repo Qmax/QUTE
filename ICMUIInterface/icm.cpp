@@ -1050,6 +1050,7 @@ void ICM::DisplayR(){
         }
         dis->setRange(int_range);
         dis->setValue(dbl_value);
+        ui->scrDisplay->setText(QString::number(dbl_value));
         if(dbl_value<12000000)
             InsertGraphData(dbl_value);
 
@@ -2689,7 +2690,7 @@ void ICM::advSettings(){
     obj->setWindowFlags(Qt::Dialog);
     obj->setStyleSheet(
             "border:3px solid #45596f; border-style: groove; background-color:qlineargradient(x1:0, y1:0, x2:0, y2:1,stop:0 lightgray, stop:1 darkgray);");
-    obj->setGeometry(150,115,525,404);
+    obj->setGeometry(150,115,525,425);
 //    QPropertyAnimation *animation = new QPropertyAnimation(obj, "geometry");
 //    animation->setDuration(10000);
 //    animation->setStartValue(QRect(150, 350, 525, 50));
@@ -2701,11 +2702,11 @@ void ICM::advSettings(){
 }
 
 void ICM::on_settings_clicked() {
-    if(panelStatus.dPanel==true){
-        advSettings();
-    }else{
+//    if(panelStatus.dPanel==true){
+//        advSettings();
+//    }else{
         setWidget->show();
-    }
+//    }
 }
 
 void ICM::on_ONOFF_clicked() {
@@ -2885,6 +2886,7 @@ void ICM::GetDisplayResistance(double pResistanceValue, double pRangeValue) {
 
     dis->setRange(int_range);
     dis->setValue(dbl_value);
+    ui->scrDisplay->setText(QString::number(dbl_value));
     if(dbl_value<12000000)
         InsertGraphData(dbl_value);
 
@@ -3085,6 +3087,7 @@ void ICM::GetDisplayCapcitance(double p_nData, short int p_nRange) {
     dis->setRange(int_range);
     double dbl_value=str_value.toDouble(&ok);
     dis->setValue(dbl_value);
+    ui->scrDisplay->setText(QString::number(dbl_value));
     qDebug()<<"strRange:"<<str_range<<"str_value:"<<str_value;
     qDebug()<<"intRange:"<<int_range<<"dbl_value:"<<dbl_value;
     if(dbl_value<12000000)
@@ -3190,6 +3193,7 @@ void ICM::GetDisplayInductance(double p_nData, short int p_nRange) {
     int int_range=str_range.toInt(&ok,10);
     dis->setRange(int_range);
     double dbl_value=str_value.toDouble(&ok);
+    ui->scrDisplay->setText(QString::number(dbl_value));
     dis->setValue(dbl_value);
     if(dbl_value<12000000)
         InsertGraphData(dbl_value);

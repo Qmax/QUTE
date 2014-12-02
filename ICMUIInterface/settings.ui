@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>525</width>
-    <height>390</height>
+    <height>425</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
      <x>3</x>
      <y>3</y>
      <width>520</width>
-     <height>387</height>
+     <height>425</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -98,7 +98,7 @@ QGridLayout{
       <x>0</x>
       <y>-5</y>
       <width>520</width>
-      <height>391</height>
+      <height>425</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -1981,6 +1981,212 @@ mode</string>
        <height>24</height>
       </rect>
      </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>393</y>
+       <width>150</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Source Impedance:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="srcImpBox_10">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>389</y>
+       <width>131</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>-1</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"> QComboBox {
+     border: 1px solid white;
+     border-radius: 6px;
+     padding: 1px 18px 1px 3px;
+     min-width: 6em;
+     color:black;
+     font:14px;
+
+ }
+
+ QComboBox:editable {
+     background: white;
+ }
+
+ QComboBox:!editable, QComboBox::drop-down:editable {
+      background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                  stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
+                                  stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
+ }
+
+ /* QComboBox gets the &quot;on&quot; state when the popup is open */
+ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,
+                                 stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
+ }
+
+ QComboBox:on { /* shift the text when the popup opens */
+     padding-top: 3px;
+     padding-left: 4px;
+ }
+
+ QComboBox::drop-down {
+     subcontrol-origin: padding;
+     subcontrol-position: top right;
+     width: 15px;
+
+     border-left-width: 1px;
+     border-left-color: darkgray;
+     border-left-style: solid; /* just a single line */
+     border-top-right-radius: 3px; /* same radius as the QComboBox */
+     border-bottom-right-radius: 3px;
+ }
+
+ QComboBox::down-arrow {
+     image: url(/usr/share/icons/crystalsvg/16x16/actions/1downarrow.png);
+ }
+
+ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
+     top: 1px;
+     left: 1px;
+ }
+</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>0E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>10E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>20E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>50E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>100E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>200E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>500E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1K</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2K</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5K</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>10K</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>20K</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>50K</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>100K</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>200K</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>500K</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1M</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>X1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>X2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>X3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>X4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>X5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>X6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>X7</string>
+      </property>
+     </item>
     </widget>
    </widget>
   </widget>

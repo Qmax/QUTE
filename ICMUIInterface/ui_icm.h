@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'icm.ui'
 **
-** Created: Tue Dec 2 09:57:30 2014
+** Created: Tue Dec 2 10:18:34 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -21,6 +21,7 @@
 #include <QtGui/QGroupBox>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
+#include <QtGui/QLineEdit>
 #include <QtGui/QMainWindow>
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
@@ -118,6 +119,7 @@ public:
     QCheckBox *calibrateDisplay;
     QPushButton *calibrate;
     QLabel *noOFSamples;
+    QLineEdit *scrDisplay;
     QFrame *selectFrame;
     QGroupBox *cBox;
     QPushButton *cBut;
@@ -2052,6 +2054,10 @@ public:
         noOFSamples = new QLabel(debugPanel);
         noOFSamples->setObjectName(QString::fromUtf8("noOFSamples"));
         noOFSamples->setGeometry(QRect(120, 10, 67, 17));
+        scrDisplay = new QLineEdit(debugPanel);
+        scrDisplay->setObjectName(QString::fromUtf8("scrDisplay"));
+        scrDisplay->setGeometry(QRect(412, 0, 231, 29));
+        scrDisplay->setFont(font5);
         selectFrame = new QFrame(centralWidget);
         selectFrame->setObjectName(QString::fromUtf8("selectFrame"));
         selectFrame->setGeometry(QRect(701, 54, 10, 60));
@@ -2831,7 +2837,7 @@ public:
         fp_DMM_label_4->setAlignment(Qt::AlignCenter);
         graphPlotting = new QFrame(centralWidget);
         graphPlotting->setObjectName(QString::fromUtf8("graphPlotting"));
-        graphPlotting->setGeometry(QRect(800, 434, 693, 160));
+        graphPlotting->setGeometry(QRect(10, 434, 693, 160));
         graphPlotting->setStyleSheet(QString::fromUtf8("QFrame{border:1px solid black; \n"
 "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #ffffff, stop: 1 #dadbff);\n"
 "border-radius:10px;}\n"
@@ -2937,6 +2943,19 @@ public:
         butZoom->setDefault(true);
         butZoom->setFlat(true);
         ICM->setCentralWidget(centralWidget);
+        displayBox->raise();
+        Components->raise();
+        debugPanel->raise();
+        selectFrame->raise();
+        cBox->raise();
+        ExitBox->raise();
+        rBox->raise();
+        t2Box->raise();
+        graphBox->raise();
+        lBox->raise();
+        plottingWindow->raise();
+        graphPlotting->raise();
+        frontPanel_ICM->raise();
 
         retranslateUi(ICM);
 
