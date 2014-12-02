@@ -103,7 +103,32 @@ void ShortLocater::ToolBox(bool flag) {
 
 }
 void ShortLocater::Initializations() {
+    //_______________________________________________________________________
 
+    setWidget = new QWidget(this);
+    setWidget->setGeometry(150,210,400,200);
+    setWidget->setStyleSheet("QWidget{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000); border: 2px solid white; border-radius: 5px;  margin-top: 1ex; /* leave space at the top for the title */}");
+    setWidget->setVisible(false);
+
+    QLabel *settLabel = new QLabel(setWidget);
+    settLabel->setStyleSheet("QLabel{border:1px solid white;            border-radius:5px;         subcontrol-origin: margin;         subcontrol-position: top center; /* position at the top center */         padding: 0 3px;             color:white;         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #3a5976, stop: 1 #000000);}");
+    settLabel->setGeometry(156,7,90,30);
+    settLabel->setFont(QFont("DejaVu Sans", 15, 50, false));
+    settLabel->setText("SETTINGS");
+
+    QPushButton *shortCalib = new QPushButton(setWidget);
+    shortCalib->setGeometry(210,40,55,55);
+    shortCalib->setFocusPolicy(Qt::NoFocus);
+    shortCalib->setStyleSheet("QPushButton { image: url(:/robe.png); border: 2px solid rgba(0,0,0,0); border-radius: 25px; background-color: rgba(0,0,0,0); }");
+    connect(shortCalib,SIGNAL(clicked()),this,SLOT(shortCalibration()));
+
+    QPushButton *closeBut = new QPushButton(setWidget);
+    closeBut->setGeometry(310,140,70,40);
+    closeBut->setFocusPolicy(Qt::NoFocus);
+    closeBut->setStyleSheet("QPushButton {       color:white;                border: 1px solid #2D5059;                border-radius: 20px;                background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);                font:bold;                }");
+    closeBut->setText("CLOSE");
+    connect(closeBut,SIGNAL(clicked()),setWidget,SLOT(hide()));
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	objDACFValue = ILineEdit->getLineEdit(1, 26, 85, 113, 29, "DAC",
 			ui.debugPanel);
 	connect(objDACFValue, SIGNAL(focussed(bool)), this, SLOT(DACFValueEdit()));
@@ -111,9 +136,9 @@ void ShortLocater::Initializations() {
 			"border-width: 2px;border-style: outset;border-color: gray; 						padding: 0 8px;     background: black;     selection-background-color: yellow;   color:white;     font: bold 14px;");
 	m_bDACSelect = false;
 
-	ui.fp_VI1_ICM_SL->setGeometry(24, 20, 53, 49);
-	ui.fp_VI1_ICM_SL->setStyleSheet(
-			"border:1px rgba(0,0,0,0);border-radius:20px;image: url(:/fp_images/VI_SL_ICM.png);");
+//	ui.fp_VI1_ICM_SL->setGeometry(24, 20, 53, 49);
+//	ui.fp_VI1_ICM_SL->setStyleSheet(
+//			"border:1px rgba(0,0,0,0);border-radius:20px;image: url(:/fp_images/VI_SL_ICM.png);");
 
 	IPsoc->resetRelays();
 	IPsoc->srcImpedanceSelection(SRC_IMP_0E);
@@ -1498,7 +1523,7 @@ void ShortLocater::on_Internal_clicked() {
 			 "border:1px solid gray;border-radius:20px;image: url(:/fp_images/bnc.png);");
 	 ui.ah2_outer->setGeometry(96, 26, 41, 41);
 
-	 ui.ah3_inner->setVisible(false);
+//	 ui.ah3_inner->setVisible(false);//Commented on 01122014
 	 ui.ah3_outer->setStyleSheet(
 			 "border:1px solid gray;border-radius:20px;image: url(:/fp_images/bnc.png);");
 	 ui.ah3_outer->setGeometry(167, 26, 41, 41);
@@ -1508,9 +1533,9 @@ void ShortLocater::on_Internal_clicked() {
 			 "border:1px solid gray;border-radius:20px;image: url(:/fp_images/bnc.png);");
 	 ui.ah0_outer->setGeometry(237, 26, 41, 41);
 
-	 ui.fp_VI1_ICM_SL->setGeometry(24, 20, 41, 41);
-	 ui.fp_VI1_ICM_SL->setStyleSheet(
-			 "border:1px solid gray;border-radius:20px;image: url(:/new/prefix1/Button-Blank-Gray-icon.png);");
+//	 ui.fp_VI1_ICM_SL->setGeometry(24, 20, 41, 41);
+//	 ui.fp_VI1_ICM_SL->setStyleSheet(
+//			 "border:1px solid gray;border-radius:20px;image: url(:/new/prefix1/Button-Blank-Gray-icon.png);");
 
 	 ui.fp_VI2_EXT->setGeometry(110, 20, 41, 41);
 	 ui.fp_VI2_EXT->setStyleSheet(
@@ -1556,7 +1581,7 @@ void ShortLocater::on_External_clicked() {
 			"border:1px solid gray;border-radius:20px;image: url(:/new/prefix1/Button-Blank-Gray-icon.png);");
 	ui.ah2_outer->setGeometry(96, 26, 41, 41);
 
-	ui.ah3_inner->setVisible(true);
+//	ui.ah3_inner->setVisible(true); //Commented on 01122014
 	ui.ah3_outer->setStyleSheet(
 			"border:1px solid gray;border-radius:20px;image: url(:/new/prefix1/Button-Blank-Gray-icon.png);");
 	ui.ah3_outer->setGeometry(167, 26, 41, 41);
@@ -1566,9 +1591,9 @@ void ShortLocater::on_External_clicked() {
 			"border:1px solid gray;border-radius:20px;image: url(:/new/prefix1/Button-Blank-Gray-icon.png);");
 	ui.ah0_outer->setGeometry(237, 26, 41, 41);
 
-	ui.fp_VI1_ICM_SL->setGeometry(24, 20, 53, 49);
-	ui.fp_VI1_ICM_SL->setStyleSheet(
-			"border:1px rgba(0,0,0,0);border-radius:20px;image: url(:/fp_images/VI_SL_ICM.png);");
+        ui.fp_VI1_ICM_SL->setGeometry(24, 20, 53, 49);
+        ui.fp_VI1_ICM_SL->setStyleSheet(
+                        "border:1px rgba(0,0,0,0);border-radius:20px;image: url(:/fp_images/VI_SL_ICM.png);");
 
 	ui.fp_VI2_EXT->setGeometry(110, 20, 41, 41);
 	ui.fp_VI2_EXT->setStyleSheet(
@@ -1866,4 +1891,9 @@ void ShortLocater::on_but2E_clicked()
 void ShortLocater::on_but200mE_clicked()
 {
 	ui.r200mEBut->animateClick(1);
+}
+
+void ShortLocater::on_settings_clicked()
+{
+     setWidget->show();
 }

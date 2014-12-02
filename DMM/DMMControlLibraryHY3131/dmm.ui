@@ -5619,54 +5619,6 @@ background-color: rgb(0, 0, 0,0);
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="ah3_label">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>11</y>
-       <width>38</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>DejaVu Sans</family>
-       <pointsize>9</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(53, 53, 53);</string>
-     </property>
-     <property name="text">
-      <string>AH3</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="ah1_label">
-     <property name="geometry">
-      <rect>
-       <x>26</x>
-       <y>11</y>
-       <width>38</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>DejaVu Sans</family>
-       <pointsize>9</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(53, 53, 53);</string>
-     </property>
-     <property name="text">
-      <string>AH1</string>
-     </property>
-    </widget>
     <widget class="QFrame" name="ah1_outer">
      <property name="geometry">
       <rect>
@@ -5778,31 +5730,6 @@ color: rgb(0, 85, 255);</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="ah0_label">
-     <property name="geometry">
-      <rect>
-       <x>240</x>
-       <y>11</y>
-       <width>43</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>DejaVu Sans</family>
-       <pointsize>9</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(53, 53, 53);
-background-color: rgb(0, 0, 0,0);</string>
-     </property>
-     <property name="text">
-      <string>AH0</string>
-     </property>
-    </widget>
     <widget class="QFrame" name="ah0_outer">
      <property name="geometry">
       <rect>
@@ -5843,30 +5770,6 @@ image: url(:/new/prefix1/Button-Blank-Gray-icon.png);</string>
       </property>
      </widget>
     </widget>
-    <widget class="QLabel" name="ah2_label">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>11</y>
-       <width>35</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>DejaVu Sans</family>
-       <pointsize>9</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(53, 53, 53);</string>
-     </property>
-     <property name="text">
-      <string>AH2</string>
-     </property>
-    </widget>
     <widget class="QFrame" name="ah2_outer">
      <property name="geometry">
       <rect>
@@ -5906,6 +5809,103 @@ image: url(:/new/prefix1/Button-Blank-Gray-icon.png);</string>
        <enum>QFrame::Raised</enum>
       </property>
      </widget>
+    </widget>
+    <widget class="QLabel" name="ah0_label">
+     <property name="geometry">
+      <rect>
+       <x>235</x>
+       <y>11</y>
+       <width>55</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>9</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(53, 53, 53);
+background-color: rgb(0, 0, 0,0);</string>
+     </property>
+     <property name="text">
+      <string>AH0/Lp</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ah3_label">
+     <property name="geometry">
+      <rect>
+       <x>95</x>
+       <y>11</y>
+       <width>55</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>9</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(53, 53, 53);</string>
+     </property>
+     <property name="text">
+      <string>AH3/Hc</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ah2_label">
+     <property name="geometry">
+      <rect>
+       <x>165</x>
+       <y>11</y>
+       <width>55</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>9</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(53, 53, 53);</string>
+     </property>
+     <property name="text">
+      <string>AH2/Lp</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ah1_label">
+     <property name="geometry">
+      <rect>
+       <x>21</x>
+       <y>11</y>
+       <width>55</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>9</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(53, 53, 53);</string>
+     </property>
+     <property name="text">
+      <string>AH1/Hp</string>
+     </property>
     </widget>
    </widget>
    <widget class="QFrame" name="fp_VI_ICM_SL">
@@ -6091,7 +6091,7 @@ border-radius:8px;*/
 color: rgb(0, 85, 255);</string>
      </property>
      <property name="text">
-      <string>VI</string>
+      <string>VI/SL</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

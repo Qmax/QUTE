@@ -57,6 +57,7 @@ class ShortLocater : public QWidget
     Q_OBJECT
 
 public:
+    QWidget *setWidget;
     //Variables
         QString rangeFlag;
         QString prevRangeFlag;
@@ -88,7 +89,7 @@ public:
         ADC ShortData;
         double r200EShortValue,r2EShortValue,r200mEShortValue;
         double r200EShortValue2,r2EShortValue2,r200mEShortValue2;
-        void shortCalibration();
+
     //Constructor&Destructor
     	ShortLocater(QWidget *parent = 0);
         unsigned int getSLID() const{
@@ -153,7 +154,9 @@ public slots:
     void Configure(int);
 
 private slots:
+    void shortCalibration();
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    void on_settings_clicked();
     void on_but200mE_clicked();
     void on_but2E_clicked();
     void on_but200E_clicked();

@@ -216,7 +216,7 @@ signals:
         void ICM2GCalib(double,QString);
 
 private  slots:
-
+void advSettings();
 void on_butZoom_clicked();
 void on_sweep_interval_unit_currentIndexChanged(int index);
 void on_sweep_interval_valueChanged(int );

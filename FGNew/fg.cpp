@@ -302,6 +302,8 @@ void FG::InitialiseUIData(){
     hwInterface->Init();
 
     m_nLineEditIndex=0;
+
+    ui->frame_45->setVisible(false);
 }
 void FG::InitialiseLineEdit(){
     for(int i=0;i<8;i++){

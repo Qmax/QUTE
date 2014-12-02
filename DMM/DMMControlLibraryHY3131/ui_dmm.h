@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dmm.ui'
 **
-** Created: Mon Nov 24 11:18:03 2014
+** Created: Tue Dec 2 09:48:08 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -110,19 +110,19 @@ public:
     QFrame *fp_powerButton;
     QLabel *fp_powerLabel;
     QFrame *analogHighway;
-    QLabel *ah3_label;
-    QLabel *ah1_label;
     QFrame *ah1_outer;
     QFrame *ah1_inner;
     QFrame *ah3_outer;
     QFrame *ah_inner;
     QLabel *ah_label;
-    QLabel *ah0_label;
     QFrame *ah0_outer;
     QFrame *ah0_inner;
-    QLabel *ah2_label;
     QFrame *ah2_outer;
     QFrame *ah2_inner;
+    QLabel *ah0_label;
+    QLabel *ah3_label;
+    QLabel *ah2_label;
+    QLabel *ah1_label;
     QFrame *fp_VI_ICM_SL;
     QFrame *fp_Guarding;
     QFrame *fp_VI2_EXT;
@@ -1673,16 +1673,6 @@ public:
 ""));
         analogHighway->setFrameShape(QFrame::StyledPanel);
         analogHighway->setFrameShadow(QFrame::Raised);
-        ah3_label = new QLabel(analogHighway);
-        ah3_label->setObjectName(QString::fromUtf8("ah3_label"));
-        ah3_label->setGeometry(QRect(100, 11, 38, 17));
-        ah3_label->setFont(font16);
-        ah3_label->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);"));
-        ah1_label = new QLabel(analogHighway);
-        ah1_label->setObjectName(QString::fromUtf8("ah1_label"));
-        ah1_label->setGeometry(QRect(26, 11, 38, 17));
-        ah1_label->setFont(font16);
-        ah1_label->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);"));
         ah1_outer = new QFrame(analogHighway);
         ah1_outer->setObjectName(QString::fromUtf8("ah1_outer"));
         ah1_outer->setGeometry(QRect(22, 26, 41, 41));
@@ -1722,12 +1712,6 @@ public:
 "border-radius:8px;*/\n"
 "color: rgb(0, 85, 255);"));
         ah_label->setAlignment(Qt::AlignCenter);
-        ah0_label = new QLabel(analogHighway);
-        ah0_label->setObjectName(QString::fromUtf8("ah0_label"));
-        ah0_label->setGeometry(QRect(240, 11, 43, 17));
-        ah0_label->setFont(font16);
-        ah0_label->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);\n"
-"background-color: rgb(0, 0, 0,0);"));
         ah0_outer = new QFrame(analogHighway);
         ah0_outer->setObjectName(QString::fromUtf8("ah0_outer"));
         ah0_outer->setGeometry(QRect(237, 26, 41, 41));
@@ -1742,11 +1726,6 @@ public:
 ""));
         ah0_inner->setFrameShape(QFrame::StyledPanel);
         ah0_inner->setFrameShadow(QFrame::Raised);
-        ah2_label = new QLabel(analogHighway);
-        ah2_label->setObjectName(QString::fromUtf8("ah2_label"));
-        ah2_label->setGeometry(QRect(170, 11, 35, 17));
-        ah2_label->setFont(font16);
-        ah2_label->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);"));
         ah2_outer = new QFrame(analogHighway);
         ah2_outer->setObjectName(QString::fromUtf8("ah2_outer"));
         ah2_outer->setGeometry(QRect(167, 26, 41, 41));
@@ -1761,6 +1740,27 @@ public:
 ""));
         ah2_inner->setFrameShape(QFrame::StyledPanel);
         ah2_inner->setFrameShadow(QFrame::Raised);
+        ah0_label = new QLabel(analogHighway);
+        ah0_label->setObjectName(QString::fromUtf8("ah0_label"));
+        ah0_label->setGeometry(QRect(235, 11, 55, 17));
+        ah0_label->setFont(font16);
+        ah0_label->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);\n"
+"background-color: rgb(0, 0, 0,0);"));
+        ah3_label = new QLabel(analogHighway);
+        ah3_label->setObjectName(QString::fromUtf8("ah3_label"));
+        ah3_label->setGeometry(QRect(95, 11, 55, 17));
+        ah3_label->setFont(font16);
+        ah3_label->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);"));
+        ah2_label = new QLabel(analogHighway);
+        ah2_label->setObjectName(QString::fromUtf8("ah2_label"));
+        ah2_label->setGeometry(QRect(165, 11, 55, 17));
+        ah2_label->setFont(font16);
+        ah2_label->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);"));
+        ah1_label = new QLabel(analogHighway);
+        ah1_label->setObjectName(QString::fromUtf8("ah1_label"));
+        ah1_label->setGeometry(QRect(21, 11, 55, 17));
+        ah1_label->setFont(font16);
+        ah1_label->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);"));
         fp_VI_ICM_SL = new QFrame(frontPanel_DMM);
         fp_VI_ICM_SL->setObjectName(QString::fromUtf8("fp_VI_ICM_SL"));
         fp_VI_ICM_SL->setGeometry(QRect(54, 84, 186, 72));
@@ -2261,15 +2261,15 @@ public:
         label_25->setText(QApplication::translate("DMM", "Display Input : ", 0, QApplication::UnicodeUTF8));
         pushButton_2->setText(QApplication::translate("DMM", "Enable Disable ENPKH", 0, QApplication::UnicodeUTF8));
         fp_powerLabel->setText(QApplication::translate("DMM", "POWER", 0, QApplication::UnicodeUTF8));
-        ah3_label->setText(QApplication::translate("DMM", "AH3", 0, QApplication::UnicodeUTF8));
-        ah1_label->setText(QApplication::translate("DMM", "AH1", 0, QApplication::UnicodeUTF8));
         ah_label->setText(QApplication::translate("DMM", "ICM", 0, QApplication::UnicodeUTF8));
-        ah0_label->setText(QApplication::translate("DMM", "AH0", 0, QApplication::UnicodeUTF8));
-        ah2_label->setText(QApplication::translate("DMM", "AH2", 0, QApplication::UnicodeUTF8));
+        ah0_label->setText(QApplication::translate("DMM", "AH0/Lp", 0, QApplication::UnicodeUTF8));
+        ah3_label->setText(QApplication::translate("DMM", "AH3/Hc", 0, QApplication::UnicodeUTF8));
+        ah2_label->setText(QApplication::translate("DMM", "AH2/Lp", 0, QApplication::UnicodeUTF8));
+        ah1_label->setText(QApplication::translate("DMM", "AH1/Hp", 0, QApplication::UnicodeUTF8));
         fp_VI1_ICM_SL_label->setText(QApplication::translate("DMM", "VI-1/SL", 0, QApplication::UnicodeUTF8));
         fp_VI2_EXT_label->setText(QApplication::translate("DMM", "VI-2/EXT", 0, QApplication::UnicodeUTF8));
         fp_ICM_Guard->setText(QApplication::translate("DMM", "ICM GUARD", 0, QApplication::UnicodeUTF8));
-        fp_DMM_label_2->setText(QApplication::translate("DMM", "VI", 0, QApplication::UnicodeUTF8));
+        fp_DMM_label_2->setText(QApplication::translate("DMM", "VI/SL", 0, QApplication::UnicodeUTF8));
         label_74->setText(QApplication::translate("DMM", "CH2", 0, QApplication::UnicodeUTF8));
         label_75->setText(QApplication::translate("DMM", "CH1", 0, QApplication::UnicodeUTF8));
         label_76->setText(QApplication::translate("DMM", "DSO", 0, QApplication::UnicodeUTF8));
