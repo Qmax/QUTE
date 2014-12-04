@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'messagewidget.ui'
 **
-** Created: Sat Sep 6 10:53:04 2014
+** Created: Wed Dec 3 10:48:40 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

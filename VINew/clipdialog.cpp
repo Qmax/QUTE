@@ -14,8 +14,11 @@ ClipDialog::ClipDialog(QWidget *parent, VIModel *pObjSubject) :
     IPTKeyEvent = qobject_cast<PTEventInterface*>(loader6.instance());
     m_objClipDialogSubject = pObjSubject;
     m_objClipDialogSubject->registerObserver(2,this);
+
     m_objPinsEdit = ILineEdit->QmaxLineEdit(0,this);//new MyLineEdit(0,this);
     m_objPinsEdit->setGeometry(330,54,120,40);
+    m_objPinsEdit->setFocusPolicy(Qt::NoFocus);
+
     m_objRefChannelEdit = ILineEdit->QmaxLineEdit(1,this);//new MyLineEdit(1,this);
     m_objRefChannelEdit->setGeometry(400,158,80,38);
     m_objThresholdEdit = ILineEdit->QmaxLineEdit(2,ui->grpCompare);
@@ -35,7 +38,7 @@ ClipDialog::ClipDialog(QWidget *parent, VIModel *pObjSubject) :
 //    ui->listWidget->setCurrentRow(0);
     LoadClipDefaultValues();
 
-    connect(m_objPinsEdit,SIGNAL(focussed(bool)),this,SLOT(callPinsEdit()));
+//    connect(m_objPinsEdit,SIGNAL(focussed(bool)),this,SLOT(callPinsEdit()));
     connect(m_objRefChannelEdit,SIGNAL(focussed(bool)),this,SLOT(callRefChannelEdit()));
     connect(ui->listWidget,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(selectClip(QListWidgetItem*)));
     IPTKeyEvent->InvokeGPIOEvent(this,"/dev/input/event2","pt_kpp",&m_nPTKeyCode);

@@ -33,6 +33,7 @@ Settings::Settings(IPSOCCOMMUNICATION* psoc,HardwareInterface* hw,IApplicationCa
     connect(objForceVoltage,  SIGNAL(focussed(bool)), this, SLOT(callForceVoltageEdit()));
     connect(objFrequency,     SIGNAL(focussed(bool)), this, SLOT(callFrequencyEdit()));
     connect(this,     SIGNAL(FrequencyChange(double)), parent, SLOT(callFrequencyChange(double)));
+    connect(this, SIGNAL(SrcImpChange(QString)),parent,SLOT(callSrcImpChange(double)));
 
     objForceVoltage->setStyleSheet(	"border-width: 2px;border-style: outset;border-color: gray; 					    padding: 0 8px;     background: black;     selection-background-color: yellow;   color:white;     font: bold 14px;"    );
     objFrequency->setStyleSheet("border-width: 2px;border-style: outset;border-color: gray; 						padding: 0 8px;     background: black;     selection-background-color: yellow;   color:white;     font: bold 14px;"    );
@@ -567,7 +568,13 @@ void Settings::on_comboBox_currentIndexChanged(int index)
 
 void Settings::on_srcImpBox_10_currentIndexChanged(int index)
 {
-     unsigned int source_impedance=(unsigned int)index;
-     qDebug()<<hex<<"impedance index:"<<source_impedance;
-     IPsoc->srcImpedanceSelection(source_impedance);
+
+     qDebug()<<hex<<"impedance index:"<<index;
+}
+
+void Settings::on_applySrc_clicked()
+{
+    unsigned int source_impedance=(unsigned int)(ui->srcImpBox_10->currentIndex());
+    IPsoc->srcImpedanceSelection(source_impedance);
+    emit SrcImpChange(ui->srcImpBox_10->currentText());
 }

@@ -761,47 +761,7 @@ border-top:1px solid gray; border-top-right-radius: 0px;
      </property>
      <property name="icon">
       <iconset resource="vi.qrc">
-       <normaloff>:/res/auto.png</normaloff>:/res/auto.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>64</width>
-       <height>64</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="bestFitButton">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>20</y>
-       <width>64</width>
-       <height>64</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>DejaVu Sans</family>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QPushButton {border: 1px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0,);
-}
-
-</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="vi.qrc">
-       <normaloff>:/res/auto.png</normaloff>:/res/auto.png</iconset>
+       <normaloff>:/res/Start.png</normaloff>:/res/Start.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -826,7 +786,7 @@ color:white;
 background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                        stop: 0 #3a5976, stop: 1 #000000);
 border:1px solid white;
-border-bottom:0px solid white;
+border-bottom:1px solid white;
 }
  QGroupBox::title {
 	border:1px solid white;
@@ -841,9 +801,9 @@ border-bottom:0px solid white;
     <widget class="QGroupBox" name="Parameters">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>8</x>
        <y>280</y>
-       <width>320</width>
+       <width>322</width>
        <height>104</height>
       </rect>
      </property>
@@ -6701,6 +6661,46 @@ background-color:#f2a400;
        <string>AC</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="bestFitButton">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>238</x>
+        <y>3</y>
+        <width>64</width>
+        <height>64</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>DejaVu Sans</family>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {border: 1px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0,);
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="vi.qrc">
+        <normaloff>:/res/auto.png</normaloff>:/res/auto.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>64</width>
+        <height>64</height>
+       </size>
+      </property>
+     </widget>
     </widget>
     <widget class="QGroupBox" name="grpEmbedded">
      <property name="geometry">
@@ -8097,7 +8097,7 @@ background-color:#596DA3;
 }</string>
       </property>
       <property name="text">
-       <string>BEST FIT</string>
+       <string>START/STOP</string>
       </property>
       <property name="frame">
        <bool>false</bool>
@@ -9640,7 +9640,7 @@ background-color:#596DA3;
     <widget class="QToolButton" name="tblVoltage">
      <property name="geometry">
       <rect>
-       <x>19</x>
+       <x>15</x>
        <y>281</y>
        <width>71</width>
        <height>101</height>
@@ -11725,7 +11725,7 @@ image: url(:/new/prefix1/Button-Blank-Gray-icon.png);</string>
      <widget class="QLabel" name="fp_VI1_ICM_SL_label">
       <property name="geometry">
        <rect>
-        <x>24</x>
+        <x>28</x>
         <y>10</y>
         <width>60</width>
         <height>17</height>

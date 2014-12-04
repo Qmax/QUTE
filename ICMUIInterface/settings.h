@@ -72,6 +72,7 @@ private:
     Ui::Settings *ui;
 
 private slots:
+        void on_applySrc_clicked();
         void on_srcImpBox_10_currentIndexChanged(int index);
         void on_comboBox_currentIndexChanged(int index);
         void on_right_clicked();
@@ -115,6 +116,7 @@ private slots:
 	//~~~~~~~~~~~~~~~~~~~~~~~~~
 	signals:
 	    	void FrequencyChange(double);
+                void SrcImpChange(QString);
 	    	void OffsetChange(double);
                 void FeedbackChange(int);
 };

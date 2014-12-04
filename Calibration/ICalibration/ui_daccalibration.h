@@ -1,10 +1,7 @@
-/***********************************************************
-***************Created by Ravivarman.R,Qmax*****************
-***********************************************************/
 /********************************************************************************
 ** Form generated from reading UI file 'daccalibration.ui'
 **
-** Created: Sat Sep 6 10:52:48 2014
+** Created: Wed Dec 3 09:29:23 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -55,18 +52,24 @@ public:
     QCheckBox *Calibrated;
     QGroupBox *groupBox;
     QLabel *samples;
+    QGroupBox *groupBox_2;
+    QPushButton *drive10mA;
+    QPushButton *drive1mA;
+    QPushButton *saveSl;
+    QLineEdit *lineEdit_5;
+    QLineEdit *lineEdit_6;
 
     void setupUi(QWidget *DACCalibrationClass)
     {
         if (DACCalibrationClass->objectName().isEmpty())
             DACCalibrationClass->setObjectName(QString::fromUtf8("DACCalibrationClass"));
-        DACCalibrationClass->resize(400, 341);
+        DACCalibrationClass->resize(400, 476);
         DACCalibrationClass->setStyleSheet(QString::fromUtf8("QWidget{\n"
 "background-color:rgba(0,0,0,0);\n"
 "}"));
         CalibBox = new QGroupBox(DACCalibrationClass);
         CalibBox->setObjectName(QString::fromUtf8("CalibBox"));
-        CalibBox->setGeometry(QRect(5, 0, 391, 337));
+        CalibBox->setGeometry(QRect(5, 0, 391, 473));
         CalibBox->setStyleSheet(QString::fromUtf8("QGroupBox {\n"
 "     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
 "                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);\n"
@@ -247,7 +250,7 @@ public:
 " }"));
         saveBut = new QPushButton(CalibBox);
         saveBut->setObjectName(QString::fromUtf8("saveBut"));
-        saveBut->setGeometry(QRect(70, 300, 93, 30));
+        saveBut->setGeometry(QRect(10, 290, 93, 30));
         saveBut->setFont(font);
         saveBut->setStyleSheet(QString::fromUtf8(" QPushButton {\n"
 "     border: 2px solid #8f8f91;\n"
@@ -271,7 +274,7 @@ public:
 " }"));
         exitBut = new QPushButton(CalibBox);
         exitBut->setObjectName(QString::fromUtf8("exitBut"));
-        exitBut->setGeometry(QRect(230, 300, 93, 30));
+        exitBut->setGeometry(QRect(284, 435, 93, 30));
         exitBut->setFont(font);
         exitBut->setStyleSheet(QString::fromUtf8(" QPushButton {\n"
 "     border: 2px solid #8f8f91;\n"
@@ -361,6 +364,119 @@ public:
         samples = new QLabel(CalibBox);
         samples->setObjectName(QString::fromUtf8("samples"));
         samples->setGeometry(QRect(370, 144, 31, 20));
+        groupBox_2 = new QGroupBox(CalibBox);
+        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
+        groupBox_2->setGeometry(QRect(3, 320, 385, 110));
+        groupBox_2->setStyleSheet(QString::fromUtf8("QGroupBox {\n"
+"     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);\n"
+"     border: 1px solid gray;\n"
+"     border-radius: 10px;\n"
+"     margin-top: 1ex; /* leave space at the top for the title */\n"
+"	font:14px bold;\n"
+"	color:black;\n"
+" }\n"
+"\n"
+" "));
+        groupBox_2->setCheckable(false);
+        drive10mA = new QPushButton(groupBox_2);
+        drive10mA->setObjectName(QString::fromUtf8("drive10mA"));
+        drive10mA->setGeometry(QRect(10, 30, 110, 30));
+        drive10mA->setFont(font);
+        drive10mA->setStyleSheet(QString::fromUtf8(" QPushButton {\n"
+"     border: 2px solid #8f8f91;\n"
+"     border-radius: 10px;\n"
+"     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                       stop: 0 #f6f7fa, stop: 1 #dadbde);\n"
+"     min-width: 80px;\n"
+" }\n"
+"\n"
+" QPushButton:pressed {\n"
+"     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                       stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+" }\n"
+"\n"
+" QPushButton:flat {\n"
+"     border: none; /* no border for a flat push button */\n"
+" }\n"
+"\n"
+" QPushButton:default {\n"
+"     border-color: navy; /* make the default button prominent */\n"
+" }"));
+        drive1mA = new QPushButton(groupBox_2);
+        drive1mA->setObjectName(QString::fromUtf8("drive1mA"));
+        drive1mA->setGeometry(QRect(10, 70, 110, 30));
+        drive1mA->setFont(font);
+        drive1mA->setStyleSheet(QString::fromUtf8(" QPushButton {\n"
+"     border: 2px solid #8f8f91;\n"
+"     border-radius: 10px;\n"
+"     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                       stop: 0 #f6f7fa, stop: 1 #dadbde);\n"
+"     min-width: 80px;\n"
+" }\n"
+"\n"
+" QPushButton:pressed {\n"
+"     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                       stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+" }\n"
+"\n"
+" QPushButton:flat {\n"
+"     border: none; /* no border for a flat push button */\n"
+" }\n"
+"\n"
+" QPushButton:default {\n"
+"     border-color: navy; /* make the default button prominent */\n"
+" }"));
+        saveSl = new QPushButton(CalibBox);
+        saveSl->setObjectName(QString::fromUtf8("saveSl"));
+        saveSl->setGeometry(QRect(301, 350, 84, 70));
+        saveSl->setFont(font);
+        saveSl->setStyleSheet(QString::fromUtf8(" QPushButton {\n"
+"     border: 2px solid #8f8f91;\n"
+"     border-radius: 10px;\n"
+"     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                       stop: 0 #f6f7fa, stop: 1 #dadbde);\n"
+"     min-width: 80px;\n"
+" }\n"
+"\n"
+" QPushButton:pressed {\n"
+"     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                       stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+" }\n"
+"\n"
+" QPushButton:flat {\n"
+"     border: none; /* no border for a flat push button */\n"
+" }\n"
+"\n"
+" QPushButton:default {\n"
+"     border-color: navy; /* make the default button prominent */\n"
+" }"));
+        lineEdit_5 = new QLineEdit(CalibBox);
+        lineEdit_5->setObjectName(QString::fromUtf8("lineEdit_5"));
+        lineEdit_5->setGeometry(QRect(130, 352, 71, 25));
+        lineEdit_5->setFont(font1);
+        lineEdit_5->setStyleSheet(QString::fromUtf8(" QLineEdit {\n"
+"     border: 2px solid gray;\n"
+"     border-radius: 8px;\n"
+"     padding: 0 8px;\n"
+"     background: white;\n"
+"     selection-background-color: darkgray;\n"
+"	 color:black;\n"
+"     font: bold 12px;\n"
+" }"));
+        lineEdit_6 = new QLineEdit(CalibBox);
+        lineEdit_6->setObjectName(QString::fromUtf8("lineEdit_6"));
+        lineEdit_6->setGeometry(QRect(130, 393, 70, 25));
+        lineEdit_6->setFont(font1);
+        lineEdit_6->setStyleSheet(QString::fromUtf8(" QLineEdit {\n"
+"     border: 2px solid gray;\n"
+"     border-radius: 8px;\n"
+"     padding: 0 8px;\n"
+"     background: white;\n"
+"     selection-background-color: darkgray;\n"
+"	 color:black;\n"
+"     font: bold 12px;\n"
+" }"));
         groupBox->raise();
         label->raise();
         lineEdit->raise();
@@ -384,6 +500,10 @@ public:
         driveBut_2->raise();
         Calibrated->raise();
         samples->raise();
+        groupBox_2->raise();
+        saveSl->raise();
+        lineEdit_5->raise();
+        lineEdit_6->raise();
 
         retranslateUi(DACCalibrationClass);
 
@@ -416,6 +536,10 @@ public:
         Calibrated->setText(QApplication::translate("DACCalibrationClass", "Calibrated", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QString());
         samples->setText(QString());
+        groupBox_2->setTitle(QApplication::translate("DACCalibrationClass", "Short Locator", 0, QApplication::UnicodeUTF8));
+        drive10mA->setText(QApplication::translate("DACCalibrationClass", "DRIVE 10mA", 0, QApplication::UnicodeUTF8));
+        drive1mA->setText(QApplication::translate("DACCalibrationClass", "DRIVE 1mA", 0, QApplication::UnicodeUTF8));
+        saveSl->setText(QApplication::translate("DACCalibrationClass", "SAVE", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

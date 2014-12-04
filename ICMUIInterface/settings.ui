@@ -2104,47 +2104,47 @@ mode</string>
      </item>
      <item>
       <property name="text">
-       <string>1K</string>
+       <string>1KE</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>2K</string>
+       <string>2KE</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>5K</string>
+       <string>5KE</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>10K</string>
+       <string>10KE</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>20K</string>
+       <string>20KE</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>50K</string>
+       <string>50KE</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>100K</string>
+       <string>100KE</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>200K</string>
+       <string>200KE</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>500K</string>
+       <string>500KE</string>
       </property>
      </item>
      <item>
@@ -2187,6 +2187,28 @@ mode</string>
        <string>X7</string>
       </property>
      </item>
+    </widget>
+    <widget class="QPushButton" name="applySrc">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>387</y>
+       <width>70</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="text">
+      <string>Apply</string>
+     </property>
     </widget>
    </widget>
   </widget>

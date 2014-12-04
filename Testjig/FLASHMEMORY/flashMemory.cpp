@@ -510,6 +510,7 @@ void Widget::callSingleRead()
 
 	QTableWidgetItem *item = ui->tableWidget->item(m_nRow,m_nCol);
     item->setText(QString::number(m_nReadData[0],16).toUpper());
+    QMessageBox::information(this,"Read","Read Operation done.",QMessageBox::Ok);
 }
 void Widget::receiveValue(double pValue)
 {
@@ -528,6 +529,7 @@ void Widget::on_butErase_clicked()
 //	ISplashScreen->ShowSplash();
 	ISPIMemory->bulkErase();
 //	ISplashScreen->closeSplash();
+        QMessageBox::information(this,"Erase","Erase Operation done.",QMessageBox::Ok);
 }
 
 void Widget::on_butCODEID_clicked()
@@ -544,7 +546,7 @@ void Widget::on_butLoadFile_clicked()
     qDebug() << "FileName Selected"<<l_strFileName;
     LoadFile(l_strFileName);
 //    ui->lblMEMStatus->setText("");
-
+    QMessageBox::information(this,"File Load","File Loaded....",QMessageBox::Ok);
 }
 
 void Widget::on_butSaveFile_clicked()
@@ -572,6 +574,7 @@ void Widget::on_butSaveFile_clicked()
     //l_objDataFile->close();
     fclose(fpWaveFile);
     qDebug()<<"File Save Completed";
+    QMessageBox::information(this,"Save","File Save Completed.",QMessageBox::Ok);
     //ISplashScreen->closeSplash();
     //ui->lblStatus->setText("File Saved..");
 
@@ -731,6 +734,7 @@ void Widget::on_butWrite_clicked()
     //   qDebug()<<"Write Finished";
      //  ui->lblStatus->setText("Write Completed.");
  //      ISplashScreen->closeSplash();
+       QMessageBox::information(this,"Write","Write Operation done.",QMessageBox::Ok);
 }
 
 
@@ -787,6 +791,7 @@ void Widget::LoadFile(QString pStrFileName)
 	}
 
 	//ISplashScreen->closeSplash();
+        QMessageBox::information(this,"Load","File Loaded.....",QMessageBox::Ok);
 
     updateTableWidget();
     //delete data;

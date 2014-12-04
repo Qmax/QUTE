@@ -1567,10 +1567,10 @@ QLabel{
    <widget class="QPushButton" name="butLoadFile">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>84</width>
-      <height>51</height>
+      <x>0</x>
+      <y>19</y>
+      <width>110</width>
+      <height>60</height>
      </rect>
     </property>
     <property name="focusPolicy">
@@ -1608,10 +1608,10 @@ background-color:grey
    <widget class="QPushButton" name="butSaveFile">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>77</y>
-      <width>84</width>
-      <height>51</height>
+      <x>0</x>
+      <y>80</y>
+      <width>110</width>
+      <height>60</height>
      </rect>
     </property>
     <property name="focusPolicy">

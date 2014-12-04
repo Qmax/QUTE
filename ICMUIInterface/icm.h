@@ -107,9 +107,10 @@ public:
     int m_nSweepStartFrequencyUnit,m_nSweepEndFrequencyUnit,m_nSweepIntervalUnit;
     int xSize,ySize,yRangeMax;*/
     //-------------------------------------------------------------------
-
+        double rShortValues[6],lShortValues[7],cShortValues[9];
 
 protected:
+    int AutoCFlag;
 
     PTGPIOEventInterface *IGPIOEvent;
     PTEventInterface *IPTKeyEvent;
@@ -159,9 +160,13 @@ protected:
     void AutoRange();
 
     double readADCR(QString);
+    double readADCL(QString);
+    double readADCC(QString);
     void AutoRangeR();
     void AutoRangeR2();
     void AutoRangeR3();
+    int AutoRangeC1();
+    double calibC(double);
     void DisplayR();
 
     QString convertToUnits(double l_nvalue);
@@ -216,6 +221,7 @@ signals:
         void ICM2GCalib(double,QString);
 
 private  slots:
+void shortCalibration();
 void advSettings();
 void on_butZoom_clicked();
 void on_sweep_interval_unit_currentIndexChanged(int index);
@@ -251,6 +257,7 @@ void callMeasuredEdit();
     void callFrequencyChange(double);
     void callOffsetChange(double);
     void callFeedBackChange(int);
+    void callSrcImpChange(QString);
 
    void on_pushButton_clicked();
    void on_calibrate_clicked();

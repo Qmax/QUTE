@@ -15,7 +15,7 @@
 #include <QGraphicsView>
 #include <QtCore>
 #include <qsettings.h>
-
+#include <qmessagebox.h>
 
 #define     MAX_MEM_SIZE       256
 

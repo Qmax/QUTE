@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue Dec 2 09:56:45 2014
+** Created: Wed Dec 3 20:49:07 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -48,7 +48,6 @@ public:
     QPushButton *calibButton;
     QGroupBox *startBox;
     QPushButton *startButton;
-    QPushButton *bestFitButton;
     QGroupBox *grpInteractive;
     QGroupBox *Parameters;
     QPushButton *butUP;
@@ -88,6 +87,7 @@ public:
     QLabel *lblClip_7;
     QLabel *lblProbeComparison_2;
     QCheckBox *chkAC;
+    QPushButton *bestFitButton;
     QGroupBox *grpEmbedded;
     QFrame *line_16;
     QLineEdit *lblLeft2;
@@ -463,21 +463,9 @@ public:
 "\n"
 ""));
         QIcon icon4;
-        icon4.addFile(QString::fromUtf8(":/res/auto.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon4.addFile(QString::fromUtf8(":/res/Start.png"), QSize(), QIcon::Normal, QIcon::Off);
         startButton->setIcon(icon4);
         startButton->setIconSize(QSize(64, 64));
-        bestFitButton = new QPushButton(startBox);
-        bestFitButton->setObjectName(QString::fromUtf8("bestFitButton"));
-        bestFitButton->setEnabled(true);
-        bestFitButton->setGeometry(QRect(8, 20, 64, 64));
-        bestFitButton->setFont(font);
-        bestFitButton->setFocusPolicy(Qt::NoFocus);
-        bestFitButton->setStyleSheet(QString::fromUtf8("QPushButton {border: 1px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0,);\n"
-"}\n"
-"\n"
-""));
-        bestFitButton->setIcon(icon4);
-        bestFitButton->setIconSize(QSize(64, 64));
         grpInteractive = new QGroupBox(centralWidget);
         grpInteractive->setObjectName(QString::fromUtf8("grpInteractive"));
         grpInteractive->setGeometry(QRect(10, 33, 693, 390));
@@ -486,7 +474,7 @@ public:
 "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
 "                                       stop: 0 #3a5976, stop: 1 #000000);\n"
 "border:1px solid white;\n"
-"border-bottom:0px solid white;\n"
+"border-bottom:1px solid white;\n"
 "}\n"
 " QGroupBox::title {\n"
 "	border:1px solid white;\n"
@@ -499,7 +487,7 @@ public:
 " }"));
         Parameters = new QGroupBox(grpInteractive);
         Parameters->setObjectName(QString::fromUtf8("Parameters"));
-        Parameters->setGeometry(QRect(10, 280, 320, 104));
+        Parameters->setGeometry(QRect(8, 280, 322, 104));
         Parameters->setStyleSheet(QString::fromUtf8("QGroupBox{\n"
 "color:white;\n"
 "\n"
@@ -1517,6 +1505,20 @@ public:
 "QCheckBox::indicator:checked:pressed {\n"
 "background-color:#f2a400;\n"
 "}"));
+        bestFitButton = new QPushButton(grpProbes);
+        bestFitButton->setObjectName(QString::fromUtf8("bestFitButton"));
+        bestFitButton->setEnabled(true);
+        bestFitButton->setGeometry(QRect(238, 3, 64, 64));
+        bestFitButton->setFont(font);
+        bestFitButton->setFocusPolicy(Qt::NoFocus);
+        bestFitButton->setStyleSheet(QString::fromUtf8("QPushButton {border: 1px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0,);\n"
+"}\n"
+"\n"
+""));
+        QIcon icon9;
+        icon9.addFile(QString::fromUtf8(":/res/auto.png"), QSize(), QIcon::Normal, QIcon::Off);
+        bestFitButton->setIcon(icon9);
+        bestFitButton->setIconSize(QSize(64, 64));
         grpEmbedded = new QGroupBox(grpInteractive);
         grpEmbedded->setObjectName(QString::fromUtf8("grpEmbedded"));
         grpEmbedded->setGeometry(QRect(338, 280, 350, 104));
@@ -1756,9 +1758,9 @@ public:
 "border:1px solid rgba(0,0,0,0);\n"
 "}\n"
 ""));
-        QIcon icon9;
-        icon9.addFile(QString::fromUtf8(":/res/48L.png"), QSize(), QIcon::Normal, QIcon::Off);
-        butL->setIcon(icon9);
+        QIcon icon10;
+        icon10.addFile(QString::fromUtf8(":/res/48L.png"), QSize(), QIcon::Normal, QIcon::Off);
+        butL->setIcon(icon10);
         butL->setIconSize(QSize(40, 40));
         butM = new QPushButton(grpEmbedded);
         butM->setObjectName(QString::fromUtf8("butM"));
@@ -1770,9 +1772,9 @@ public:
 "border:1px solid rgba(0,0,0,0);\n"
 "}\n"
 ""));
-        QIcon icon10;
-        icon10.addFile(QString::fromUtf8(":/res/48M.png"), QSize(), QIcon::Normal, QIcon::Off);
-        butM->setIcon(icon10);
+        QIcon icon11;
+        icon11.addFile(QString::fromUtf8(":/res/48M.png"), QSize(), QIcon::Normal, QIcon::Off);
+        butM->setIcon(icon11);
         butM->setIconSize(QSize(40, 40));
         butR = new QPushButton(grpEmbedded);
         butR->setObjectName(QString::fromUtf8("butR"));
@@ -1785,9 +1787,9 @@ public:
 "border:1px solid rgba(0,0,0,0);\n"
 "}\n"
 ""));
-        QIcon icon11;
-        icon11.addFile(QString::fromUtf8(":/res/48R.png"), QSize(), QIcon::Normal, QIcon::Off);
-        butR->setIcon(icon11);
+        QIcon icon12;
+        icon12.addFile(QString::fromUtf8(":/res/48R.png"), QSize(), QIcon::Normal, QIcon::Off);
+        butR->setIcon(icon12);
         butR->setIconSize(QSize(40, 40));
         lblLeft = new QLineEdit(grpEmbedded);
         lblLeft->setObjectName(QString::fromUtf8("lblLeft"));
@@ -1975,7 +1977,7 @@ public:
         frame->setFrameShadow(QFrame::Raised);
         tblVoltage = new QToolButton(grpInteractive);
         tblVoltage->setObjectName(QString::fromUtf8("tblVoltage"));
-        tblVoltage->setGeometry(QRect(19, 281, 71, 101));
+        tblVoltage->setGeometry(QRect(15, 281, 71, 101));
         tblVoltage->setFont(font);
         tblVoltage->setStyleSheet(QString::fromUtf8("QWidget{border:2px solid white;border-style: ridge;border-radius:20px;background-color: rgba(255,255,255,50);}"));
         tblVI = new QToolButton(grpInteractive);
@@ -2520,9 +2522,9 @@ public:
         AD5318Panel->setStyleSheet(QString::fromUtf8("QPushButton {border: 1px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0);color:blue;\n"
 "}\n"
 ""));
-        QIcon icon12;
-        icon12.addFile(QString::fromUtf8(":/res/chip-icon2.png"), QSize(), QIcon::Normal, QIcon::Off);
-        AD5318Panel->setIcon(icon12);
+        QIcon icon13;
+        icon13.addFile(QString::fromUtf8(":/res/chip-icon2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        AD5318Panel->setIcon(icon13);
         AD5318Panel->setIconSize(QSize(48, 70));
         DACFValues = new QPushButton(debugPanel);
         DACFValues->setObjectName(QString::fromUtf8("DACFValues"));
@@ -2532,9 +2534,9 @@ public:
         DACFValues->setStyleSheet(QString::fromUtf8("QPushButton {border: 1px solid rgba(0,0,0,0); border-radius: 8px; background-color: rgba(0,0,0,0);color:blue;\n"
 "}\n"
 ""));
-        QIcon icon13;
-        icon13.addFile(QString::fromUtf8(":/res/chip-icon3.png"), QSize(), QIcon::Normal, QIcon::Off);
-        DACFValues->setIcon(icon13);
+        QIcon icon14;
+        icon14.addFile(QString::fromUtf8(":/res/chip-icon3.png"), QSize(), QIcon::Normal, QIcon::Off);
+        DACFValues->setIcon(icon14);
         DACFValues->setIconSize(QSize(48, 70));
         frontPanel_VI = new QFrame(centralWidget);
         frontPanel_VI->setObjectName(QString::fromUtf8("frontPanel_VI"));
@@ -2667,7 +2669,7 @@ public:
         fp_VI2_EXT->setFrameShadow(QFrame::Raised);
         fp_VI1_ICM_SL_label = new QLabel(fp_VI_ICM_SL);
         fp_VI1_ICM_SL_label->setObjectName(QString::fromUtf8("fp_VI1_ICM_SL_label"));
-        fp_VI1_ICM_SL_label->setGeometry(QRect(24, 10, 60, 17));
+        fp_VI1_ICM_SL_label->setGeometry(QRect(28, 10, 60, 17));
         fp_VI1_ICM_SL_label->setFont(font16);
         fp_VI1_ICM_SL_label->setStyleSheet(QString::fromUtf8("color: rgb(53, 53, 53);"));
         fp_VI2_EXT_label = new QLabel(fp_VI_ICM_SL);
@@ -3198,7 +3200,6 @@ public:
         calibButton->setText(QString());
         startBox->setTitle(QString());
         startButton->setText(QString());
-        bestFitButton->setText(QString());
         butUP->setText(QString());
         butDown->setText(QString());
         lblFrequency->setText(QApplication::translate("MainWindow", "2KHz", 0, QApplication::UnicodeUTF8));
@@ -3253,10 +3254,11 @@ public:
 "<td style=\"border: none;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"> </p></td></tr></table></body></html>", 0, QApplication::UnicodeUTF8));
         chkAC->setText(QApplication::translate("MainWindow", "AC", 0, QApplication::UnicodeUTF8));
+        bestFitButton->setText(QString());
         grpEmbedded->setTitle(QApplication::translate("MainWindow", "EMBEDDED KEY MAP", 0, QApplication::UnicodeUTF8));
         lblLeft2->setText(QApplication::translate("MainWindow", "STORE", 0, QApplication::UnicodeUTF8));
         lblMiddle2->setText(QApplication::translate("MainWindow", "DELETE", 0, QApplication::UnicodeUTF8));
-        lblRight2->setText(QApplication::translate("MainWindow", "BEST FIT", 0, QApplication::UnicodeUTF8));
+        lblRight2->setText(QApplication::translate("MainWindow", "START/STOP", 0, QApplication::UnicodeUTF8));
         butL->setText(QString());
         butM->setText(QString());
         butR->setText(QString());

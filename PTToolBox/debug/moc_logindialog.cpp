@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'logindialog.h'
 **
-** Created: Sat Sep 20 17:33:06 2014
+** Created: Wed Dec 3 18:22:52 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!

@@ -13,7 +13,7 @@
 #include <QFile>
 #include <QTimer>
 #include <QXmlStreamWriter>
-
+#include <qmessagebox.h>
 #include "PTLibraryInterfaces.h"
 #include "AppdeviceRegisterDetails.h"
 #include "InterfaceFunctionalComponents.h"
@@ -56,6 +56,8 @@ protected:
     QLineEdit *m_objLE_RxedCurrent;
     QLineEdit *m_objLE_TestCurrent;
 
+    QLineEdit *m_objLE_RxedCurrent2,*m_objLE_RxedCurrent3;
+
     unsigned int m_nLineEditIndex;
 
     int m_nNoOfPoints,m_nNoOfSamples;
@@ -64,6 +66,7 @@ protected:
     double XCurrent[5][5],YCurrent[5][5];
     double m_nGain,m_nDACOutput,m_nDesiredDACOutput;
     double m_nDriveCurrent,m_nRxedCurrent,m_nDriveRange,m_nSlope,m_nConstant,m_nTestCurrent;
+    double m_nRxedCurrent2,m_nRxedCurrent3;
 	QMap<short, unsigned int> m_mapResistance;
 
     void openNumKBPanel(short int pValue) ;
@@ -76,6 +79,9 @@ protected:
 private:
     Ui::DACCalibrationClass ui;
 private slots:
+    void on_drive1mA_clicked();
+    void on_drive10mA_clicked();
+    void on_saveSl_clicked();
     void on_Calibrated_clicked(bool checked);
     void on_driveBut_2_clicked();
     void on_comboBox_currentIndexChanged(int index);
@@ -86,6 +92,8 @@ private slots:
     void callNoOfPointsEdit();
     void callDriveCurrentEdit();
     void callRxedCurrentEdit();
+    void callRxedCurrentEdit2();
+    void callRxedCurrentEdit3();
     void callTestCurrentEdit();
 
 

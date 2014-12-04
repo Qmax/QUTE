@@ -101,19 +101,25 @@ void ToolBox::on_pb_touchcalib_clicked()
 //    else qDebug() << msg;
 
 //__________________________________________________________________________________________________________
-	QFile outFile;
-	outFile.setFileName("calibrate.sh");
-	outFile.open(QIODevice::WriteOnly);
-	QTextStream ts(&outFile);
-	ts << "/usr/bin/qt-embedded/ts_calibrate";
-
     QMessageBox msgbox;
     msgbox.setWindowFlags(Qt::Widget | Qt::FramelessWindowHint);
     msgbox.setFont(QFont("DejaVu Sans", 15, 50, false));
     msgbox.setIcon(QMessageBox::Information);
-	 msgbox.setText("Touch Screen Calibration Enabled.\nRestart the System to Calibrate.");
-	 msgbox.setStandardButtons(QMessageBox::Ok);
-	 msgbox.exec();
+    msgbox.setText("Touch Screen Calibration Enabled.\nRestart the System to Calibrate.");
+    msgbox.setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+    bool ret=msgbox.exec();
+    if(ret==true){
+
+        QFile outFile;
+        outFile.setFileName("calibrate.sh");
+        outFile.open(QIODevice::WriteOnly);
+        QTextStream ts(&outFile);
+        ts << "/usr/bin/qt-embedded/ts_calibrate";
+
+        QProcess::execute("reboot");
+    }else{
+        msgbox.close();
+    }
 	 //__________________________________________________________________________________________________________
 }
 

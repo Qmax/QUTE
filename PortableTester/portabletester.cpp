@@ -54,6 +54,12 @@ PortableTester::PortableTester(QWidget *parent) :
     IDSOCard->setDeviceName();
     IDSOCard->enumerateDSOCard();
 
+    QPluginLoader help("libHelp.so", this);
+    helpBox = qobject_cast<IPTHelpBoxInterface*> (help.instance());
+
+    QPluginLoader about("libAbout.so", this);
+    aboutBox = qobject_cast<IPTAboutBoxInterface*> (about.instance());
+
     QPluginLoader tools("libPTToolBox.so", this);
     toolBox = qobject_cast<IPTToolBoxInterface*> (tools.instance());
 
@@ -905,7 +911,7 @@ void PortableTester::Functions(int pValue){
         IPT->LoadICMPlugins();
         myID = 0x49434D;
         QWidget *ICM = IPT->InvokeApplication(myID);
-        l_objMainView->InitHeaderView(0, "ICM");
+        l_objMainView->InitHeaderView(0, "In Circuit Measurement");
         connect(ICM, SIGNAL(destroyed()), this, SLOT(UnHide()));
         ui->mdiArea->addSubWindow(ICM, Qt::FramelessWindowHint);
         ICM->show();
@@ -953,6 +959,7 @@ void PortableTester::startFG(){
 }
 
 void PortableTester::buttonPressed(int pValue) {
+	qDebug()<<"buttonPressed value:"<<pValue;
     //~~~~~~~~~~~~~MAIN 6 FUNCTIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     if (pValue == 0) {
         Functions(_DMM_);
@@ -978,17 +985,17 @@ void PortableTester::buttonPressed(int pValue) {
         newWidget->show();
     }
     else if (pValue == 7) {
-        QProcess::execute("/usr/bin/qt-embedded/ts_calibrate");
-        QApplication::exit();
-        QDir::setCurrent("/home");
-        QProcess::execute("./PortableTester -qws");
+//        QDir::setCurrent("/home");
+//        QProcess::execute("./fm -qws");
+//        QApplication::exit();
+//        QDir::setCurrent("/home");
+//        QProcess::execute("./PortableTester -qws");
+    	QWidget *newWidget3 = aboutBox->getPTAboutBox();
+    	        newWidget3->show();
     }
     else if(pValue == 8){
-        QDir::setCurrent("/home");
-        QProcess::execute("./fm -qws");
-        QApplication::exit();
-        QDir::setCurrent("/home");
-        QProcess::execute("./PortableTester -qws");
+        QWidget *newWidget2 = helpBox->getPTHelpBox();
+        newWidget2->show();
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     else if (pValue == 15) {

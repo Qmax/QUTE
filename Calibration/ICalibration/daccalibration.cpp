@@ -41,20 +41,32 @@ void DACCalibration::InitializeLineEditControls(){
     m_objLE_RxedCurrent = ILineEdit->QmaxLineEdit(2, ui.CalibBox);
     m_objLE_TestCurrent = ILineEdit->QmaxLineEdit(2, ui.CalibBox);
 
+    m_objLE_RxedCurrent2 = ILineEdit->QmaxLineEdit(4, ui.CalibBox);
+    m_objLE_RxedCurrent3 = ILineEdit->QmaxLineEdit(5, ui.CalibBox);
+
     m_objLE_NoOfPoints->setGeometry(110, 40, 70, 25);
     m_objLE_DriveCurrent->setGeometry(110, 90, 150, 25);
     m_objLE_RxedCurrent->setGeometry(110, 140, 150, 25);
     m_objLE_TestCurrent->setGeometry(70,244,140,25);
+
+    m_objLE_RxedCurrent2->setGeometry(130, 352, 150, 25);
+    m_objLE_RxedCurrent3->setGeometry(130, 393, 150, 25);
 
     m_objLE_NoOfPoints->setStyleSheet("border-width: 2px;border-style: outset;border-color: gray; border-radius: 8px;  padding: 0 8px;     background: white;     selection-background-color: dark gray;   color:black;     font: bold 12px;");
     m_objLE_DriveCurrent->setStyleSheet("border-width: 2px;border-style: outset;border-color: gray; border-radius: 8px;  padding: 0 8px;     background: white;     selection-background-color: dark gray;   color:black;     font: bold 12px;");
     m_objLE_RxedCurrent->setStyleSheet("border-width: 2px;border-style: outset;border-color: gray; border-radius: 8px;  padding: 0 8px;     background: white;     selection-background-color: dark gray;   color:black;     font: bold 12px;");
     m_objLE_TestCurrent->setStyleSheet("border-width: 2px;border-style: outset;border-color: gray; border-radius: 8px;  padding: 0 8px;     background: white;     selection-background-color: dark gray;   color:black;     font: bold 12px;");
 
+    m_objLE_RxedCurrent2->setStyleSheet("border-width: 2px;border-style: outset;border-color: gray; border-radius: 8px;  padding: 0 8px;     background: white;     selection-background-color: dark gray;   color:black;     font: bold 12px;");
+    m_objLE_RxedCurrent3->setStyleSheet("border-width: 2px;border-style: outset;border-color: gray; border-radius: 8px;  padding: 0 8px;     background: white;     selection-background-color: dark gray;   color:black;     font: bold 12px;");
+
     connect(m_objLE_NoOfPoints, SIGNAL(focussed(bool)), this, SLOT(callNoOfPointsEdit()));
     connect(m_objLE_DriveCurrent, SIGNAL(focussed(bool)), this, SLOT(callDriveCurrentEdit()));
     connect(m_objLE_RxedCurrent, SIGNAL(focussed(bool)), this, SLOT(callRxedCurrentEdit()));
     connect(m_objLE_TestCurrent, SIGNAL(focussed(bool)), this, SLOT(callTestCurrentEdit()));
+
+    connect(m_objLE_RxedCurrent2, SIGNAL(focussed(bool)), this, SLOT(callRxedCurrentEdit2()));
+    connect(m_objLE_RxedCurrent3, SIGNAL(focussed(bool)), this, SLOT(callRxedCurrentEdit3()));
 
     m_nConstant=m_nDriveRange=m_nDriveCurrent=m_nRxedCurrent=m_nSlope=0.0;
     m_nNoOfPoints=m_nNoOfSamples=0;
@@ -201,20 +213,34 @@ void DACCalibration::readCurrentCalibrationFile(){
 }
 void DACCalibration::LoopDrive(){
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	if(m_strDriveCurrent=="1m"){qDebug()<<DACDriveRange.value(0);
-		DACDriveVoltage[0]=m_nDACVoltage;}
-	if(m_strDriveCurrent=="0.1m"||m_strDriveCurrent==".1m"){qDebug()<<DACDriveRange.value(1);
-		DACDriveVoltage[1]=m_nDACVoltage;}
-	if(m_strDriveCurrent=="10u"){qDebug()<<DACDriveRange.value(2);
-		DACDriveVoltage[2]=m_nDACVoltage;}
-	if(m_strDriveCurrent=="1u"){qDebug()<<DACDriveRange.value(3);
-		DACDriveVoltage[3]=m_nDACVoltage;}
-	if(m_strDriveCurrent=="500n"){qDebug()<<DACDriveRange.value(4);
-		DACDriveVoltage[4]=m_nDACVoltage;}
-	if(m_strDriveCurrent=="250n"){qDebug()<<DACDriveRange.value(5);
-		DACDriveVoltage[5]=m_nDACVoltage;}
-	if(m_strDriveCurrent=="10m"){qDebug()<<DACDriveRange.value(6);
-			DACDriveVoltage[6]=m_nDACVoltage;}
+        if(m_strDriveCurrent=="1m"||m_strDriveCurrent=="1.0m"){
+		qDebug()<<DACDriveRange.value(0);
+		DACDriveVoltage[0]=m_nDACVoltage;
+	}
+	if(m_strDriveCurrent=="0.1m"||m_strDriveCurrent==".1m"){
+		qDebug()<<DACDriveRange.value(1);
+		DACDriveVoltage[1]=m_nDACVoltage;
+	}
+	if(m_strDriveCurrent=="10u"){
+		qDebug()<<DACDriveRange.value(2);
+		DACDriveVoltage[2]=m_nDACVoltage;
+	}
+	if(m_strDriveCurrent=="1u"){
+		qDebug()<<DACDriveRange.value(3);
+		DACDriveVoltage[3]=m_nDACVoltage;
+	}
+	if(m_strDriveCurrent=="500n"){
+		qDebug()<<DACDriveRange.value(4);
+		DACDriveVoltage[4]=m_nDACVoltage;
+	}
+	if(m_strDriveCurrent=="250n"){
+		qDebug()<<DACDriveRange.value(5);
+		DACDriveVoltage[5]=m_nDACVoltage;
+	}
+        if(m_strDriveCurrent=="10m"||m_strDriveCurrent=="10m"){
+		qDebug()<<DACDriveRange.value(6);
+			DACDriveVoltage[6]=m_nDACVoltage;
+	}
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     l_nAD5318DW.m_eDACSelect = m_eSelect;
@@ -363,6 +389,21 @@ void DACCalibration::callRxedCurrentEdit(){
             m_nLineEditIndex = 2;
     }
 }
+
+void DACCalibration::callRxedCurrentEdit2(){
+    if (m_objLE_RxedCurrent2->hasFocus()) {
+            openNumKBPanelminmax(1, 'A',15, -15);
+            m_nLineEditIndex = 4;
+    }
+}
+
+void DACCalibration::callRxedCurrentEdit3(){
+    if (m_objLE_RxedCurrent3->hasFocus()) {
+            openNumKBPanelminmax(1, 'A',15, -15);
+            m_nLineEditIndex = 5;
+    }
+}
+
 void DACCalibration::callTestCurrentEdit(){
     if (m_objLE_TestCurrent->hasFocus()) {
             openNumKBPanelminmax(1, 'A',15, -15);
@@ -405,6 +446,14 @@ void DACCalibration::receiveValue(double pValue){
     case 3:
     	m_objLE_TestCurrent->setText(QString::number(pValue,'f',10));
         m_nTestCurrent=pValue;
+        break;
+    case 4:
+        m_objLE_RxedCurrent2->setText(QString::number(pValue,'f',10));
+        m_nRxedCurrent2=pValue;
+        break;
+    case 5:
+        m_objLE_RxedCurrent3->setText(QString::number(pValue,'f',10));
+        m_nRxedCurrent3=pValue;
         break;
     }
 }
@@ -493,4 +542,30 @@ void DACCalibration::on_Calibrated_clicked(bool checked)
             m_nRangeConstant[i]=0.0;
         }
     }
+}
+
+void DACCalibration::on_saveSl_clicked()
+{
+    QFile outFile;
+    outFile.setFileName("slCurValues.txt");
+    outFile.open(QIODevice::WriteOnly);
+    QTextStream ts(&outFile);
+    ts << m_nRxedCurrent3 << endl<< m_nRxedCurrent2 << endl<< m_nRxedCurrent2 << endl;
+    QMessageBox::information(this,"Saved","Calibration constant saved.",QMessageBox::Ok);
+}
+
+void DACCalibration::on_drive10mA_clicked()
+{
+    m_nDACVoltage=0.01*200;
+    IAppCard->writeRegister(0x000F,0x0016);
+    IAppCard->writeRegister(0x0007,0x0034);
+    LoopDrive();
+}
+
+void DACCalibration::on_drive1mA_clicked()
+{
+    m_nDACVoltage=0.001*200;
+    IAppCard->writeRegister(0x000F,0x0016);
+    IAppCard->writeRegister(0x0007,0x0034);
+    LoopDrive();
 }

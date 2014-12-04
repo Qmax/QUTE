@@ -116,11 +116,11 @@ void MainWindow::InitializeVIFunctions()
 
 void MainWindow::InitializeLegendLabels(){
 
-	QString legendlabelStyle="color:#d9d9d9";
-	QFont legendFont(QFont("DejaVu Sans", 10, 75, false));
-	QFont legendFont2(QFont("DejaVu Sans", 12, 50, false));
+        QString legendlabelStyle="color:#e5ffff";//d9d9d9";
+        QFont legendFont(QFont("DejaVu Sans", 14, 50, false));
+        QFont legendFont2(QFont("DejaVu Sans", 20, 50, false));
 
-	int rightSP=600,leftSP=5,legendLabelWidth=150,legendLabelHeight=17,traceLabelWidth=60;
+        int rightSP=580,leftSP=15,legendLabelWidth=220,legendLabelHeight=20,traceLabelWidth=60;
 
 	l_objProbeStatus    =   new QLabel(VIProduct);
 	l_objProbeStatus->setFont(legendFont);
@@ -129,16 +129,16 @@ void MainWindow::InitializeLegendLabels(){
 	l_objProbeStatus->setText("SINGLE : PROBE-1");
 
 	l_objPassFail       =   new QLabel(VIProduct);
-	l_objPassFail->setFont(legendFont2);
-	l_objPassFail->setStyleSheet(legendlabelStyle);
-	l_objPassFail->setGeometry(rightSP,45,legendLabelWidth+5,legendLabelHeight+5);
-	l_objPassFail->setText("RESULT : PASS");
+        l_objPassFail->setFont(QFont("DejaVu Sans", 32, 75, false));
+        l_objPassFail->setStyleSheet("color: #86E32B");
+        l_objPassFail->setGeometry(rightSP-100,65,legendLabelWidth+10,legendLabelHeight+10);
+        l_objPassFail->setText("         PASS");
 
 	l_objErrorPercentage=   new QLabel(VIProduct);
 	l_objErrorPercentage->setFont(legendFont2);
 	l_objErrorPercentage->setStyleSheet(legendlabelStyle);
-	l_objErrorPercentage->setGeometry(rightSP,25,legendLabelWidth+5,legendLabelHeight+5);
-	l_objErrorPercentage->setText("ERROR  : 5%");
+        l_objErrorPercentage->setGeometry(rightSP-50,25,legendLabelWidth+10,legendLabelHeight+10);
+        l_objErrorPercentage->setText("ERROR  : 5%");
 
 	l_objLearnVerify    =   new QLabel(VIProduct);
 	l_objLearnVerify->setFont(legendFont);
@@ -179,44 +179,44 @@ void MainWindow::InitializeLegendLabels(){
 	l_objRefType        =   new QLabel(VIProduct);
 	l_objRefType->setFont(legendFont);
 	l_objRefType->setStyleSheet(legendlabelStyle);
-	l_objRefType->setGeometry(leftSP,447,legendLabelWidth,legendLabelHeight);
+        l_objRefType->setGeometry(leftSP,440,legendLabelWidth,legendLabelHeight);
 	l_objRefType->setText("REF      : FIXED");
 
 	l_objCombinations   =   new QLabel(VIProduct);
 	l_objCombinations->setFont(legendFont);
 	l_objCombinations->setStyleSheet(legendlabelStyle);
-	l_objCombinations->setGeometry(leftSP,467,legendLabelWidth,legendLabelHeight);
+        l_objCombinations->setGeometry(leftSP,461,legendLabelWidth,legendLabelHeight);
 	l_objCombinations->setText("COMB  : 19");
 
 	l_objDriveSettings  =   new QLabel(VIProduct);
 	l_objDriveSettings->setFont(legendFont);
 	l_objDriveSettings->setStyleSheet(legendlabelStyle);
-	l_objDriveSettings->setGeometry(leftSP,506,legendLabelWidth+5,legendLabelHeight);
+        l_objDriveSettings->setGeometry(leftSP,503,legendLabelWidth+5,legendLabelHeight);
 	l_objDriveSettings->setText("DRIVE   : 2.5V_2KE_2KHz");
 
 	l_objComparison     =   new QLabel(VIProduct);
 	l_objComparison->setFont(legendFont);
 	l_objComparison->setStyleSheet(legendlabelStyle);
-	l_objComparison->setGeometry(leftSP,487,legendLabelWidth,legendLabelHeight);
+        l_objComparison->setGeometry(leftSP,482,legendLabelWidth,legendLabelHeight);
 	l_objComparison->setText("COMP   : AVERAGE");
 
 	l_objKeyLeft        =   new QLabel(VIProduct);
 	l_objKeyLeft->setFont(legendFont);
 	l_objKeyLeft->setStyleSheet(legendlabelStyle);
-	l_objKeyLeft->setGeometry(rightSP,487,legendLabelWidth,legendLabelHeight);
-	l_objKeyLeft->setText("L  : STORE");
+        l_objKeyLeft->setGeometry(rightSP,524,legendLabelWidth,legendLabelHeight);
+        l_objKeyLeft->setText("L : STORE");
 
 	l_objKeyRight       =   new QLabel(VIProduct);
 	l_objKeyRight->setFont(legendFont);
 	l_objKeyRight->setStyleSheet(legendlabelStyle);
-	l_objKeyRight->setGeometry(rightSP,524,legendLabelWidth,legendLabelHeight);
-	l_objKeyRight->setText("R : DELETE");
+        l_objKeyRight->setGeometry(rightSP,482,legendLabelWidth,legendLabelHeight);
+        l_objKeyRight->setText("R : DELETE");
 
 	l_objKeyMiddle      =   new QLabel(VIProduct);
 	l_objKeyMiddle->setFont(legendFont);
 	l_objKeyMiddle->setStyleSheet(legendlabelStyle);
-	l_objKeyMiddle->setGeometry(rightSP,506,legendLabelWidth,legendLabelHeight);
-	l_objKeyMiddle->setText("M : RUN/STOP");
+        l_objKeyMiddle->setGeometry(rightSP,503,legendLabelWidth,legendLabelHeight);
+        l_objKeyMiddle->setText("M : RUN/STOP");
 
 	l_objTraceNumber1->setVisible(false);
 	l_objTraceNumber2->setVisible(false);
@@ -237,14 +237,14 @@ void MainWindow::UpdateLegendLabels(){
 	l_objDriveSettings->setText("DRIVE   : "+ui->lblVoltage->text()+"_"+ui->lblImpedance->text()+"_"+ui->lblFrequency->text());
 
 	if(ui->lblMiddle->text()=="RUN/STOP")
-		l_objKeyMiddle->setText("M  : RUN/STOP");
+                l_objKeyMiddle->setText("M : RUN/STOP");
 	else if(ui->lblMiddle->text()=="VOL/FQ/IMP")
-		l_objKeyMiddle->setText("M  : VOLTAGE");
+                l_objKeyMiddle->setText("M : VOLTAGE");
 	else
-		l_objKeyMiddle->setText("M  : "+ui->lblMiddle->text());
+                l_objKeyMiddle->setText("M : "+ui->lblMiddle->text());
 
-	l_objKeyRight->setText("R : "+ui->lblRight->text());
-	l_objKeyLeft->setText("L : "+ui->lblLeft->text());
+        l_objKeyRight->setText("R : "+ui->lblRight->text());
+        l_objKeyLeft->setText("L : "+ui->lblLeft->text());
 }
 
 void MainWindow::setGraphValues()
@@ -790,7 +790,7 @@ void MainWindow::doKeyFunction(int pKeyCode)
 		}
 		qDebug()<<"Toggle Index:"<<m_nToggleIndex;
 		//switchString(m_nToggleIndex);
-		l_objKeyLeft->setText("L :  "+m_strFunctionKey);//Zoom Left Key Update
+                l_objKeyRight->setText("R : "+m_strFunctionKey);//Zoom Left Key Update
 	}
 	//	qDebug() << "Key code:" << pKeyCode;
 
@@ -836,8 +836,8 @@ void MainWindow::doKeyFunction(int pKeyCode)
 
 
 	if (pKeyCode == 0x0D || pKeyCode == 0xD0) {
-		//		 on_startButton_clicked();
-		on_bestFitButton_clicked();
+                on_startButton_clicked();
+//		on_bestFitButton_clicked();
 	}
 	else if (pKeyCode == 0x0E || pKeyCode == 0xE0) {
 		on_deleteButton_clicked();
@@ -1218,7 +1218,8 @@ void MainWindow::displayComparison()
 			ui->edtErrPercentage->setText(QString::number(l_nErrPercentage, 10) + "%");
 			l_objErrorPercentage->setText("ERROR  : "+QString::number(l_nErrPercentage, 10) + "%");
 			ui->lblPassFail->setText("FAIL");
-			l_objPassFail->setText("RESULT : FAIL");
+                        l_objPassFail->setText("         FAIL");
+                        l_objPassFail->setStyleSheet("color:red");
 		}
 		else if(l_nErrPercentage >=0)
 		{
@@ -1229,7 +1230,8 @@ void MainWindow::displayComparison()
 				ui->edtErrPercentage->setText(QString::number(l_nErrPercentage, 10) + "%");
 				l_objErrorPercentage->setText("ERROR  : "+QString::number(l_nErrPercentage, 10) + "%");
 				ui->lblPassFail->setText("PASS");
-				l_objPassFail->setText("RESULT : PASS");
+                                l_objPassFail->setText("         PASS");
+                                l_objPassFail->setStyleSheet("color: #86E32B");
 			}
 			else
 			{
@@ -1309,7 +1311,7 @@ void MainWindow::on_butProClip_clicked()
 	ui->calibButton->setStyleSheet(highlightOFF);
 	ui->PCBox->setStyleSheet(PCBoxON);
 	//	ui->selectFrame->setGeometry(ui->selectFrame->x(),50,ui->selectFrame->width(),ui->selectFrame->height());
-	ui->selectFrame->setGeometry(702, 54, 9, 60);
+        ui->selectFrame->setGeometry(702, 54, 9, 60);
 	if(m_bPCMode == true)
 	{
 		ui->butProClip->setIcon(QIcon(":/res/Clip.png"));
@@ -3242,10 +3244,10 @@ void MainWindow::on_butZoom_clicked()
 {
 	QPropertyAnimation *animation2 = new QPropertyAnimation(VIProduct, "geometry");
 	animation2->setEasingCurve(QEasingCurve::Linear);
-	animation2->setDuration(100);
+        animation2->setDuration(30);
 	QPropertyAnimation *animation1 = new QPropertyAnimation(ui->butZoom, "geometry");
 	animation1->setEasingCurve(QEasingCurve::Linear);
-	animation1->setDuration(100);
+        animation1->setDuration(30);
 
 	double l_nRectWidth = 324,l_nRectHeight = 272;
 	double l_nZoomRectWidth = 707,l_nZoomRectHeight = 560;
@@ -3257,7 +3259,7 @@ void MainWindow::on_butZoom_clicked()
 		animation1->setEndValue(QRect(0, 0, l_nZoomRectWidth, l_nZoomRectHeight));
 		animation2->start();
 		animation1->start();
-		ui->butZoom->setStyleSheet("QPushButton {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:pressed {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:flat {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; } QPushButton:default {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:medium; }");
+                ui->butZoom->setStyleSheet("QPushButton {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:small; } QPushButton:pressed {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:small; } QPushButton:flat {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:small; } QPushButton:default {background-color: rgb(0, 0, 0,0);color: rgba(0, 0, 0, 0);border-style: groove;border-color: rgba(238,238,238);border-width:small; }");
 		UpdateLegendLabels();
 		VIProduct->setZoomFlag(true,(l_nZoomRectWidth/l_nRectWidth),(l_nZoomRectHeight/l_nRectHeight));
 	}
@@ -3311,12 +3313,16 @@ void MainWindow::on_butP2Area_clicked()
 
 void MainWindow::on_bestFitButton_clicked()
 {
+    if(m_bAutoCurveFit == false)
+            m_bAutoCurveFit = true;
+    else
+            m_bAutoCurveFit = false;
 
-	ui->storeBox->setStyleSheet(highlightOFF);
-	ui->startBox->setStyleSheet(highlightON);
-	ui->deleteBox->setStyleSheet(highlightOFF);
-	ui->CalibBox->setStyleSheet(highlightOFF);
-	//	ui->PCBox->setStyleSheet(highlightOFF2);
-	ui->startButton->animateClick(1);
-	ui->selectFrame->setGeometry(702, 154, 9, 60);
+//	ui->storeBox->setStyleSheet(highlightOFF);
+//	ui->startBox->setStyleSheet(highlightON);
+//	ui->deleteBox->setStyleSheet(highlightOFF);
+//	ui->CalibBox->setStyleSheet(highlightOFF);
+//	//	ui->PCBox->setStyleSheet(highlightOFF2);
+//	ui->startButton->animateClick(1);
+//	ui->selectFrame->setGeometry(702, 154, 9, 60);
 }

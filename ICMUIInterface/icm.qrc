@@ -19,6 +19,7 @@
         <file>15PinDIN.png</file>
         <file>Letter-dc-icon.png</file>
         <file>Letter-ac-icon.png</file>
+        <file>short-icon.png</file>
     </qresource>
     <qresource prefix="/">
         <file>ac.png</file>

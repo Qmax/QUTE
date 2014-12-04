@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'daccalibration.h'
 **
-** Created: Mon Sep 29 16:20:50 2014
+** Created: Tue Dec 2 11:53:41 2014
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_DACCalibration[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -35,27 +35,25 @@ static const uint qt_meta_data_DACCalibration[] = {
 
  // slots: signature, parameters, type, tag, flags
       45,   16,   15,   15, 0x08,
-      78,   72,   15,   15, 0x08,
-     117,   15,   15,   15, 0x08,
-     138,   15,   15,   15, 0x08,
-     159,   15,   15,   15, 0x08,
-     180,   72,   15,   15, 0x08,
-     217,   15,   15,   15, 0x08,
-     238,   15,   15,   15, 0x08,
-     260,   15,   15,   15, 0x08,
-     287,  280,   15,   15, 0x08,
-     306,   15,   15,   15, 0x08,
-     327,   15,   15,   15, 0x08,
+      72,   15,   15,   15, 0x08,
+      93,   15,   15,   15, 0x08,
+     114,   15,   15,   15, 0x08,
+     141,  135,   15,   15, 0x08,
+     178,   15,   15,   15, 0x08,
+     199,   15,   15,   15, 0x08,
+     221,   15,   15,   15, 0x08,
+     248,  241,   15,   15, 0x08,
+     267,   15,   15,   15, 0x08,
+     288,   15,   15,   15, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_DACCalibration[] = {
     "DACCalibration\0\0,\0GCalib2ICM(double,QString)\0"
-    "ICM2GCalib(double,QString)\0index\0"
-    "on_comboBox_2_currentIndexChanged(int)\0"
+    "ICM2GCalib(double,QString)\0"
     "on_nextBut_clicked()\0on_exitBut_clicked()\0"
-    "on_saveBut_clicked()\0"
+    "on_saveBut_clicked()\0index\0"
     "on_comboBox_currentIndexChanged(int)\0"
     "callNoOfPointsEdit()\0callActualValueEdit()\0"
     "callRxedValueEdit()\0pValue\0"
@@ -94,20 +92,19 @@ int DACCalibration::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         switch (_id) {
         case 0: GCalib2ICM((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 1: ICM2GCalib((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 2: on_comboBox_2_currentIndexChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 3: on_nextBut_clicked(); break;
-        case 4: on_exitBut_clicked(); break;
-        case 5: on_saveBut_clicked(); break;
-        case 6: on_comboBox_currentIndexChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 7: callNoOfPointsEdit(); break;
-        case 8: callActualValueEdit(); break;
-        case 9: callRxedValueEdit(); break;
-        case 10: receiveValue((*reinterpret_cast< uint(*)>(_a[1]))); break;
-        case 11: receiveValue((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 12: receiveValue((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 2: on_nextBut_clicked(); break;
+        case 3: on_exitBut_clicked(); break;
+        case 4: on_saveBut_clicked(); break;
+        case 5: on_comboBox_currentIndexChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 6: callNoOfPointsEdit(); break;
+        case 7: callActualValueEdit(); break;
+        case 8: callRxedValueEdit(); break;
+        case 9: receiveValue((*reinterpret_cast< uint(*)>(_a[1]))); break;
+        case 10: receiveValue((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 11: receiveValue((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 13;
+        _id -= 12;
     }
     return _id;
 }

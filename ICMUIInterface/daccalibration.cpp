@@ -472,7 +472,3 @@ void DACCalibration::on_nextBut_clicked()
 	        m_nNoOfPoints=m_nNoOfSamples;
 }
 
-void DACCalibration::on_comboBox_2_currentIndexChanged(int index)
-{
-
-}

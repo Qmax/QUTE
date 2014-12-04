@@ -333,7 +333,7 @@ void PTPsocInterface2::srcImpedanceEnable(bool enableDisable){
 }
 
 void PTPsocInterface2::srcImpedanceSelection(unsigned int src_imp_value) {
-//	qDebug()<<"\nSource Impedance Selection:"<<src_impedance.value(src_imp_value);//for delay dont delete
+	qDebug()<<"\nSource Impedance Selection:"<<src_impedance.value(src_imp_value);//for delay dont delete
 	writeSerial(0x51);
 	usleep(5000);
 

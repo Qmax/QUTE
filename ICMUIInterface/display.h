@@ -97,11 +97,11 @@ public:
 			qDebug()<<"After Rounding:"<<l_intValue;
 //_________________________________________________________________________________________
 			if (m_intRange == 1 || m_intRange == 3 ||m_intRange == 5 || m_intRange == 9) {
-				if (m_intRange==1 &&l_nValue > 1)
+                                if (m_intRange==1 &&l_nValue > 1.1)
 					setValue("OL");
-				else if (m_intRange==3 &&l_nValue > 3)
+                                else if (m_intRange==3 &&l_nValue > 3.5)
 					setValue("OL");
-				else if (m_intRange==5 &&l_nValue > 5)
+                                else if (m_intRange==5 &&l_nValue > 5.5)
 					setValue("OL");
                                 else if (m_intRange==9 &&l_nValue > 9.9)
 					setValue("OL");
@@ -138,9 +138,9 @@ public:
 			}
 //_________________________________________________________________________________________
 			else if (m_intRange == 10 || m_intRange == 30 || m_intRange == 99) {
-				if (m_intRange==10 && l_nValue >10)
+                                if (m_intRange==10 && l_nValue >12)
 					setValue("OL");
-				else if (m_intRange==30 && l_nValue >30)
+                                else if (m_intRange==30 && l_nValue >35)
 					setValue("OL");
                                 else if (m_intRange==99 && l_nValue >99.9)
 					setValue("OL");
@@ -174,9 +174,9 @@ public:
 			}
 //_________________________________________________________________________________________
 			else if (m_intRange == 100 ||m_intRange == 300||m_intRange == 999) {
-				if (m_intRange == 100 && l_nValue >100)
+                                if (m_intRange == 100 && l_nValue >120)
 					setValue("OL");
-				else if (m_intRange == 300 && l_nValue >300)
+                                else if (m_intRange == 300 && l_nValue >350)
 					setValue("OL");
                                 else if (m_intRange == 999 && l_nValue >999.9)
 					setValue("OL");

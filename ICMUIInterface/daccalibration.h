@@ -60,7 +60,6 @@ private slots:
 
 	void ICM2GCalib(double,QString);
 
-    void on_comboBox_2_currentIndexChanged(int index);
     void on_nextBut_clicked();
     void on_exitBut_clicked();
     void on_saveBut_clicked();

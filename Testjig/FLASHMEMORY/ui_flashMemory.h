@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'flashMemory.ui'
 **
-** Created: Sat Sep 6 10:53:04 2014
+** Created: Wed Dec 3 10:48:40 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -718,7 +718,7 @@ public:
 "}"));
         butLoadFile = new QPushButton(grpSELECTCARD);
         butLoadFile->setObjectName(QString::fromUtf8("butLoadFile"));
-        butLoadFile->setGeometry(QRect(20, 20, 84, 51));
+        butLoadFile->setGeometry(QRect(0, 19, 110, 60));
         butLoadFile->setFocusPolicy(Qt::NoFocus);
         butLoadFile->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "color:white;\n"
@@ -745,7 +745,7 @@ public:
 "}"));
         butSaveFile = new QPushButton(grpSELECTCARD);
         butSaveFile->setObjectName(QString::fromUtf8("butSaveFile"));
-        butSaveFile->setGeometry(QRect(20, 77, 84, 51));
+        butSaveFile->setGeometry(QRect(0, 80, 110, 60));
         butSaveFile->setFocusPolicy(Qt::NoFocus);
         butSaveFile->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "color:white;\n"

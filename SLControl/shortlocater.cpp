@@ -117,9 +117,9 @@ void ShortLocater::Initializations() {
     settLabel->setText("SETTINGS");
 
     QPushButton *shortCalib = new QPushButton(setWidget);
-    shortCalib->setGeometry(210,40,55,55);
+    shortCalib->setGeometry(30,40,70,70);
     shortCalib->setFocusPolicy(Qt::NoFocus);
-    shortCalib->setStyleSheet("QPushButton { image: url(:/robe.png); border: 2px solid rgba(0,0,0,0); border-radius: 25px; background-color: rgba(0,0,0,0); }");
+    shortCalib->setStyleSheet("QPushButton { image: url(:/shortProbe.png); border: 2px solid rgba(0,0,0,0); border-radius: 25px; background-color: rgba(0,0,0,0); }");
     connect(shortCalib,SIGNAL(clicked()),this,SLOT(shortCalibration()));
 
     QPushButton *closeBut = new QPushButton(setWidget);
@@ -172,7 +172,7 @@ void ShortLocater::Initializations() {
 	QStringList stringList;
 	bool ok = true;
 	QFile textFile;
-	textFile.setFileName("shortValuesI.txt");
+	textFile.setFileName("shortValuesE.txt");
 
 	if (textFile.open(QIODevice::ReadOnly)) {
 		QTextStream textStream(&textFile);
@@ -1115,10 +1115,10 @@ void ShortLocater::shortCalibration() {
 	}
 
 	QFile outFile;
-	if (ui.External->isVisible())
+//	if (ui.External->isVisible())
 		outFile.setFileName("shortValuesE.txt");
-	if (ui.Internal->isVisible())
-		outFile.setFileName("shortValuesI.txt");
+//	if (ui.Internal->isVisible())
+//		outFile.setFileName("shortValuesI.txt");
 
 	outFile.open(QIODevice::WriteOnly);
 	QTextStream ts(&outFile);
@@ -1544,10 +1544,10 @@ void ShortLocater::on_Internal_clicked() {
 	 QStringList stringList;
 	 bool ok = true;
 	 QFile textFile;
-	 if (ui.External->isVisible())
+//	 if (ui.External->isVisible())
 		 textFile.setFileName("shortValuesE.txt");
-	 if (ui.Internal->isVisible())
-		 textFile.setFileName("shortValuesI.txt");
+//	 if (ui.Internal->isVisible())
+//		 textFile.setFileName("shortValuesI.txt");
 
 	 if (textFile.open(QIODevice::ReadOnly)) {
 		 QTextStream textStream(&textFile);
@@ -1602,10 +1602,10 @@ void ShortLocater::on_External_clicked() {
 	QStringList stringList;
 	bool ok = true;
 	QFile textFile;
-	if (ui.External->isVisible())
+//	if (ui.External->isVisible())
 		textFile.setFileName("shortValuesE.txt");
-	if (ui.Internal->isVisible())
-		textFile.setFileName("shortValuesI.txt");
+//	if (ui.Internal->isVisible())
+//		textFile.setFileName("shortValuesI.txt");
 
 	if (textFile.open(QIODevice::ReadOnly)) {
 		QTextStream textStream(&textFile);

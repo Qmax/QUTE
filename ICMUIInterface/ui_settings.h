@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'settings.ui'
 **
-** Created: Tue Dec 2 10:33:48 2014
+** Created: Thu Dec 4 11:55:48 2014
 **      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -76,6 +76,7 @@ public:
     QLineEdit *lineEdit_7;
     QLabel *label_11;
     QComboBox *srcImpBox_10;
+    QPushButton *applySrc;
 
     void setupUi(QWidget *Settings)
     {
@@ -920,6 +921,11 @@ public:
 "     left: 1px;\n"
 " }\n"
 ""));
+        applySrc = new QPushButton(groupBox);
+        applySrc->setObjectName(QString::fromUtf8("applySrc"));
+        applySrc->setGeometry(QRect(300, 387, 70, 30));
+        applySrc->setFont(font1);
+        applySrc->setFocusPolicy(Qt::NoFocus);
 
         retranslateUi(Settings);
 
@@ -990,15 +996,15 @@ public:
          << QApplication::translate("Settings", "100E", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("Settings", "200E", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("Settings", "500E", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Settings", "1K", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Settings", "2K", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Settings", "5K", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Settings", "10K", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Settings", "20K", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Settings", "50K", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Settings", "100K", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Settings", "200K", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Settings", "500K", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "1KE", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "2KE", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "5KE", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "10KE", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "20KE", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "50KE", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "100KE", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "200KE", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Settings", "500KE", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("Settings", "1M", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("Settings", "X1", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("Settings", "X2", 0, QApplication::UnicodeUTF8)
@@ -1008,6 +1014,7 @@ public:
          << QApplication::translate("Settings", "X6", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("Settings", "X7", 0, QApplication::UnicodeUTF8)
         );
+        applySrc->setText(QApplication::translate("Settings", "Apply", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

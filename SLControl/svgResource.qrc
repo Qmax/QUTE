@@ -36,5 +36,6 @@
         <file>app0.png</file>
         <file>app3.png</file>
         <file>graph.png</file>
+        <file>shortProbe.png</file>
     </qresource>
 </RCC>

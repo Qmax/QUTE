@@ -11,7 +11,9 @@ SOURCES += logindialog.cpp \
     probestatus.cpp \
     qmaxbutton.cpp \
     colors.cpp
-HEADERS += DSOCardInterface.h \
+HEADERS += PTAboutInterface.h \
+    PTHelpInterface.h \
+    DSOCardInterface.h \
     FGAppInterface.h \
     interfaceHeader.h \
     PTTestjigInterface.h \

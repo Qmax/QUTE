@@ -39,6 +39,8 @@
 #include "FGAppInterface.h"
 #include "PTToolBoxInterface.h"
 #include "DSOCardInterface.h"
+#include "PTHelpInterface.h"
+#include "PTAboutInterface.h"
 
 //~~~~~~~~~~~DMM SPI Back Panel Registers~~~~~~~~~~~~~
 #define DMM_CMD_BP             0x0036
@@ -157,6 +159,8 @@ protected:
     IQmaxNumberPanel *INumberPanel;
     IQmaxLineEdit *ILineEdit;
 
+    IPTAboutBoxInterface *aboutBox;
+    IPTHelpBoxInterface *helpBox;
     IPTToolBoxInterface *toolBox;
     IDSOCardInterface *IDSOCard;
 
