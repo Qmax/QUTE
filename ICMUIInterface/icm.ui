@@ -5055,16 +5055,174 @@ font:bold 25px;
        </size>
       </property>
      </widget>
-     <zorder>ACDC</zorder>
-     <zorder>pushButton</zorder>
-     <zorder>AutoManual</zorder>
-     <zorder>NULL_2</zorder>
-     <zorder>settings</zorder>
-     <zorder>ONOFF</zorder>
-     <zorder>label_22</zorder>
-     <zorder>label_24</zorder>
-     <zorder>label_25</zorder>
-     <zorder>label_26</zorder>
+     <widget class="QPushButton" name="pbRel">
+      <property name="geometry">
+       <rect>
+        <x>265</x>
+        <y>26</y>
+        <width>100</width>
+        <height>60</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>DejaVu Sans</family>
+        <pointsize>13</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+color:white;
+border: 1px solid #2D5059;
+border-radius: 20px;
+background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);
+font:bold;
+}
+QPushButton:pressed {
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+QPushButton:flat {
+border: none; 
+}
+QPushButton:default {
+border-color: navy; 
+}
+
+QPushButton:disabled
+{
+color:lightgrey;
+background-color:grey
+}</string>
+      </property>
+      <property name="text">
+       <string>REL</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>64</width>
+        <height>64</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pbSettings">
+      <property name="geometry">
+       <rect>
+        <x>451</x>
+        <y>26</y>
+        <width>100</width>
+        <height>60</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>DejaVu Sans</family>
+        <pointsize>13</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+color:white;
+border: 1px solid #2D5059;
+border-radius: 20px;
+background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);
+font:bold;
+}
+QPushButton:pressed {
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+QPushButton:flat {
+border: none; 
+}
+QPushButton:default {
+border-color: navy; 
+}
+
+QPushButton:disabled
+{
+color:lightgrey;
+background-color:grey
+}</string>
+      </property>
+      <property name="text">
+       <string>SETTINGS</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>64</width>
+        <height>64</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pbHold">
+      <property name="geometry">
+       <rect>
+        <x>79</x>
+        <y>26</y>
+        <width>100</width>
+        <height>60</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>DejaVu Sans</family>
+        <pointsize>13</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+color:white;
+border: 1px solid #2D5059;
+border-radius: 20px;
+background-color: qlineargradient(x1: 0, y1: 1, x2: 1, y2: 0,stop: 0 #1A74DB, stop: 0.6 #5293DE, stop:1 #FFFFFF);
+font:bold;
+}
+QPushButton:pressed {
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+QPushButton:flat {
+border: none; 
+}
+QPushButton:default {
+border-color: navy; 
+}
+
+QPushButton:disabled
+{
+color:lightgrey;
+background-color:grey
+}</string>
+      </property>
+      <property name="text">
+       <string>HOLD</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>64</width>
+        <height>64</height>
+       </size>
+      </property>
+     </widget>
     </widget>
     <zorder>functionsPanel</zorder>
     <zorder>ResistanceRanges</zorder>
@@ -7176,8 +7334,6 @@ image: url(:/fp_images/bnc.png);</string>
         <enum>QFrame::Raised</enum>
        </property>
       </widget>
-      <zorder>ah1_inner</zorder>
-      <zorder>frame</zorder>
      </widget>
      <widget class="QFrame" name="ah3_outer">
       <property name="geometry">

@@ -8,7 +8,8 @@
 CONFIG += plugin
 TARGET = ICMUIInterface
 TEMPLATE = lib
-SOURCES += qcustomplot.cpp \
+SOURCES += logindialog.cpp \
+    qcustomplot.cpp \
     ad5318components.cpp \
     daccalibration.cpp \
     ad5293.cpp \
@@ -17,7 +18,8 @@ SOURCES += qcustomplot.cpp \
     icm.cpp \
     pticminterface.cpp \
     settings.cpp
-HEADERS += DIGrapherInterface.h \
+HEADERS += logindialog.h \
+    DIGrapherInterface.h \
     qcustomplot.h \
     serialdevice.h \
     display.h \

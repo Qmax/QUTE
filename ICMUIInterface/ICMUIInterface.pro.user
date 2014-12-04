@@ -116,7 +116,7 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList">
-    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-qWQHiElLEz,guid=dbbb66c25c0a5a56295c067353a8ffd4</value>
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-XTeAr6GasA,guid=2e34827b3edf76ebae466109547fd0a5</value>
     <value type="QString">DEFAULTS_PATH=/usr/share/gconf/gnome.default.path</value>
     <value type="QString">DESKTOP_SESSION=kde</value>
     <value type="QString">DISPLAY=:0.0</value>
@@ -124,8 +124,7 @@
     <value type="QString">GDM_KEYBOARD_LAYOUT=us</value>
     <value type="QString">GDM_LANG=en_IN</value>
     <value type="QString">GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString">GNOME_KEYRING_CONTROL=/tmp/keyring-6N27m7</value>
-    <value type="QString">GNOME_KEYRING_PID=1763</value>
+    <value type="QString">GNOME_KEYRING_CONTROL=/tmp/keyring-SjYLeg</value>
     <value type="QString">GTK_MODULES=canberra-gtk-module</value>
     <value type="QString">HOME=/home/ravivarman</value>
     <value type="QString">LANG=en_IN</value>
@@ -134,22 +133,22 @@
     <value type="QString">MANDATORY_PATH=/usr/share/gconf/gnome.mandatory.path</value>
     <value type="QString">MOZILLA_FIVE_HOME=/usr/lib/mozilla</value>
     <value type="QString">ORBIT_SOCKETDIR=/tmp/orbit-ravivarman</value>
-    <value type="QString">PATH=/home/elangovan/qtsdk/qt/bin:/home/ravivarman/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
+    <value type="QString">PATH=/home/elangovan/qtsdk/qt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
     <value type="QString">PWD=/home/ravivarman</value>
     <value type="QString">QTDIR=/home/elangovan/qtsdk/qt</value>
-    <value type="QString">SESSION_MANAGER=local/ravivarman:@/tmp/.ICE-unix/1792,unix/ravivarman:/tmp/.ICE-unix/1792</value>
+    <value type="QString">SESSION_MANAGER=local/ravivarman:@/tmp/.ICE-unix/1355,unix/ravivarman:/tmp/.ICE-unix/1355</value>
     <value type="QString">SHELL=/bin/bash</value>
-    <value type="QString">SSH_AGENT_PID=1847</value>
-    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-6N27m7/ssh</value>
+    <value type="QString">SSH_AGENT_PID=1578</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-SjYLeg/ssh</value>
     <value type="QString">USER=ravivarman</value>
     <value type="QString">USERNAME=ravivarman</value>
-    <value type="QString">XAUTHORITY=/var/run/gdm/auth-for-ravivarman-lZtWm8/database</value>
+    <value type="QString">XAUTHORITY=/var/run/gdm/auth-for-ravivarman-6Ay1fN/database</value>
     <value type="QString">XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome:/etc/xdg</value>
     <value type="QString">XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
-    <value type="QString">XDG_SESSION_COOKIE=49d98a0b023b4f727beee2814e82ffa3-1403584467.977664-952789953</value>
+    <value type="QString">XDG_SESSION_COOKIE=49d98a0b023b4f727beee2814e82ffa3-1417662629.300109-807294239</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList">
-    <value type="QString">/mnt/Elango/exports/Share/PTProjects/ICMUIInterface/ICMUIInterface.pro</value>
+    <value type="QString">/home/ravivarman/Dropbox/QUTE/ICMUIInterface/ICMUIInterface.pro</value>
     <value type="QString">-spec</value>
     <value type="QString">linux-g++</value>
     <value type="QString">-r</value>
@@ -157,7 +156,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString">/home/elangovan/qtsdk/qt/bin/qmake</value>
    <value key="abstractProcess.enabled" type="bool">true</value>
-   <value key="abstractProcess.workingDirectory" type="QString">/mnt/Elango/exports/Share/PTProjects/ICMUIInterface</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/home/ravivarman/Dropbox/QUTE/ICMUIInterface</value>
   </valuemap>
  </data>
  <data>
@@ -165,7 +164,7 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList">
-    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-qWQHiElLEz,guid=dbbb66c25c0a5a56295c067353a8ffd4</value>
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-XTeAr6GasA,guid=2e34827b3edf76ebae466109547fd0a5</value>
     <value type="QString">DEFAULTS_PATH=/usr/share/gconf/gnome.default.path</value>
     <value type="QString">DESKTOP_SESSION=kde</value>
     <value type="QString">DISPLAY=:0.0</value>
@@ -173,8 +172,7 @@
     <value type="QString">GDM_KEYBOARD_LAYOUT=us</value>
     <value type="QString">GDM_LANG=en_IN</value>
     <value type="QString">GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString">GNOME_KEYRING_CONTROL=/tmp/keyring-6N27m7</value>
-    <value type="QString">GNOME_KEYRING_PID=1763</value>
+    <value type="QString">GNOME_KEYRING_CONTROL=/tmp/keyring-SjYLeg</value>
     <value type="QString">GTK_MODULES=canberra-gtk-module</value>
     <value type="QString">HOME=/home/ravivarman</value>
     <value type="QString">LANG=en_IN</value>
@@ -183,19 +181,19 @@
     <value type="QString">MANDATORY_PATH=/usr/share/gconf/gnome.mandatory.path</value>
     <value type="QString">MOZILLA_FIVE_HOME=/usr/lib/mozilla</value>
     <value type="QString">ORBIT_SOCKETDIR=/tmp/orbit-ravivarman</value>
-    <value type="QString">PATH=/home/elangovan/qtsdk/qt/bin:/home/ravivarman/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
+    <value type="QString">PATH=/home/elangovan/qtsdk/qt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
     <value type="QString">PWD=/home/ravivarman</value>
     <value type="QString">QTDIR=/home/elangovan/qtsdk/qt</value>
-    <value type="QString">SESSION_MANAGER=local/ravivarman:@/tmp/.ICE-unix/1792,unix/ravivarman:/tmp/.ICE-unix/1792</value>
+    <value type="QString">SESSION_MANAGER=local/ravivarman:@/tmp/.ICE-unix/1355,unix/ravivarman:/tmp/.ICE-unix/1355</value>
     <value type="QString">SHELL=/bin/bash</value>
-    <value type="QString">SSH_AGENT_PID=1847</value>
-    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-6N27m7/ssh</value>
+    <value type="QString">SSH_AGENT_PID=1578</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-SjYLeg/ssh</value>
     <value type="QString">USER=ravivarman</value>
     <value type="QString">USERNAME=ravivarman</value>
-    <value type="QString">XAUTHORITY=/var/run/gdm/auth-for-ravivarman-lZtWm8/database</value>
+    <value type="QString">XAUTHORITY=/var/run/gdm/auth-for-ravivarman-6Ay1fN/database</value>
     <value type="QString">XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome:/etc/xdg</value>
     <value type="QString">XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
-    <value type="QString">XDG_SESSION_COOKIE=49d98a0b023b4f727beee2814e82ffa3-1403584467.977664-952789953</value>
+    <value type="QString">XDG_SESSION_COOKIE=49d98a0b023b4f727beee2814e82ffa3-1417662629.300109-807294239</value>
    </valuelist>
    <value key="abstractProcess.IgnoreReturnValue" type="bool">false</value>
    <valuelist key="abstractProcess.arguments" type="QVariantList">
@@ -203,7 +201,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString">/usr/bin/make</value>
    <value key="abstractProcess.enabled" type="bool">true</value>
-   <value key="abstractProcess.workingDirectory" type="QString">/mnt/Elango/exports/Share/PTProjects/ICMUIInterface</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/home/ravivarman/Dropbox/QUTE/ICMUIInterface</value>
   </valuemap>
  </data>
  <data>

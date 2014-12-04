@@ -32,6 +32,7 @@
 #include "PTEventInterfaces.h"
 //#include "qcustomplot.h"
 #include "DIGrapherInterface.h"
+#include "logindialog.h"
 
 #define		GPIOINT		0x0100
 #define		KNOBINT		0x0800
@@ -86,16 +87,16 @@ public:
     double m_nActualGain;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		DIGrapherInterface *ICMGraph;
-		QWidget *graphWidget;
-		void configGraphData();
-		void InsertGraphData(double gData);
-		QVector<double> xData,yData,yMaxData,yMinData;
-		int graphLoop;
+    DIGrapherInterface *ICMGraph;
+    QWidget *graphWidget;
+    void configGraphData();
+    void InsertGraphData(double gData);
+    QVector<double> xData,yData,yMaxData,yMinData;
+    int graphLoop;
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //old and sweep graphing
-/*    void setupSimpleDemo(QCustomPlot *customPlot);
+    /*    void setupSimpleDemo(QCustomPlot *customPlot);
     void plotSimpleDemo(QCustomPlot *customPlot);
     void graphSetup(QCustomPlot *customPlot);
     void graphPlotter(QCustomPlot *customPlot);
@@ -107,9 +108,13 @@ public:
     int m_nSweepStartFrequencyUnit,m_nSweepEndFrequencyUnit,m_nSweepIntervalUnit;
     int xSize,ySize,yRangeMax;*/
     //-------------------------------------------------------------------
-        double rShortValues[6],lShortValues[7],cShortValues[9];
+    double rShortValues[6],lShortValues[7],cShortValues[9];
 
 protected:
+    LoginDialog* loginDialog;
+    bool m_nPassword;
+    bool m_bCursor;
+
     int AutoCFlag;
 
     PTGPIOEventInterface *IGPIOEvent;
@@ -173,8 +178,8 @@ protected:
     double convertToValues(QString input);
 
 
-//    void resetDAC(AD5318_DACSELECT DAC);
-//    void updateDAC(double);
+    //    void resetDAC(AD5318_DACSELECT DAC);
+    //    void updateDAC(double);
 
     QList<double>m_lstRFResistance;
     QList<double>m_lstRFCapcitance;
@@ -205,50 +210,55 @@ protected:
     bool m_bNull,m_bExternal;
 
 
-        int avg,noOFsamples;
-        double avgRetval[100];
+    int avg,noOFsamples;
+    double avgRetval[100];
 
-        bool m_bToolboxFlag;
-        bool m_bRacRdc;
+    bool m_bToolboxFlag;
+    bool m_bRacRdc;
 
-        bool rFlag,lFlag,cFlag,autoFlag,runFlag;
-        bool scanFlag;
+    bool rFlag,lFlag,cFlag,autoFlag,runFlag;
+    bool scanFlag;
 
 private:
     Ui::ICM *ui;
 
 signals:
-        void ICM2GCalib(double,QString);
+    void ICM2GCalib(double,QString);
 
 private  slots:
-void shortCalibration();
-void advSettings();
-void on_butZoom_clicked();
-void on_sweep_interval_unit_currentIndexChanged(int index);
-void on_sweep_interval_valueChanged(int );
-void on_sweep_endfreq_unit_currentIndexChanged(int index);
-void on_sweep_endfreq_valueChanged(int );
-void on_sweep_startfreq_unit_currentIndexChanged(int index);
-void on_sweep_startfreq_valueChanged(int );
-void on_sweep_capture_clicked();
-void on_graphBut_clicked();
-void on_ACDC_clicked();
-void on_cBut_clicked();
-void on_lBut_clicked();
-void on_rBut_clicked();
-void on_exit_clicked();
-void on_RacRdc_clicked();
-//void on_hideSettings_clicked();
-void on_pushButton_3_clicked();
-void GCalib2ICM(double,QString);
+    void slotAcceptUserLogin(QString& name,QString& password);
+
+    void on_pbSettings_clicked();
+    void on_pbRel_clicked();
+    void on_pbHold_clicked();
+    void shortCalibration();
+    void advSettings();
+    void on_butZoom_clicked();
+    void on_sweep_interval_unit_currentIndexChanged(int index);
+    void on_sweep_interval_valueChanged(int );
+    void on_sweep_endfreq_unit_currentIndexChanged(int index);
+    void on_sweep_endfreq_valueChanged(int );
+    void on_sweep_startfreq_unit_currentIndexChanged(int index);
+    void on_sweep_startfreq_valueChanged(int );
+    void on_sweep_capture_clicked();
+    void on_graphBut_clicked();
+    void on_ACDC_clicked();
+    void on_cBut_clicked();
+    void on_lBut_clicked();
+    void on_rBut_clicked();
+    void on_exit_clicked();
+    void on_RacRdc_clicked();
+    //void on_hideSettings_clicked();
+    void on_pushButton_3_clicked();
+    void GCalib2ICM(double,QString);
 
 
-void on_chkLoad_clicked();
-void receiveValue(unsigned int);
-void receiveValue(double);
-void receiveValue(QString);
-void callActualEdit();
-void callMeasuredEdit();
+    void on_chkLoad_clicked();
+    void receiveValue(unsigned int);
+    void receiveValue(double);
+    void receiveValue(QString);
+    void callActualEdit();
+    void callMeasuredEdit();
 
     void on_checkBox_clicked();
     void on_pushButton_2_clicked();
@@ -259,15 +269,15 @@ void callMeasuredEdit();
     void callFeedBackChange(int);
     void callSrcImpChange(QString);
 
-   void on_pushButton_clicked();
-   void on_calibrate_clicked();
-   void on_ExitBut_clicked();
-   void on_AutoManual_clicked();
-   void on_L30mH_clicked();
-   void on_R100KE_clicked();
-   void on_ONOFF_clicked();
-   void readADC();
-   void readADC2();
+    void on_pushButton_clicked();
+    void on_calibrate_clicked();
+    void on_ExitBut_clicked();
+    void on_AutoManual_clicked();
+    void on_L30mH_clicked();
+    void on_R100KE_clicked();
+    void on_ONOFF_clicked();
+    void readADC();
+    void readADC2();
 
     void on_settings_clicked();
     void on_L3mH_clicked();
@@ -291,7 +301,7 @@ void callMeasuredEdit();
     void on_C1nF_clicked();
     void on_C100pF_clicked();
     void on_Exit_clicked();
-//    void on_AutoManualSlider_valueChanged(int value);
+    //    void on_AutoManualSlider_valueChanged(int value);
     void on_OnOffSlider_valueChanged(int value);
     void on_C_clicked();
     void on_L_clicked();
